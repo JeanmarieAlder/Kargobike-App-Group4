@@ -16,6 +16,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="profileButton"
+            android:text="@string/profile" />
+
+        <Button
         android:id="@+id/button_transportList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,5 +42,6 @@
             android:layout_height="wrap_content"
             android:onClick="userList"
             android:text="@string/userList" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
