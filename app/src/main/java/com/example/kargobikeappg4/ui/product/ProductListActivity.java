@@ -1,4 +1,4 @@
-package com.example.kargobikeappg4.ui.user;
+package com.example.kargobikeappg4.ui.product;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,17 +8,17 @@ import android.view.View;
 
 import com.example.kargobikeappg4.R;
 
-public class UserListActivity extends AppCompatActivity {
+public class ProductListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_list);
+        setContentView(R.layout.activity_product_list);
     }
 
-    public void userDetailsButton(View view)
+    public void productDetailsButton(View view)
     {
-        Intent intent = new Intent(this, ProfileActivity.class);
+        Intent intent = new Intent(this, ProductDetailActivity.class);
         startActivity(intent);
     }
 }

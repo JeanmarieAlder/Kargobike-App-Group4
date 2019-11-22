@@ -9,14 +9,45 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ui.user.UserListActivity"
-            android:label="User List"
+        <activity
+            android:name=".ui.user.ProfileActivity"
+            android:label="User Profile"
             android:parentActivityName=".ui.nav.WelcomeActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity"/></activity>
+                android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity" />
+        </activity>
+        <activity
+            android:name=".ui.product.ProductDetailActivity"
+            android:label="Product Details"
+            android:parentActivityName=".ui.product.ProductListActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.product.ProductListActivity" />
+        </activity>
+        <activity
+            android:name=".ui.product.ProductListActivity"
+            android:label="Product List"
+            android:parentActivityName=".ui.nav.WelcomeActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity" />
+        </activity>
+        <activity
+            android:name=".ui.user.UserListActivity"
+            android:label="User List"
+            android:parentActivityName=".ui.nav.WelcomeActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity" />
+        </activity>
         <activity
             android:name=".ui.transport.SignScreenActivity"
             android:label="Sign Screen"
