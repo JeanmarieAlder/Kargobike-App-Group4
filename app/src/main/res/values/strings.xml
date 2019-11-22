@@ -12,4 +12,6 @@
     <string name="signScreen">Sign Screen</string>
     <string name="userList">User List</string>
     <string name="profile">Profile</string>
+    <string name="productDetails">Product Details</string>
+    <string name="userDetails">User Details</string>
 </resources>
