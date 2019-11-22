@@ -14,4 +14,14 @@
     <string name="profile">Profile</string>
     <string name="productDetails">Product Details</string>
     <string name="userDetails">User Details</string>
+    <string name="s_product">Product</string>
+    <string name="s_quantity">Quantity</string>
+    <string name="s_deliveryDate">Delivery Date</string>
+    <string name="s_deliveryTime">Delivery Time</string>
+    <string name="s_client">Client</string>
+    <string name="s_pickupAddress">Pickup Address</string>
+    <string name="s_deliveryAddress">Delivery Address</string>
+    <string name="s_responsibleRider">Responsible Rider</string>
+    <string name="s_status">Status</string>
+    <string name="s_checkpoints">Checkpoints</string>
 </resources>
