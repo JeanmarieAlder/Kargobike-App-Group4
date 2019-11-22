@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.ui.transport.TransportListActivity;
+import com.example.kargobikeappg4.ui.user.UserListActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -21,6 +22,12 @@ public class WelcomeActivity extends AppCompatActivity {
     public void transportButton(View view)
     {
         Intent intent = new Intent(this, TransportListActivity.class);
+        startActivity(intent);
+    }
+
+    public void userList(View view)
+    {
+        Intent intent = new Intent(this, UserListActivity.class);
         startActivity(intent);
     }
 }

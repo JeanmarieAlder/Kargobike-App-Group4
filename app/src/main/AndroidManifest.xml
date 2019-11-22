@@ -9,9 +9,54 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.transport.SignScreenActivity"></activity>
-        <activity android:name=".ui.transport.PhotoScreenActivity" />
-        <activity android:name=".ui.transport.ClientListActivity" />
+
+        <activity android:name=".ui.user.UserListActivity"
+            android:label="User List"
+            android:parentActivityName=".ui.nav.WelcomeActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity"/></activity>
+        <activity
+            android:name=".ui.transport.SignScreenActivity"
+            android:label="Sign Screen"
+            android:parentActivityName=".ui.transport.TransportDetailActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.transport.TransportDetailActivity" />
+        </activity>
+        <activity
+            android:name=".ui.transport.PhotoScreenActivity"
+            android:label="Photo Screen"
+            android:parentActivityName=".ui.transport.TransportDetailActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.transport.TransportDetailActivity" />
+        </activity>
+        <activity
+            android:name=".ui.transport.ClientListActivity"
+            android:label="Client List"
+            android:parentActivityName=".ui.transport.TransportDetailActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.transport.TransportDetailActivity" />
+        </activity>
+        <activity
+            android:name=".ui.transport.TransportDetailActivity"
+            android:label="Transport Detail"
+            android:parentActivityName=".ui.transport.TransportListActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.transport.TransportListActivity" />
+        </activity>
         <activity
             android:name=".ui.transport.TransportListActivity"
             android:label="Transport List"
@@ -22,7 +67,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity" />
         </activity>
-        <activity android:name=".ui.transport.TransportDetailActivity" />
         <activity android:name=".ui.nav.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

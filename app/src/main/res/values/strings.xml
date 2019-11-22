@@ -7,4 +7,8 @@
     <string name="transportList">Transport List</string>
     <string name="transportDetails">Transport Details</string>
     <string name="productList">Product List</string>
+    <string name="clientList">Client List</string>
+    <string name="photoScreen">Photo Screen</string>
+    <string name="signScreen">Sign Screen</string>
+    <string name="userList">User List</string>
 </resources>

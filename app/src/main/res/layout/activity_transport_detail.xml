@@ -6,4 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".ui.transport.TransportDetailActivity">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+        android:id="@+id/button_ClientList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="clientList"
+        android:text="@string/clientList" />
+
+        <Button
+            android:id="@+id/button_PhotoScreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="photoScreen"
+            android:text="@string/photoScreen" />
+
+        <Button
+            android:id="@+id/button_SignScreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="signScreen"
+            android:text="@string/signScreen" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
