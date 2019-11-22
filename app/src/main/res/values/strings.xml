@@ -4,4 +4,7 @@
     <string name="s_rider">Rider</string>
     <string name="s_dispatcher">Dispatcher</string>
     <string name="title_activity_dashboard">Dashboard</string>
+    <string name="transportList">Transport List</string>
+    <string name="transportDetails">Transport Details</string>
+    <string name="productList">Product List</string>
 </resources>

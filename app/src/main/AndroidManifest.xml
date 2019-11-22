@@ -9,6 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.transport.SignScreenActivity"></activity>
+        <activity android:name=".ui.transport.PhotoScreenActivity" />
+        <activity android:name=".ui.transport.ClientListActivity" />
+        <activity
+            android:name=".ui.transport.TransportListActivity"
+            android:label="Transport List"
+            android:parentActivityName=".ui.nav.WelcomeActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity" />
+        </activity>
+        <activity android:name=".ui.transport.TransportDetailActivity" />
         <activity android:name=".ui.nav.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,11 +30,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.nav.WelcomeActivity"
             android:label="@string/title_activity_dashboard"
-            android:parentActivityName="com.example.kargobikeappg4.ui.nav.LoginActivity">
+            android:parentActivityName=".ui.nav.LoginActivity">
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

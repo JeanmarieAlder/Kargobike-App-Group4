@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.nav.WelcomeActivity">
+    tools:context=".ui.transport.TransportListActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -16,17 +16,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-        android:id="@+id/button_transportList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="transportButton"
-        android:text="@string/transportList" />
-
-        <Button
-            android:id="@+id/button_ProductList"
+            android:id="@+id/button_transportDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="productButton"
-            android:text="@string/productList" />
+            android:onClick="transportDetails"
+            android:text="@string/transportDetails" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

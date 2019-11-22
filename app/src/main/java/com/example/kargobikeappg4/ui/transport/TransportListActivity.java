@@ -1,4 +1,4 @@
-package com.example.kargobikeappg4.ui.nav;
+package com.example.kargobikeappg4.ui.transport;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,20 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.kargobikeappg4.R;
-import com.example.kargobikeappg4.ui.transport.TransportListActivity;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class TransportListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-
+        setContentView(R.layout.activity_transport_list);
     }
 
     public void transportButton(View view)
     {
-        Intent intent = new Intent(this, TransportListActivity.class);
+        Intent intent = new Intent(this, TransportDetailActivity.class);
         startActivity(intent);
     }
 }
