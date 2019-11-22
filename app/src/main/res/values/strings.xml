@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Kargobike App</string>
+    <string name="s_manager">Manager</string>
+    <string name="s_rider">Rider</string>
+    <string name="s_dispatcher">Dispatcher</string>
+    <string name="title_activity_dashboard">Dashboard</string>
+</resources>

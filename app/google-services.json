@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "845140180034",
+    "firebase_url": "https://kargobike-group4.firebaseio.com",
+    "project_id": "kargobike-group4",
+    "storage_bucket": "kargobike-group4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845140180034:android:b0f7ab623c2a2663bb41db",
+        "android_client_info": {
+          "package_name": "com.example.kargobikeappg4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845140180034-nr0f1cbbhskkedrr8l6g4v503e6bkjab.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kargobikeappg4",
+            "certificate_hash": "5a643c1d91dd0ae9481797ee593a1533ddebeff8"
+          }
+        },
+        {
+          "client_id": "845140180034-lptts04h5por1s9f58g4ahiu9rm54665.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1bFiYXVFKb6juV-ZgULCLMBiU_Py_BVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845140180034-lptts04h5por1s9f58g4ahiu9rm54665.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
