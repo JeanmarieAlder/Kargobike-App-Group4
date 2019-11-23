@@ -88,6 +88,7 @@ public class Address implements Comparable{
         result.put("city", city);
         result.put("postcode", postcode);
         result.put("street", street);
+        result.put("idZone", idZone);
         return result;
     }
 

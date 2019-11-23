@@ -98,6 +98,7 @@ public class Customer implements Comparable{
         result.put("titre", titre);
         result.put("firstname", firstname);
         result.put("lastname", lastname);
+        result.put("idAddress", idAddress);
         return result;
     }
 

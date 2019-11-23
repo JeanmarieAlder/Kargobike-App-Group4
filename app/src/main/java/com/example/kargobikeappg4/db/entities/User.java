@@ -120,6 +120,8 @@ public class User implements Comparable{
         result.put("workingsince", workingsince);
         result.put("workingsince", email);
         result.put("phoneNumber", phoneNumber);
+        result.put("idFunction", idFunction);
+        result.put("idAddress", idAddress);
         return result;
     }
 

@@ -133,6 +133,8 @@ public class Order implements Comparable {
         result.put("dateDelivery", dateDelivery);
         result.put("signature", signature);
         result.put("deliveryPicture", deliveryPicture);
+        result.put("idCustomer", idCustomer);
+        result.put("idProduct", idProduct);
         return result;
     }
 
