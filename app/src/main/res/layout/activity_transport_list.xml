@@ -9,21 +9,20 @@
     android:layout_alignParentTop="true"
     tools:context=".ui.transport.TransportListActivity">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_storage"
         android:layout_width="match_parent"
         android:layout_height="575dp"
-        android:background="@android:color/darker_gray"
-        android:scrollbars="vertical"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="156dp"
-        tools:listitem="@layout/transport_item"
-        />
-
+        android:layout_marginStart="-3dp"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginTop="153dp"
+        android:background="@android:color/darker_gray"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/transport_item" />
 
     <Button
         android:id="@+id/button_transportDetails"
