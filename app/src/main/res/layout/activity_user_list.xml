@@ -6,13 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.user.UserListActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <Button
+            android:id="@+id/ul_button_userdetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+            android:onClick="User_button_userDetails"
+            android:text="@string/s_userDetails" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

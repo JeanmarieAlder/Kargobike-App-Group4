@@ -6,34 +6,164 @@
     android:layout_height="match_parent"
     tools:context=".ui.transport.TransportDetailActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-        android:id="@+id/button_ClientList"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="clientList"
-        android:text="@string/clientList" />
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button_PhotoScreen"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="photoScreen"
-            android:text="@string/photoScreen" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button_SignScreen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="signScreen"
-            android:text="@string/signScreen" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/td_tv_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_product" />
+
+            <EditText
+                android:id="@+id/td_input_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_product"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/td_tv_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_quantity" />
+
+            <EditText
+                android:id="@+id/td_input_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_quantity"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/td_tv_dateDelivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_deliveryDate" />
+
+            <EditText
+                android:id="@+id/td_input_deliveryDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_deliveryDate"
+                android:inputType="date" />
+
+            <TextView
+                android:id="@+id/td_tv_deliveryTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_deliveryTime" />
+
+            <EditText
+                android:id="@+id/td_input_deliveryTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_deliveryTime"
+                android:inputType="time" />
+
+            <TextView
+                android:id="@+id/td_tv_client"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_client" />
+
+            <EditText
+                android:id="@+id/td_input_client"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_client"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/td_tv_pickupAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_pickupAddress" />
+
+            <EditText
+                android:id="@+id/td_input_pickupAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_pickupAddress"
+                android:inputType="text|textPostalAddress" />
+
+            <TextView
+                android:id="@+id/td_tv_deliveryAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_deliveryAddress" />
+
+            <EditText
+                android:id="@+id/td_input_deliveryAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_deliveryAddress"
+                android:inputType="text|textPostalAddress" />
+
+            <TextView
+                android:id="@+id/td_tv_responsibleRider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_responsibleRider" />
+
+            <EditText
+                android:id="@+id/td_input_responsibleRider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_responsibleRider"
+                android:inputType="textPersonName|text" />
+
+            <TextView
+                android:id="@+id/td_tv_checkpoints"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_checkpoints" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button_ClientList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="Transport_button_clientList"
+                    android:text="@string/s_clientList" />
+
+                <Button
+                    android:id="@+id/button_PhotoScreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="Transport_button_photoScreen"
+                    android:text="@string/s_photoScreen" />
+
+                <Button
+                    android:id="@+id/button_SignScreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="Transport_button_signScreen"
+                    android:text="@string/s_signScreen" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

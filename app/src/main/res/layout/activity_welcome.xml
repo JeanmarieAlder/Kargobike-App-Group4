@@ -19,29 +19,29 @@
             android:id="@+id/ul_button_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="profileButton"
-            android:text="@string/profile" />
+            android:onClick="Welcome_button_profile"
+            android:text="@string/s_profile" />
 
         <Button
         android:id="@+id/button_transportList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="transportButton"
-        android:text="@string/transportList" />
+        android:onClick="Welcome_button_transportList"
+        android:text="@string/s_transportList" />
 
         <Button
             android:id="@+id/button_ProductList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="productButton"
-            android:text="@string/productList" />
+            android:onClick="Welcome_button_productList"
+            android:text="@string/s_productList" />
 
         <Button
             android:id="@+id/button_UserList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="userList"
-            android:text="@string/userList" />
+            android:onClick="Welcome_button_userList"
+            android:text="@string/s_userList" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

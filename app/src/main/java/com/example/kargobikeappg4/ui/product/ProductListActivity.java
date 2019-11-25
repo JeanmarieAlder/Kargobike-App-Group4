@@ -16,7 +16,7 @@ public class ProductListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_list);
     }
 
-    public void productDetailsButton(View view)
+    public void Product_button_productDetails(View view)
     {
         Intent intent = new Intent(this, ProductDetailActivity.class);
         startActivity(intent);

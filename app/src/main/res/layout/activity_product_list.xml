@@ -19,7 +19,7 @@
             android:id="@+id/button_monthly_report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="productDetailsButton"
-            android:text="@string/productDetails" />
+            android:onClick="Product_button_productDetails"
+            android:text="@string/s_productDetails" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
