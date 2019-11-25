@@ -22,7 +22,7 @@ public class User implements Comparable{
 
     }
 
-    public User(@NonNull String idUser, String name, String language, String workingsince, String email, String phoneNumber, String idFunction, String idAddress) {
+    public User(String idUser, String name, String language, String workingsince, String email, String phoneNumber, String idFunction, String idAddress) {
         this.idUser = idUser;
         this.name = name;
         this.language = language;

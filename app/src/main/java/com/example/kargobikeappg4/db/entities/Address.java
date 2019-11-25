@@ -19,7 +19,7 @@ public class Address implements Comparable{
 
     }
 
-    public Address(@NonNull String idAddress, String city, String postcode, String street, String idZone) {
+    public Address(String idAddress, String city, String postcode, String street, String idZone) {
         this.idAddress = idAddress;
         this.city = city;
         this.postcode = postcode;

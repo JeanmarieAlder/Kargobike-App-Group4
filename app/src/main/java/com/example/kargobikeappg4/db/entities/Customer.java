@@ -20,7 +20,7 @@ public class Customer implements Comparable{
 
     }
 
-    public Customer(@NonNull String idCustomer, String titre, String firstname, String lastname, String idAddress, String idProduct) {
+    public Customer(String idCustomer, String titre, String firstname, String lastname, String idAddress, String idProduct) {
         this.idCustomer = idCustomer;
         this.titre = titre;
         this.firstname = firstname;

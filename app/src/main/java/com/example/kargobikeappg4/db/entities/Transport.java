@@ -22,7 +22,7 @@ public class Transport implements Comparable {
 
     }
 
-    public Transport(@NonNull String idTransport, String timeStart, String timeEnd, float duration, String idPackage, String idStartCheckpoint, String idEndCheckpoint, String idSession) {
+    public Transport(String idTransport, String timeStart, String timeEnd, float duration, String idPackage, String idStartCheckpoint, String idEndCheckpoint, String idSession) {
         this.idTransport = idTransport;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;

@@ -25,7 +25,7 @@ public class Order implements Comparable {
 
     }
 
-    public Order(@NonNull String idOrder, String name, float weight, String dateOrder, String dateDelivery, Bitmap signature, Bitmap deliveryPicture, String idCustomer, String idProduct) {
+    public Order(String idOrder, String name, float weight, String dateOrder, String dateDelivery, Bitmap signature, Bitmap deliveryPicture, String idCustomer, String idProduct) {
         this.idOrder = idOrder;
         this.name = name;
         this.weight = weight;

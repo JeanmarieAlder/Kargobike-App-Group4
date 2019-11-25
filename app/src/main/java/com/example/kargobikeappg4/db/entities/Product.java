@@ -20,7 +20,7 @@ public class Product implements  Comparable {
 
     }
 
-    public Product(@NonNull String idProduct, String name, String description, float price, float duration, boolean interurbain) {
+    public Product(String idProduct, String name, String description, float price, float duration, boolean interurbain) {
         this.idProduct = idProduct;
         this.name = name;
         this.description = description;

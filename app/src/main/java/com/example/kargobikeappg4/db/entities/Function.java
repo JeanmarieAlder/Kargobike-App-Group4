@@ -17,7 +17,7 @@ public class Function implements Comparable {
 
     }
 
-    public Function(@NonNull String idFunction, String name, String description) {
+    public Function(String idFunction, String name, String description) {
         this.idFunction = idFunction;
         this.name = name;
         this.description = description;

@@ -18,7 +18,7 @@ public class Rider implements Comparable{
 
     }
 
-    public Rider(@NonNull String idRider, String location, String idZone, String idUser) {
+    public Rider(String idRider, String location, String idZone, String idUser) {
         this.idRider = idRider;
         this.location = location;
         this.idZone = idZone;

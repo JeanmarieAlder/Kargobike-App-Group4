@@ -17,7 +17,7 @@ public class Zone implements  Comparable{
 
     }
 
-    public Zone(@NonNull String idZone, String name, String idMainRider) {
+    public Zone(String idZone, String name, String idMainRider) {
         this.idZone = idZone;
         this.name = name;
         this.idMainRider = idMainRider;
