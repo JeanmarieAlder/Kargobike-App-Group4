@@ -25,10 +25,10 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="142dp"
-                android:layout_height="28dp"
-                android:text="Test"
+                android:id="@+id/test_itemText"
+                android:layout_width="375dp"
+                android:layout_height="36dp"
+                android:text=""
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
