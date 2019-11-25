@@ -11,30 +11,36 @@ public class Order implements Comparable {
 
     //Attributes
     private String idOrder;
-    private String name;
     private float weight;
     private String dateOrder;
     private String dateDelivery;
-    private Bitmap signature;
-    private Bitmap deliveryPicture;
+    private String timeDelivery;
+    private String signature;
+    private String deliveryPicture;
     private String idCustomer;
     private String idProduct;
+    private String idPickupCheckpoint;
+    private String idDeliveryCheckpoint;
 
     //Constructor
     public Order(){
 
     }
 
-    public Order(String idOrder, String name, float weight, String dateOrder, String dateDelivery, Bitmap signature, Bitmap deliveryPicture, String idCustomer, String idProduct) {
-        this.idOrder = idOrder;
-        this.name = name;
+    public Order(float weight, String dateOrder, String dateDelivery,
+                 String timeDelivery, String signature,
+                 String deliveryPicture, String idCustomer, String idProduct,
+                 String idPickupCheckpoint, String idDeliveryCheckpoint) {
         this.weight = weight;
         this.dateOrder = dateOrder;
         this.dateDelivery = dateDelivery;
+        this.timeDelivery = timeDelivery;
         this.signature = signature;
         this.deliveryPicture = deliveryPicture;
         this.idCustomer = idCustomer;
         this.idProduct = idProduct;
+        this.idPickupCheckpoint = idPickupCheckpoint;
+        this.idDeliveryCheckpoint = idDeliveryCheckpoint;
     }
 
     //Getter and Setter
@@ -44,14 +50,6 @@ public class Order implements Comparable {
 
     public void setIdOrder(String idOrder) {
         this.idOrder = idOrder;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public float getWeight() {
@@ -78,19 +76,27 @@ public class Order implements Comparable {
         this.dateDelivery = dateDelivery;
     }
 
-    public Bitmap getSignature() {
+    public String getTimeDelivery() {
+        return timeDelivery;
+    }
+
+    public void setTimeDelivery(String timeDelivery) {
+        this.timeDelivery = timeDelivery;
+    }
+
+    public String getSignature() {
         return signature;
     }
 
-    public void setSignature(Bitmap signature) {
+    public void setSignature(String signature) {
         this.signature = signature;
     }
 
-    public Bitmap getDeliveryPicture() {
+    public String getDeliveryPicture() {
         return deliveryPicture;
     }
 
-    public void setDeliveryPicture(Bitmap deliveryPicture) {
+    public void setDeliveryPicture(String deliveryPicture) {
         this.deliveryPicture = deliveryPicture;
     }
 
@@ -110,6 +116,22 @@ public class Order implements Comparable {
         this.idProduct = idProduct;
     }
 
+    public String getIdPickupCheckpoint() {
+        return idPickupCheckpoint;
+    }
+
+    public void setIdPickupCheckpoint(String idPickupCheckpoint) {
+        this.idPickupCheckpoint = idPickupCheckpoint;
+    }
+
+    public String getIdDeliveryCheckpoint() {
+        return idDeliveryCheckpoint;
+    }
+
+    public void setIdDeliveryCheckpoint(String idDeliveryCheckpoint) {
+        this.idDeliveryCheckpoint = idDeliveryCheckpoint;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
@@ -127,20 +149,22 @@ public class Order implements Comparable {
     //Put informations in a map
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("name", name);
         result.put("weight", weight);
         result.put("dateOrder", dateOrder);
         result.put("dateDelivery", dateDelivery);
+        result.put("timeDelivery", timeDelivery);
         result.put("signature", signature);
         result.put("deliveryPicture", deliveryPicture);
         result.put("idCustomer", idCustomer);
         result.put("idProduct", idProduct);
+        result.put("idPickupCheckpoint", idPickupCheckpoint);
+        result.put("idDeliveryCheckpoint", idDeliveryCheckpoint);
         return result;
     }
 
     @Override
     public String toString() {
-        return name;
+        return idOrder;
     }
 
 }
