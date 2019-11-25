@@ -33,7 +33,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="100dp"
-        android:onClick="transportDetails"
+        android:onClick="Transport_button_transportDetails"
         android:text="@string/transportDetails" />
 
     <TextView
