@@ -21,25 +21,25 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
-    public void transportButton(View view)
+    public void Welcome_button_transportList(View view)
     {
         Intent intent = new Intent(this, TransportListActivity.class);
         startActivity(intent);
     }
 
-    public void productButton(View view)
+    public void Welcome_button_productList(View view)
     {
         Intent intent = new Intent(this, ProductListActivity.class);
         startActivity(intent);
     }
 
-    public void profileButton(View view)
+    public void Welcome_button_profile(View view)
     {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 
-    public void userList(View view)
+    public void Welcome_button_userList(View view)
     {
         Intent intent = new Intent(this, UserListActivity.class);
         startActivity(intent);

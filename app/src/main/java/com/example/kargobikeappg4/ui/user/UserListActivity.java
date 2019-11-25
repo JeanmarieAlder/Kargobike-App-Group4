@@ -16,7 +16,7 @@ public class UserListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_list);
     }
 
-    public void userDetailsButton(View view)
+    public void User_button_userDetails(View view)
     {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);

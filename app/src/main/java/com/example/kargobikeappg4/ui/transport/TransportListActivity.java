@@ -16,7 +16,7 @@ public class TransportListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transport_list);
     }
 
-    public void transportDetails(View view)
+    public void Transport_button_transportDetails(View view)
     {
         Intent intent = new Intent(this, TransportDetailActivity.class);
         startActivity(intent);

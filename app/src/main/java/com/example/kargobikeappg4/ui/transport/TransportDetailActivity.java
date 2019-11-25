@@ -16,19 +16,19 @@ public class TransportDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transport_detail);
     }
 
-    public void clientList(View view)
+    public void Transport_button_clientList(View view)
     {
         Intent intent = new Intent(this, ClientListActivity.class);
         startActivity(intent);
     }
 
-    public void photoScreen(View view)
+    public void Transport_button_photoScreen(View view)
     {
         Intent intent = new Intent(this, PhotoScreenActivity.class);
         startActivity(intent);
     }
 
-    public void signScreen(View view)
+    public void Transport_button_signScreen(View view)
     {
         Intent intent = new Intent(this, SignScreenActivity.class);
         startActivity(intent);

@@ -146,22 +146,22 @@
                     android:id="@+id/button_ClientList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="clientList"
-                    android:text="@string/clientList" />
+                    android:onClick="Transport_button_clientList"
+                    android:text="@string/s_clientList" />
 
                 <Button
                     android:id="@+id/button_PhotoScreen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="photoScreen"
-                    android:text="@string/photoScreen" />
+                    android:onClick="Transport_button_photoScreen"
+                    android:text="@string/s_photoScreen" />
 
                 <Button
                     android:id="@+id/button_SignScreen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="signScreen"
-                    android:text="@string/signScreen" />
+                    android:onClick="Transport_button_signScreen"
+                    android:text="@string/s_signScreen" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

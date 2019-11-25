@@ -19,7 +19,7 @@
             android:id="@+id/ul_button_userdetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="userDetailsButton"
-            android:text="@string/userDetails" />
+            android:onClick="User_button_userDetails"
+            android:text="@string/s_userDetails" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
