@@ -57,8 +57,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="338dp"
-        android:layout_marginLeft="338dp"
+        android:layout_marginStart="314dp"
+        android:layout_marginLeft="314dp"
         android:layout_marginTop="97dp"
         android:text="Add" />
 
