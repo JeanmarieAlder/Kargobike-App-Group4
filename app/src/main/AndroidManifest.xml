@@ -3,6 +3,7 @@
     package="com.example.kargobikeappg4">
 
     <application
+        android:name=".viewmodel.BaseApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -115,6 +116,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.kargobikeappg4.ui.nav.LoginActivity" />
         </activity>
+
     </application>
+
+
 
 </manifest>

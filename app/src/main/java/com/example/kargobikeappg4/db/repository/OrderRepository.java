@@ -2,6 +2,7 @@ package com.example.kargobikeappg4.db.repository;
 
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.liveData.OrderListLiveData;
+import com.example.kargobikeappg4.db.liveData.OrderLiveData;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,7 +21,13 @@ public class OrderRepository {
 
     //Constructor
     public static OrderRepository getInstance() {
-        //synchronized stuff
+        if (instance == null) {
+            synchronized (OrderRepository.class) {
+                if (instance == null) {
+                    instance = new OrderRepository();
+                }
+            }
+        }
         return instance;
     }
 
@@ -35,15 +42,23 @@ public class OrderRepository {
     //Query: get all orders
     public LiveData<List<Order>> getAllOrders() {
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("orders");
+                .getReference("Order");
         return new OrderListLiveData(reference);
+    }
+
+    //Query: get one order by id
+    public LiveData<Order> getOrder(final String idOrder){
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Order")
+                .child(idOrder);
+        return new OrderLiveData(reference);
     }
 
     //Query: insert a order
     public void insert(final Order order, final OnAsyncEventListener callback) {
-        String id = FirebaseDatabase.getInstance().getReference("orders").push().getKey();
+        String id = FirebaseDatabase.getInstance().getReference("Order").push().getKey();
         FirebaseDatabase.getInstance()
-                .getReference("orders")
+                .getReference("Order")
                 .child(id)
                 .setValue(order, (databaseError, databaseReference) -> {
                     if (databaseError != null) {

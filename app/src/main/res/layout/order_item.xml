@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/oi_cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/oi_tv_product_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/s_product_points" />
+
+        <TextView
+            android:id="@+id/oi_tv_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/oi_tv_product_label"
+            android:text="Product" />
+
+        <TextView
+            android:id="@+id/oi_tv_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/oi_tv_product_label"
+            android:text="@string/s_date_points" />
+
+        <TextView
+            android:id="@+id/oi_tv_dateDelivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/oi_tv_product"
+            android:layout_toEndOf="@id/oi_tv_date_label"
+            android:text="Date Delivery" />
+
+        <TextView
+            android:id="@+id/oi_tv_timeDelivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/oi_tv_dateDelivery"
+            android:text="TimeDelivery" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

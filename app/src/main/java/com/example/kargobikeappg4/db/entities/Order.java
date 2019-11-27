@@ -1,7 +1,5 @@
 package com.example.kargobikeappg4.db.entities;
 
-import android.graphics.Bitmap;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +9,7 @@ public class Order implements Comparable {
 
     //Attributes
     private String idOrder;
-    private float weight;
+    private float quantity;
     private String dateOrder;
     private String dateDelivery;
     private String timeDelivery;
@@ -21,17 +19,19 @@ public class Order implements Comparable {
     private String idProduct;
     private String idPickupCheckpoint;
     private String idDeliveryCheckpoint;
+    private String idResponsibleRider;
 
     //Constructor
     public Order(){
 
     }
 
-    public Order(float weight, String dateOrder, String dateDelivery,
+    public Order(float quantity, String dateOrder, String dateDelivery,
                  String timeDelivery, String signature,
                  String deliveryPicture, String idCustomer, String idProduct,
-                 String idPickupCheckpoint, String idDeliveryCheckpoint) {
-        this.weight = weight;
+                 String idPickupCheckpoint, String idDeliveryCheckpoint,
+                 String idResponsibleRider) {
+        this.quantity = quantity;
         this.dateOrder = dateOrder;
         this.dateDelivery = dateDelivery;
         this.timeDelivery = timeDelivery;
@@ -41,6 +41,7 @@ public class Order implements Comparable {
         this.idProduct = idProduct;
         this.idPickupCheckpoint = idPickupCheckpoint;
         this.idDeliveryCheckpoint = idDeliveryCheckpoint;
+        this.idResponsibleRider = idResponsibleRider;
     }
 
     //Getter and Setter
@@ -52,12 +53,12 @@ public class Order implements Comparable {
         this.idOrder = idOrder;
     }
 
-    public float getWeight() {
-        return weight;
+    public float getQuantity() {
+        return quantity;
     }
 
-    public void setWeight(float weight) {
-        this.weight = weight;
+    public void setQuantity(float quantity) {
+        this.quantity = quantity;
     }
 
     public String getDateOrder() {
@@ -132,6 +133,14 @@ public class Order implements Comparable {
         this.idDeliveryCheckpoint = idDeliveryCheckpoint;
     }
 
+    public String getIdResponsibleRider() {
+        return idResponsibleRider;
+    }
+
+    public void setIdResponsibleRider(String idResponsibleRider) {
+        this.idResponsibleRider = idResponsibleRider;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
@@ -149,7 +158,7 @@ public class Order implements Comparable {
     //Put informations in a map
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("weight", weight);
+        result.put("quantity", quantity);
         result.put("dateOrder", dateOrder);
         result.put("dateDelivery", dateDelivery);
         result.put("timeDelivery", timeDelivery);
@@ -159,6 +168,7 @@ public class Order implements Comparable {
         result.put("idProduct", idProduct);
         result.put("idPickupCheckpoint", idPickupCheckpoint);
         result.put("idDeliveryCheckpoint", idDeliveryCheckpoint);
+        result.put("idResponsibleRider", idResponsibleRider);
         return result;
     }
 
