@@ -39,6 +39,7 @@
     <string name="s_responsibleRider">Responsible Rider</string>
     <string name="s_status">Status</string>
     <string name="s_checkpoints">Checkpoints</string>
+    <string name="s_MonthlyReport">Monthly Report</string>
     <string name="s_product_points">Product: </string>
     <string name="s_date_points">Date: </string>
     <string name="s_time_points">Time: </string>
