@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -75,27 +76,25 @@ public class TransportDetailActivity extends AppCompatActivity {
         eDeliveryAddress = findViewById(R.id.td_input_deliveryAddress);
         eResponsibleRider = findViewById(R.id.td_input_responsibleRider);
         tvStatus = findViewById(R.id.td_input_status);
+
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
+
+        editMode = getIntent().getExtras().getBoolean("isEdit");
+        //Log.d("EDITMODE", "" + editMode);
 
         btnSave = findViewById(R.id.button_save);
         btnSave.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-
                 saveChanges();
-
-
             }
         }
         );
 
         //get order ID from intent and set edit mode to false if new order
-
         //editMode = getIntent().getBooleanExtra("isEdit", true);
     }
-
-
 
     private void updateContent() {
         if (order != null) {

@@ -73,7 +73,7 @@ public class TransportListActivity extends AppCompatActivity {
     public void Transport_button_transportSave(View view)
     {
         Intent intent = new Intent(this, TransportDetailActivity.class);
-        intent.putExtra("isAdd", false);
+        intent.putExtra("isEdit", false);
 
         startActivity(intent);
     }
