@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -14,13 +13,18 @@ import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.viewmodel.order.OrderViewModel;
 
+import java.util.Map;
+
 public class TransportDetailActivity extends AppCompatActivity {
 
     //Variable instanciations
     private String orderId;
     private boolean editMode;
     private Order order;
-    private OrderViewModel viewModel;
+    private OrderViewModel orderViewModel;
+
+
+    private Map<String, String> riderList;
 
     private EditText eProduct;
     private EditText eQuantity;
@@ -43,15 +47,14 @@ public class TransportDetailActivity extends AppCompatActivity {
         //Create viewmodel
         OrderViewModel.Factory factory = new OrderViewModel.Factory(
                 getApplication(), orderId);
-        viewModel = ViewModelProviders.of(this, factory)
+        orderViewModel = ViewModelProviders.of(this, factory)
                 .get(OrderViewModel.class);
-        viewModel.getOrder().observe(this, orderEntity -> {
+        orderViewModel.getOrder().observe(this, orderEntity -> {
             if (orderEntity != null) {
                 order = orderEntity;
                 updateContent();
             }
         });
-
     }
 
     /**
