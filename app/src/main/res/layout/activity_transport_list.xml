@@ -34,8 +34,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="100dp"
-        android:onClick="Transport_button_transportDetails"
-        android:text="@string/transportDetails" />
+        android:onClick="Transport_button_transportSave"
+        android:text="@string/add" />
 
     <TextView
         android:id="@+id/listTitle"
@@ -50,17 +50,7 @@
         android:text="List of transports"
         android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/btn_transport_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="314dp"
-        android:layout_marginLeft="314dp"
-        android:layout_marginTop="97dp"
-        android:text="Add" />
+
 
 
 </RelativeLayout>

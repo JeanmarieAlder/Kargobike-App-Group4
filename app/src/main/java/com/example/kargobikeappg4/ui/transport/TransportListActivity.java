@@ -34,7 +34,6 @@ public class TransportListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport_list);
 
-
         //initializes recyclerview
         rView = findViewById(R.id.recycler_view_storage);
         rView.setLayoutManager(new LinearLayoutManager(this));
@@ -71,9 +70,11 @@ public class TransportListActivity extends AppCompatActivity {
 
     }
 
-    public void Transport_button_transportDetails(View view)
+    public void Transport_button_transportSave(View view)
     {
         Intent intent = new Intent(this, TransportDetailActivity.class);
+        intent.putExtra("isAdd", false);
+
         startActivity(intent);
     }
 }

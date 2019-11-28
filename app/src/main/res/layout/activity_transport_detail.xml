@@ -188,7 +188,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="ButtonChangeStatus"
-                    android:text="@string/s_signScreen" />
+                    android:text="@string/s_changeStatus" />
+
+                <Button
+                    android:id="@+id/button_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
