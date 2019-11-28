@@ -34,16 +34,6 @@ public class TransportListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport_list);
 
-        /*items = new ArrayList<>();
-        items.add("First Transport Item");
-        items.add("Second Transport Item");
-        items.add("Third Transport Item");
-        items.add("Third Transport Item");
-        items.add("Third Transport Item");
-        items.add("Third Transport Item");
-        items.add("Third Transport Item");
-        items.add("Third Transport Item");
-        items.add("Third Transport Item");*/
 
         //initializes recyclerview
         rView = findViewById(R.id.recycler_view_storage);

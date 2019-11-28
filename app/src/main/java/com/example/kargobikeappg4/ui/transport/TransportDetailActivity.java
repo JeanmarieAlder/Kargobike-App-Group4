@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.db.entities.Order;
@@ -29,6 +30,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     private EditText ePickupAddress;
     private EditText eDeliveryAddress;
     private EditText eResponsibleRider;
+    private TextView tvStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         ePickupAddress = findViewById(R.id.td_input_pickupAddress);
         eDeliveryAddress = findViewById(R.id.td_input_deliveryAddress);
         eResponsibleRider = findViewById(R.id.td_input_responsibleRider);
+        tvStatus = findViewById(R.id.td_input_status);
 
         //get order ID from intent and set edit mode to false if new order
         orderId = getIntent().getStringExtra("orderId");
@@ -80,6 +83,14 @@ public class TransportDetailActivity extends AppCompatActivity {
             ePickupAddress.setText(order.getIdPickupCheckpoint());
             eDeliveryAddress.setText(order.getIdDeliveryCheckpoint());
             eResponsibleRider.setText(order.getIdResponsibleRider());
+
+            //set status accordingly
+            if(order.getStatus().equals("1")){
+                tvStatus.setText(R.string.s_loaded);
+            }else if(order.getStatus().equals("0")){
+                tvStatus.setText(R.string.s_pending);
+            }
+
         }
     }
 
@@ -99,5 +110,9 @@ public class TransportDetailActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, SignScreenActivity.class);
         startActivity(intent);
+    }
+    public void ButtonChangeStatus(View view)
+    {
+
     }
 }

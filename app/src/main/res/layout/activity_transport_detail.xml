@@ -138,6 +138,26 @@
                 android:layout_height="100dp" />
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/td_tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_status_points" />
+
+                <TextView
+                    android:id="@+id/td_input_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/s_new" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -161,6 +181,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="Transport_button_signScreen"
+                    android:text="@string/s_signScreen" />
+
+                <Button
+                    android:id="@+id/button_change_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="ButtonChangeStatus"
                     android:text="@string/s_signScreen" />
             </LinearLayout>
         </LinearLayout>

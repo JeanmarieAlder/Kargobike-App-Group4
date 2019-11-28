@@ -20,6 +20,7 @@ public class Order implements Comparable {
     private String idPickupCheckpoint;
     private String idDeliveryCheckpoint;
     private String idResponsibleRider;
+    private String status;
 
     //Constructor
     public Order(){
@@ -30,7 +31,7 @@ public class Order implements Comparable {
                  String timeDelivery, String signature,
                  String deliveryPicture, String idCustomer, String idProduct,
                  String idPickupCheckpoint, String idDeliveryCheckpoint,
-                 String idResponsibleRider) {
+                 String idResponsibleRider, String status) {
         this.quantity = quantity;
         this.dateOrder = dateOrder;
         this.dateDelivery = dateDelivery;
@@ -42,6 +43,7 @@ public class Order implements Comparable {
         this.idPickupCheckpoint = idPickupCheckpoint;
         this.idDeliveryCheckpoint = idDeliveryCheckpoint;
         this.idResponsibleRider = idResponsibleRider;
+        this.status = status;
     }
 
     //Getter and Setter
@@ -141,6 +143,14 @@ public class Order implements Comparable {
         this.idResponsibleRider = idResponsibleRider;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
@@ -169,6 +179,7 @@ public class Order implements Comparable {
         result.put("idPickupCheckpoint", idPickupCheckpoint);
         result.put("idDeliveryCheckpoint", idDeliveryCheckpoint);
         result.put("idResponsibleRider", idResponsibleRider);
+        result.put("status", status);
         return result;
     }
 
