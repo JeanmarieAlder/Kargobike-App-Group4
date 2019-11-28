@@ -1,6 +1,7 @@
 package com.example.kargobikeappg4.viewmodel.order;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.repository.OrderRepository;

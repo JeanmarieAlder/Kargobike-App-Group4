@@ -1,6 +1,7 @@
 package com.example.kargobikeappg4.viewmodel.order;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.repository.OrderRepository;
@@ -28,6 +29,7 @@ public class OrderListViewModel extends AndroidViewModel {
         observableOrder.setValue(null);
 
         LiveData<List<Order>> orders = orderRepository.getAllOrders();
+
 
         // observe the changes of the entities from the database and forward them
         observableOrder.addSource(orders, observableOrder::setValue);

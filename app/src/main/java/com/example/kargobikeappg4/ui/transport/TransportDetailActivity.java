@@ -77,9 +77,9 @@ public class TransportDetailActivity extends AppCompatActivity {
         eResponsibleRider = findViewById(R.id.td_input_responsibleRider);
         tvStatus = findViewById(R.id.td_input_status);
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Order");
 
-        editMode = getIntent().getExtras().getBoolean("isEdit");
+
+       // editMode = getIntent().getExtras().getBoolean("isEdit");
         //Log.d("EDITMODE", "" + editMode);
 
         btnSave = findViewById(R.id.button_save);
@@ -93,7 +93,9 @@ public class TransportDetailActivity extends AppCompatActivity {
         );
 
         //get order ID from intent and set edit mode to false if new order
-        //editMode = getIntent().getBooleanExtra("isEdit", true);
+        editMode = getIntent().getBooleanExtra("isEdit", true);
+       orderId = getIntent().getExtras().get("orderId").toString();
+       Log.d("ORDER-ID", orderId);
     }
 
     private void updateContent() {
@@ -181,6 +183,7 @@ public class TransportDetailActivity extends AppCompatActivity {
 
              */
         }else{
+            reff = FirebaseDatabase.getInstance().getReference().child("Order");
 
             Order order = new Order();
             order.setIdProduct(eProduct.getText().toString());
