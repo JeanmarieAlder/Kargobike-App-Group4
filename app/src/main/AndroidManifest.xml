@@ -50,7 +50,7 @@
                 android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity" />
         </activity>
         <activity
-            android:name=".ui.user.UserListActivity"
+            android:name=".ui.user.RiderListActivity"
             android:label="User List"
             android:parentActivityName=".ui.nav.WelcomeActivity">
 

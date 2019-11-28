@@ -5,9 +5,7 @@ import android.app.Application;
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.repository.OrderRepository;
 import com.example.kargobikeappg4.viewmodel.BaseApp;
-
 import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;

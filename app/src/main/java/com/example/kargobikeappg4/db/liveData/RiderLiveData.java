@@ -1,19 +1,19 @@
 package com.example.kargobikeappg4.db.liveData;
 
-import com.example.kargobikeappg4.db.entities.Order;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import com.example.kargobikeappg4.db.entities.Rider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
+public class RiderLiveData extends LiveData<Rider> {
 
-public class OrderLiveData extends LiveData<Order> {
     private final DatabaseReference reference;
-    private final OrderLiveData.MyValueEventListener listener = new OrderLiveData.MyValueEventListener();
+    private final RiderLiveData.MyValueEventListener listener = new RiderLiveData.MyValueEventListener();
 
-    public OrderLiveData(DatabaseReference ref) {
+    public RiderLiveData(DatabaseReference ref) {
         reference = ref;
     }
 
@@ -25,11 +25,11 @@ public class OrderLiveData extends LiveData<Order> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            Order entity = dataSnapshot.getValue(Order.class);
-            if(entity == null){
+            Rider entity = dataSnapshot.getValue(Rider.class);
+            if (entity == null) {
                 return;
-            }else{
-                entity.setIdOrder(dataSnapshot.getKey());
+            } else {
+                entity.setIdRider(dataSnapshot.getKey());
                 setValue(entity);
             }
         }
@@ -38,6 +38,5 @@ public class OrderLiveData extends LiveData<Order> {
         public void onCancelled(@NonNull DatabaseError databaseError) {
 
         }
-
     }
 }

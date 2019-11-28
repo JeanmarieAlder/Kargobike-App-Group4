@@ -10,7 +10,7 @@ import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.ui.product.ProductListActivity;
 import com.example.kargobikeappg4.ui.transport.TransportListActivity;
 import com.example.kargobikeappg4.ui.user.ProfileActivity;
-import com.example.kargobikeappg4.ui.user.UserListActivity;
+import com.example.kargobikeappg4.ui.user.RiderListActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -41,7 +41,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void Welcome_button_userList(View view)
     {
-        Intent intent = new Intent(this, UserListActivity.class);
+        Intent intent = new Intent(this, RiderListActivity.class);
         startActivity(intent);
     }
 }
