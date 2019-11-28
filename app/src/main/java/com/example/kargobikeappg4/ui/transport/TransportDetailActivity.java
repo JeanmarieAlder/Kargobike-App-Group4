@@ -5,20 +5,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.db.entities.Order;
-import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.example.kargobikeappg4.viewmodel.order.OrderViewModel;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class TransportDetailActivity extends AppCompatActivity {
 
@@ -27,8 +21,6 @@ public class TransportDetailActivity extends AppCompatActivity {
     private boolean editMode;
     private Order order;
     private OrderViewModel viewModel;
-
-    private Button btnSave;
 
     private EditText eProduct;
     private EditText eQuantity;
@@ -39,7 +31,6 @@ public class TransportDetailActivity extends AppCompatActivity {
     private EditText eDeliveryAddress;
     private EditText eResponsibleRider;
     private TextView tvStatus;
-    private DatabaseReference reff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,23 +68,9 @@ public class TransportDetailActivity extends AppCompatActivity {
         eResponsibleRider = findViewById(R.id.td_input_responsibleRider);
         tvStatus = findViewById(R.id.td_input_status);
 
-        reff = FirebaseDatabase.getInstance().getReference().child("Order");
-
-        editMode = getIntent().getExtras().getBoolean("isEdit");
-        //Log.d("EDITMODE", "" + editMode);
-
-        btnSave = findViewById(R.id.button_save);
-        btnSave.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                saveChanges();
-            }
-        }
-        );
-
         //get order ID from intent and set edit mode to false if new order
-        //editMode = getIntent().getBooleanExtra("isEdit", true);
+        orderId = getIntent().getStringExtra("orderId");
+        editMode = getIntent().getBooleanExtra("isEdit", true);
     }
 
     private void updateContent() {
@@ -138,89 +115,4 @@ public class TransportDetailActivity extends AppCompatActivity {
     {
 
     }
-
-    private void saveChanges() {
-
-        if(editMode){
-
-            /**
-            act.setArtistName(eaName.getText().toString());
-            act.setArtistCountry(eaCountry.getText().toString());
-            act.setArtistImage("Not implemented yet");
-            act.setGenre(egenre.getText().toString());
-            act.setDate(edate.getSelectedItem().toString());
-            act.setStartTime(estartTime.getText().toString());
-
-            String pr = eprice.getText().toString();
-            Float f;
-            try{
-                f = new Float(pr);
-                act.setPrice(f);
-            }catch(Exception e){
-                e.getMessage();
-                act.setPrice(0f);
-            }
-            act.setIdStage(estage.getText().toString());
-
-            viewModel.updateAct(act, new OnAsyncEventListener() {
-                @Override
-                public void onSuccess() {
-                    Toast.makeText(getApplicationContext(),
-                            "Update succesful", Toast.LENGTH_LONG).show();
-                    onBackPressed(); //finally, go back to previous screen
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-
-                    Toast.makeText(getApplicationContext(),
-                            "Update failed", Toast.LENGTH_LONG).show();
-                }
-
-            });
-
-             */
-        }else{
-
-            Order order = new Order();
-            order.setIdProduct(eProduct.getText().toString());
-            order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
-            order.setDateDelivery(eDelivDate.getText().toString());
-            order.setTimeDelivery(eDelivTime.getText().toString());
-            order.setIdCustomer(eClient.getText().toString());
-            order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
-            order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
-            order.setIdResponsibleRider(eResponsibleRider.getText().toString());
-
-            eProduct.setText("");
-            eQuantity.setText("");
-            eDelivDate.setText("");
-            eDelivTime.setText("");
-            eClient.setText("");
-            ePickupAddress.setText("");
-            eDeliveryAddress.setText("");
-            eResponsibleRider.setText("");
-
-            viewModel.createOrder(order, new OnAsyncEventListener() {
-                @Override
-                public void onSuccess() {
-                    Toast.makeText(getApplicationContext(), "Creation succesful", Toast.LENGTH_LONG).show();
-                    onBackPressed(); //finally, go back to previous screen
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-                    if(e.getMessage().contains("FOREIGN KEY")){
-                        Toast.makeText(getApplicationContext(), "Creation error: stage name doesn't exist", Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "Creation failed", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-        }
-
-
-    }
-
-
 }
