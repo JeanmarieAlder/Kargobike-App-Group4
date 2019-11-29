@@ -14,21 +14,41 @@
             android:id="@+id/ri_tv_firstrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/ri_tv_firstrow_header"
             android:text="Product" />
+
+        <TextView
+            android:id="@+id/ri_tv_firstrow_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/ri_tv_secondrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ri_tv_firstrow"
+            android:layout_toEndOf="@id/ri_tv_secondrow_header"
             android:text="Date Delivery" />
+
+        <TextView
+            android:id="@+id/ri_tv_secondrow_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ri_tv_firstrow" />
 
         <TextView
             android:id="@+id/ri_tv_thirdrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ri_tv_secondrow"
+            android:layout_toEndOf="@id/ri_tv_thirdrow_header"
             android:text="TimeDelivery" />
+
+        <TextView
+            android:id="@+id/ri_tv_thirdrow_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ri_tv_secondrow" />
 
         <TextView
             android:id="@+id/ri_tv_right"

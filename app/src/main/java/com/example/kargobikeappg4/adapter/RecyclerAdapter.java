@@ -1,5 +1,6 @@
 package com.example.kargobikeappg4.adapter;
 
+import android.content.Context;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.db.entities.Order;
+import com.example.kargobikeappg4.db.entities.Rider;
 import com.example.kargobikeappg4.util.RecyclerViewItemClickListener;
 import java.util.List;
 import java.util.Objects;
@@ -29,6 +31,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     private List<T> mData;
     private RecyclerViewItemClickListener mListener;
     private static int pos; //get the position of the click (used for long clics)
+    private Context ctx;
 
     /**
      * Get the position of click
@@ -60,17 +63,21 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         T item = mData.get(position);
         //binds text from db to recycler holder according to class
         if (item.getClass().equals(Order.class)) {
-            //View for acts
-            String productName = R.string.s_product_points + " " +((Order) item).getIdProduct();
-            holder.textViewProduct.setText(productName);
-            holder.textViewDateDelivery.setText(R.string.s_date_points + " " +((Order) item).getDateDelivery());
-            String places = String.valueOf(((Order) item).getTimeDelivery());
-            holder.textViewTimeDelivery.setText(R.string.s_time_points + " " +places);
+            //View for order
+            holder.tvFirstHeader.setText(R.string.s_product_points);
+            holder.tvFirstRow.setText(((Order) item).getIdProduct());
+            holder.tvSecondHeader.setText(R.string.s_date_points);
+            holder.tvSecondRow.setText(((Order) item).getDateDelivery());
+            holder.tvThirdHeader.setText(R.string.s_time_points);
+            holder.tvThirdRow.setText(((Order) item).getTimeDelivery());
             if(((Order) item).getStatus().equals("1")){
-                holder.textViewStatus.setText(R.string.s_loaded);
+                holder.tvRightSide.setText(R.string.s_loaded);
             }else{
-                holder.textViewStatus.setText(R.string.s_pending);
+                holder.tvRightSide.setText(R.string.s_pending);
             }
+
+        }
+        if(item.getClass().equals((Rider.class))){
 
         }
 
@@ -130,6 +137,9 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
                                 && Objects.equals(newOrder.getIdDeliveryCheckpoint(), oldOrder.getIdDeliveryCheckpoint())
                                 ;
                     }
+                    if(mData instanceof Rider){
+
+                    }
 
                     return false;
                 }
@@ -144,19 +154,25 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
      * Also sets the view ready fo context menu
      */
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-        private TextView textViewProduct;
-        private TextView textViewDateDelivery;
-        private TextView textViewTimeDelivery;
-        private TextView textViewStatus;
+        private TextView tvFirstHeader;
+        private TextView tvSecondHeader;
+        private TextView tvThirdHeader;
+        private TextView tvFirstRow;
+        private TextView tvSecondRow;
+        private TextView tvThirdRow;
+        private TextView tvRightSide;
         private CardView cardView;
         private int position;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewProduct = itemView.findViewById(R.id.ri_tv_firstrow);
-            textViewDateDelivery = itemView.findViewById(R.id.ri_tv_secondrow);
-            textViewTimeDelivery = itemView.findViewById(R.id.ri_tv_thirdrow);
-            textViewStatus = itemView.findViewById(R.id.ri_tv_right);
+            tvFirstHeader = itemView.findViewById(R.id.ri_tv_firstrow_header);
+            tvSecondHeader = itemView.findViewById(R.id.ri_tv_secondrow_header);
+            tvThirdHeader = itemView.findViewById(R.id.ri_tv_thirdrow_header);
+            tvFirstRow = itemView.findViewById(R.id.ri_tv_firstrow);
+            tvSecondRow = itemView.findViewById(R.id.ri_tv_secondrow);
+            tvThirdRow = itemView.findViewById(R.id.ri_tv_thirdrow);
+            tvRightSide = itemView.findViewById(R.id.ri_tv_right);
             cardView = itemView.findViewById(R.id.oi_cardView);
             cardView.setOnCreateContextMenuListener(this);
 
