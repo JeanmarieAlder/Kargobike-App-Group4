@@ -65,6 +65,12 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.textViewDateDelivery.setText(((Order) item).getDateDelivery());
             String places = String.valueOf(((Order) item).getTimeDelivery());
             holder.textViewTimeDelivery.setText(places);
+            if(((Order) item).getStatus().equals("1")){
+                holder.textViewStatus.setText(R.string.s_loaded);
+            }else{
+                holder.textViewStatus.setText(R.string.s_pending);
+            }
+
         }
 
     }
@@ -140,6 +146,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         private TextView textViewProduct;
         private TextView textViewDateDelivery;
         private TextView textViewTimeDelivery;
+        private TextView textViewStatus;
         private CardView cardView;
         private int position;
 
@@ -148,6 +155,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             textViewProduct = itemView.findViewById(R.id.oi_tv_product);
             textViewDateDelivery = itemView.findViewById(R.id.oi_tv_dateDelivery);
             textViewTimeDelivery = itemView.findViewById(R.id.oi_tv_timeDelivery);
+            textViewStatus = itemView.findViewById(R.id.oi_tv_status);
             cardView = itemView.findViewById(R.id.oi_cardView);
             cardView.setOnCreateContextMenuListener(this);
 

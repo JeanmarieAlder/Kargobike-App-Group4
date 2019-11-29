@@ -25,10 +25,12 @@ public class TransportDetailActivity extends AppCompatActivity {
     //Variable instanciations
     private String orderId;
     private boolean editMode;
+    private boolean isLoaded;
     private Order order;
     private OrderViewModel viewModel;
 
     private Button btnSave;
+    private Button btnChangeStatus;
 
     private EditText eProduct;
     private EditText eQuantity;
@@ -80,13 +82,8 @@ public class TransportDetailActivity extends AppCompatActivity {
         eResponsibleRider = findViewById(R.id.td_input_responsibleRider);
         tvStatus = findViewById(R.id.td_input_status);
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
-
-
-
-       // editMode = getIntent().getExtras().getBoolean("isEdit");
-        //Log.d("EDITMODE", "" + editMode);
-
         btnSave = findViewById(R.id.button_save);
+        btnChangeStatus = findViewById(R.id.button_change_status);
         btnSave.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -97,10 +94,12 @@ public class TransportDetailActivity extends AppCompatActivity {
         );
 
         //get order ID from intent and set edit mode to false if new order
-        editMode = getIntent().getBooleanExtra("isEdit", true);
+        editMode = getIntent().getBooleanExtra("isEdit", false);
 
         if(editMode){
             orderId = getIntent().getExtras().get("orderId").toString();
+        }else{
+            btnChangeStatus.setVisibility(View.GONE);
         }
 
 
@@ -117,11 +116,15 @@ public class TransportDetailActivity extends AppCompatActivity {
             eDeliveryAddress.setText(order.getIdDeliveryCheckpoint());
             eResponsibleRider.setText(order.getIdResponsibleRider());
 
-            //set status accordingly
+            //set status and button accordingly
             if(order.getStatus().equals("1")){
                 tvStatus.setText(R.string.s_loaded);
+                btnChangeStatus.setText("Unload");
+                isLoaded = true;
             }else if(order.getStatus().equals("0")){
                 tvStatus.setText(R.string.s_pending);
+                btnChangeStatus.setText("Load");
+                isLoaded = false;
             }
 
         }
@@ -146,43 +149,13 @@ public class TransportDetailActivity extends AppCompatActivity {
     }
     public void ButtonChangeStatus(View view)
     {
-
+        updateOrderDB(true);
     }
 
     private void saveChanges() {
 
         if(editMode){
-
-
-             order.setIdProduct(eProduct.getText().toString());
-             order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
-             order.setDateDelivery(eDelivDate.getText().toString());
-             order.setTimeDelivery(eDelivTime.getText().toString());
-             order.setIdCustomer(eClient.getText().toString());
-             order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
-             order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
-             order.setIdResponsibleRider(eResponsibleRider.getText().toString());
-             Log.d("RESPID", eResponsibleRider.getText().toString());
-             order.setStatus("1");
-
-            viewModel.updateOrder(order, new OnAsyncEventListener() {
-                @Override
-                public void onSuccess() {
-                    Toast.makeText(getApplicationContext(),
-                            "Update succesful", Toast.LENGTH_LONG).show();
-                    onBackPressed(); //finally, go back to previous screen
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-
-                    Toast.makeText(getApplicationContext(),
-                            "Update failed", Toast.LENGTH_LONG).show();
-                }
-
-            });
-
-
+            updateOrderDB(false);
         }else{
 
             Order order = new Order();
@@ -194,16 +167,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
             order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
             order.setIdResponsibleRider(eResponsibleRider.getText().toString());
-            order.setStatus("1");
-
-            eProduct.setText("");
-            eQuantity.setText("");
-            eDelivDate.setText("");
-            eDelivTime.setText("");
-            eClient.setText("");
-            ePickupAddress.setText("");
-            eDeliveryAddress.setText("");
-            eResponsibleRider.setText("");
+            order.setStatus("0");
 
             viewModel.createOrder(order, new OnAsyncEventListener() {
                 @Override
@@ -222,9 +186,51 @@ public class TransportDetailActivity extends AppCompatActivity {
                 }
             });
         }
-
-
     }
 
+    /**
+     * Updates an existing order in the DB. Different behaviour if
+     * the user only changes the status.
+     * @param isChangingStatus true if only status is changing
+     */
+    private void updateOrderDB(boolean isChangingStatus){
+        order.setIdProduct(eProduct.getText().toString());
+        order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
+        order.setDateDelivery(eDelivDate.getText().toString());
+        order.setTimeDelivery(eDelivTime.getText().toString());
+        order.setIdCustomer(eClient.getText().toString());
+        order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
+        order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
+        order.setIdResponsibleRider(eResponsibleRider.getText().toString());
+        Log.d("RESPID", eResponsibleRider.getText().toString());
 
+        //Changes status if needed (1 = loaded, 0 = unloaded)
+        if(isChangingStatus){
+            if(order.getStatus().equals("1")){
+                order.setStatus("0");
+            }else if(order.getStatus().equals("0")){
+                order.setStatus("1");
+            }
+        }
+
+        viewModel.updateOrder(order, new OnAsyncEventListener() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getApplicationContext(),
+                        "Update succesful", Toast.LENGTH_LONG).show();
+                if(!isChangingStatus){
+                    onBackPressed(); //finally, go back to previous screen
+                }else{
+                    updateContent(); //If only status has changed, stay on page and update content
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+                Toast.makeText(getApplicationContext(),
+                        "Update failed", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }
