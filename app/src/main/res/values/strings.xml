@@ -50,4 +50,6 @@
     <string name="s_pending">Pending</string>
     <string name="s_changeStatus">Change Status</string>
     <string name="save">Save</string>
+    <string name="s_location">Location</string>
+    <string name="s_zone">Zone</string>
 </resources>

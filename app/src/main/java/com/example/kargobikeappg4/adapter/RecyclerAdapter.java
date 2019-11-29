@@ -48,7 +48,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // create a new view
         CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.order_item, viewGroup, false);
+                .inflate(R.layout.recycler_item, viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(v);
         //set the simple click listener
         v.setOnClickListener(view -> mListener.onItemClick(view, viewHolder.getAdapterPosition()));
@@ -61,10 +61,11 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         //binds text from db to recycler holder according to class
         if (item.getClass().equals(Order.class)) {
             //View for acts
-            holder.textViewProduct.setText(((Order) item).getIdProduct());
-            holder.textViewDateDelivery.setText(((Order) item).getDateDelivery());
+            String productName = R.string.s_product_points + " " +((Order) item).getIdProduct();
+            holder.textViewProduct.setText(productName);
+            holder.textViewDateDelivery.setText(R.string.s_date_points + " " +((Order) item).getDateDelivery());
             String places = String.valueOf(((Order) item).getTimeDelivery());
-            holder.textViewTimeDelivery.setText(places);
+            holder.textViewTimeDelivery.setText(R.string.s_time_points + " " +places);
             if(((Order) item).getStatus().equals("1")){
                 holder.textViewStatus.setText(R.string.s_loaded);
             }else{
@@ -152,10 +153,10 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewProduct = itemView.findViewById(R.id.oi_tv_product);
-            textViewDateDelivery = itemView.findViewById(R.id.oi_tv_dateDelivery);
-            textViewTimeDelivery = itemView.findViewById(R.id.oi_tv_timeDelivery);
-            textViewStatus = itemView.findViewById(R.id.oi_tv_status);
+            textViewProduct = itemView.findViewById(R.id.ri_tv_firstrow);
+            textViewDateDelivery = itemView.findViewById(R.id.ri_tv_secondrow);
+            textViewTimeDelivery = itemView.findViewById(R.id.ri_tv_thirdrow);
+            textViewStatus = itemView.findViewById(R.id.ri_tv_right);
             cardView = itemView.findViewById(R.id.oi_cardView);
             cardView.setOnCreateContextMenuListener(this);
 

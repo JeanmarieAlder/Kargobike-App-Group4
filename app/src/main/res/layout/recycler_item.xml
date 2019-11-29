@@ -11,42 +11,27 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/oi_tv_product_label"
+            android:id="@+id/ri_tv_firstrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/s_product_points" />
-
-        <TextView
-            android:id="@+id/oi_tv_product"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/oi_tv_product_label"
             android:text="Product" />
 
         <TextView
-            android:id="@+id/oi_tv_date_label"
+            android:id="@+id/ri_tv_secondrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/oi_tv_product_label"
-            android:text="@string/s_date_points" />
-
-        <TextView
-            android:id="@+id/oi_tv_dateDelivery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/oi_tv_product"
-            android:layout_toEndOf="@id/oi_tv_date_label"
+            android:layout_below="@id/ri_tv_firstrow"
             android:text="Date Delivery" />
 
         <TextView
-            android:id="@+id/oi_tv_timeDelivery"
+            android:id="@+id/ri_tv_thirdrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/oi_tv_dateDelivery"
+            android:layout_below="@id/ri_tv_secondrow"
             android:text="TimeDelivery" />
 
         <TextView
-            android:id="@+id/oi_tv_status"
+            android:id="@+id/ri_tv_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
