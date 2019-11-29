@@ -7,41 +7,55 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kargobikeappg4.R;
+import com.example.kargobikeappg4.adapter.ListAdapter;
 import com.example.kargobikeappg4.db.entities.Order;
+import com.example.kargobikeappg4.db.entities.Product;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.example.kargobikeappg4.viewmodel.order.OrderViewModel;
+import com.example.kargobikeappg4.viewmodel.product.ProductListViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TransportDetailActivity extends AppCompatActivity {
 
+    private static final String TAG = "TransportDetailActivity";
     //Variable instanciations
     private String orderId;
     private boolean editMode;
     private boolean isLoaded;
     private Order order;
     private OrderViewModel viewModel;
+    private ProductListViewModel viewModelProducts;
 
     private Button btnSave;
     private Button btnChangeStatus;
 
-    private EditText eProduct;
+    //private EditText eProduct;
     private EditText eQuantity;
     private EditText eDelivDate;
     private EditText eDelivTime;
     private EditText eClient;
     private EditText ePickupAddress;
     private EditText eDeliveryAddress;
-    private EditText eResponsibleRider;
+    //private EditText eResponsibleRider;
     private TextView tvStatus;
     private DatabaseReference reff;
+    private Spinner spinnerProducts;
+    private ListAdapter adapterProductsList;
+
+    private Spinner spinnerRiders;
+    private ListAdapter adapterRidersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +65,61 @@ public class TransportDetailActivity extends AppCompatActivity {
         //Initializes buttons, views, current ID and edit mode
         initialize();
 
-        //Create viewmodel
+        //Spinner for Products
+        spinnerProducts = (Spinner) findViewById(R.id.spinnerProducts);
+        adapterProductsList = new ListAdapter<>(TransportDetailActivity.this, R.layout.rowlist, new ArrayList<>());
+        spinnerProducts.setAdapter(adapterProductsList);
 
-            OrderViewModel.Factory factory = new OrderViewModel.Factory(
+        //Spinner for Riders
+        spinnerRiders = (Spinner) findViewById(R.id.spinnerRiders);
+        adapterRidersList = new ListAdapter<>(TransportDetailActivity.this, R.layout.rowlist, new ArrayList<>());
+        spinnerRiders.setAdapter(adapterRidersList);
+
+        //Create viewmodel
+        OrderViewModel.Factory factory = new OrderViewModel.Factory(
                     getApplication(), orderId);
             viewModel = ViewModelProviders.of(this, factory)
                     .get(OrderViewModel.class);
+
+        //Fill the Product list
+        ArrayList<String> productNames = new ArrayList<String>();
+        productNames.add("Product 1");
+        productNames.add("Product 2");
+
+        updateAdapterProductsList(productNames);
+
+
+        //Fill the Rider list
+        ArrayList<String> riderNames = new ArrayList<String>();
+        riderNames.add("Agron Asani");
+        riderNames.add("David Felley");
+        riderNames.add("Damian Wasmer");
+        riderNames.add("Jean-Marie Alder");
+
+        updateAdapterRiderList(riderNames);
+
+
+        //Receive all product names from DB
+        /*
+        ProductListViewModel.Factory factory2 = new ProductListViewModel.Factory(
+                getApplication());
+        viewModelProducts = ViewModelProviders.of(this, factory2)
+                .get(ProductListViewModel.class);
+
+        viewModelProducts.getAllProducts().observe(this, products -> {
+            if (products != null) {
+
+                Log.d(TAG,"products Not null");
+                //Array productNames
+                ArrayList<String> productNames = new ArrayList<String>();
+                for (Product p : products
+                ) {
+                    productNames.add(p.getName());
+                }
+            }
+        });
+        */
+
         if(editMode) {
             viewModel.getOrder().observe(this, orderEntity -> {
                 if (orderEntity != null) {
@@ -65,21 +128,28 @@ public class TransportDetailActivity extends AppCompatActivity {
                 }
             });
         }
+    }
 
+    private void updateAdapterProductsList(List<String> productNames) {
+        adapterProductsList.updateData(new ArrayList<>(productNames));
+    }
+
+    private void updateAdapterRiderList(List<String> riderNames) {
+        adapterRidersList.updateData(new ArrayList<>(riderNames));
     }
 
     /**
      * Initializes views, buttons, id and editmode
      */
     private void initialize() {
-        eProduct = findViewById(R.id.td_input_product);
+        spinnerProducts = findViewById(R.id.spinnerProducts);
         eQuantity = findViewById(R.id.td_input_quantity);
         eDelivDate = findViewById(R.id.td_input_deliveryDate);
         eDelivTime = findViewById(R.id.td_input_deliveryTime);
         eClient = findViewById(R.id.td_input_client);
         ePickupAddress = findViewById(R.id.td_input_pickupAddress);
         eDeliveryAddress = findViewById(R.id.td_input_deliveryAddress);
-        eResponsibleRider = findViewById(R.id.td_input_responsibleRider);
+        spinnerRiders = findViewById(R.id.spinnerRiders);
         tvStatus = findViewById(R.id.td_input_status);
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
         btnSave = findViewById(R.id.button_save);
@@ -101,20 +171,16 @@ public class TransportDetailActivity extends AppCompatActivity {
         }else{
             btnChangeStatus.setVisibility(View.GONE);
         }
-
-
     }
 
     private void updateContent() {
         if (order != null) {
-            eProduct.setText(order.getIdProduct());
             eQuantity.setText(Float.toString(order.getQuantity()));
             eDelivDate.setText(order.getDateDelivery());
             eDelivTime.setText(order.getTimeDelivery());
             eClient.setText(order.getIdCustomer());
             ePickupAddress.setText(order.getIdPickupCheckpoint());
             eDeliveryAddress.setText(order.getIdDeliveryCheckpoint());
-            eResponsibleRider.setText(order.getIdResponsibleRider());
 
             //set status and button accordingly
             if(order.getStatus().equals("1")){
@@ -159,14 +225,14 @@ public class TransportDetailActivity extends AppCompatActivity {
         }else{
 
             Order order = new Order();
-            order.setIdProduct(eProduct.getText().toString());
+            order.setIdProduct(spinnerProducts.getSelectedItem().toString());
             order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
             order.setDateDelivery(eDelivDate.getText().toString());
             order.setTimeDelivery(eDelivTime.getText().toString());
             order.setIdCustomer(eClient.getText().toString());
             order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
             order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
-            order.setIdResponsibleRider(eResponsibleRider.getText().toString());
+            order.setIdResponsibleRider(spinnerRiders.getSelectedItem().toString());
             order.setStatus("0");
 
             viewModel.createOrder(order, new OnAsyncEventListener() {
@@ -194,15 +260,15 @@ public class TransportDetailActivity extends AppCompatActivity {
      * @param isChangingStatus true if only status is changing
      */
     private void updateOrderDB(boolean isChangingStatus){
-        order.setIdProduct(eProduct.getText().toString());
+        order.setIdProduct(spinnerProducts.getSelectedItem().toString());
         order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
         order.setDateDelivery(eDelivDate.getText().toString());
         order.setTimeDelivery(eDelivTime.getText().toString());
         order.setIdCustomer(eClient.getText().toString());
         order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
         order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
-        order.setIdResponsibleRider(eResponsibleRider.getText().toString());
-        Log.d("RESPID", eResponsibleRider.getText().toString());
+        order.setIdResponsibleRider(spinnerRiders.getSelectedItem().toString());
+        Log.d("RESPID", spinnerRiders.getSelectedItem().toString());
 
         //Changes status if needed (1 = loaded, 0 = unloaded)
         if(isChangingStatus){

@@ -31,14 +31,6 @@ public class OrderRepository {
         return instance;
     }
 
-    //Query: get a order
-    /*public LiveData<Order> getOrder(final String id) {
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("orders")
-                .child(id);
-        return new OrderLiveData(reference);
-    }*/
-
     //Query: get all orders
     public LiveData<List<Order>> getAllOrders() {
         DatabaseReference reference = FirebaseDatabase.getInstance()

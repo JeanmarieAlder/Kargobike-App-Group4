@@ -33,7 +33,7 @@ public class Transport implements Comparable {
         this.idSession = idSession;
     }
 
-    //Getter and Setetr
+    //Getter and Setter
     public String getIdTransport() {
         return idTransport;
     }

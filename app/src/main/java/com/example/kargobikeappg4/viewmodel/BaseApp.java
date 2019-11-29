@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.kargobikeappg4.db.repository.OrderRepository;
 import com.example.kargobikeappg4.db.repository.ProductRepository;
 import com.example.kargobikeappg4.db.repository.RiderRepository;
+import com.example.kargobikeappg4.db.repository.TransportRepository;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -39,4 +40,7 @@ public class BaseApp extends Application {
         return RiderRepository.getInstance();
     }
 
+    public TransportRepository getTransportRepository() {
+        return TransportRepository.getInstance();
+    }
 }

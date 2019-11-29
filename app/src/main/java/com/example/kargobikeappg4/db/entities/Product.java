@@ -11,7 +11,7 @@ public class Product implements  Comparable {
     private String idProduct;
     private String name;
     private String description;
-    private float price;
+    private double price;
     private float duration;
     private boolean interurbain;
 
@@ -54,11 +54,11 @@ public class Product implements  Comparable {
         this.description = description;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

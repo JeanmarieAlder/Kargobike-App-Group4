@@ -21,13 +21,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/s_product" />
 
-            <EditText
-                android:id="@+id/td_input_product"
+            <Spinner
+                android:id="@+id/spinnerProducts"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/s_product"
-                android:inputType="text" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/td_tv_quantity"
@@ -119,13 +116,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/s_responsibleRider" />
 
-            <EditText
-                android:id="@+id/td_input_responsibleRider"
+            <Spinner
+                android:id="@+id/spinnerRiders"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/s_responsibleRider"
-                android:inputType="textPersonName|text" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/td_tv_checkpoints"
