@@ -72,7 +72,7 @@ public class OrderRepository {
     //Query: update a order
     public void update(final Order order, final OnAsyncEventListener callback) {
         FirebaseDatabase.getInstance()
-                .getReference("orders")
+                .getReference("Order")
                 .child(order.getIdOrder())
                 .updateChildren(order.toMap(), (databaseError, databaseReference) -> {
                     if (databaseError != null) {

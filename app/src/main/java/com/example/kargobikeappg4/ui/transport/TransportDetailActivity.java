@@ -50,16 +50,19 @@ public class TransportDetailActivity extends AppCompatActivity {
         initialize();
 
         //Create viewmodel
-        OrderViewModel.Factory factory = new OrderViewModel.Factory(
-                getApplication(), orderId);
-        viewModel = ViewModelProviders.of(this, factory)
-                .get(OrderViewModel.class);
-        viewModel.getOrder().observe(this, orderEntity -> {
-            if (orderEntity != null) {
-                order = orderEntity;
-                updateContent();
-            }
-        });
+
+            OrderViewModel.Factory factory = new OrderViewModel.Factory(
+                    getApplication(), orderId);
+            viewModel = ViewModelProviders.of(this, factory)
+                    .get(OrderViewModel.class);
+        if(editMode) {
+            viewModel.getOrder().observe(this, orderEntity -> {
+                if (orderEntity != null) {
+                    order = orderEntity;
+                    updateContent();
+                }
+            });
+        }
 
     }
 
@@ -76,6 +79,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         eDeliveryAddress = findViewById(R.id.td_input_deliveryAddress);
         eResponsibleRider = findViewById(R.id.td_input_responsibleRider);
         tvStatus = findViewById(R.id.td_input_status);
+        reff = FirebaseDatabase.getInstance().getReference().child("Order");
 
 
 
@@ -94,8 +98,12 @@ public class TransportDetailActivity extends AppCompatActivity {
 
         //get order ID from intent and set edit mode to false if new order
         editMode = getIntent().getBooleanExtra("isEdit", true);
-       orderId = getIntent().getExtras().get("orderId").toString();
-       Log.d("ORDER-ID", orderId);
+
+        if(editMode){
+            orderId = getIntent().getExtras().get("orderId").toString();
+        }
+
+
     }
 
     private void updateContent() {
@@ -145,26 +153,19 @@ public class TransportDetailActivity extends AppCompatActivity {
 
         if(editMode){
 
-            /**
-            act.setArtistName(eaName.getText().toString());
-            act.setArtistCountry(eaCountry.getText().toString());
-            act.setArtistImage("Not implemented yet");
-            act.setGenre(egenre.getText().toString());
-            act.setDate(edate.getSelectedItem().toString());
-            act.setStartTime(estartTime.getText().toString());
 
-            String pr = eprice.getText().toString();
-            Float f;
-            try{
-                f = new Float(pr);
-                act.setPrice(f);
-            }catch(Exception e){
-                e.getMessage();
-                act.setPrice(0f);
-            }
-            act.setIdStage(estage.getText().toString());
+             order.setIdProduct(eProduct.getText().toString());
+             order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
+             order.setDateDelivery(eDelivDate.getText().toString());
+             order.setTimeDelivery(eDelivTime.getText().toString());
+             order.setIdCustomer(eClient.getText().toString());
+             order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
+             order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
+             order.setIdResponsibleRider(eResponsibleRider.getText().toString());
+             Log.d("RESPID", eResponsibleRider.getText().toString());
+             order.setStatus("1");
 
-            viewModel.updateAct(act, new OnAsyncEventListener() {
+            viewModel.updateOrder(order, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
                     Toast.makeText(getApplicationContext(),
@@ -181,9 +182,8 @@ public class TransportDetailActivity extends AppCompatActivity {
 
             });
 
-             */
+
         }else{
-            reff = FirebaseDatabase.getInstance().getReference().child("Order");
 
             Order order = new Order();
             order.setIdProduct(eProduct.getText().toString());
@@ -194,6 +194,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
             order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
             order.setIdResponsibleRider(eResponsibleRider.getText().toString());
+            order.setStatus("1");
 
             eProduct.setText("");
             eQuantity.setText("");

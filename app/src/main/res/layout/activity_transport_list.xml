@@ -34,7 +34,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="100dp"
-        android:onClick="Transport_button_transportSave"
+        android:onClick="Transport_button_transportAdd"
         android:text="@string/add" />
 
     <TextView
