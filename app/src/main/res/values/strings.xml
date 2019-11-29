@@ -50,6 +50,7 @@
     <string name="s_pending">Pending</string>
     <string name="s_changeStatus">Change Status</string>
     <string name="save">Save</string>
-    <string name="s_location">Location</string>
-    <string name="s_zone">Zone</string>
+    <string name="s_location_points">Location:&#160;</string>
+    <string name="s_zone_points">Zone:&#160;</string>
+    <string name="s_rider_points">Rider:&#160;</string>
 </resources>

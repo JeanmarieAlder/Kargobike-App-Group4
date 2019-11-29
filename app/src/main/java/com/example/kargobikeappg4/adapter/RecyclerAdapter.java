@@ -12,12 +12,16 @@ import android.widget.TextView;
 import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Rider;
+import com.example.kargobikeappg4.db.entities.Zone;
+import com.example.kargobikeappg4.db.repository.RiderRepository;
+import com.example.kargobikeappg4.db.repository.ZoneRepository;
 import com.example.kargobikeappg4.util.RecyclerViewItemClickListener;
 import java.util.List;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +35,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     private List<T> mData;
     private RecyclerViewItemClickListener mListener;
     private static int pos; //get the position of the click (used for long clics)
+    private ZoneRepository repository;
     private Context ctx;
 
     /**
@@ -75,10 +80,16 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             }else{
                 holder.tvRightSide.setText(R.string.s_pending);
             }
-
         }
-        if(item.getClass().equals((Rider.class))){
+        if(item.getClass().equals((Rider.class))) {
 
+            holder.tvFirstHeader.setText(R.string.s_rider_points);
+            holder.tvFirstRow.setText(((Rider) item).getIdRider());
+            holder.tvSecondHeader.setText(R.string.s_location_points);
+            holder.tvSecondRow.setText(((Rider) item).getLocation());
+            holder.tvThirdHeader.setText(R.string.s_zone_points);
+            holder.tvThirdRow.setText(((Rider) item).getLocation());
+            holder.tvRightSide.setText("");
         }
 
     }
