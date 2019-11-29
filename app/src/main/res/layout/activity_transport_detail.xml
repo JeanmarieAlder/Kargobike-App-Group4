@@ -189,6 +189,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/save" />
+
+                <Button
+                    android:id="@+id/button_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="Transport_button_delete"
+                    android:text="@string/delete" />
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

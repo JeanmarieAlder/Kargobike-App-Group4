@@ -78,4 +78,8 @@ public class OrderViewModel extends AndroidViewModel {
         repository.update(order, callback);
     }
 
+    public void deleteOrder(Order order, OnAsyncEventListener callback) {
+        repository.delete(order, callback);
+    }
+
 }

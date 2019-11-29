@@ -1,5 +1,6 @@
 package com.example.kargobikeappg4.ui.transport;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -39,6 +40,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     private ProductListViewModel viewModelProducts;
 
     private Button btnSave;
+    private Button btnDelete;
     private Button btnChangeStatus;
 
     //private EditText eProduct;
@@ -153,6 +155,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.td_input_status);
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
         btnSave = findViewById(R.id.button_save);
+        btnDelete = findViewById(R.id.button_delete);
         btnChangeStatus = findViewById(R.id.button_change_status);
         btnSave.setOnClickListener(new View.OnClickListener(){
 
@@ -194,6 +197,32 @@ public class TransportDetailActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    public void Transport_button_delete(View view) {
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(getString(R.string.delete));
+        alertDialog.setCancelable(true);
+        alertDialog.setMessage("Delete an order");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.delete), (dialog, which) -> {
+            viewModel.deleteOrder(order, new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+                    Log.d(TAG, "Delete trip: success");
+                    goToTripsActivity();
+                }
+
+                private void goToTripsActivity() {
+                    Intent intent = new Intent(TransportDetailActivity.this, TransportListActivity.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onFailure(Exception e) {}
+            });
+        });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
+        alertDialog.show();
     }
 
     public void Transport_button_clientList(View view)
