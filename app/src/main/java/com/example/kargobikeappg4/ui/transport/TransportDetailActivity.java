@@ -97,6 +97,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         riderNames.add("David Felley");
         riderNames.add("Damian Wasmer");
         riderNames.add("Jean-Marie Alder");
+        riderNames.add("Yannick Mermod");
 
         updateAdapterRiderList(riderNames);
 
