@@ -8,19 +8,17 @@ import android.view.View;
 
 import com.example.kargobikeappg4.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class BikeConfirmationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_bike_confirmation);
     }
 
-    public void riderSelected(View view)
+    public void bikeConfirmation(View view)
     {
-        Intent intent = new Intent(this, BikeConfirmationActivity.class);
+        Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
     }
-
-
 }

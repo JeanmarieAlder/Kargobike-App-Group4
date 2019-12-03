@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.user.MonthlyReportActivity"
+        <activity
+            android:name=".ui.user.MonthlyReportActivity"
             android:label="Monthly Report"
             android:parentActivityName=".ui.user.ProfileActivity">
 
@@ -40,15 +41,27 @@
                 android:value="com.example.kargobikeappg4.ui.product.ProductListActivity" />
         </activity>
         <activity
-            android:name=".ui.product.ProductListActivity"
-            android:label="Product List"
-            android:parentActivityName=".ui.nav.WelcomeActivity">
+        android:name=".ui.product.ProductListActivity"
+        android:label="Product List"
+        android:parentActivityName=".ui.nav.WelcomeActivity">
+
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity" />
+    </activity>
+
+        <activity
+            android:name=".ui.nav.BikeConfirmationActivity"
+            android:label="Bike Confirmation"
+            android:parentActivityName=".ui.nav.LoginActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity" />
+                android:value="com.example.kargobikeappg4.ui.nav.LoginActivity" />
         </activity>
+
         <activity
             android:name=".ui.user.RiderListActivity"
             android:label="User List"
@@ -126,9 +139,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.kargobikeappg4.ui.nav.LoginActivity" />
         </activity>
-
     </application>
-
-
 
 </manifest>

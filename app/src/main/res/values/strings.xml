@@ -54,4 +54,6 @@
     <string name="s_location">Location</string>
     <string name="s_zone">Zone</string>
     <string name="action_cancel">Cancel</string>
+    <string name="s_bikeConfirmation">Confirm</string>
+    <string name="s_bconfirmation">Click on confirm if your bike is verified</string>
 </resources>
