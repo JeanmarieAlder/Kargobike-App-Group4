@@ -1,5 +1,6 @@
 package com.example.kargobikeappg4.db.repository;
 
+import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Product;
 import com.example.kargobikeappg4.db.liveData.ProductListLiveData;
 import com.example.kargobikeappg4.db.liveData.ProductLiveData;
@@ -74,5 +75,19 @@ public class ProductRepository {
                     }
                 });
     }
+
+    public void delete(final Product product, OnAsyncEventListener callback) {
+        FirebaseDatabase.getInstance()
+                .getReference("Product")
+                .child(product.getIdProduct())
+                .removeValue((databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
+    }
+
 }
 

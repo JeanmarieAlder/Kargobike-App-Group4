@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,13 +82,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             viewModel = ViewModelProviders.of(this, factory)
                     .get(OrderViewModel.class);
 
-        //Fill the Product list
-        ArrayList<String> productNames = new ArrayList<String>();
-        productNames.add("Product 1");
-        productNames.add("Product 2");
-
-        updateAdapterProductsList(productNames);
-
 
         //Fill the Rider list
         ArrayList<String> riderNames = new ArrayList<String>();
@@ -101,9 +93,7 @@ public class TransportDetailActivity extends AppCompatActivity {
 
         updateAdapterRiderList(riderNames);
 
-
         //Receive all product names from DB
-        /*
         ProductListViewModel.Factory factory2 = new ProductListViewModel.Factory(
                 getApplication());
         viewModelProducts = ViewModelProviders.of(this, factory2)
@@ -119,9 +109,10 @@ public class TransportDetailActivity extends AppCompatActivity {
                 ) {
                     productNames.add(p.getName());
                 }
+                updateAdapterProductsList(productNames);
             }
         });
-        */
+
 
         if(editMode) {
             viewModel.getOrder().observe(this, orderEntity -> {

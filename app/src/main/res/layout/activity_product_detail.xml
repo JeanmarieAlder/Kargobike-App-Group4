@@ -6,4 +6,105 @@
     android:layout_height="match_parent"
     tools:context=".ui.product.ProductDetailActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/td_tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_name" />
+
+            <EditText
+                android:id="@+id/td_input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_name"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/td_tv_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_description" />
+
+            <EditText
+                android:id="@+id/td_input_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_description"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/td_tv_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_price" />
+
+            <EditText
+                android:id="@+id/td_input_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_price"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/td_tv_duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_duration" />
+
+            <EditText
+                android:id="@+id/td_input_duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_duration"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/td_tv_interurbain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_interurbain" />
+
+            <EditText
+                android:id="@+id/td_input_interurbain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_interurbain"
+                android:inputType="text" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save" />
+
+                <Button
+                    android:id="@+id/button_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="Transport_button_delete"
+                    android:text="@string/delete" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

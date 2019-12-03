@@ -56,4 +56,9 @@
     <string name="action_cancel">Cancel</string>
     <string name="s_bikeConfirmation">Confirm</string>
     <string name="s_bconfirmation">Click on confirm if your bike is verified</string>
+    <string name="s_name">Name</string>
+    <string name="s_description">Description</string>
+    <string name="s_price">Price</string>
+    <string name="s_duration">Duration</string>
+    <string name="s_interurbain">Interurbain</string>
 </resources>
