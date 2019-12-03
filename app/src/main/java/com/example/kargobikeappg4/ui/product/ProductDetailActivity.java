@@ -143,7 +143,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private void saveChanges() {
 
         if(editMode){
-            updateOrderDB(false);
+            updateProductDB(false);
         }else{
             Product product = new Product();
 
@@ -152,14 +152,6 @@ public class ProductDetailActivity extends AppCompatActivity {
             product.setInterurbain(true);
             product.setPrice(Float.parseFloat(ePricee.getText().toString()));
             product.setDuration(Float.parseFloat(eDuration.getText().toString()));
-
-
-            /*
-            product.setName("Test");
-            product.setDescription("Test");
-            product.setInterurbain(true);
-            product.setPrice(Float.parseFloat("3"));
-            product.setDuration(Float.parseFloat("3"));*/
 
             viewModel.createProduct(product, new OnAsyncEventListener() {
                 @Override
@@ -185,7 +177,7 @@ public class ProductDetailActivity extends AppCompatActivity {
      * the user only changes the status.
      * @param isChangingStatus true if only status is changing
      */
-    private void updateOrderDB(boolean isChangingStatus){
+    private void updateProductDB(boolean isChangingStatus){
         Product product = new Product();
         product.setName(ename.getText().toString());
         product.setDescription(eDescription.getText().toString());
