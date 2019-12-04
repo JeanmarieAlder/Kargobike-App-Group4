@@ -197,6 +197,13 @@
                     android:onClick="Transport_button_delete"
                     android:text="@string/delete" />
 
+                <Button
+                    android:id="@+id/button_checkpoints"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="Transport_button_checkpoints"
+                    android:text="@string/s_checkpoints" />
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

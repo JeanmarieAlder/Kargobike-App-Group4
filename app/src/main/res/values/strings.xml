@@ -61,4 +61,9 @@
     <string name="s_price">Price</string>
     <string name="s_duration">Duration</string>
     <string name="s_interurbain">Interurbain</string>
+    <string name="s_type">Type</string>
+    <string name="s_lat">Lat</string>
+    <string name="s_lng">Lng</string>
+    <string name="s_timeStamp">Timestamp</string>
+    <string name="s_remark">remark</string>
 </resources>

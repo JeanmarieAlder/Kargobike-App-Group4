@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.checkpoint.CheckpointActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/td_tv_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_type" />
+
+            <Spinner
+                android:id="@+id/spinnerTypes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/td_tv_lat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_lat" />
+
+            <EditText
+                android:id="@+id/td_input_lat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_lat"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/td_tv_lng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_lng" />
+
+            <EditText
+                android:id="@+id/td_input_lng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_lng"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/td_tv_timeStamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_timeStamp" />
+
+            <EditText
+                android:id="@+id/td_input_timeStamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_timeStamp"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/td_tv_rematk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_remark" />
+
+            <EditText
+                android:id="@+id/td_input_remark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_remark"
+                android:inputType="text" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

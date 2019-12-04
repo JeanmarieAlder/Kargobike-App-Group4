@@ -25,9 +25,9 @@ public class BikeConfirmationActivity extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         user = fAuth.getCurrentUser();
-        String email = user.getEmail();
-        Log.d("TAG", "Account name: " + email);
-        accountInfo.setText(email);
+        //String email = user.getEmail();
+        //Log.d("TAG", "Account name: " + email);
+        //accountInfo.setText(email);
     }
 
     public void bikeConfirmation(View view)

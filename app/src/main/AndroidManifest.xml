@@ -151,6 +151,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.kargobikeappg4.ui.nav.LoginActivity" />
         </activity>
+        <activity
+            android:name=".ui.checkpoint.CheckpointActivity"
+            android:label="Checkpoints"
+            android:parentActivityName=".ui.transport.TransportDetailActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.transport.TransportDetailActivity" />
+        </activity>
     </application>
 
 </manifest>
