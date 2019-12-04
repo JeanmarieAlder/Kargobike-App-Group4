@@ -24,7 +24,7 @@
         android:scrollbars="vertical"
         tools:listitem="@layout/transport_item" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button_productsDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,9 +33,10 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
+        android:background="@null"
         android:layout_marginTop="100dp"
         android:onClick="Product_button_productAdd"
-        android:text="@string/add" />
+        app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
 
     <TextView
         android:id="@+id/listTitle"
@@ -49,4 +50,5 @@
         android:layout_marginTop="9dp"
         android:text="List of products"
         android:textAlignment="center" />
+
 </RelativeLayout>
