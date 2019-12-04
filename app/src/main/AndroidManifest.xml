@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kargobikeappg4">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".viewmodel.BaseApp"
         android:allowBackup="true"
@@ -131,6 +133,16 @@
         </activity>
         <activity
             android:name=".ui.nav.WelcomeActivity"
+            android:label="@string/title_activity_dashboard"
+            android:parentActivityName=".ui.nav.LoginActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.nav.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".ui.login.Register"
             android:label="@string/title_activity_dashboard"
             android:parentActivityName=".ui.nav.LoginActivity">
 
