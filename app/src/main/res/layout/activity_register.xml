@@ -4,13 +4,13 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/txt_RegAcc"
+        android:id="@+id/txt_registerUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="User Name" />
 
     <EditText
-        android:id="@+id/edit_RegName"
+        android:id="@+id/edit_registerUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -18,13 +18,13 @@
          />
 
     <TextView
-        android:id="@+id/txt_RegPwd"
+        android:id="@+id/txt_registerPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Password" />
 
     <EditText
-        android:id="@+id/edit_RegPwd"
+        android:id="@+id/edit_registerPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -32,7 +32,7 @@
         />
 
     <Button
-        android:id="@+id/btn_RegNew"
+        android:id="@+id/btn_newUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register" />
