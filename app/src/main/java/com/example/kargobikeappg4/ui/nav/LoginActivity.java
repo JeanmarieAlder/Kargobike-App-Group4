@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kargobikeappg4.R;
@@ -19,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,187 +32,144 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
 
-    static final int GOOGLE_SIGN = 123;
-    Button loginGoogle;
-    FirebaseAuth mAuth;
-    GoogleSignInClient google;
-    ProgressBar progressBar;
+    private static final String TAG = "GoogleActivity";
+    private static final int RC_SIGN_IN = 9001;
 
-    EditText email;
+    // [START declare_auth]
+    private FirebaseAuth mAuth;
+    // [END declare_auth]
 
-    Button loginAccount;
-    EditText emailId, password;
+    private GoogleSignInClient mGoogleSignInClient;
+    private SignInButton btnGoogleSignIn;
+    private Button btnSignOut;
+    private Button btnUserSignIn;
+    private TextView currentUser;
 
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginGoogle = findViewById(R.id.btn_login);
-        loginAccount = findViewById(R.id.btn_signIn);
-        progressBar = findViewById(R.id.progressBar);
-        email = findViewById(R.id.edit_Naccount);
-        password = findViewById(R.id.edit_Npassword);
         mAuth = FirebaseAuth.getInstance();
+        currentUser = findViewById(R.id.txt_currentUser);
+
+        btnGoogleSignIn = (SignInButton)findViewById(R.id.btn_googleSignIn);
 
 
-        GoogleSignInOptions googleOptions = new GoogleSignInOptions.Builder()
-                .requestIdToken(getString(R.string.default_web_client_id))
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder()
                 .requestEmail()
+                .requestProfile()
+                .requestId()
                 .build();
 
-        google = GoogleSignIn.getClient(this, googleOptions);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        loginGoogle.setOnClickListener(v -> signInGoogle());
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
-        loginAccount.setOnClickListener(new View.OnClickListener() {
+        if(account != null){
+            account = null;
+        }
+
+        updateUI(account);
+
+        btnGoogleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailId.getText().toString();
-                String pwd = password.getText().toString();
-                if(email.isEmpty()){
-                    emailId.setError("Please enter email id");
-                    emailId.requestFocus();
-                }
-                else  if(pwd.isEmpty()){
-                    password.setError("Please enter your password");
-                    password.requestFocus();
-                }
-                else  if(email.isEmpty() && pwd.isEmpty()){
-                    Toast.makeText(LoginActivity.this,"Fields Are Empty!",Toast.LENGTH_SHORT).show();
-                }
-                else  if(!(email.isEmpty() && pwd.isEmpty())){
-                    mAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()){
-                                Toast.makeText(LoginActivity.this,"Login Error, Please Login Again",Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                Intent intToHome = new Intent(LoginActivity.this,BikeConfirmationActivity.class);
-                                startActivity(intToHome);
-                            }
-                        }
-                    });
-                }
-                else{
-                    Toast.makeText(LoginActivity.this,"Error Occurred!",Toast.LENGTH_SHORT).show();
+                signIn();
+            }
+        });
 
-                }
+        btnSignOut = findViewById(R.id.btn_signOut);
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+                 /*
+          Sign-out is initiated by simply calling the googleSignInClient.signOut API. We add a
+          listener which will be invoked once the sign out is the successful
+           */
+
 
             }
         });
 
+    }
 
-        if(mAuth.getCurrentUser() != null){
-            FirebaseUser user = mAuth.getCurrentUser();
-            updateUI(user);
+    private void updateUI(GoogleSignInAccount account) {
+
+        if(account != null){
+            currentUser.setText(account.getEmail());
+        }else{
+            currentUser.setText("No User!");
         }
+    }
 
-
-/*
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mAuth.getCurrentUser();
-                if( mFirebaseUser != null ){
-                    Toast.makeText(LoginActivity.this,"You are logged in",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(LoginActivity.this, BikeConfirmationActivity.class);
-                    startActivity(i);
-                }
-                else{
-                    Toast.makeText(LoginActivity.this,"Please Login",Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
-
-*/
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
 
     }
 
-    public void signInGoogle(){
-        progressBar.setVisibility(View.VISIBLE);
+    private void signOut(){
 
-  /*
-        Intent intent2 = google.getSignInIntent();
-        startActivityForResult(intent2, GOOGLE_SIGN);
+        mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                //On Succesfull signout we navigate the user back to LoginActivity
 
-      */
+                /*
+                Intent intent = new Intent(LoginActivity.this,LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        Intent intent = new Intent(this, BikeConfirmationActivity.class);
-        startActivity(intent);
-
+                startActivity(intent);
+                */
+                updateUI(null);
+            }
+        });
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == GOOGLE_SIGN){
-            Task<GoogleSignInAccount> task = GoogleSignIn
-                    .getSignedInAccountFromIntent(data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
 
             try{
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                if(account != null){
-                    firebaseAuthWithGoogle(account);
-                }
+                Log.d(TAG,"Google sign in successfuly 1!");
+
+
             }catch(ApiException e){
-                e.printStackTrace();
+                Log.w(TAG,"Google sign in failed!", e);
+                Log.d(TAG,"Google sign in failed!", e);
             }
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        Log.d("TAG", "firebaseAuthWithGoogle: " + account.getId());
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            Log.d(TAG,"Google sign in successfuly 2!");
+            // Signed in successfully, show authenticated UI.
+            //Toast.makeText(LoginActivity.this, "Successfully loged in with " + account.getEmail(), Toast.LENGTH_SHORT);
 
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if(task.isSuccessful()){
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Log.d("TAG", "signin successfully");
+            Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+            startActivity(intent);
 
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        updateUI(user);
 
-                        Intent intent = new Intent(this, BikeConfirmationActivity.class);
-                        startActivity(intent);
-                    }else{
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Log.d("TAG", "signin failure", task.getException());
-
-                        Toast.makeText(this,"SignIn Failed!", Toast.LENGTH_SHORT);
-                        updateUI(null);
-                    }
-                });
-    }
-
-    private void updateUI(FirebaseUser user) {
-
-        if(user != null){
-            String name = user.getDisplayName();
-            String email = user.getEmail();
-            Log.d("TAG", "Name: " + name + " " + email);
-
+            updateUI(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            //updateUI(null);
         }
     }
-
-    public void riderSelected(View view)
-    {
-        Intent intent = new Intent(this, BikeConfirmationActivity.class);
-        startActivity(intent);
-    }
-
-    public void registerUser(View view){
-        Intent intent = new Intent(this, Register.class);
-        startActivity(intent);
-    }
-    /*
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthStateListener);
-    }
-*/
 }

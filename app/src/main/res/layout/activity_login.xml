@@ -22,26 +22,26 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/txt_Naccount"
+            android:id="@+id/txt_loginUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Account" />
 
         <EditText
-            android:id="@+id/edit_Naccount"
+            android:id="@+id/edit_loginUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textEmailAddress" />
 
         <TextView
-            android:id="@+id/txt_Npassword"
+            android:id="@+id/txt_loginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Password" />
 
         <EditText
-            android:id="@+id/edit_Npassword"
+            android:id="@+id/edit_loginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -53,11 +53,10 @@
             android:layout_height="wrap_content"
             android:text="Sign In" />
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Google Sign In" />
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btn_googleSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btn_register"
@@ -67,11 +66,23 @@
             android:text="Register" />
 
         <Button
-            android:id="@+id/btn_back"
+            android:id="@+id/btn_rider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="riderSelected"
             android:text="@string/s_rider" />
+
+        <Button
+            android:id="@+id/btn_signOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log out" />
+
+        <TextView
+            android:id="@+id/txt_currentUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No User!" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -79,6 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="invisible" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
