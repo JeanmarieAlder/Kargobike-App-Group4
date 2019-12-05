@@ -18,6 +18,7 @@ import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.adapter.ListAdapter;
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Product;
+import com.example.kargobikeappg4.ui.checkpoint.CheckpointActivity;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.example.kargobikeappg4.viewmodel.order.OrderViewModel;
 import com.example.kargobikeappg4.viewmodel.product.ProductListViewModel;
@@ -41,6 +42,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     private Button btnSave;
     private Button btnDelete;
     private Button btnChangeStatus;
+    private Button btnCheckpoint;
 
     //private EditText eProduct;
     private EditText eQuantity;
@@ -149,6 +151,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.button_save);
         btnDelete = findViewById(R.id.button_delete);
         btnChangeStatus = findViewById(R.id.button_change_status);
+        btnCheckpoint = findViewById(R.id.button_checkpoints);
         btnSave.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -226,6 +229,13 @@ public class TransportDetailActivity extends AppCompatActivity {
     public void Transport_button_photoScreen(View view)
     {
         Intent intent = new Intent(this, PhotoScreenActivity.class);
+        startActivity(intent);
+    }
+
+    public void Transport_button_checkpoints(View view)
+    {
+        Intent intent = new Intent(this, CheckpointActivity.class);
+        intent.putExtra("orderId", order.getIdOrder());
         startActivity(intent);
     }
 

@@ -7,23 +7,25 @@ public class Checkpoint implements Comparable{
 
     //Attributes
     private String idCheckpoint;
-    private String idAddress;
-    private String idZone;
-    private String idType;
+    private String idOrder;
+    private String type;
     private float lat;
     private float lng;
+    private String timeStamp;
+    private String remark;
 
     public Checkpoint() {}
 
-    public Checkpoint(String idCheckpoint, String idAddress, String idZone, String idType, float lat, float lng) {
-        this.idCheckpoint = idCheckpoint;
-        this.idAddress = idAddress;
-        this.idZone = idZone;
-        this.idType = idType;
+    public Checkpoint(String type, float lat, float lng, String timeStamp, String remark, String idOrder) {
+        this.type = type;
         this.lat = lat;
         this.lng = lng;
+        this.timeStamp = timeStamp;
+        this.remark = remark;
+        this.idOrder = idOrder;
     }
 
+    //Getter and Setter
     public String getIdCheckpoint() {
         return idCheckpoint;
     }
@@ -32,28 +34,20 @@ public class Checkpoint implements Comparable{
         this.idCheckpoint = idCheckpoint;
     }
 
-    public String getIdAddress() {
-        return idAddress;
+    public String getIdOrder() {
+        return idOrder;
     }
 
-    public void setIdAddress(String idAddress) {
-        this.idAddress = idAddress;
+    public void setIdOrder(String idOrder) {
+        this.idOrder = idOrder;
     }
 
-    public String getIdZone() {
-        return idZone;
+    public String getType() {
+        return type;
     }
 
-    public void setIdZone(String idZone) {
-        this.idZone = idZone;
-    }
-
-    public String getIdType() {
-        return idType;
-    }
-
-    public void setIdType(String idType) {
-        this.idType = idType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public float getLat() {
@@ -72,6 +66,22 @@ public class Checkpoint implements Comparable{
         this.lng = lng;
     }
 
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     @Override
     public int compareTo(Object o) {
         return 0;
@@ -79,11 +89,12 @@ public class Checkpoint implements Comparable{
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("idAddress", idAddress);
-        result.put("idZone", idZone);
-        result.put("idType", idType);
+        result.put("type", type);
         result.put("lat", lat);
         result.put("lng", lng);
+        result.put("timeStamp", timeStamp);
+        result.put("remark", remark);
+        result.put("idOrder", idOrder);
         return result;
     }
 
