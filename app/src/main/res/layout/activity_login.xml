@@ -48,10 +48,16 @@
             android:inputType="textPassword" />
 
         <Button
+            android:id="@+id/btn_signIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign In" />
+
+        <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Google SignIn" />
+            android:text="Google Sign In" />
 
         <Button
             android:id="@+id/btn_register"
