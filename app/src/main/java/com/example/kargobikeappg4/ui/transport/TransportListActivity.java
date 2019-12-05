@@ -42,7 +42,7 @@ public class TransportListActivity extends AppCompatActivity {
         orders = new ArrayList<>();
 
         //Add click listener, opens details of the selected act
-        adapter = new RecyclerAdapter<>((v, position) -> {
+                adapter = new RecyclerAdapter<>((v, position) -> {
             Intent intent = new Intent(TransportListActivity.this,
                     TransportDetailActivity.class);
             intent.setFlags(

@@ -235,7 +235,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     public void Transport_button_checkpoints(View view)
     {
         Intent intent = new Intent(this, CheckpointActivity.class);
-        intent.putExtra("orderId", order.getIdOrder());
+        intent.putExtra("orderId", orderId);
         startActivity(intent);
     }
 

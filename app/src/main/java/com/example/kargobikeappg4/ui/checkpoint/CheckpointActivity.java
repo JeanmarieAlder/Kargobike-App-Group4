@@ -63,7 +63,7 @@ public class CheckpointActivity extends AppCompatActivity {
         //Initializes buttons, views, current ID and edit mode
         initialize();
 
-        orderId = getIntent().getStringExtra(orderId);
+        orderId = getIntent().getExtras().get("orderId").toString();
 
         //Spinner for Products
         spinnerTypes = (Spinner) findViewById(R.id.spinnerTypes);
@@ -151,8 +151,8 @@ public class CheckpointActivity extends AppCompatActivity {
             checkpoint.setLng(Float.parseFloat(eLng.getText().toString()));
             checkpoint.setRemark(eRemark.getText().toString());
             checkpoint.setTimeStamp(eTimeStamp.getText().toString());
-            checkpoint.setIdOrder("-LuqKrFnlSaLXbnpSeoN");
-            //checkpoint.setIdOrder(orderId);
+            //checkpoint.setIdOrder("-LuqKrFnlSaLXbnpSeoN");
+            checkpoint.setIdOrder(orderId);
 
             viewModel.createCheckpoint(checkpoint, new OnAsyncEventListener() {
                 @Override

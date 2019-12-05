@@ -2,6 +2,7 @@ package com.example.kargobikeappg4.db.repository;
 
 import com.example.kargobikeappg4.db.entities.Checkpoint;
 import com.example.kargobikeappg4.db.liveData.CheckpointLiveData;
+import com.example.kargobikeappg4.db.liveData.CheckpointsListLiveData;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -39,6 +40,15 @@ public class CheckpointRepository {
                 .child("Checkpoints")
                 .child(id);
         return new CheckpointLiveData(reference);
+    }
+
+    //Query: get checkpoints for an order
+    public LiveData<List<Checkpoint>> getcheckpointsByOrder(final String orderId) {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Order")
+                .child(orderId)
+                .child("checkpoints");
+        return new CheckpointsListLiveData(reference, orderId);
     }
 
 
