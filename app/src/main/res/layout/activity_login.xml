@@ -65,12 +65,6 @@
             android:onClick="registerUser"
             android:text="Register" />
 
-        <Button
-            android:id="@+id/btn_rider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="riderSelected"
-            android:text="@string/s_rider" />
 
         <Button
             android:id="@+id/btn_signOut"
