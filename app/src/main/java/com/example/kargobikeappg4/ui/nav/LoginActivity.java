@@ -40,7 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
 
-        GoogleSignInOptions googleOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions googleOptions = new GoogleSignInOptions.Builder()
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -58,12 +59,14 @@ public class LoginActivity extends AppCompatActivity {
     public void signInGoogle(){
         progressBar.setVisibility(View.VISIBLE);
 
-        Intent intent = new Intent(this, BikeConfirmationActivity.class);
-        startActivity(intent);
-        /*
+  /*
         Intent intent2 = google.getSignInIntent();
         startActivityForResult(intent2, GOOGLE_SIGN);
-        */
+
+      */
+
+        Intent intent = new Intent(this, BikeConfirmationActivity.class);
+        startActivity(intent);
 
     }
 
@@ -98,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
                         updateUI(user);
 
+                        riderSelected();
                     }else{
                         progressBar.setVisibility(View.INVISIBLE);
                         Log.d("TAG", "signin failure", task.getException());
@@ -118,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void riderSelected(View view)
+    public void riderSelected()
     {
         Intent intent = new Intent(this, BikeConfirmationActivity.class);
         startActivity(intent);

@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.kargobikeappg4.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -23,9 +25,11 @@ public class BikeConfirmationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bike_confirmation);
         accountInfo = findViewById(R.id.accountInfo);
 
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
         fAuth = FirebaseAuth.getInstance();
         user = fAuth.getCurrentUser();
-        String email = user.getEmail();
+        String email = account.getEmail();
         Log.d("TAG", "Account name: " + email);
         accountInfo.setText(email);
     }
