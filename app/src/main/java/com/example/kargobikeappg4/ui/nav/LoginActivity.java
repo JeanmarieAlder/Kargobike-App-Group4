@@ -107,7 +107,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent().addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        signInIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
     }
