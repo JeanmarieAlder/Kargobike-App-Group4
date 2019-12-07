@@ -2,6 +2,7 @@ package com.example.kargobikeappg4.viewmodel.product;
 
 import android.app.Application;
 
+import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Product;
 import com.example.kargobikeappg4.db.repository.ProductRepository;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
@@ -75,6 +76,10 @@ public class ProductViewModel extends AndroidViewModel {
 
     public void updateProduct(Product product, OnAsyncEventListener callback) {
         repository.update(product, callback);
+    }
+
+    public void deleteProduct(Product product, OnAsyncEventListener callback) {
+        repository.delete(product, callback);
     }
 
 }

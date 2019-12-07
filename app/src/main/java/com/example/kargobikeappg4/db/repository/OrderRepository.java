@@ -74,4 +74,17 @@ public class OrderRepository {
                     }
                 });
     }
+
+    public void delete(final Order order, OnAsyncEventListener callback) {
+        FirebaseDatabase.getInstance()
+                .getReference("Order")
+                .child(order.getIdOrder())
+                .removeValue((databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
+    }
 }

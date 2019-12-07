@@ -1,7 +1,10 @@
 package com.example.kargobikeappg4.ui.transport;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,15 +13,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.adapter.ListAdapter;
+import com.example.kargobikeappg4.adapter.RecyclerAdapter;
+import com.example.kargobikeappg4.db.entities.Checkpoint;
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Product;
+import com.example.kargobikeappg4.ui.checkpoint.CheckpointActivity;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
+import com.example.kargobikeappg4.viewmodel.checkpoint.CheckpointListViewModel;
+import com.example.kargobikeappg4.viewmodel.order.OrderListViewModel;
 import com.example.kargobikeappg4.viewmodel.order.OrderViewModel;
 import com.example.kargobikeappg4.viewmodel.product.ProductListViewModel;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +46,9 @@ public class TransportDetailActivity extends AppCompatActivity {
     private ProductListViewModel viewModelProducts;
 
     private Button btnSave;
+    private Button btnDelete;
     private Button btnChangeStatus;
+    private Button btnCheckpoint;
 
     //private EditText eProduct;
     private EditText eQuantity;
@@ -56,6 +65,12 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     private Spinner spinnerRiders;
     private ListAdapter adapterRidersList;
+
+    //Checkpoint list
+    private RecyclerAdapter<Checkpoint> adapter;
+    private List<Checkpoint> checkpoints;
+    private CheckpointListViewModel listViewModel;
+    private RecyclerView rView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +96,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             viewModel = ViewModelProviders.of(this, factory)
                     .get(OrderViewModel.class);
 
-        //Fill the Product list
-        ArrayList<String> productNames = new ArrayList<String>();
-        productNames.add("Product 1");
-        productNames.add("Product 2");
-
-        updateAdapterProductsList(productNames);
-
 
         //Fill the Rider list
         ArrayList<String> riderNames = new ArrayList<String>();
@@ -95,12 +103,11 @@ public class TransportDetailActivity extends AppCompatActivity {
         riderNames.add("David Felley");
         riderNames.add("Damian Wasmer");
         riderNames.add("Jean-Marie Alder");
+        riderNames.add("Yannick Mermod");
 
         updateAdapterRiderList(riderNames);
 
-
         //Receive all product names from DB
-        /*
         ProductListViewModel.Factory factory2 = new ProductListViewModel.Factory(
                 getApplication());
         viewModelProducts = ViewModelProviders.of(this, factory2)
@@ -116,9 +123,44 @@ public class TransportDetailActivity extends AppCompatActivity {
                 ) {
                     productNames.add(p.getName());
                 }
+                updateAdapterProductsList(productNames);
             }
         });
-        */
+
+        //Fill the Checkpoints Recyclerview
+        //initializes recyclerview
+        rView = findViewById(R.id.recycler_view_storage);
+        rView.setLayoutManager(new LinearLayoutManager(this));
+        rView.setHasFixedSize(true); //size never changes
+
+        checkpoints = new ArrayList<>();
+
+        //Add click listener, opens details of the selected act
+        adapter = new RecyclerAdapter<>((v, position) -> {
+            Intent intent = new Intent(TransportDetailActivity.this,
+                    CheckpointActivity.class);
+            intent.setFlags(
+                    Intent.FLAG_ACTIVITY_NO_ANIMATION |
+                            Intent.FLAG_ACTIVITY_NO_HISTORY
+            );
+            intent.putExtra("checkpointId", checkpoints.get(position).getIdCheckpoint());
+            intent.putExtra("isEdit", true);
+            startActivity(intent);
+        });
+
+        CheckpointListViewModel.Factory factoryCheckpoints = new CheckpointListViewModel.Factory(
+                getApplication(), orderId
+        );
+
+        listViewModel = ViewModelProviders.of(this, factoryCheckpoints)
+                .get(CheckpointListViewModel.class);
+        listViewModel.getAllCheckpoints().observe(this, checkpointsEntities -> {
+            if (checkpointsEntities != null) {
+                checkpoints = checkpointsEntities;
+                adapter.setData(checkpoints);
+            }
+        });
+        rView.setAdapter(adapter);
 
         if(editMode) {
             viewModel.getOrder().observe(this, orderEntity -> {
@@ -153,7 +195,9 @@ public class TransportDetailActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.td_input_status);
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
         btnSave = findViewById(R.id.button_save);
+        btnDelete = findViewById(R.id.button_delete);
         btnChangeStatus = findViewById(R.id.button_change_status);
+        btnCheckpoint = findViewById(R.id.button_checkpoints);
         btnSave.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -162,6 +206,8 @@ public class TransportDetailActivity extends AppCompatActivity {
             }
         }
         );
+
+        orderId = getIntent().getExtras().get("orderId").toString();
 
         //get order ID from intent and set edit mode to false if new order
         editMode = getIntent().getBooleanExtra("isEdit", false);
@@ -196,6 +242,32 @@ public class TransportDetailActivity extends AppCompatActivity {
         }
     }
 
+    public void Transport_button_delete(View view) {
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(getString(R.string.delete));
+        alertDialog.setCancelable(true);
+        alertDialog.setMessage("Delete an order");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.delete), (dialog, which) -> {
+            viewModel.deleteOrder(order, new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+                    Log.d(TAG, "Delete trip: success");
+                    goToTripsActivity();
+                }
+
+                private void goToTripsActivity() {
+                    Intent intent = new Intent(TransportDetailActivity.this, TransportListActivity.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onFailure(Exception e) {}
+            });
+        });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
+        alertDialog.show();
+    }
+
     public void Transport_button_clientList(View view)
     {
         Intent intent = new Intent(this, ClientListActivity.class);
@@ -205,6 +277,13 @@ public class TransportDetailActivity extends AppCompatActivity {
     public void Transport_button_photoScreen(View view)
     {
         Intent intent = new Intent(this, PhotoScreenActivity.class);
+        startActivity(intent);
+    }
+
+    public void Transport_button_checkpoints(View view)
+    {
+        Intent intent = new Intent(this, CheckpointActivity.class);
+        intent.putExtra("orderId", orderId);
         startActivity(intent);
     }
 

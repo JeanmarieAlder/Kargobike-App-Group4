@@ -1,0 +1,66 @@
+package com.example.kargobikeappg4.db.liveData;
+
+import com.example.kargobikeappg4.db.entities.Checkpoint;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+
+public class CheckpointsListLiveData extends LiveData<List<Checkpoint>> {
+    private final DatabaseReference reference;
+    private final String orderId;
+    private final CheckpointsListLiveData.MyValueEventListener listener = new CheckpointsListLiveData.MyValueEventListener();
+
+    public CheckpointsListLiveData(DatabaseReference reference, String orderId) {
+        this.reference = reference;
+        this.orderId = orderId;
+    }
+
+    @Override
+    protected void onActive() {
+        reference.addValueEventListener(listener);
+    }
+
+    @Override
+    protected void onInactive() { }
+
+
+    private class MyValueEventListener implements ValueEventListener {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            setValue(toCheckpoints(dataSnapshot));
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) { }
+    }
+
+    private List<Checkpoint> toCheckpoints(DataSnapshot snapshot){
+        List<Checkpoint> checkpoints = new ArrayList<>();
+        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+            Checkpoint entity = childSnapshot.getValue(Checkpoint.class);
+            entity.setIdCheckpoint(childSnapshot.getKey());
+            entity.setIdOrder(orderId);
+            checkpoints.add(entity);
+        }
+
+        //Sort orders by delivery date
+        checkpoints.sort(new Comparator<Checkpoint>() {
+            @Override
+            public int compare(Checkpoint c1, Checkpoint c2) {
+                return c1.getTimeStamp().compareTo(c2.getTimeStamp());
+            }
+        });
+        return checkpoints;
+    }
+
+
+}
+
