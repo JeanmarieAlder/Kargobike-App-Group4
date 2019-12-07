@@ -172,4 +172,24 @@ public class LoginActivity extends AppCompatActivity {
             //updateUI(null);
         }
     }
+
+    //some tests for clients
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("onpause", "------------------------ON PAUSE");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("onstop", "------------------------ON STOP");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ondestroy", "--------------------------ON DESTROY");
+    }
 }

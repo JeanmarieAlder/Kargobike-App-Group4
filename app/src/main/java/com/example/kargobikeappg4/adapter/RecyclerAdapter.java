@@ -1,6 +1,5 @@
 package com.example.kargobikeappg4.adapter;
 
-import android.content.Context;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
