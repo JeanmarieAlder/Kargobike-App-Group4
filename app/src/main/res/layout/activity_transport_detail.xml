@@ -68,17 +68,31 @@
                 android:hint="@string/s_deliveryTime"
                 android:inputType="time" />
 
-            <TextView
-                android:id="@+id/td_tv_client"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_client" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/td_tv_client"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_client" />
+
+                <Button
+                    android:id="@+id/button_ClientList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="Transport_button_clientList"
+                    android:text="@string/s_clientList" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/td_input_client"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:hint="@string/s_client"
                 android:inputType="text" />
 
@@ -165,13 +179,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/button_ClientList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="Transport_button_clientList"
-                    android:text="@string/s_clientList" />
 
                 <Button
                     android:id="@+id/button_PhotoScreen"

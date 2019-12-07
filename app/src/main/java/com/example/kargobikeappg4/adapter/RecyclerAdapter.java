@@ -1,6 +1,5 @@
 package com.example.kargobikeappg4.adapter;
 
-import android.content.Context;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,7 +30,6 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     private List<T> mData;
     private RecyclerViewItemClickListener mListener;
     private static int pos; //get the position of the click (used for long clics)
-    private Context ctx;
 
     /**
      * Get the position of click

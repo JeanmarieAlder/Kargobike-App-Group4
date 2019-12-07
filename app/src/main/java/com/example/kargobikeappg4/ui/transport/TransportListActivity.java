@@ -45,10 +45,10 @@ public class TransportListActivity extends AppCompatActivity {
                 adapter = new RecyclerAdapter<>((v, position) -> {
             Intent intent = new Intent(TransportListActivity.this,
                     TransportDetailActivity.class);
-            intent.setFlags(
+            /*intent.setFlags(
                     Intent.FLAG_ACTIVITY_NO_ANIMATION |
                             Intent.FLAG_ACTIVITY_NO_HISTORY
-            );
+            );*/
             intent.putExtra("orderId", orders.get(position).getIdOrder());
             intent.putExtra("isEdit", true);
             startActivity(intent);

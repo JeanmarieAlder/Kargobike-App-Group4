@@ -107,7 +107,8 @@
         <activity
             android:name=".ui.transport.TransportDetailActivity"
             android:label="Transport Detail"
-            android:parentActivityName=".ui.transport.TransportListActivity">
+            android:parentActivityName=".ui.transport.TransportListActivity"
+            android:launchMode="singleTask">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data

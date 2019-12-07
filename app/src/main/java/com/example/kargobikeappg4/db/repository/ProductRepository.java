@@ -76,6 +76,7 @@ public class ProductRepository {
                 });
     }
 
+
     public void delete(final Product product, OnAsyncEventListener callback) {
         FirebaseDatabase.getInstance()
                 .getReference("Product")

@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.kargobikeappg4.R;
+import com.example.kargobikeappg4.db.entities.Product;
 
 import java.util.List;
 
@@ -36,6 +37,21 @@ public class ListAdapter<T> extends ArrayAdapter<T> {
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent){
         return getCustomView(position, convertView, parent);
+    }
+
+    @Override
+    public int getPosition(@Nullable T item) {
+        //get position if the item is a Product
+        if(item instanceof Product){
+            for(int i = 0; i < data.size(); i++){
+                Product p = (Product) data.get(i);
+                if(p.getName().equals(((Product) item).getName())){
+                    return i;
+                }
+            }
+        }
+
+        return super.getPosition(item);
     }
 
     public T getItem(int position) {
