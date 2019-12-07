@@ -287,7 +287,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             viewModel.deleteOrder(order, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
-                    Log.d(TAG, "Delete trip: success");
+                    Log.d(TAG, "Delete order: success");
                     goToTripsActivity();
                 }
 
