@@ -77,13 +77,28 @@
                 android:layout_height="wrap_content"
                 android:text="@string/s_interurbain" />
 
-            <EditText
-                android:id="@+id/td_input_interurbain"
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/s_interurbain"
-                android:inputType="text" />
+                android:layout_alignParentLeft="true"
+                android:orientation="horizontal"
+                android:layout_alignParentStart="true"
+                android:id="@+id/radioGroup_interurbain">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:id="@+id/radioButton_no"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:id="@+id/radioButton_yes"
+                    android:checked="false" />
+            </RadioGroup>
 
             <LinearLayout
                 android:layout_width="wrap_content"

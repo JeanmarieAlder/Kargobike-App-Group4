@@ -7,14 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.adapter.ListAdapter;
 import com.example.kargobikeappg4.db.entities.Checkpoint;
-import com.example.kargobikeappg4.ui.product.ProductDetailActivity;
-import com.example.kargobikeappg4.ui.product.ProductListActivity;
 import com.example.kargobikeappg4.ui.transport.TransportListActivity;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.example.kargobikeappg4.viewmodel.checkpoint.CheckpointViewModel;
@@ -150,7 +147,7 @@ public class CheckpointActivity extends AppCompatActivity {
             viewModel.deleteCheckpoint(checkpoint, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
-                    Log.d(TAG, "Delete trip: success");
+                    Log.d(TAG, "Delete checkpoint: success");
                     goToTripsActivity();
                 }
 

@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.kargobikeappg4.R;
+import com.example.kargobikeappg4.db.entities.Checkpoint;
 import com.example.kargobikeappg4.db.entities.Order;
+import com.example.kargobikeappg4.db.entities.Product;
 import com.example.kargobikeappg4.db.entities.Rider;
 import com.example.kargobikeappg4.db.entities.Zone;
 import com.example.kargobikeappg4.db.repository.RiderRepository;
@@ -89,6 +91,28 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvSecondRow.setText(((Rider) item).getLocation());
             holder.tvThirdHeader.setText(R.string.s_zone_points);
             holder.tvThirdRow.setText(((Rider) item).getIdZone());
+            holder.tvRightSide.setText("");
+        }
+
+        if(item.getClass().equals((Product.class))) {
+
+            holder.tvFirstHeader.setText(R.string.s_productID_points);
+            holder.tvFirstRow.setText(((Product) item).getIdProduct());
+            holder.tvSecondHeader.setText(R.string.s_name_points);
+            holder.tvSecondRow.setText(((Product) item).getName());
+            holder.tvThirdHeader.setText(R.string.s_description_points);
+            holder.tvThirdRow.setText(((Product) item).getDescription());
+            holder.tvRightSide.setText("");
+        }
+
+        if(item.getClass().equals((Checkpoint.class))) {
+
+            holder.tvFirstHeader.setText(R.string.s_type_points);
+            holder.tvFirstRow.setText(((Checkpoint) item).getType());
+            holder.tvSecondHeader.setText(R.string.s_timeStamp_points);
+            holder.tvSecondRow.setText(((Checkpoint) item).getTimeStamp());
+            holder.tvThirdHeader.setText(R.string.s_reamrk_points);
+            holder.tvThirdRow.setText(((Checkpoint) item).getRemark());
             holder.tvRightSide.setText("");
         }
 
