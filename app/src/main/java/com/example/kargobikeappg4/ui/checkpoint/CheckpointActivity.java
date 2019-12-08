@@ -1,16 +1,21 @@
 package com.example.kargobikeappg4.ui.checkpoint;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.adapter.ListAdapter;
 import com.example.kargobikeappg4.db.entities.Checkpoint;
+import com.example.kargobikeappg4.ui.product.ProductDetailActivity;
+import com.example.kargobikeappg4.ui.product.ProductListActivity;
+import com.example.kargobikeappg4.ui.transport.TransportListActivity;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.example.kargobikeappg4.viewmodel.checkpoint.CheckpointViewModel;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -64,15 +70,6 @@ public class CheckpointActivity extends AppCompatActivity {
         adapterTypesList = new ListAdapter<>(CheckpointActivity.this, R.layout.rowlist, new ArrayList<>());
         spinnerTypes.setAdapter(adapterTypesList);
 
-        String loc = "";
-
-        //Create viewmodel
-        CheckpointViewModel.Factory factory = new CheckpointViewModel.Factory(
-                getApplication(), loc, checkpointId);
-        viewModel = ViewModelProviders.of(this, factory)
-                .get(CheckpointViewModel.class);
-
-
         //Fill the Rider list
         ArrayList<String> types = new ArrayList<String>();
         types.add("Train station");
@@ -80,6 +77,11 @@ public class CheckpointActivity extends AppCompatActivity {
 
         updateAdapterTypesList(types);
 
+        //Create viewmodel
+        CheckpointViewModel.Factory factory = new CheckpointViewModel.Factory(
+                getApplication(), orderId, checkpointId);
+        viewModel = ViewModelProviders.of(this, factory)
+                .get(CheckpointViewModel.class);
 
         if(editMode) {
             viewModel.getCheckpoint().observe(this, checkpointEntity -> {
@@ -136,8 +138,33 @@ public class CheckpointActivity extends AppCompatActivity {
             eLng.setText(Float.toString(checkpoint.getLng()));
             eTimeStamp.setText(checkpoint.getTimeStamp());
             eRemark.setText(checkpoint.getRemark());
-
         }
+    }
+
+    public void Checkpoint_button_delete(View view) {
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(getString(R.string.delete));
+        alertDialog.setCancelable(true);
+        alertDialog.setMessage("Delete a checkpoint");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.delete), (dialog, which) -> {
+            viewModel.deleteCheckpoint(checkpoint, new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+                    Log.d(TAG, "Delete trip: success");
+                    goToTripsActivity();
+                }
+
+                private void goToTripsActivity() {
+                    Intent intent = new Intent(CheckpointActivity.this, TransportListActivity.class);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onFailure(Exception e) {}
+            });
+        });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
+        alertDialog.show();
     }
 
 
@@ -147,12 +174,12 @@ public class CheckpointActivity extends AppCompatActivity {
             updateCheckpointDB(false);
         }else{
             Checkpoint checkpoint = new Checkpoint();
+
             checkpoint.setType(spinnerTypes.getSelectedItem().toString());
             checkpoint.setLat(Float.parseFloat(eLat.getText().toString()));
             checkpoint.setLng(Float.parseFloat(eLng.getText().toString()));
             checkpoint.setRemark(eRemark.getText().toString());
             checkpoint.setTimeStamp(eTimeStamp.getText().toString().trim());
-            //checkpoint.setIdOrder("-LuqKrFnlSaLXbnpSeoN");
             checkpoint.setIdOrder(orderId);
 
             viewModel.createCheckpoint(checkpoint, new OnAsyncEventListener() {

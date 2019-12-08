@@ -10,22 +10,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.kargobikeappg4.R;
-import com.example.kargobikeappg4.adapter.ListAdapter;
-import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Product;
-import com.example.kargobikeappg4.ui.transport.TransportDetailActivity;
-import com.example.kargobikeappg4.ui.transport.TransportListActivity;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
-import com.example.kargobikeappg4.viewmodel.order.OrderViewModel;
 import com.example.kargobikeappg4.viewmodel.product.ProductViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
