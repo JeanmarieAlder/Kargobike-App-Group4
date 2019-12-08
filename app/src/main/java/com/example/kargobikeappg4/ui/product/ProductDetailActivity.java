@@ -166,7 +166,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             product.setName(ename.getText().toString());
             product.setDescription(eDescription.getText().toString());
-            product.setInterurbain(false);
+            product.setInterurbain(true);
             product.setPrice(Float.parseFloat(ePricee.getText().toString()));
             product.setDuration(Float.parseFloat(eDuration.getText().toString()));
 
@@ -199,7 +199,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         product.setName(ename.getText().toString());
         product.setDescription(eDescription.getText().toString());
-        product.setInterurbain(false);
+        product.setInterurbain(true);
         product.setPrice(Float.parseFloat(ePricee.getText().toString()));
         product.setDuration(Float.parseFloat(eDuration.getText().toString()));
 

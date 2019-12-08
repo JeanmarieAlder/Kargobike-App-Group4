@@ -191,7 +191,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //if(editMode){
+        if(editMode){
             CheckpointListViewModel.Factory factoryCheckpoints = new CheckpointListViewModel.Factory(
                     getApplication(), orderId
             );
@@ -205,7 +205,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                 }
             });
             rView.setAdapter(adapter);
-        //}
+        }
 
         if(editMode) {
             viewModel.getOrder().observe(this, orderEntity -> {
