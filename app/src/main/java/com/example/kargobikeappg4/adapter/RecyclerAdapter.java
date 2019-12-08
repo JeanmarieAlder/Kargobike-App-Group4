@@ -1,17 +1,25 @@
 package com.example.kargobikeappg4.adapter;
 
+import android.content.Context;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.kargobikeappg4.R;
+import com.example.kargobikeappg4.db.entities.Checkpoint;
+import com.example.kargobikeappg4.db.entities.Customer;
 import com.example.kargobikeappg4.db.entities.Order;
+import com.example.kargobikeappg4.db.entities.Product;
 import com.example.kargobikeappg4.db.entities.Rider;
+import com.example.kargobikeappg4.db.repository.ZoneRepository;
 import com.example.kargobikeappg4.util.RecyclerViewItemClickListener;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -30,6 +38,9 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     private List<T> mData;
     private RecyclerViewItemClickListener mListener;
     private static int pos; //get the position of the click (used for long clics)
+    private ZoneRepository repository;
+    private Context ctx;
+
 
     /**
      * Get the position of click
@@ -73,10 +84,48 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             }else{
                 holder.tvRightSide.setText(R.string.s_pending);
             }
-
         }
-        if(item.getClass().equals((Rider.class))){
+        if(item.getClass().equals((Rider.class))) {
 
+            holder.tvFirstHeader.setText(R.string.s_rider_points);
+            holder.tvFirstRow.setText(((Rider) item).getIdUser());
+            holder.tvSecondHeader.setText(R.string.s_location_points);
+            holder.tvSecondRow.setText(((Rider) item).getLocation());
+            holder.tvThirdHeader.setText(R.string.s_zone_points);
+            holder.tvThirdRow.setText(((Rider) item).getIdZone());
+            holder.tvRightSide.setText("");
+        }
+
+        if(item.getClass().equals((Product.class))) {
+
+            holder.tvFirstHeader.setText(R.string.s_productID_points);
+            holder.tvFirstRow.setText(((Product) item).getIdProduct());
+            holder.tvSecondHeader.setText(R.string.s_name_points);
+            holder.tvSecondRow.setText(((Product) item).getName());
+            holder.tvThirdHeader.setText(R.string.s_description_points);
+            holder.tvThirdRow.setText(((Product) item).getDescription());
+            holder.tvRightSide.setText("");
+        }
+
+        if(item.getClass().equals((Checkpoint.class))) {
+
+            holder.tvFirstHeader.setText(R.string.s_type_points);
+            holder.tvFirstRow.setText(((Checkpoint) item).getType());
+            holder.tvSecondHeader.setText(R.string.s_timeStamp_points);
+            holder.tvSecondRow.setText(((Checkpoint) item).getTimeStamp());
+            holder.tvThirdHeader.setText(R.string.s_reamrk_points);
+            holder.tvThirdRow.setText(((Checkpoint) item).getRemark());
+            holder.tvRightSide.setText("");
+        }
+        if(item.getClass().equals((Customer.class))) {
+
+            holder.tvFirstHeader.setText("");
+            holder.tvFirstRow.setText(((Customer) item).getBillingName());
+            holder.tvSecondHeader.setText("");
+            holder.tvSecondRow.setText(((Customer) item).getIdAddress());
+            holder.tvThirdHeader.setText(R.string.s_reamrk_points);
+            holder.tvThirdRow.setVisibility(View.GONE);
+            holder.tvRightSide.setVisibility(View.GONE);
         }
 
     }
@@ -135,8 +184,14 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
                                 && Objects.equals(newOrder.getIdDeliveryCheckpoint(), oldOrder.getIdDeliveryCheckpoint())
                                 ;
                     }
-                    if(mData instanceof Rider){
-
+                    if(mData instanceof Customer){
+                        Customer newCustomer = (Customer) data.get(newItemPosition);
+                        Customer oldCustomer = (Customer) mData.get(newItemPosition);
+                        return newCustomer.getIdCustomer().equals(oldCustomer.getIdCustomer())
+                                && Objects.equals(newCustomer.getBillingName(), oldCustomer.getBillingName())
+                                && Objects.equals(newCustomer.getIdAddress(), oldCustomer.getIdAddress())
+                                && Objects.equals(newCustomer.getTitre(), oldCustomer.getTitre())
+                                ;
                     }
 
                     return false;
@@ -186,5 +241,6 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         }
 
     }
+
 
 }

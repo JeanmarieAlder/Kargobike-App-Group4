@@ -28,7 +28,7 @@ public class RiderViewModel extends AndroidViewModel {
         if(riderId != null)
         {
             LiveData<Rider> rider = repository.getRider(riderId);
-
+            
             //observer changes from db and forward them
             observableRider.addSource(rider, observableRider::setValue);
         }

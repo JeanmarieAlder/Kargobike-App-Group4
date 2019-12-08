@@ -10,9 +10,91 @@
         android:id="@+id/monthlyReport_tv_calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Select Date"
+        android:layout_marginBottom="24dp"
+        android:hint="@string/s_select_date"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/mr_tv_titleHours"
+        app:layout_constraintEnd_toStartOf="@+id/monthlyReport_tv_calendar_2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/monthlyReport_tv_calendar_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:hint="@string/s_select_date"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/mr_tv_titleDelivery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/monthlyReport_tv_calendar" />
+
+    <TextView
+        android:id="@+id/mr_tv_titleHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/s_workingTime"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/monthlyReport_tv_calendar"
+        app:layout_constraintStart_toStartOf="@+id/monthlyReport_tv_calendar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/mr_tv_titleDelivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/s_deliveries"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/monthlyReport_tv_calendar_2"
+        app:layout_constraintStart_toStartOf="@+id/monthlyReport_tv_calendar_2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/mr_tv_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/mr_tv_titleHours"
+        app:layout_constraintTop_toBottomOf="@+id/mr_tv_titleHours" />
+
+    <TextView
+        android:id="@+id/mr_tv_delivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/mr_tv_hours"
+        app:layout_constraintStart_toStartOf="@+id/mr_tv_titleDelivery"
+        app:layout_constraintTop_toBottomOf="@+id/mr_tv_titleDelivery" />
+
+    <Button
+        android:id="@+id/mr_btn_export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/s_export_data"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/mr_tv_hours" />
+
+    <TextView
+        android:id="@+id/mr_tv_from"
+        android:layout_width="55dp"
+        android:layout_height="17dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/s_From_points"
+        app:layout_constraintBottom_toTopOf="@+id/monthlyReport_tv_calendar"
+        app:layout_constraintStart_toStartOf="@+id/monthlyReport_tv_calendar" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="62dp"
+        android:layout_height="15dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/s_to_points"
+        app:layout_constraintBottom_toTopOf="@+id/monthlyReport_tv_calendar_2"
+        app:layout_constraintStart_toStartOf="@+id/monthlyReport_tv_calendar_2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

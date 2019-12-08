@@ -10,8 +10,9 @@ public class Customer implements Comparable{
     //Attributes
     private String idCustomer;
     private String titre;
-    private String firstname;
-    private String lastname;
+    //private String firstname;
+    //private String lastname;
+    private String billingName;
     private String idAddress;
     private String idProduct;
 
@@ -20,11 +21,10 @@ public class Customer implements Comparable{
 
     }
 
-    public Customer(String idCustomer, String titre, String firstname, String lastname, String idAddress, String idProduct) {
+    public Customer(String idCustomer, String titre, String billingName, String idAddress, String idProduct) {
         this.idCustomer = idCustomer;
         this.titre = titre;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.billingName = billingName;
         this.idAddress = idAddress;
         this.idProduct = idProduct;
     }
@@ -46,7 +46,15 @@ public class Customer implements Comparable{
         this.titre = titre;
     }
 
-    public String getFirstname() {
+    public String getBillingName() {
+        return billingName;
+    }
+
+    public void setBillingName(String billingName) {
+        this.billingName = billingName;
+    }
+
+    /* public String getFirstname() {
         return firstname;
     }
 
@@ -60,7 +68,7 @@ public class Customer implements Comparable{
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
-    }
+    }*/
 
     public String getIdAddress() {
         return idAddress;
@@ -96,15 +104,14 @@ public class Customer implements Comparable{
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("titre", titre);
-        result.put("firstname", firstname);
-        result.put("lastname", lastname);
+        result.put("billingName", billingName);
         result.put("idAddress", idAddress);
         return result;
     }
 
     @Override
     public String toString() {
-        return titre + " " + firstname + " " + lastname;
+        return billingName;
     }
 
 }
