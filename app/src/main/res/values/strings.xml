@@ -69,4 +69,10 @@
     <string name="s_location_points">Location:&#160;</string>
     <string name="s_zone_points">Zone:&#160;</string>
     <string name="s_rider_points">Rider:&#160;</string>
+    <string name="s_select_date">Select Date</string>
+    <string name="s_export_data">Export Data</string>
+    <string name="s_workingTime">Working Time</string>
+    <string name="s_deliveries">Deliveries</string>
+    <string name="s_From_points">From:</string>
+    <string name="s_to_points">To:</string>
 </resources>

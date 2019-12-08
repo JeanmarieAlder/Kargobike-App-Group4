@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = findViewById(R.id.txt_currentUser);
 
-        btnGoogleSignIn = (SignInButton)findViewById(R.id.btn_googleSignIn);
+        btnGoogleSignIn = findViewById(R.id.btn_googleSignIn);
 
 
 
@@ -68,9 +68,10 @@ public class LoginActivity extends AppCompatActivity {
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
+        /*
         if(account != null){
             account = null;
-        }
+        }*/
 
         updateUI(account);
 

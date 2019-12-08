@@ -1,5 +1,6 @@
 package com.example.kargobikeappg4.adapter;
 
+import android.content.Context;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -83,11 +84,11 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         if(item.getClass().equals((Rider.class))) {
 
             holder.tvFirstHeader.setText(R.string.s_rider_points);
-            holder.tvFirstRow.setText(((Rider) item).getIdRider());
+            holder.tvFirstRow.setText(((Rider) item).getIdUser());
             holder.tvSecondHeader.setText(R.string.s_location_points);
             holder.tvSecondRow.setText(((Rider) item).getLocation());
             holder.tvThirdHeader.setText(R.string.s_zone_points);
-            holder.tvThirdRow.setText(((Rider) item).getLocation());
+            holder.tvThirdRow.setText(((Rider) item).getIdZone());
             holder.tvRightSide.setText("");
         }
 

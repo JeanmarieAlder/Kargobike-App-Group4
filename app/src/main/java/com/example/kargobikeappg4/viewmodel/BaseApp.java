@@ -2,10 +2,12 @@ package com.example.kargobikeappg4.viewmodel;
 
 import android.app.Application;
 
+import com.example.kargobikeappg4.db.repository.CheckpointRepository;
 import com.example.kargobikeappg4.db.repository.OrderRepository;
 import com.example.kargobikeappg4.db.repository.ProductRepository;
 import com.example.kargobikeappg4.db.repository.RiderRepository;
 import com.example.kargobikeappg4.db.repository.TransportRepository;
+import com.example.kargobikeappg4.db.repository.ZoneRepository;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
