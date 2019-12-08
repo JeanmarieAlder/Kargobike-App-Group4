@@ -47,7 +47,7 @@ public class CheckpointRepository {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Order")
                 .child(orderId)
-                .child("checkpoints");
+                .child("Checkpoints");
         return new CheckpointsListLiveData(reference, orderId);
     }
 

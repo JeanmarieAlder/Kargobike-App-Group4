@@ -150,7 +150,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="-3dp"
                 android:layout_marginLeft="-3dp"
-                android:layout_marginTop="153dp"
+                android:layout_marginTop="10dp"
                 android:background="@android:color/darker_gray"
                 android:scrollbars="vertical"
                 tools:listitem="@layout/transport_item"/>
