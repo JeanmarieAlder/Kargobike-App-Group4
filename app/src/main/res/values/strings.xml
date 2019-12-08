@@ -66,4 +66,5 @@
     <string name="s_lng">Lng</string>
     <string name="s_timeStamp">Timestamp</string>
     <string name="s_remark">remark</string>
+    <string name="s_searchClient">Search Client</string>
 </resources>
