@@ -1,5 +1,7 @@
 package com.example.kargobikeappg4.db.liveData;
 
+import android.util.Log;
+
 import com.example.kargobikeappg4.db.entities.Checkpoint;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,9 +16,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 public class CheckpointsListLiveData extends LiveData<List<Checkpoint>> {
+
+    private static final String TAG = "CheckpointsListLiveData";
+
     private final DatabaseReference reference;
     private final String orderId;
-    private final CheckpointsListLiveData.MyValueEventListener listener = new CheckpointsListLiveData.MyValueEventListener();
+    private final MyValueEventListener listener = new MyValueEventListener();
 
     public CheckpointsListLiveData(DatabaseReference reference, String orderId) {
         this.reference = reference;
@@ -25,11 +30,13 @@ public class CheckpointsListLiveData extends LiveData<List<Checkpoint>> {
 
     @Override
     protected void onActive() {
+        Log.d(TAG, "onActive");
         reference.addValueEventListener(listener);
     }
 
     @Override
-    protected void onInactive() { }
+    protected void onInactive() {
+        Log.d(TAG, "onInactive"); }
 
 
     private class MyValueEventListener implements ValueEventListener {
@@ -39,7 +46,9 @@ public class CheckpointsListLiveData extends LiveData<List<Checkpoint>> {
         }
 
         @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) { }
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Log.e(TAG, "Can't listen to query " + reference, databaseError.toException());
+        }
     }
 
     private List<Checkpoint> toCheckpoints(DataSnapshot snapshot){
@@ -52,12 +61,12 @@ public class CheckpointsListLiveData extends LiveData<List<Checkpoint>> {
         }
 
         //Sort orders by delivery date
-        checkpoints.sort(new Comparator<Checkpoint>() {
+        /*checkpoints.sort(new Comparator<Checkpoint>() {
             @Override
             public int compare(Checkpoint c1, Checkpoint c2) {
                 return c1.getTimeStamp().compareTo(c2.getTimeStamp());
             }
-        });
+        });*/
         return checkpoints;
     }
 

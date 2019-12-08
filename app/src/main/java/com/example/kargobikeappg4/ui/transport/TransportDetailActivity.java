@@ -7,11 +7,15 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,13 +30,13 @@ import com.example.kargobikeappg4.db.entities.Product;
 import com.example.kargobikeappg4.ui.checkpoint.CheckpointActivity;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.example.kargobikeappg4.viewmodel.checkpoint.CheckpointListViewModel;
-import com.example.kargobikeappg4.viewmodel.order.OrderListViewModel;
 import com.example.kargobikeappg4.viewmodel.order.OrderViewModel;
 import com.example.kargobikeappg4.viewmodel.product.ProductListViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class TransportDetailActivity extends AppCompatActivity {
@@ -52,14 +56,12 @@ public class TransportDetailActivity extends AppCompatActivity {
     private Button btnChangeStatus;
     private Button btnCheckpoint;
 
-    //private EditText eProduct;
     private EditText eQuantity;
     private EditText eDelivDate;
     private EditText eDelivTime;
     private EditText eClient;
     private EditText ePickupAddress;
     private EditText eDeliveryAddress;
-    //private EditText eResponsibleRider;
     private TextView tvStatus;
     private DatabaseReference reff;
     private Spinner spinnerProducts;
@@ -76,6 +78,8 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     private String clientSelected;
 
+    private DatePickerDialog.OnDateSetListener DateSetListenerDelivery;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("ONCREATE TDA", "---------------------------- HERE  IT STARDED");
@@ -88,6 +92,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         }
 
         currIntent = getIntent();
+
         //Initializes buttons, views, current ID and edit mode
         initialize();
 
@@ -103,7 +108,36 @@ public class TransportDetailActivity extends AppCompatActivity {
 
         setupOrderViewModel();
 
+        //OnClickListener für Date Delivery
+        eDelivDate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
 
+                DatePickerDialog dialog = new DatePickerDialog(
+                        TransportDetailActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        DateSetListenerDelivery,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        //DateSetListener for Date Delivery
+        DateSetListenerDelivery = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
+
+                String date = day + "/" + month + "/" + year;
+                eDelivDate.setText(date);
+            }
+        };
 
         //Fill the Rider list
         ArrayList<String> riderNames = new ArrayList<String>();
@@ -140,24 +174,24 @@ public class TransportDetailActivity extends AppCompatActivity {
         rView.setLayoutManager(new LinearLayoutManager(this));
         rView.setHasFixedSize(true); //size never changes
 
+        //Checkpoints stuff
         checkpoints = new ArrayList<>();
 
         //Add click listener, opens details of the selected act
         adapter = new RecyclerAdapter<>((v, position) -> {
             Intent intent = new Intent(TransportDetailActivity.this,
                     CheckpointActivity.class);
-            intent.setFlags(
+            /*intent.setFlags(
                     Intent.FLAG_ACTIVITY_NO_ANIMATION |
                             Intent.FLAG_ACTIVITY_NO_HISTORY
-            );
+            );*/
             intent.putExtra("checkpointId", checkpoints.get(position).getIdCheckpoint());
+            intent.putExtra("orderId", orderId);
             intent.putExtra("isEdit", true);
             startActivity(intent);
         });
 
-
-
-        if(editMode){
+        //if(editMode){
             CheckpointListViewModel.Factory factoryCheckpoints = new CheckpointListViewModel.Factory(
                     getApplication(), orderId
             );
@@ -171,8 +205,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                 }
             });
             rView.setAdapter(adapter);
-        }
-
+        //}
 
         if(editMode) {
             viewModel.getOrder().observe(this, orderEntity -> {
@@ -214,6 +247,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         spinnerProducts = findViewById(R.id.spinnerProducts);
         eQuantity = findViewById(R.id.td_input_quantity);
         eDelivDate = findViewById(R.id.td_input_deliveryDate);
+        eDelivDate.setFocusable(false);
         eDelivTime = findViewById(R.id.td_input_deliveryTime);
         eClient = findViewById(R.id.td_input_client);
         ePickupAddress = findViewById(R.id.td_input_pickupAddress);
@@ -233,7 +267,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             }
         }
         );
-
 
         //get order ID from intent and set edit mode to false if new order
         editMode = currIntent.getBooleanExtra("isEdit", false);
@@ -363,7 +396,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             Order order = new Order();
             order.setIdProduct(spinnerProducts.getSelectedItem().toString());
             order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
-            order.setDateDelivery(eDelivDate.getText().toString());
+            order.setDateDelivery(eDelivDate.getText().toString().trim());
             order.setTimeDelivery(eDelivTime.getText().toString());
             order.setIdCustomer(eClient.getText().toString());
             order.setIdPickupCheckpoint(ePickupAddress.getText().toString());

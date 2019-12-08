@@ -26,13 +26,13 @@ public class CheckpointListViewModel extends AndroidViewModel {
     public CheckpointListViewModel(@NonNull Application application, final String orderId,
                                    CheckpointRepository checkpointRepository) {
         super(application);
-        this.repository = checkpointRepository;
+        repository = checkpointRepository;
 
         observableCheckpoint = new MediatorLiveData<>();
         // set by default null, until we get data from the database.
         observableCheckpoint.setValue(null);
 
-        LiveData<List<Checkpoint>> checkpoints = checkpointRepository.getcheckpointsByOrder(orderId);
+        LiveData<List<Checkpoint>> checkpoints = repository.getcheckpointsByOrder(orderId);
 
 
         // observe the changes of the entities from the database and forward them
