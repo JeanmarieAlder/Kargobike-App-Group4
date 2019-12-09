@@ -123,7 +123,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvFirstRow.setText(((Customer) item).getBillingName());
             holder.tvSecondHeader.setText("");
             holder.tvSecondRow.setText(((Customer) item).getIdAddress());
-            holder.tvThirdHeader.setText(R.string.s_reamrk_points);
+            holder.tvThirdHeader.setVisibility(View.GONE);
             holder.tvThirdRow.setVisibility(View.GONE);
             holder.tvRightSide.setVisibility(View.GONE);
         }

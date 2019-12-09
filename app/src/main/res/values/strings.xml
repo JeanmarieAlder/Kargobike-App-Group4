@@ -17,6 +17,8 @@
     <string name="s_firstname">Firstname</string>
     <string name="s_lastname">Lastname</string>
     <string name="s_address">Address</string>
+    <string name="s_city">City</string>
+    <string name="s_postcode">Postcode</string>
     <string name="s_email">Mail Address</string>
     <string name="s_phone">Phone</string>
     <string name="s_transportList">Transport List</string>
@@ -84,4 +86,7 @@
     <string name="s_timeStamp_points">TimeStamp:&#160;</string>
     <string name="s_reamrk_points">Remark:&#160;</string>
     <string name="s_searchClient">Search Client</string>
+
+    <string name="s_title">Title</string>
+    <string name="s_company">Company</string>
 </resources>

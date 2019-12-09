@@ -61,5 +61,6 @@ public class CustomerListViewModel extends AndroidViewModel {
             //noinspection unchecked
             return (T) new CustomerListViewModel(application, customerRepository);
         }
+
     }
 }

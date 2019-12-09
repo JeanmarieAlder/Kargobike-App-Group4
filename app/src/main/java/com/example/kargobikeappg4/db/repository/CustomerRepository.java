@@ -2,6 +2,7 @@ package com.example.kargobikeappg4.db.repository;
 
 import com.example.kargobikeappg4.db.entities.Customer;
 import com.example.kargobikeappg4.db.liveData.CustomerListLiveData;
+import com.example.kargobikeappg4.db.liveData.CustomerLiveData;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -35,6 +36,13 @@ public class CustomerRepository {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Customer");
         return new CustomerListLiveData(reference);
+    }
+
+    public LiveData<Customer> getCustomer(String id){
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Customer")
+                .child(id);
+        return new CustomerLiveData(reference);
     }
 
     //Query: insert a order

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.transport.CustomerAddActivity">
+
+    <TextView
+        android:id="@+id/ca_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_title" />
+
+    <Spinner
+        android:id="@+id/ca_spinner_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/ca_tv_firstname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_firstname" />
+
+    <EditText
+        android:id="@+id/ca_input_firstname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/s_firstname"
+        android:inputType="textPersonName|text" />
+
+    <TextView
+        android:id="@+id/ca_tv_lastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_lastname" />
+
+    <EditText
+        android:id="@+id/ca_input_lastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/s_lastname"
+        android:inputType="textPersonName|text" />
+
+    <TextView
+        android:id="@+id/ca_tv_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_company" />
+
+    <EditText
+        android:id="@+id/ca_input_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/s_company"
+        android:inputType="textPersonName|text" />
+
+    <TextView
+        android:id="@+id/ca_tv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_address" />
+
+    <EditText
+        android:id="@+id/ca_input_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/s_address"
+        android:inputType="text|textPostalAddress" />
+
+    <TextView
+        android:id="@+id/ca_tv_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_city" />
+
+    <EditText
+        android:id="@+id/ca_input_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/s_city"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/ca_tv_postcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_postcode" />
+
+    <EditText
+        android:id="@+id/ca_input_postcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/s_postcode"
+        android:inputType="number|text" />
+
+    <Button
+        android:id="@+id/ca_button_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="createCustomer"
+        android:text="@string/add" />
+</LinearLayout>

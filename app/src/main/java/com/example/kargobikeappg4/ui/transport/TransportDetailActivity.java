@@ -14,6 +14,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -25,11 +26,13 @@ import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.adapter.ListAdapter;
 import com.example.kargobikeappg4.adapter.RecyclerAdapter;
 import com.example.kargobikeappg4.db.entities.Checkpoint;
+import com.example.kargobikeappg4.db.entities.Customer;
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Product;
 import com.example.kargobikeappg4.ui.checkpoint.CheckpointActivity;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.example.kargobikeappg4.viewmodel.checkpoint.CheckpointListViewModel;
+import com.example.kargobikeappg4.viewmodel.customer.CustomerViewModel;
 import com.example.kargobikeappg4.viewmodel.order.OrderViewModel;
 import com.example.kargobikeappg4.viewmodel.product.ProductListViewModel;
 import com.google.firebase.database.DatabaseReference;
@@ -77,6 +80,9 @@ public class TransportDetailActivity extends AppCompatActivity {
     private RecyclerView rView;
 
     private String clientSelected;
+    private String idClientSelected;
+    private CustomerViewModel customerViewModel;
+    private Customer customer;
 
     private DatePickerDialog.OnDateSetListener DateSetListenerDelivery;
 
@@ -211,10 +217,13 @@ public class TransportDetailActivity extends AppCompatActivity {
             viewModel.getOrder().observe(this, orderEntity -> {
                 if (orderEntity != null) {
                     order = orderEntity;
+                    setupCustomverViewModel();
                     updateContent();
+
                 }
             });
         }
+        updateContent();
     }
 
     @Override
@@ -230,6 +239,19 @@ public class TransportDetailActivity extends AppCompatActivity {
                 getApplication(), orderId);
         viewModel = ViewModelProviders.of(this, factory)
                 .get(OrderViewModel.class);
+    }
+    private void setupCustomverViewModel(){
+        CustomerViewModel.Factory factory = new CustomerViewModel.Factory(
+                getApplication(), order.getIdCustomer());
+        customerViewModel = ViewModelProviders.of(this, factory)
+                .get(CustomerViewModel.class);
+        customerViewModel.getCustomer().observe(this, customerEntity ->{
+            if (customerEntity != null) {
+                customer = customerEntity;
+                Log.d("customerViewModel", "---------------------- " + customerEntity.toString());
+                updateContent();
+            }
+        });
     }
 
     private void updateAdapterProductsList(List<String> productNames) {
@@ -286,8 +308,8 @@ public class TransportDetailActivity extends AppCompatActivity {
             eDelivTime.setText(order.getTimeDelivery());
             if(clientSelected != null){
                 eClient.setText(clientSelected);
-            }else{
-                eClient.setText(order.getIdCustomer());
+            }else if(customer != null){
+                eClient.setText(customer.getBillingName());
             }
             ePickupAddress.setText(order.getIdPickupCheckpoint());
             eDeliveryAddress.setText(order.getIdDeliveryCheckpoint());
@@ -341,6 +363,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     {
         //updateOrderDB(false, false);
         if(editMode){
+
             updateOrderDB(false, true);
         }
         Intent intent = new Intent(TransportDetailActivity.this, ClientListActivity.class);
@@ -356,6 +379,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             Log.d("OLOLOLOLOL", "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + (resultCode == RESULT_OK));
             if(resultCode == RESULT_OK){
                 clientSelected = data.getStringExtra("clientSelected");
+                idClientSelected = data.getStringExtra("idClientSelected");
                 Log.d("ONACTIVITYRESULT", data.getStringExtra("clientSelected"));
                 if(!editMode){
                     eClient.setText(data.getStringExtra("clientSelected"));
@@ -398,7 +422,12 @@ public class TransportDetailActivity extends AppCompatActivity {
             order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
             order.setDateDelivery(eDelivDate.getText().toString().trim());
             order.setTimeDelivery(eDelivTime.getText().toString());
-            order.setIdCustomer(eClient.getText().toString());
+            if(idClientSelected != null){
+                order.setIdCustomer(idClientSelected);
+            }else{
+                order.setIdCustomer("");
+            }
+
             order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
             order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
             order.setIdResponsibleRider(spinnerRiders.getSelectedItem().toString());
@@ -433,7 +462,11 @@ public class TransportDetailActivity extends AppCompatActivity {
         order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
         order.setDateDelivery(eDelivDate.getText().toString());
         order.setTimeDelivery(eDelivTime.getText().toString());
-        order.setIdCustomer(eClient.getText().toString());
+        if(idClientSelected != null){
+            order.setIdCustomer(idClientSelected);
+        }else{
+            order.setIdCustomer(order.getIdCustomer());
+        }
         order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
         order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
         order.setIdResponsibleRider(spinnerRiders.getSelectedItem().toString());

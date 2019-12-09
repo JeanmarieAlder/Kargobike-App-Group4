@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
 
@@ -23,8 +23,10 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
 
     private RecyclerAdapter<Customer> adapter;
     private List<Customer> customers;
+    private List<Customer> customersFiltered;
     private CustomerListViewModel listViewModel;
     private RecyclerView rView;
+    private SearchView sView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,10 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
         setContentView(R.layout.activity_client_list);
 
         customers = new ArrayList<>();
+        customersFiltered = new ArrayList<>();
+        // Locate the EditText in listview_main.xml
+        sView = (SearchView) findViewById(R.id.cl_sb_client_search);
+        sView.setOnQueryTextListener(this);
 
         initRecyclerView();
         initAdapter();
@@ -49,8 +55,8 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
         //Add click listener, opens details of the selected act
         adapter = new RecyclerAdapter<>((v, position) -> {
             Intent intent = new Intent();
-            intent.putExtra("clientSelected", customers.get(position).getBillingName());
-            intent.putExtra("idClientSelected", customers.get(position).getIdCustomer());
+            intent.putExtra("clientSelected", customersFiltered.get(position).getBillingName());
+            intent.putExtra("idClientSelected", customersFiltered.get(position).getIdCustomer());
             setResult(RESULT_OK, intent);
             super.onBackPressed();
         });
@@ -62,14 +68,32 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
 
         listViewModel = ViewModelProviders.of(this, factory)
                 .get(CustomerListViewModel.class);
+        setViewModelData("");
+    }
+    private void setViewModelData(String filterString){
         listViewModel.getAllCustomers().observe(this, customerEntities -> {
             if (customerEntities != null) {
-                //TODO: try adding filter here
                 customers = customerEntities;
-                adapter.setData(customers);
+
+                if(filterString.length() > 0 && customers != null){
+                    applyFilter(filterString);
+                }else{
+                    //if no filter, the list is complete
+                    customersFiltered = customers;
+                }
+
+                adapter.setData(customersFiltered);
             }
         });
         rView.setAdapter(adapter);
+    }
+    private void applyFilter(String filterString){
+        customersFiltered = new ArrayList<>();
+        for(Customer c : customers){
+            if(c.getBillingName().toLowerCase().contains(filterString)){
+                customersFiltered.add(c);
+            }
+        }
     }
 
     @Override
@@ -83,6 +107,10 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
         setResult(RESULT_OK, intent);
         super.onBackPressed();
     }
+    public void buttonAddClient(View view){
+        Intent intent = new Intent(ClientListActivity.this, CustomerAddActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
@@ -91,6 +119,9 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        Log.d("onquerytextchange", "------------------- " + newText);
+
+        setViewModelData(newText.toLowerCase().trim());
         return false;
     }
 }
