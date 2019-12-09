@@ -42,7 +42,7 @@ public class RiderListActivity extends AppCompatActivity {
                     Intent.FLAG_ACTIVITY_NO_ANIMATION |
                             Intent.FLAG_ACTIVITY_NO_HISTORY
             );
-            intent.putExtra("userId", riders.get(position).getIdRider());
+            intent.putExtra("riderId", riders.get(position).getIdRider());
             startActivity(intent);
         });
 

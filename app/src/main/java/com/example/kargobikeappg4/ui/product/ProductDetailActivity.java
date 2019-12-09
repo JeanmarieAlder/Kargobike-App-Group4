@@ -10,22 +10,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.kargobikeappg4.R;
-import com.example.kargobikeappg4.adapter.ListAdapter;
-import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Product;
-import com.example.kargobikeappg4.ui.transport.TransportDetailActivity;
-import com.example.kargobikeappg4.ui.transport.TransportListActivity;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
-import com.example.kargobikeappg4.viewmodel.order.OrderViewModel;
 import com.example.kargobikeappg4.viewmodel.product.ProductViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -45,7 +39,10 @@ public class ProductDetailActivity extends AppCompatActivity {
     private EditText eDescription;
     private EditText ePricee;
     private EditText eDuration;
-    private EditText eInterurbain;
+
+    //Radiobuttons
+    private RadioGroup radioGroupinterurbain;
+    private boolean booleanInterurbain = false;
 
     //DB
     private DatabaseReference reff;
@@ -64,6 +61,16 @@ public class ProductDetailActivity extends AppCompatActivity {
         viewModel = ViewModelProviders.of(this, factory)
                 .get(ProductViewModel.class);
 
+        //Radiobuttons
+        this.radioGroupinterurbain= (RadioGroup) this.findViewById(R.id.radioGroup_interurbain);
+
+        // When radio group "Interurbain" checked change.
+        this.radioGroupinterurbain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                doOnDifficultyLevelChanged(group, checkedId);
+            }
+        });
 
         if (editMode) {
             viewModel.getProduct().observe(this, productEntity -> {
@@ -75,6 +82,18 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
     }
 
+    //radiobuttons select the right value
+    // When radio group "Yes/no" checked change.
+    private void doOnDifficultyLevelChanged(RadioGroup group, int checkedId) {
+        int checkedRadioId = group.getCheckedRadioButtonId();
+
+        if(checkedRadioId== R.id.radioButton_yes) {
+            booleanInterurbain = true;
+        } else {
+            booleanInterurbain = false;
+        }
+    }
+
     /**
      * Initializes views, buttons, id and editmode
      */
@@ -83,7 +102,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         eDescription = findViewById(R.id.td_input_description);
         ePricee = findViewById(R.id.td_input_price);
         eDuration = findViewById(R.id.td_input_duration);
-        eInterurbain = findViewById(R.id.td_input_interurbain);
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
         btnSave = findViewById(R.id.button_save);
         btnDelete = findViewById(R.id.button_delete);
@@ -110,7 +128,6 @@ public class ProductDetailActivity extends AppCompatActivity {
             eDuration.setText(Float.toString(product.getDuration()));
             ename.setText(product.getName());
             eDescription.setText(product.getDescription());
-            eInterurbain.setText("Yes");
         }
     }
 
@@ -118,12 +135,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(getString(R.string.delete));
         alertDialog.setCancelable(true);
-        alertDialog.setMessage("Delete an order");
+        alertDialog.setMessage("Delete a product");
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.delete), (dialog, which) -> {
             viewModel.deleteProduct(product, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
-                    Log.d(TAG, "Delete trip: success");
+                    Log.d(TAG, "Delete product: success");
                     goToTripsActivity();
                 }
 
@@ -179,6 +196,7 @@ public class ProductDetailActivity extends AppCompatActivity {
      */
     private void updateProductDB(boolean isChangingStatus){
         Product product = new Product();
+
         product.setName(ename.getText().toString());
         product.setDescription(eDescription.getText().toString());
         product.setInterurbain(true);

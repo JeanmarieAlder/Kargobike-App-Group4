@@ -3,6 +3,7 @@
     package="com.example.kargobikeappg4">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".viewmodel.BaseApp"
@@ -12,6 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.transport.CustomerAddActivity"
+            android:label="New Client"
+            android:launchMode="singleTask"
+            android:parentActivityName=".ui.transport.ClientListActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.transport.ClientListActivity" />
+        </activity>
         <activity
             android:name=".ui.user.MonthlyReportActivity"
             android:label="Monthly Report"
@@ -43,16 +55,15 @@
                 android:value="com.example.kargobikeappg4.ui.product.ProductListActivity" />
         </activity>
         <activity
-        android:name=".ui.product.ProductListActivity"
-        android:label="Product List"
-        android:parentActivityName=".ui.nav.WelcomeActivity">
+            android:name=".ui.product.ProductListActivity"
+            android:label="Product List"
+            android:parentActivityName=".ui.nav.WelcomeActivity">
 
-        <!-- Parent activity meta-data to support 4.0 and lower -->
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity" />
-    </activity>
-
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.kargobikeappg4.ui.nav.WelcomeActivity" />
+        </activity>
         <activity
             android:name=".ui.nav.BikeConfirmationActivity"
             android:label="Bike Confirmation"
@@ -63,7 +74,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.kargobikeappg4.ui.nav.LoginActivity" />
         </activity>
-
         <activity
             android:name=".ui.user.RiderListActivity"
             android:label="User List"
@@ -97,6 +107,7 @@
         <activity
             android:name=".ui.transport.ClientListActivity"
             android:label="Client List"
+            android:launchMode="singleTask"
             android:parentActivityName=".ui.transport.TransportDetailActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -107,8 +118,8 @@
         <activity
             android:name=".ui.transport.TransportDetailActivity"
             android:label="Transport Detail"
-            android:parentActivityName=".ui.transport.TransportListActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:parentActivityName=".ui.transport.TransportListActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data

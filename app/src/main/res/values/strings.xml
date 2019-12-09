@@ -17,6 +17,8 @@
     <string name="s_firstname">Firstname</string>
     <string name="s_lastname">Lastname</string>
     <string name="s_address">Address</string>
+    <string name="s_city">City</string>
+    <string name="s_postcode">Postcode</string>
     <string name="s_email">Mail Address</string>
     <string name="s_phone">Phone</string>
     <string name="s_transportList">Transport List</string>
@@ -66,4 +68,25 @@
     <string name="s_lng">Lng</string>
     <string name="s_timeStamp">Timestamp</string>
     <string name="s_remark">remark</string>
+    <string name="s_location_points">Location:&#160;</string>
+    <string name="s_zone_points">Zone:&#160;</string>
+    <string name="s_rider_points">Rider:&#160;</string>
+    <string name="s_select_date">Select Date</string>
+    <string name="s_export_data">Export Data</string>
+    <string name="s_workingTime">Working Time</string>
+    <string name="s_deliveries">Deliveries</string>
+    <string name="s_From_points">From:</string>
+    <string name="s_to_points">To:</string>
+
+    <string name="s_productID_points">Product ID:&#160;</string>
+    <string name="s_name_points">Name:&#160;</string>
+    <string name="s_description_points">Description:&#160;</string>
+
+    <string name="s_type_points">Type:&#160;</string>
+    <string name="s_timeStamp_points">TimeStamp:&#160;</string>
+    <string name="s_reamrk_points">Remark:&#160;</string>
+    <string name="s_searchClient">Search Client</string>
+
+    <string name="s_title">Title</string>
+    <string name="s_company">Company</string>
 </resources>

@@ -65,7 +65,7 @@ public class ProductRepository {
     //Query: update a product
     public void update(final Product product, final OnAsyncEventListener callback) {
         FirebaseDatabase.getInstance()
-                .getReference("orders")
+                .getReference("Product")
                 .child(product.getIdProduct())
                 .updateChildren(product.toMap(), (databaseError, databaseReference) -> {
                     if (databaseError != null) {

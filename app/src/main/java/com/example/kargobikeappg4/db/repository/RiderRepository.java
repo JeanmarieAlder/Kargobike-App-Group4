@@ -46,6 +46,14 @@ public class RiderRepository {
         return new RiderLiveData(reference);
     }
 
+    //Query: get one rider by id with fk value
+    public LiveData<Rider> getRiderWithInfos(final String idRider){
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("Rider")
+                .child(idRider);
+        return new RiderLiveData(reference);
+    }
+
     //Query: insert a rider
     public void insert(final Rider rider, final OnAsyncEventListener callback) {
         String id = FirebaseDatabase.getInstance().getReference("Rider").push().getKey();
