@@ -24,6 +24,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,28 +52,25 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mAuth = FirebaseAuth.getInstance();
         currentUser = findViewById(R.id.txt_currentUser);
-
         btnGoogleSignIn = (SignInButton)findViewById(R.id.btn_googleSignIn);
 
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        //Check if there are Users already loged in
+        if(currentUser != null){
+            FirebaseAuth.getInstance().signOut();
+            currentUser = mAuth.getCurrentUser();
+            updateUI(currentUser);
+        }
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder()
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
-                .requestProfile()
-                .requestId()
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
-        if(account != null){
-            account = null;
-        }
-
-        updateUI(account);
 
         btnGoogleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,8 +95,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void updateUI(GoogleSignInAccount account) {
-
+    //Update the content of the text label
+    private void updateUI(FirebaseUser account) {
         if(account != null){
             currentUser.setText(account.getEmail());
         }else{
@@ -106,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //Sign in and Sign out
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         signInIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -115,22 +114,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signOut(){
-
-        mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                //On Succesfull signout we navigate the user back to LoginActivity
-
-                /*
-                Intent intent = new Intent(LoginActivity.this,LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                startActivity(intent);
-                */
-                updateUI(null);
-            }
-        });
+        FirebaseAuth.getInstance().signOut();
+        updateUI(null);
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -141,38 +128,42 @@ public class LoginActivity extends AppCompatActivity {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
 
             try{
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG,"Google sign in successfuly 1!");
-
+                firebaseAuthWithGoogle(account);
+               // handleSignInResult(task);
 
             }catch(ApiException e){
                 Log.w(TAG,"Google sign in failed!", e);
                 Log.d(TAG,"Google sign in failed!", e);
+                updateUI(null);
             }
         }
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Log.d(TAG,"Google sign in successfuly 2!");
-            // Signed in successfully, show authenticated UI.
-            //Toast.makeText(LoginActivity.this, "Successfully loged in with " + account.getEmail(), Toast.LENGTH_SHORT);
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                           // Snackbar.make(f, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
 
-            Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
-            startActivity(intent);
-
-
-            updateUI(account);
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            //updateUI(null);
-        }
+                    }
+                });
     }
 
     //some tests for clients
