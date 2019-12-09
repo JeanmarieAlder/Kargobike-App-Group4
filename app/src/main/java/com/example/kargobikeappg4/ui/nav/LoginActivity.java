@@ -59,18 +59,21 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         //Check if there are Users already loged in
-        if(currentUser != null){
-            FirebaseAuth.getInstance().signOut();
-            currentUser = mAuth.getCurrentUser();
-            updateUI(currentUser);
-        }
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        /*
+        currentUser = mAuth.getCurrentUser();
+        FirebaseAuth.getInstance().signOut();
+
+        updateUI(currentUser);
+        */
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder()
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient.signOut();
 
         btnGoogleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,9 +99,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //Update the content of the text label
-    private void updateUI(FirebaseUser account) {
+    private void updateUI(GoogleSignInAccount account) {
         if(account != null){
             currentUser.setText(account.getEmail());
+
         }else{
             currentUser.setText("No User!");
         }
@@ -131,8 +135,13 @@ public class LoginActivity extends AppCompatActivity {
 
             try{
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                GoogleSignInAccount account2 = GoogleSignIn.getLastSignedInAccount(this);
                 Log.d(TAG,"Google sign in successfuly 1!");
+                updateUI(account2);
                 firebaseAuthWithGoogle(account);
+                Intent intent = new Intent(LoginActivity.this, BikeConfirmationActivity.class);
+                startActivity(intent);
+
                // handleSignInResult(task);
 
             }catch(ApiException e){
@@ -154,7 +163,8 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

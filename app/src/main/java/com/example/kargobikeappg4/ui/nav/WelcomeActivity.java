@@ -63,10 +63,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 });
             }
         });
-
-
     }
-
 
     public void Welcome_button_transportList(View view)
     {

@@ -28,10 +28,14 @@ public class BikeConfirmationActivity extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
         fAuth = FirebaseAuth.getInstance();
-        /*ser = fAuth.getCurrentUser();
+
         String email = account.getEmail();
         Log.d("TAG", "Account name: " + email);
-        accountInfo.setText(email);*/
+
+
+        accountInfo.setText(email);
+
+
     }
 
     public void bikeConfirmation(View view)
