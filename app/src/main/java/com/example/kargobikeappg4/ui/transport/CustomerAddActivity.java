@@ -3,6 +3,8 @@ package com.example.kargobikeappg4.ui.transport;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import com.example.kargobikeappg4.adapter.ListAdapter;
@@ -87,4 +89,20 @@ public class CustomerAddActivity extends AppCompatActivity {
             });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                Log.d("TEST", "TEST------");
+                onBackPressed();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

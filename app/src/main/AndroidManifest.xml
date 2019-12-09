@@ -16,6 +16,7 @@
         <activity
             android:name=".ui.transport.CustomerAddActivity"
             android:label="New Client"
+            android:launchMode="singleTask"
             android:parentActivityName=".ui.transport.ClientListActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -106,6 +107,7 @@
         <activity
             android:name=".ui.transport.ClientListActivity"
             android:label="Client List"
+            android:launchMode="singleTask"
             android:parentActivityName=".ui.transport.TransportDetailActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
