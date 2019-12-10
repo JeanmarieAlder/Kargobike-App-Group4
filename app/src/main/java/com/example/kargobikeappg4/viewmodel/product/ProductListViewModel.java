@@ -2,12 +2,9 @@ package com.example.kargobikeappg4.viewmodel.product;
 
 import android.app.Application;
 
-import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Product;
-import com.example.kargobikeappg4.db.repository.OrderRepository;
 import com.example.kargobikeappg4.db.repository.ProductRepository;
 import com.example.kargobikeappg4.viewmodel.BaseApp;
-import com.example.kargobikeappg4.viewmodel.order.OrderListViewModel;
 
 import java.util.List;
 

@@ -3,11 +3,8 @@ package com.example.kargobikeappg4.viewmodel.checkpoint;
 import android.app.Application;
 
 import com.example.kargobikeappg4.db.entities.Checkpoint;
-import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.repository.CheckpointRepository;
-import com.example.kargobikeappg4.db.repository.OrderRepository;
 import com.example.kargobikeappg4.viewmodel.BaseApp;
-import com.example.kargobikeappg4.viewmodel.order.OrderListViewModel;
 
 import java.util.List;
 
