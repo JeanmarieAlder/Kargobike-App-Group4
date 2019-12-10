@@ -36,10 +36,9 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
-    // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
 
+    private EditText name, pwd;
     private GoogleSignInClient mGoogleSignInClient;
     private SignInButton btnGoogleSignIn;
     private Button btnSignOut;
@@ -52,11 +51,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         currentUser = findViewById(R.id.txt_currentUser);
         btnGoogleSignIn = (SignInButton)findViewById(R.id.btn_googleSignIn);
+        btnUserSignIn = findViewById(R.id.btn_signIn);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+        Log.d("UID", "Account uid: " + currentFirebaseUser.getUid());
+
+        name = findViewById(R.id.edit_loginUserName);
+        pwd = findViewById(R.id.edit_loginPassword);
 
         //Check if there are Users already loged in
 
@@ -73,12 +80,20 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         mGoogleSignInClient.signOut();
 
         btnGoogleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
+            }
+        });
+
+        btnUserSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userSignIn();
             }
         });
 
@@ -102,6 +117,9 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(GoogleSignInAccount account) {
         if(account != null){
             currentUser.setText(account.getEmail());
+            Log.d("UID", "Account uid: " + account.getId());
+            Log.d("UID", "Account uid: " + account.getIdToken());
+
 
         }else{
             currentUser.setText("No User!");
@@ -115,6 +133,37 @@ public class LoginActivity extends AppCompatActivity {
 
         startActivityForResult(signInIntent, RC_SIGN_IN);
 
+    }
+
+    private void userSignIn(){
+        String email = name.getText().toString().trim();
+        String password = pwd.getText().toString().trim();
+
+        Log.d("TEST","Here A");
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("TEST","Here B");
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            startActivity(new Intent(LoginActivity.this, BikeConfirmationActivity.class));
+                            //updateUI(user);
+                        } else {
+                            Log.d("TEST","Here C");
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
     }
 
     private void signOut(){
@@ -194,5 +243,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d("ondestroy", "--------------------------ON DESTROY");
+    }
+
+    public void registerUser(View view){
+        Intent intent = new Intent(LoginActivity.this, Register.class);
+        startActivity(intent);
     }
 }

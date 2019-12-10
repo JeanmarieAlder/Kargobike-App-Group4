@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "845140180034-m1uf39aib1vf5sg68ub1t6is6fc8l8tj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kargobikeappg4",
+            "certificate_hash": "dccd4941b1b1690a2d7016c9ae566100316dda63"
+          }
+        },
+        {
+          "client_id": "845140180034-48atn6cpqmq75cupc5brc2ipridei53h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kargobikeappg4",
+            "certificate_hash": "200913554ee1a94c3bf8688e11ebf246fbea1906"
+          }
+        },
+        {
           "client_id": "845140180034-v41q5epvi6orkucule4vte54olnn7vlb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -52,7 +68,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "845140180034-lptts04h5por1s9f58g4ahiu9rm54665.apps.googleusercontent.com",
+              "client_id": "845140180034-ojph5j8nop868fmfoc9bsr5moscs945m.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

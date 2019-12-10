@@ -25,16 +25,17 @@ public class BikeConfirmationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bike_confirmation);
         accountInfo = findViewById(R.id.accountInfo);
 
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
         fAuth = FirebaseAuth.getInstance();
+        user = fAuth.getCurrentUser();
 
-        String email = account.getEmail();
-        Log.d("TAG", "Account name: " + email);
-
-
-        accountInfo.setText(email);
-
+        if(user != null){
+            String email = user.getEmail();
+            accountInfo.setText(email);
+        }else{
+            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+            String email = account.getEmail();
+            accountInfo.setText(email);
+        }
 
     }
 
