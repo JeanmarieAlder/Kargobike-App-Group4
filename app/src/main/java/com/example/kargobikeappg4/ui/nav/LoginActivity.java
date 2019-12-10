@@ -51,8 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        currentUser = findViewById(R.id.txt_currentUser);
         btnGoogleSignIn = (SignInButton)findViewById(R.id.btn_googleSignIn);
         btnUserSignIn = findViewById(R.id.btn_signIn);
 
@@ -97,33 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnSignOut = findViewById(R.id.btn_signOut);
-        btnSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-                 /*
-          Sign-out is initiated by simply calling the googleSignInClient.signOut API. We add a
-          listener which will be invoked once the sign out is the successful
-           */
 
-
-            }
-        });
-
-    }
-
-    //Update the content of the text label
-    private void updateUI(GoogleSignInAccount account) {
-        if(account != null){
-            currentUser.setText(account.getEmail());
-            Log.d("UID", "Account uid: " + account.getId());
-            Log.d("UID", "Account uid: " + account.getIdToken());
-
-
-        }else{
-            currentUser.setText("No User!");
-        }
     }
 
     //Sign in and Sign out
@@ -149,28 +121,20 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
                             startActivity(new Intent(LoginActivity.this, BikeConfirmationActivity.class));
-                            //updateUI(user);
+
                         } else {
                             Log.d("TEST","Here C");
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+
                         }
 
                         // ...
                     }
                 });
     }
-
-    private void signOut(){
-        FirebaseAuth.getInstance().signOut();
-        updateUI(null);
-    }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -186,7 +150,6 @@ public class LoginActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 GoogleSignInAccount account2 = GoogleSignIn.getLastSignedInAccount(this);
                 Log.d(TAG,"Google sign in successfuly 1!");
-                updateUI(account2);
                 firebaseAuthWithGoogle(account);
                 Intent intent = new Intent(LoginActivity.this, BikeConfirmationActivity.class);
                 startActivity(intent);
@@ -196,7 +159,6 @@ public class LoginActivity extends AppCompatActivity {
             }catch(ApiException e){
                 Log.w(TAG,"Google sign in failed!", e);
                 Log.d(TAG,"Google sign in failed!", e);
-                updateUI(null);
             }
         }
     }
@@ -218,7 +180,6 @@ public class LoginActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                            // Snackbar.make(f, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
 
                     }

@@ -16,12 +16,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/accountInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
             android:id="@+id/bikeca_tv_bikeconfirmation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

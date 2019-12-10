@@ -7,15 +7,28 @@
         android:id="@+id/txt_registerUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User Name" />
+        android:text="@string/s_name" />
 
     <EditText
-        android:id="@+id/edit_registerUserName"
+        android:id="@+id/edit_registerName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
          />
+
+    <TextView
+        android:id="@+id/txt_registerEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_email" />
+
+    <EditText
+        android:id="@+id/edit_registerMail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:id="@+id/txt_registerPassword"
