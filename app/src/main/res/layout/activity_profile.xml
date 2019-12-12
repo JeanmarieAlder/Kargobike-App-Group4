@@ -2,9 +2,77 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.user.ProfileActivity">
+
+    <include
+        android:id="@+id/profile_loading"
+        layout="@layout/loading_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profile_tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="phone number"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/profile_tv_phone_title"
+        app:layout_constraintTop_toBottomOf="@+id/profile_tv_phone_title" />
+
+    <TextView
+        android:id="@+id/profile_tv_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:text="@string/s_name_points"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/profile_tv_name"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/profile_tv_mailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/profile_tv_mailAddress_title"
+        app:layout_constraintTop_toBottomOf="@+id/profile_tv_mailAddress_title"
+        tools:text="mailaddress" />
+
+    <TextView
+        android:id="@+id/profile_tv_address_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/s_address"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/profile_tv_address"
+        app:layout_constraintStart_toStartOf="@+id/profile_tv_name" />
+
+    <TextView
+        android:id="@+id/profile_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="name"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/profile_tv_address_title"
+        app:layout_constraintStart_toStartOf="@+id/profile_tv_name_title" />
+
+    <TextView
+        android:id="@+id/profile_tv_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1963 Vétroz"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/profile_btn_monthlyReport"
+        app:layout_constraintStart_toStartOf="@+id/profile_tv_address"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/profile_tv_mailAddress_title"
@@ -12,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/s_email"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/profile_tv_city"
         app:layout_constraintTop_toBottomOf="@+id/profile_tv_city" />
 
@@ -21,89 +90,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/s_phone"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/profile_tv_mailAddress"
         app:layout_constraintTop_toBottomOf="@+id/profile_tv_mailAddress" />
-
-    <TextView
-        android:id="@+id/profile_tv_lastname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Felley"
-        app:layout_constraintBottom_toTopOf="@+id/profile_tv_address_title"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_address_title" />
-
-    <TextView
-        android:id="@+id/profile_tv_lastname_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="@string/s_lastname"
-        app:layout_constraintBottom_toTopOf="@+id/profile_tv_lastname"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_lastname" />
-
-    <TextView
-        android:id="@+id/profile_tv_firstname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="David"
-        app:layout_constraintBottom_toTopOf="@+id/profile_tv_lastname_title"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_lastname_title" />
-
-    <TextView
-        android:id="@+id/profile_tv_firstname_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="@string/s_firstname"
-        app:layout_constraintBottom_toTopOf="@+id/profile_tv_firstname"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_firstname" />
-
-    <TextView
-        android:id="@+id/profile_tv_address_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:text="@string/s_address"
-        app:layout_constraintBottom_toTopOf="@+id/profile_tv_address"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_address" />
 
     <TextView
         android:id="@+id/profile_tv_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Avenue de la Gare 72"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/profile_tv_mailAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="davidfelley@gmail.com"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_mailAddress_title"
-        app:layout_constraintTop_toBottomOf="@+id/profile_tv_mailAddress_title" />
-
-    <TextView
-        android:id="@+id/profile_tv_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="0763463213"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_phone_title"
-        app:layout_constraintTop_toBottomOf="@+id/profile_tv_phone_title" />
-
-    <TextView
-        android:id="@+id/profile_tv_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1963 Vétroz"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_address"
-        app:layout_constraintTop_toBottomOf="@+id/profile_tv_address" />
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/profile_tv_city"
+        app:layout_constraintStart_toStartOf="@+id/profile_tv_address_title" />
 
     <Button
         android:id="@+id/profile_btn_monthlyReport"
@@ -113,7 +111,22 @@
         android:text="@string/s_MonthlyReport"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_tv_phone" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.522" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupProfileInfos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="profile_tv_name_title,profile_tv_name,profile_tv_address_title,profile_tv_address,profile_tv_city,profile_tv_phone_title,profile_tv_phone,profile_tv_mailAddress_title,profile_tv_mailAddress,profile_btn_monthlyReport" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="115dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

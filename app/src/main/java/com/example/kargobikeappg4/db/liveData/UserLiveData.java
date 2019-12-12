@@ -32,7 +32,6 @@ public class UserLiveData extends LiveData<User>{
                 entity.setIdUser(dataSnapshot.getKey());
                 setValue(entity);
             }
-
         }
 
         @Override
