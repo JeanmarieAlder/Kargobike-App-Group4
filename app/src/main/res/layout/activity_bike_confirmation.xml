@@ -16,10 +16,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/bikeca_tv_welcome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:layout_marginBottom="30dp"
+            />
+
+        <TextView
             android:id="@+id/bikeca_tv_bikeconfirmation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/s_bconfirmation"/>
+            android:text="@string/s_bconfirmation"
+            android:textSize="20sp"
+            android:textColor="@color/colorAccent"/>
         <Button
             android:id="@+id/bikeca_button_confirmation"
             android:layout_width="match_parent"
