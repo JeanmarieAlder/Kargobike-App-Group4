@@ -1,20 +1,15 @@
 package com.example.kargobikeappg4.viewmodel.rider;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Rider;
-import com.example.kargobikeappg4.db.repository.OrderRepository;
 import com.example.kargobikeappg4.db.repository.RiderRepository;
 import com.example.kargobikeappg4.viewmodel.BaseApp;
-import com.example.kargobikeappg4.viewmodel.order.OrderListViewModel;
 
 import java.util.List;
 
