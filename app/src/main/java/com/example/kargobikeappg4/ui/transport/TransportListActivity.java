@@ -7,14 +7,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.adapter.RecyclerAdapter;
 import com.example.kargobikeappg4.adapter.TransportListAdapter;
 import com.example.kargobikeappg4.db.entities.Order;
+import com.example.kargobikeappg4.db.entities.User;
 import com.example.kargobikeappg4.util.RecyclerViewItemClickListener;
 import com.example.kargobikeappg4.viewmodel.order.OrderListViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +30,21 @@ public class TransportListActivity extends AppCompatActivity {
 
     private RecyclerAdapter<Order> adapter;
     private List<Order> orders;
+    private List<Order> filteredorders;
     private OrderListViewModel listViewModel;
     private RecyclerView rView;
+    private FirebaseAuth fAuth;
+    private FirebaseUser fUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport_list);
+
+        //Initialize User
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
+        Log.d("User Firebase", "User id (current)" + fUser.getUid() + fUser.getDisplayName() );
 
         //initializes recyclerview
         rView = findViewById(R.id.recycler_view_storage);
