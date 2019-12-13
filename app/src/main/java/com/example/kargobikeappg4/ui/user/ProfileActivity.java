@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.kargobikeappg4.R;
+import com.example.kargobikeappg4.db.entities.Address;
 import com.example.kargobikeappg4.db.entities.User;
+import com.example.kargobikeappg4.viewmodel.address.AddressViewModel;
 import com.example.kargobikeappg4.viewmodel.user.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,8 +22,11 @@ public class ProfileActivity extends AppCompatActivity{
     private View loading;
     private UserViewModel userViewmodel;
     private User user;
+    private AddressViewModel addressViewmodel;
+    private Address addressUser;
     private TextView name;
     private TextView address;
+    private TextView city;
     private TextView email;
     private TextView phone;
     private String mailAddress;
@@ -36,16 +41,28 @@ public class ProfileActivity extends AppCompatActivity{
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
         mailAddress = fbUser.getEmail();
 
-        //Create viewmodel
-        UserViewModel.Factory factory = new UserViewModel.Factory(
+        //Create viewmodel for user
+        UserViewModel.Factory userFactory = new UserViewModel.Factory(
                 getApplication(), fbUser.getUid());
-        userViewmodel = ViewModelProviders.of(this, factory)
+        userViewmodel = ViewModelProviders.of(this, userFactory)
                 .get(UserViewModel.class);
-        userViewmodel.getUser().observe(this, userEntitie ->{
-            if(userEntitie != null)
+        userViewmodel.getUser().observe(this, userEntity ->{
+            if(userEntity != null)
             {
-                user = userEntitie;
-                UpdateContent();
+                user = userEntity;
+
+                //Create viewmodel for the address
+                AddressViewModel.Factory factory = new AddressViewModel.Factory(
+                        getApplication(), user.getIdAddress());
+                addressViewmodel = ViewModelProviders.of(this, factory)
+                        .get(AddressViewModel.class);
+                addressViewmodel.getAddress().observe(this, addressEntity ->{
+                    if(addressEntity != null)
+                    {
+                        addressUser = addressEntity;
+                        UpdateContent();
+                    }
+                });
             }
         });
     }
@@ -54,6 +71,7 @@ public class ProfileActivity extends AppCompatActivity{
 
         name = findViewById(R.id.profile_tv_name);
         address  = findViewById(R.id.profile_tv_address);
+        city  = findViewById(R.id.profile_tv_city);
         email = findViewById(R.id.profile_tv_mailAddress);
         phone = findViewById(R.id.profile_tv_phone);
 
@@ -67,7 +85,9 @@ public class ProfileActivity extends AppCompatActivity{
         loading.setVisibility(View.INVISIBLE);
 
         name.setText(user.getName());
-        address.setText(user.getIdAddress());
+        address.setText(addressUser.getStreet());
+        String cityPC = addressUser.getCity() + " " + addressUser.getPostcode();
+        city.setText(cityPC);
         email.setText(mailAddress);
         phone.setText(user.getPhoneNumber());
 

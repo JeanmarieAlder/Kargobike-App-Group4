@@ -40,10 +40,10 @@ public class UserRepository {
     }
 
     //get a user by id
-    public LiveData<User> getUser(final String idProduct){
+    public LiveData<User> getUser(final String idUser){
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("User")
-                .child(idProduct);
+                .child(idUser);
         return new UserLiveData(reference);
     }
 
