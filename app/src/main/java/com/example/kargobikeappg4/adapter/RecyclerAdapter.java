@@ -7,8 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.kargobikeappg4.R;
@@ -16,7 +14,6 @@ import com.example.kargobikeappg4.db.entities.Checkpoint;
 import com.example.kargobikeappg4.db.entities.Customer;
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Product;
-import com.example.kargobikeappg4.db.entities.Rider;
 import com.example.kargobikeappg4.db.entities.User;
 import com.example.kargobikeappg4.db.repository.ZoneRepository;
 import com.example.kargobikeappg4.util.RecyclerViewItemClickListener;
@@ -108,8 +105,9 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
 
             holder.tvFirstHeader.setText(R.string.s_type_points);
             holder.tvFirstRow.setText(((Checkpoint) item).getType());
-            holder.tvSecondHeader.setText(R.string.s_timeStamp_points);
-            holder.tvSecondRow.setText(((Checkpoint) item).getTimeStamp());
+            holder.tvSecondHeader.setText(((Checkpoint) item).getArrivalTimestamp());
+            holder.tvSecondSeparator.setText(R.string.s_separator_dash);
+            holder.tvSecondRow.setText(((Checkpoint) item).getDepartureTimestamp());
             holder.tvThirdHeader.setText(R.string.s_reamrk_points);
             holder.tvThirdRow.setText(((Checkpoint) item).getRemark());
             holder.tvRightSide.setText("");
@@ -213,6 +211,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         private TextView tvSecondRow;
         private TextView tvThirdRow;
         private TextView tvRightSide;
+        private TextView tvSecondSeparator;
         private CardView cardView;
         private int position;
 
@@ -225,6 +224,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             tvSecondRow = itemView.findViewById(R.id.ri_tv_secondrow);
             tvThirdRow = itemView.findViewById(R.id.ri_tv_thirdrow);
             tvRightSide = itemView.findViewById(R.id.ri_tv_right);
+            tvSecondSeparator = itemView.findViewById(R.id.ri_tv_secondrow_separator);
             cardView = itemView.findViewById(R.id.oi_cardView);
             cardView.setOnCreateContextMenuListener(this);
 

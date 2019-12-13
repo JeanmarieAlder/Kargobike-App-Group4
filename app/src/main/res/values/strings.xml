@@ -98,4 +98,6 @@
     <string name="s_status_unload_checkpoint">Checkpoint</string>
     <string name="s_status_unload_trainstation">Train Station</string>
     <string name="s_status_unload_destination">Final Destination</string>
+    <string name="s_back">Back</string>
+    <string name="s_separator_dash">&#160;>>&#160;</string>
 </resources>

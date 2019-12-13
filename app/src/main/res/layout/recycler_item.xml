@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ri_tv_firstrow"
-            android:layout_toEndOf="@id/ri_tv_secondrow_header"
+            android:layout_toEndOf="@id/ri_tv_secondrow_separator"
             android:text="Date Delivery" />
 
         <TextView
@@ -35,6 +35,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ri_tv_firstrow" />
+
+        <TextView
+            android:id="@+id/ri_tv_secondrow_separator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ri_tv_firstrow"
+            android:layout_toEndOf="@id/ri_tv_secondrow_header"/>
 
         <TextView
             android:id="@+id/ri_tv_thirdrow"

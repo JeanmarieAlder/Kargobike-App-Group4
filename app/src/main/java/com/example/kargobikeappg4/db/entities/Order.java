@@ -13,6 +13,8 @@ public class Order implements Comparable {
     private String dateOrder;
     private String dateDelivery;
     private String timeDelivery;
+    private String pickupTimestamp;
+    private String deliveryTimestamp;
     private String signature;
     private String deliveryPicture;
     private String idCustomer;
@@ -31,11 +33,14 @@ public class Order implements Comparable {
                  String timeDelivery, String signature,
                  String deliveryPicture, String idCustomer, String idProduct,
                  String idPickupCheckpoint, String idDeliveryCheckpoint,
-                 String idResponsibleRider, String status) {
+                 String idResponsibleRider, String status, String pickupTimestamp,
+                 String deliveryTimestamp) {
         this.quantity = quantity;
         this.dateOrder = dateOrder;
         this.dateDelivery = dateDelivery;
         this.timeDelivery = timeDelivery;
+        this.pickupTimestamp = pickupTimestamp;
+        this.deliveryTimestamp = deliveryTimestamp;
         this.signature = signature;
         this.deliveryPicture = deliveryPicture;
         this.idCustomer = idCustomer;
@@ -147,6 +152,19 @@ public class Order implements Comparable {
         return status;
     }
 
+    public String getPickupTimestamp() {
+        return pickupTimestamp;
+    }
+    public void setPickupTimestamp(String pickupTimestamp) {
+        this.pickupTimestamp = pickupTimestamp;
+    }
+    public String getDeliveryTimestamp() {
+        return deliveryTimestamp;
+    }
+    public void setDeliveryTimestamp(String deliveryTimestamp) {
+        this.deliveryTimestamp = deliveryTimestamp;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -172,6 +190,8 @@ public class Order implements Comparable {
         result.put("dateOrder", dateOrder);
         result.put("dateDelivery", dateDelivery);
         result.put("timeDelivery", timeDelivery);
+        result.put("pickupTimestamp", pickupTimestamp);
+        result.put("deliveryTimestamp", deliveryTimestamp);
         result.put("signature", signature);
         result.put("deliveryPicture", deliveryPicture);
         result.put("idCustomer", idCustomer);

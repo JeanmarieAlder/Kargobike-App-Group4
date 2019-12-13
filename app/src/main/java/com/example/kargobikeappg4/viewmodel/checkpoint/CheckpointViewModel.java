@@ -20,7 +20,7 @@ private CheckpointRepository repository;
 private final MediatorLiveData<Checkpoint> observableOrder;
 
 public CheckpointViewModel(@NonNull Application application, final String orderId,
-final String checkpointId, CheckpointRepository repository) {
+            final String checkpointId, CheckpointRepository repository) {
         super(application);
 
         this.repository = repository;
@@ -49,10 +49,10 @@ public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
     private final CheckpointRepository repository;
 
-    public Factory(@NonNull Application application, String orderId, String actId) {
+    public Factory(@NonNull Application application, String orderId, String checkpointId) {
         this.application = application;
         this.orderId = orderId;
-        this.id = actId;
+        this.id = checkpointId;
         repository = ((BaseApp) application).getCheckpointRepository();
     }
 

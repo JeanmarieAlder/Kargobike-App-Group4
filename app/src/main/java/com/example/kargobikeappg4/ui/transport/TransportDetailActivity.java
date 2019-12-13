@@ -31,14 +31,17 @@ import com.example.kargobikeappg4.db.entities.Product;
 import com.example.kargobikeappg4.ui.checkpoint.CheckpointActivity;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.example.kargobikeappg4.viewmodel.checkpoint.CheckpointListViewModel;
+import com.example.kargobikeappg4.viewmodel.checkpoint.CheckpointViewModel;
 import com.example.kargobikeappg4.viewmodel.customer.CustomerViewModel;
 import com.example.kargobikeappg4.viewmodel.order.OrderViewModel;
 import com.example.kargobikeappg4.viewmodel.product.ProductListViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class TransportDetailActivity extends AppCompatActivity {
@@ -76,9 +79,14 @@ public class TransportDetailActivity extends AppCompatActivity {
     //Checkpoint list
     private RecyclerAdapter<Checkpoint> adapter;
     private List<Checkpoint> checkpoints;
-    private CheckpointListViewModel listViewModel;
+    private CheckpointListViewModel checkpointListViewModel;
+    private CheckpointViewModel checkpointViewModel;
+    private Checkpoint updatedCheckpoint;
     private RecyclerView rView;
-    private int checkpointsCount;
+
+    //variables to deal with timestamps
+    private String newPickupTimestamp = null;
+    private String newDeliveryTimestamp = null;
 
     private String clientSelected;
     private String idClientSelected;
@@ -188,10 +196,8 @@ public class TransportDetailActivity extends AppCompatActivity {
         adapter = new RecyclerAdapter<>((v, position) -> {
             Intent intent = new Intent(TransportDetailActivity.this,
                     CheckpointActivity.class);
-            /*intent.setFlags(
-                    Intent.FLAG_ACTIVITY_NO_ANIMATION |
-                            Intent.FLAG_ACTIVITY_NO_HISTORY
-            );*/
+
+            Log.d("CheckpointsRecyclerViewPosition", "-------------" + position);
             intent.putExtra("checkpointId", checkpoints.get(position).getIdCheckpoint());
             intent.putExtra("orderId", orderId);
             intent.putExtra("isEdit", true);
@@ -203,9 +209,9 @@ public class TransportDetailActivity extends AppCompatActivity {
                     getApplication(), orderId
             );
 
-            listViewModel = ViewModelProviders.of(this, factoryCheckpoints)
+            checkpointListViewModel = ViewModelProviders.of(this, factoryCheckpoints)
                     .get(CheckpointListViewModel.class);
-            listViewModel.getAllCheckpoints().observe(this, checkpointsEntities -> {
+            checkpointListViewModel.getAllCheckpoints().observe(this, checkpointsEntities -> {
                 if (checkpointsEntities != null) {
                     checkpoints = checkpointsEntities;
                     adapter.setData(checkpoints);
@@ -306,6 +312,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     private void updateContent() {
         Log.d("UPDATECONTENT", "----------------------------- started updateContent()");
         if (order != null) {
+            setTitle("Order Detail (" + order.getStatus() + ")");
             eQuantity.setText(Float.toString(order.getQuantity()));
             eDelivDate.setText(order.getDateDelivery());
             eDelivTime.setText(order.getTimeDelivery());
@@ -321,10 +328,8 @@ public class TransportDetailActivity extends AppCompatActivity {
             tvStatus.setText(order.getStatus());
             if(order.getStatus().equals("Loaded")){
                 btnChangeStatus.setText("Unload");
-                isLoaded = true;
             }else if(order.getStatus().equals("Pending")){
                 btnChangeStatus.setText("Load");
-                isLoaded = false;
             }else if(order.getStatus().equals("Delivered")){
                 btnChangeStatus.setVisibility(View.GONE);
             }else if(order.getStatus().equals("Cancelled")){
@@ -349,17 +354,19 @@ public class TransportDetailActivity extends AppCompatActivity {
                 spinnerProducts.setEnabled(false);
                 spinnerRiders.setEnabled(false);
                 btnClient.setEnabled(false);
+                btnCancel.setEnabled(false);
             }
             else{
                 eQuantity.setEnabled(true);
                 eDelivDate.setEnabled(true);
                 eDelivTime.setEnabled(true);
-                eClient.setEnabled(true);
+                eClient.setEnabled(false);
                 ePickupAddress.setEnabled(true);
                 eDeliveryAddress.setEnabled(true);
                 spinnerProducts.setEnabled(true);
                 spinnerRiders.setEnabled(true);
                 btnClient.setEnabled(true);
+                btnCancel.setEnabled(true);
             }
         }
     }
@@ -372,7 +379,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.s_cancel), (dialog, which) -> {
             updateOrderDB("Cancelled", false);
         });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.s_back), (dialog, which) -> alertDialog.dismiss());
         alertDialog.show();
     }
 
@@ -407,12 +414,16 @@ public class TransportDetailActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK
                     && data.getBooleanExtra("checkpointCreated", false)){
                 updateOrderDB("Pending", true);
+                //Restart Activity in order to refresh viewModels
+                finish();
+                startActivity(getIntent());
             }
         }
     }
 
     public void AddCheckpoint()
     {
+        isLoaded = true;
         Intent intent = new Intent(this, CheckpointActivity.class);
         intent.putExtra("orderId", orderId);
         startActivityForResult(intent, 2);
@@ -433,7 +444,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     {
         switch (order.getStatus()){
             case "Pending":
-                updateOrderDB("Loaded", false);
+                managePickup();
                 break;
             case "Loaded":
                 //Prompts a popup to choose the method of unload
@@ -466,13 +477,84 @@ public class TransportDetailActivity extends AppCompatActivity {
                     //TODO: Train station load (specify arrival and new responsible rider)
                     break;
                 case 2: // final destination
-                    updateOrderDB("Delivered", true);
+                    manageDelivery();
+                    //updateOrderDB("Delivered", true);
                     break;
             }
         });
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void managePickup(){
+        isLoaded = false;
+        if(checkpoints == null || checkpoints.size() <= 0){
+            newPickupTimestamp = getCurrentDateTime();
+            Log.d("MANAGEPICKUP", "LOADED---------------------- - - -");
+            updateOrderDB("Loaded", false);
+            newPickupTimestamp = null;
+        }
+        else{
+            //Get the last checkpoint added and add departure timestamp
+            setCheckpointDepartureTimestamp();
+        }
+    }
+    private void manageDelivery(){
+        newDeliveryTimestamp = getCurrentDateTime();
+        updateOrderDB("Delivered", true);
+        newDeliveryTimestamp = null;
+    }
+
+    private void setCheckpointDepartureTimestamp(){
+        isLoaded = false;
+        int lastCheckpointId = adapter.getItemCount() - 1;
+
+        /*if(updatedCheckpoint != null){
+            updatedCheckpoint.setDepartureTimestamp(getCurrentDateTime());
+            checkpointViewModel.updateCheckpoint(updatedCheckpoint, new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+                    Toast.makeText(getApplicationContext(),
+                            "Timestamp Added", Toast.LENGTH_SHORT).show();
+                    Log.d("CHECKPOINTOBSERVER", "HEEEEEEEEEEEEEEEEERE LOADED");
+                    updateOrderDB("Loaded", true);
+                }
+                @Override
+                public void onFailure(Exception e) {
+                    Toast.makeText(getApplicationContext(),
+                            "Update failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }*/
+
+        CheckpointViewModel.Factory factory = new CheckpointViewModel.Factory(
+                getApplication(), orderId,
+                checkpoints.get(lastCheckpointId).getIdCheckpoint());
+        checkpointViewModel = ViewModelProviders.of(this, factory)
+                .get(CheckpointViewModel.class);
+        checkpointViewModel.getCheckpoint().observe(this, checkpointEntity -> {
+            if (checkpointEntity != null) {
+                updatedCheckpoint = checkpointEntity;
+                updatedCheckpoint.setDepartureTimestamp(getCurrentDateTime());
+                checkpointViewModel.updateCheckpoint(updatedCheckpoint, new OnAsyncEventListener() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d("CHECKPOINTOBSERVER", "LOADED");
+                        updateOrderDB("Loaded", true);
+
+                        //Restart Activity in order to refresh viewModels
+                        finish();
+                        startActivity(getIntent());
+                    }
+                    @Override
+                    public void onFailure(Exception e) {
+                        Toast.makeText(getApplicationContext(),
+                                "Update failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     private void saveChanges() {
@@ -515,6 +597,11 @@ public class TransportDetailActivity extends AppCompatActivity {
             });
         }
     }
+    private String getCurrentDateTime(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy / HH:mm");
+        Date date = new Date();
+        return formatter.format(date);
+    }
 
     /**
      * Updates an existing order in the DB. Different behaviour if
@@ -526,6 +613,12 @@ public class TransportDetailActivity extends AppCompatActivity {
         order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
         order.setDateDelivery(eDelivDate.getText().toString());
         order.setTimeDelivery(eDelivTime.getText().toString());
+        if(newPickupTimestamp != null){
+            order.setPickupTimestamp(newPickupTimestamp);
+        }
+        if(newDeliveryTimestamp != null){
+            order.setDeliveryTimestamp(newDeliveryTimestamp);
+        }
         if(idClientSelected != null){
             order.setIdCustomer(idClientSelected);
         }else{

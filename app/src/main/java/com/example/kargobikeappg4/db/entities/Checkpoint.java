@@ -11,16 +11,19 @@ public class Checkpoint implements Comparable{
     private String type;
     private float lat;
     private float lng;
-    private String timeStamp;
+    private String arrivalTimestamp;
+    private String departureTimestamp;
     private String remark;
 
     public Checkpoint() {}
 
-    public Checkpoint(String type, float lat, float lng, String timeStamp, String remark, String idOrder) {
+    public Checkpoint(String type, float lat, float lng, String arrivalTimestamp,
+                      String departureTimestamp, String remark, String idOrder) {
         this.type = type;
         this.lat = lat;
         this.lng = lng;
-        this.timeStamp = timeStamp;
+        this.arrivalTimestamp = arrivalTimestamp;
+        this.departureTimestamp = departureTimestamp;
         this.remark = remark;
         this.idOrder = idOrder;
     }
@@ -66,18 +69,22 @@ public class Checkpoint implements Comparable{
         this.lng = lng;
     }
 
-    public String getTimeStamp() {
-        return timeStamp;
+    public String getArrivalTimestamp() {
+        return arrivalTimestamp;
     }
 
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setArrivalTimestamp(String arrivalTimestamp) {
+        this.arrivalTimestamp = arrivalTimestamp;
     }
-
+    public String getDepartureTimestamp() {
+        return departureTimestamp;
+    }
+    public void setDepartureTimestamp(String departureTimestamp) {
+        this.departureTimestamp = departureTimestamp;
+    }
     public String getRemark() {
         return remark;
     }
-
     public void setRemark(String remark) {
         this.remark = remark;
     }
@@ -92,7 +99,8 @@ public class Checkpoint implements Comparable{
         result.put("type", type);
         result.put("lat", lat);
         result.put("lng", lng);
-        result.put("timeStamp", timeStamp);
+        result.put("arrivalTimestamp", arrivalTimestamp);
+        result.put("departureTimestamp", departureTimestamp);
         result.put("remark", remark);
         result.put("idOrder", idOrder);
         return result;

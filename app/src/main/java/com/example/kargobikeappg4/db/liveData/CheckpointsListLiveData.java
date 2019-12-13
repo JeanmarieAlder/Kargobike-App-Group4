@@ -64,7 +64,7 @@ public class CheckpointsListLiveData extends LiveData<List<Checkpoint>> {
         /*checkpoints.sort(new Comparator<Checkpoint>() {
             @Override
             public int compare(Checkpoint c1, Checkpoint c2) {
-                return c1.getTimeStamp().compareTo(c2.getTimeStamp());
+                return c1.getArrivalTimestamp().compareTo(c2.getArrivalTimestamp());
             }
         });*/
         return checkpoints;

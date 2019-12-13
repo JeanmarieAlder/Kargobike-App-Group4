@@ -2,7 +2,6 @@ package com.example.kargobikeappg4.ui.checkpoint;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -194,7 +193,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         if (checkpoint != null) {
             eLat.setText(Float.toString(checkpoint.getLat()));
             eLng.setText(Float.toString(checkpoint.getLng()));
-            eTimeStamp.setText(checkpoint.getTimeStamp());
+            eTimeStamp.setText(checkpoint.getArrivalTimestamp());
             eRemark.setText(checkpoint.getRemark());
         }
     }
@@ -237,7 +236,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
             checkpoint.setLat(Float.parseFloat(eLat.getText().toString()));
             checkpoint.setLng(Float.parseFloat(eLng.getText().toString()));
             checkpoint.setRemark(eRemark.getText().toString());
-            checkpoint.setTimeStamp(eTimeStamp.getText().toString().trim());
+            checkpoint.setArrivalTimestamp(eTimeStamp.getText().toString().trim());
             checkpoint.setIdOrder(orderId);
 
             viewModel.createCheckpoint(checkpoint, new OnAsyncEventListener() {
@@ -272,7 +271,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         checkpoint.setLat(Float.parseFloat(eLat.getText().toString()));
         checkpoint.setLng(Float.parseFloat(eLng.getText().toString()));
         checkpoint.setRemark(eRemark.getText().toString());
-        checkpoint.setTimeStamp(eTimeStamp.getText().toString());
+        checkpoint.setArrivalTimestamp(eTimeStamp.getText().toString());
         Log.d("RESPID", spinnerTypes.getSelectedItem().toString());
 
         viewModel.updateCheckpoint(checkpoint, new OnAsyncEventListener() {
@@ -335,7 +334,9 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     }
 
     void stopRepeatingTask() {
-        mHandler.removeCallbacks(mStatusChecker);
+        if(mHandler != null){
+            mHandler.removeCallbacks(mStatusChecker);
+        }
     }
 
     void getLocation() {

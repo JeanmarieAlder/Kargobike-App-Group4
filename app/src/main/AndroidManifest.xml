@@ -117,7 +117,7 @@
         </activity>
         <activity
             android:name=".ui.transport.TransportDetailActivity"
-            android:label="Transport Detail"
+            android:label="Order Detail"
             android:launchMode="singleTask"
             android:parentActivityName=".ui.transport.TransportListActivity">
 
