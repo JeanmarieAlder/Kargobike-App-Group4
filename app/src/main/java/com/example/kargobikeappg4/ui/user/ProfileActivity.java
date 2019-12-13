@@ -86,7 +86,7 @@ public class ProfileActivity extends AppCompatActivity{
 
         name.setText(user.getName());
         address.setText(addressUser.getStreet());
-        String cityPC = addressUser.getCity() + " " + addressUser.getPostcode();
+        String cityPC = addressUser.getPostcode() + " " + addressUser.getCity();
         city.setText(cityPC);
         email.setText(mailAddress);
         phone.setText(user.getPhoneNumber());

@@ -65,7 +65,7 @@
         android:id="@+id/profile_tv_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/profile_btn_monthlyReport"
         app:layout_constraintStart_toStartOf="@+id/profile_tv_address"
         app:layout_constraintTop_toTopOf="parent" />
@@ -94,7 +94,7 @@
         android:id="@+id/profile_tv_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/profile_tv_city"
         app:layout_constraintStart_toStartOf="@+id/profile_tv_address_title" />
 
