@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.db.entities.User;
+import com.example.kargobikeappg4.db.repository.UserRepository;
 import com.example.kargobikeappg4.viewmodel.user.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +26,9 @@ public class ProfileActivity extends AppCompatActivity{
     private TextView email;
     private TextView phone;
     private String mailAddress;
+    private Boolean currentUser;
+    private Intent currentIntent;
+    private UserRepository uRep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +39,22 @@ public class ProfileActivity extends AppCompatActivity{
 
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
         mailAddress = fbUser.getEmail();
+        currentUser = currentIntent.getBooleanExtra("user", true);
+
 
         //Create viewmodel
         UserViewModel.Factory factory = new UserViewModel.Factory(
                 getApplication(), fbUser.getUid());
+
+        if(!currentUser) {
+            UserRepository uRep = new UserRepository();
+            factory = new UserViewModel.Factory(
+                    getApplication(), currentIntent.getStringExtra("userId"));
+
+           
+
+        }
+
         userViewmodel = ViewModelProviders.of(this, factory)
                 .get(UserViewModel.class);
         userViewmodel.getUser().observe(this, userEntitie ->{
@@ -60,6 +76,9 @@ public class ProfileActivity extends AppCompatActivity{
         group = findViewById(R.id.groupProfileInfos);
         group.setVisibility(View.INVISIBLE);
         loading = findViewById(R.id.profile_loading);
+
+
+        currentIntent = getIntent();
     }
 
     private void UpdateContent()

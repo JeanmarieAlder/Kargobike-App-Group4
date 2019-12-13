@@ -12,13 +12,11 @@ import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.ui.product.ProductListActivity;
 import com.example.kargobikeappg4.ui.transport.TransportListActivity;
 import com.example.kargobikeappg4.ui.user.ProfileActivity;
-import com.example.kargobikeappg4.ui.user.RiderListActivity;
-import com.google.android.gms.auth.api.Auth;
+import com.example.kargobikeappg4.ui.user.UserListActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -85,7 +83,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void Welcome_button_userList(View view)
     {
-        Intent intent = new Intent(this, RiderListActivity.class);
+        Intent intent = new Intent(this, UserListActivity.class);
         startActivity(intent);
     }
 }

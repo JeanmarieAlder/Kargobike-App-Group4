@@ -17,6 +17,7 @@ import com.example.kargobikeappg4.db.entities.Customer;
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Product;
 import com.example.kargobikeappg4.db.entities.Rider;
+import com.example.kargobikeappg4.db.entities.User;
 import com.example.kargobikeappg4.db.repository.ZoneRepository;
 import com.example.kargobikeappg4.util.RecyclerViewItemClickListener;
 
@@ -81,14 +82,14 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvThirdRow.setText(((Order) item).getTimeDelivery());
             holder.tvRightSide.setText(((Order) item).getStatus());
         }
-        if(item.getClass().equals((Rider.class))) {
+        if(item.getClass().equals((User.class))) {
 
-            holder.tvFirstHeader.setText(R.string.s_rider_points);
-            holder.tvFirstRow.setText(((Rider) item).getIdUser());
-            holder.tvSecondHeader.setText(R.string.s_location_points);
-            holder.tvSecondRow.setText(((Rider) item).getLocation());
-            holder.tvThirdHeader.setText(R.string.s_zone_points);
-            holder.tvThirdRow.setText(((Rider) item).getIdZone());
+            holder.tvFirstHeader.setText(R.string.s_user_name);
+            holder.tvFirstRow.setText(((User) item).getName());
+            holder.tvSecondHeader.setText(R.string.s_user_email);
+            holder.tvSecondRow.setText(((User) item).getEmail());
+            holder.tvThirdHeader.setText(R.string.s_user_phone);
+            holder.tvThirdRow.setText(((User) item).getPhoneNumber());
             holder.tvRightSide.setText("");
         }
 
@@ -123,6 +124,8 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvThirdRow.setVisibility(View.GONE);
             holder.tvRightSide.setVisibility(View.GONE);
         }
+
+
 
     }
 
