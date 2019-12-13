@@ -14,7 +14,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -55,9 +54,10 @@ public class TransportDetailActivity extends AppCompatActivity {
     private Intent currIntent;
 
     private Button btnSave;
-    private Button btnDelete;
+    private Button btnCancel;
     private Button btnChangeStatus;
     private Button btnCheckpoint;
+    private Button btnClient;
 
     private EditText eQuantity;
     private EditText eDelivDate;
@@ -78,6 +78,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     private List<Checkpoint> checkpoints;
     private CheckpointListViewModel listViewModel;
     private RecyclerView rView;
+    private int checkpointsCount;
 
     private String clientSelected;
     private String idClientSelected;
@@ -210,6 +211,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                     adapter.setData(checkpoints);
                 }
             });
+
             rView.setAdapter(adapter);
         }
 
@@ -278,9 +280,10 @@ public class TransportDetailActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.td_input_status);
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
         btnSave = findViewById(R.id.button_save);
-        btnDelete = findViewById(R.id.button_delete);
+        btnCancel = findViewById(R.id.td_button_cancel);
         btnChangeStatus = findViewById(R.id.button_change_status);
         btnCheckpoint = findViewById(R.id.button_checkpoints);
+        btnClient = findViewById(R.id.button_ClientList);
         btnSave.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -315,14 +318,17 @@ public class TransportDetailActivity extends AppCompatActivity {
             eDeliveryAddress.setText(order.getIdDeliveryCheckpoint());
 
             //set status and button accordingly
-            if(order.getStatus().equals("1")){
-                tvStatus.setText(R.string.s_loaded);
+            tvStatus.setText(order.getStatus());
+            if(order.getStatus().equals("Loaded")){
                 btnChangeStatus.setText("Unload");
                 isLoaded = true;
-            }else if(order.getStatus().equals("0")){
-                tvStatus.setText(R.string.s_pending);
+            }else if(order.getStatus().equals("Pending")){
                 btnChangeStatus.setText("Load");
                 isLoaded = false;
+            }else if(order.getStatus().equals("Delivered")){
+                btnChangeStatus.setVisibility(View.GONE);
+            }else if(order.getStatus().equals("Cancelled")){
+                btnChangeStatus.setVisibility(View.GONE);
             }
 
             if(order.getIdProduct() != null){
@@ -330,30 +336,41 @@ public class TransportDetailActivity extends AppCompatActivity {
                 int spinnerPosition = adapterProductsList.getPosition(order.getIdProduct());
                 spinnerProducts.setSelection(spinnerPosition);
             }
+
+            //If the order is cancelled or loaded, settings cannot change
+            if(order.getStatus().equals("Cancelled") || order.getStatus().equals("Loaded")
+            || order.getStatus().equals("Delivered")){
+                eQuantity.setEnabled(false);
+                eDelivDate.setEnabled(false);
+                eDelivTime.setEnabled(false);
+                eClient.setEnabled(false);
+                ePickupAddress.setEnabled(false);
+                eDeliveryAddress.setEnabled(false);
+                spinnerProducts.setEnabled(false);
+                spinnerRiders.setEnabled(false);
+                btnClient.setEnabled(false);
+            }
+            else{
+                eQuantity.setEnabled(true);
+                eDelivDate.setEnabled(true);
+                eDelivTime.setEnabled(true);
+                eClient.setEnabled(true);
+                ePickupAddress.setEnabled(true);
+                eDeliveryAddress.setEnabled(true);
+                spinnerProducts.setEnabled(true);
+                spinnerRiders.setEnabled(true);
+                btnClient.setEnabled(true);
+            }
         }
     }
 
-    public void Transport_button_delete(View view) {
+    public void Transport_button_cancel(View view) {
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle(getString(R.string.delete));
+        alertDialog.setTitle(getString(R.string.s_cancel));
         alertDialog.setCancelable(true);
-        alertDialog.setMessage("Delete an order");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.delete), (dialog, which) -> {
-            viewModel.deleteOrder(order, new OnAsyncEventListener() {
-                @Override
-                public void onSuccess() {
-                    Log.d(TAG, "Delete order: success");
-                    goToTripsActivity();
-                }
-
-                private void goToTripsActivity() {
-                    Intent intent = new Intent(TransportDetailActivity.this, TransportListActivity.class);
-                    startActivity(intent);
-                }
-
-                @Override
-                public void onFailure(Exception e) {}
-            });
+        alertDialog.setMessage("Cancel the order?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.s_cancel), (dialog, which) -> {
+            updateOrderDB("Cancelled", false);
         });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
         alertDialog.show();
@@ -361,10 +378,9 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     public void Transport_button_clientList(View view)
     {
-        //updateOrderDB(false, false);
         if(editMode){
 
-            updateOrderDB(false, true);
+            updateOrderDB(null, true);
         }
         Intent intent = new Intent(TransportDetailActivity.this, ClientListActivity.class);
         startActivityForResult(intent, 1);
@@ -374,9 +390,9 @@ public class TransportDetailActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("OLOLOLOLOL", "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + requestCode + " " + resultCode);
+        Log.d("OLOLOLOLOL", "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + requestCode + " " + resultCode);
         if(requestCode == 1){
-            Log.d("OLOLOLOLOL", "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + (resultCode == RESULT_OK));
+            Log.d("OLOLOLOLOL", "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + (resultCode == RESULT_OK));
             if(resultCode == RESULT_OK){
                 clientSelected = data.getStringExtra("clientSelected");
                 idClientSelected = data.getStringExtra("idClientSelected");
@@ -386,18 +402,25 @@ public class TransportDetailActivity extends AppCompatActivity {
                 }
             }
         }
+        if(requestCode == 2){
+            Log.d("OLOLOLOLOL", "OOOOOOOOOOOOOOOOOOOOOO " + (resultCode == RESULT_OK));
+            if(resultCode == RESULT_OK
+                    && data.getBooleanExtra("checkpointCreated", false)){
+                updateOrderDB("Pending", true);
+            }
+        }
+    }
+
+    public void AddCheckpoint()
+    {
+        Intent intent = new Intent(this, CheckpointActivity.class);
+        intent.putExtra("orderId", orderId);
+        startActivityForResult(intent, 2);
     }
 
     public void Transport_button_photoScreen(View view)
     {
         Intent intent = new Intent(this, PhotoScreenActivity.class);
-        startActivity(intent);
-    }
-
-    public void Transport_button_checkpoints(View view)
-    {
-        Intent intent = new Intent(this, CheckpointActivity.class);
-        intent.putExtra("orderId", orderId);
         startActivity(intent);
     }
 
@@ -408,13 +431,54 @@ public class TransportDetailActivity extends AppCompatActivity {
     }
     public void ButtonChangeStatus(View view)
     {
-        updateOrderDB(true, false);
+        switch (order.getStatus()){
+            case "Pending":
+                updateOrderDB("Loaded", false);
+                break;
+            case "Loaded":
+                //Prompts a popup to choose the method of unload
+                showAlertDialogButtonClicked();
+                break;
+            default :
+                Log.d("Button change status", order.getStatus());
+                break;
+        }
+    }
+
+    public void showAlertDialogButtonClicked() {
+
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.s_status_unload_popup);
+
+        // add a list
+        String[] menuOptions = {
+                getResources().getString(R.string.s_status_unload_checkpoint),
+                getResources().getString(R.string.s_status_unload_trainstation),
+                getResources().getString(R.string.s_status_unload_destination)
+        };
+        builder.setItems(menuOptions, (dialog, which) -> {
+            switch (which) {
+                case 0: // checkpoint
+                    AddCheckpoint();
+                    break;
+                case 1: // train station
+                    //TODO: Train station load (specify arrival and new responsible rider)
+                    break;
+                case 2: // final destination
+                    updateOrderDB("Delivered", true);
+                    break;
+            }
+        });
+        // create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void saveChanges() {
 
         if(editMode){
-            updateOrderDB(false, false);
+            updateOrderDB(null, false);
         }else{
 
             Order order = new Order();
@@ -431,7 +495,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
             order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
             order.setIdResponsibleRider(spinnerRiders.getSelectedItem().toString());
-            order.setStatus("0");
+            order.setStatus("Pending");
 
             viewModel.createOrder(order, new OnAsyncEventListener() {
                 @Override
@@ -455,9 +519,9 @@ public class TransportDetailActivity extends AppCompatActivity {
     /**
      * Updates an existing order in the DB. Different behaviour if
      * the user only changes the status.
-     * @param isChangingStatus true if only status is changing
+     * @param newStatus the new status to update to database
      */
-    private void updateOrderDB(boolean isChangingStatus, boolean isQuickSave){
+    private void updateOrderDB(String newStatus, boolean isQuickSave){
         order.setIdProduct(spinnerProducts.getSelectedItem().toString());
         order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
         order.setDateDelivery(eDelivDate.getText().toString());
@@ -472,13 +536,9 @@ public class TransportDetailActivity extends AppCompatActivity {
         order.setIdResponsibleRider(spinnerRiders.getSelectedItem().toString());
         Log.d("RESPID", spinnerRiders.getSelectedItem().toString());
 
-        //Changes status if needed (1 = loaded, 0 = unloaded)
-        if(isChangingStatus){
-            if(order.getStatus().equals("1")){
-                order.setStatus("0");
-            }else if(order.getStatus().equals("0")){
-                order.setStatus("1");
-            }
+        //Changes status if a new status has been provided
+        if(newStatus != null){
+            order.setStatus(newStatus);
         }
 
         viewModel.updateOrder(order, new OnAsyncEventListener() {
@@ -486,7 +546,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             public void onSuccess() {
                 Toast.makeText(getApplicationContext(),
                         "Update succesful", Toast.LENGTH_LONG).show();
-                if(!isChangingStatus && !isQuickSave){
+                if((newStatus == null) && !isQuickSave){
                     onBackPressed(); //finally, go back to previous screen
                 }else{
                     updateContent(); //If only status has changed, stay on page and update content

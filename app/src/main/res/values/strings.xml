@@ -53,6 +53,7 @@
     <string name="s_changeStatus">Change Status</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="s_cancel">Cancel</string>
     <string name="s_location">Location</string>
     <string name="s_zone">Zone</string>
     <string name="action_cancel">Cancel</string>
@@ -89,4 +90,9 @@
 
     <string name="s_title">Title</string>
     <string name="s_company">Company</string>
+
+    <string name="s_status_unload_popup">Where did you unload the package?</string>
+    <string name="s_status_unload_checkpoint">Checkpoint</string>
+    <string name="s_status_unload_trainstation">Train Station</string>
+    <string name="s_status_unload_destination">Final Destination</string>
 </resources>

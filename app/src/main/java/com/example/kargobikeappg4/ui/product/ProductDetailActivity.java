@@ -104,7 +104,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         eDuration = findViewById(R.id.td_input_duration);
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
         btnSave = findViewById(R.id.button_save);
-        btnDelete = findViewById(R.id.button_delete);
+        btnDelete = findViewById(R.id.td_button_cancel);
         btnSave.setOnClickListener(new View.OnClickListener(){
 
             @Override

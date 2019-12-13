@@ -79,11 +79,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvSecondRow.setText(((Order) item).getDateDelivery());
             holder.tvThirdHeader.setText(R.string.s_time_points);
             holder.tvThirdRow.setText(((Order) item).getTimeDelivery());
-            if(((Order) item).getStatus().equals("1")){
-                holder.tvRightSide.setText(R.string.s_loaded);
-            }else{
-                holder.tvRightSide.setText(R.string.s_pending);
-            }
+            holder.tvRightSide.setText(((Order) item).getStatus());
         }
         if(item.getClass().equals((Rider.class))) {
 

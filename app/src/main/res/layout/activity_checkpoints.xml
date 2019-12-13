@@ -95,7 +95,7 @@
                     android:text="@string/save" />
 
                 <Button
-                    android:id="@+id/button_delete"
+                    android:id="@+id/td_button_cancel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="Checkpoint_button_delete"

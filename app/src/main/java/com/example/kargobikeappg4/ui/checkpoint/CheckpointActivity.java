@@ -244,7 +244,10 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
                 @Override
                 public void onSuccess() {
                     Toast.makeText(getApplicationContext(), "Creation succesful", Toast.LENGTH_LONG).show();
-                    onBackPressed(); //finally, go back to previous screen
+                    Intent intent = new Intent();
+                    intent.putExtra("checkpointCreated", true);
+                    setResult(RESULT_OK, intent);
+                    onBackPressed();
                 }
 
                 @Override
