@@ -25,9 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransportListActivity extends AppCompatActivity {
-    //RecyclerView recyclerView;
-    //TransportListAdapter adapter;
-    //ArrayList<String> items;
 
     private RecyclerAdapter<Order> adapter;
     private List<Order> orders;
@@ -75,7 +72,7 @@ public class TransportListActivity extends AppCompatActivity {
                     Intent.FLAG_ACTIVITY_NO_ANIMATION |
                             Intent.FLAG_ACTIVITY_NO_HISTORY
             );*/
-            intent.putExtra("orderId", orders.get(position).getIdOrder());
+            intent.putExtra("orderId", filteredorders.get(position).getIdOrder());
             intent.putExtra("isEdit", true);
             startActivity(intent);
         });
