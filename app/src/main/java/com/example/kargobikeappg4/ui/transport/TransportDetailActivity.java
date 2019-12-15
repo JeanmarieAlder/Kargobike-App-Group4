@@ -28,6 +28,7 @@ import com.example.kargobikeappg4.db.entities.Checkpoint;
 import com.example.kargobikeappg4.db.entities.Customer;
 import com.example.kargobikeappg4.db.entities.Order;
 import com.example.kargobikeappg4.db.entities.Product;
+import com.example.kargobikeappg4.db.entities.User;
 import com.example.kargobikeappg4.ui.checkpoint.CheckpointActivity;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.example.kargobikeappg4.viewmodel.checkpoint.CheckpointListViewModel;
@@ -35,6 +36,7 @@ import com.example.kargobikeappg4.viewmodel.checkpoint.CheckpointViewModel;
 import com.example.kargobikeappg4.viewmodel.customer.CustomerViewModel;
 import com.example.kargobikeappg4.viewmodel.order.OrderViewModel;
 import com.example.kargobikeappg4.viewmodel.product.ProductListViewModel;
+import com.example.kargobikeappg4.viewmodel.user.UserListViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -54,6 +56,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     private Order order;
     private OrderViewModel viewModel;
     private ProductListViewModel viewModelProducts;
+    private UserListViewModel viewModelUsers;
     private Intent currIntent;
 
     private Button btnSave;
@@ -155,14 +158,32 @@ public class TransportDetailActivity extends AppCompatActivity {
         };
 
         //Fill the Rider list
-        ArrayList<String> riderNames = new ArrayList<String>();
+        /*ArrayList<String> riderNames = new ArrayList<String>();
         riderNames.add("Agron Asani");
         riderNames.add("David Felley");
         riderNames.add("Damian Wasmer");
         riderNames.add("Jean-Marie Alder");
-        riderNames.add("Yannick Mermod");
+        riderNames.add("Yannick Mermod");*/
 
-        updateAdapterRiderList(riderNames);
+        //Receive all names of the users from DB
+        UserListViewModel.Factory factory3 = new UserListViewModel.Factory(
+                getApplication());
+        viewModelUsers = ViewModelProviders.of(this, factory3)
+                .get(UserListViewModel.class);
+
+        viewModelUsers.getAllUsers().observe(this, users -> {
+            if (users != null) {
+
+                Log.d(TAG,"products Not null");
+                //Array productNames
+                ArrayList<String> userNames = new ArrayList<>();
+                for (User u : users) {
+                    userNames.add(u.getName());
+                }
+                updateAdapterRiderList(userNames);
+            }
+        });
+
 
         //Receive all product names from DB
         ProductListViewModel.Factory factory2 = new ProductListViewModel.Factory(

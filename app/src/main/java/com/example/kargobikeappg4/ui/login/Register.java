@@ -38,47 +38,55 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.List;
 
 public class Register extends AppCompatActivity {
-    EditText emailId, password, name;
-    private String userId;
-    Button btnSignUp;
-    FirebaseAuth mFirebaseAuth;
-    private UserViewModel viewModel;
+    private EditText email;
+    private EditText password;
+    private EditText name;
+    private Button btnSignUp;
 
-    private RecyclerAdapter<User> adapter;
-    private List<User> users;
-    private UserListViewModel listViewModel;
-    private RecyclerView rView;
+    private FirebaseAuth mFirebaseAuth;
+    private UserViewModel viewModel;
+    private FirebaseUser fUser;
+
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        emailId = findViewById(R.id.edit_registerMail);
-        password = findViewById(R.id.edit_registerPassword);
-        name = findViewById(R.id.edit_registerName);
-        btnSignUp = findViewById(R.id.btn_newUser);
+        //initialize Buttons, FirebaseAuth, Text
+        initialize();
 
+        //initialize viewModel
         UserViewModel.Factory factory = new UserViewModel.Factory(
-                getApplication(), userId);
+                getApplication(), fUser.getUid());
         viewModel = ViewModelProviders.of(this, factory)
                 .get(UserViewModel.class);
 
+        //Listener
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                register();
+
+                //check if email, name or password is missing
+                if(email.getText().toString().equals("")||password.getText().toString().equals("")||name.getText().toString().equals("")){
+                    Toast.makeText(Register.this, "Not completed", Toast.LENGTH_SHORT).show();
+                }else{
+                    progressBar.setVisibility(View.VISIBLE);
+                    register();
+                }
+
 
             }
         });
 
     }
 
+    //register the user in the Firebase authentification
     public void register(){
-        String email = emailId.getText().toString().trim();
-        String pwd = password.getText().toString().trim();
-        String nameUser = name.getText().toString().trim();
+        String uEmail = email.getText().toString().trim();
+        String uPwd = password.getText().toString().trim();
+        String uNameUser = name.getText().toString().trim();
 
         String language = "EN";
         String workingsince = "01/02/2019";
@@ -86,9 +94,10 @@ public class Register extends AppCompatActivity {
         String idFunction = "1";
         String idAddress = "1";
 
+        //Create user object
         User user = new User();
-        user.setName(nameUser);
-        user.setEmail(email);
+        user.setName(uNameUser);
+        user.setEmail(uEmail);
         user.setLanguage(language);
         user.setWorkingsince(workingsince);
         user.setPhoneNumber(phoneNumber);
@@ -96,43 +105,40 @@ public class Register extends AppCompatActivity {
         user.setIdAddress(idAddress);
 
 
-        Log.d("Register", "Here A");
-        mFirebaseAuth.createUserWithEmailAndPassword(email, pwd)
+        mFirebaseAuth.createUserWithEmailAndPassword(uEmail, uPwd)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d("Register", "Here B");
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "createUserWithEmail:success");
                             FirebaseUser userF = mFirebaseAuth.getCurrentUser();
                             String idUser = userF.getUid();
-
                             createUser(user, idUser);
+                            progressBar.setVisibility(View.INVISIBLE);
                             startActivity(new Intent(Register.this, LoginActivity.class));
 
                         } else {
 
                             // If sign in fails, display a message to the user.
-                            Log.d("TAG", "createUserWithEmail:failure", task.getException());
+                            progressBar.setVisibility(View.INVISIBLE);
+
                             Toast.makeText(Register.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
 
                         }
 
-                        // ...
                     }
                 });
 
-
-
     }
 
+    //save the user in the firebase user database
     public void createUser(User user, String id){
         viewModel.createUser(user, new OnAsyncEventListener() {
             @Override
             public void onSuccess() {
-                Log.d("Register", "Here C");
                 Toast.makeText(getApplicationContext(), "Creation succesful", Toast.LENGTH_LONG).show();
                 onBackPressed(); //finally, go back to previous screen
             }
@@ -145,6 +151,19 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Creation failed", Toast.LENGTH_LONG).show();
                 }
             }
-        },id );
+        }
+        ,id
+        );
+    }
+
+    protected void initialize(){
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        email = findViewById(R.id.edit_registerMail);
+        password = findViewById(R.id.edit_registerPassword);
+        name = findViewById(R.id.edit_registerName);
+        btnSignUp = findViewById(R.id.btn_newUser);
+        progressBar = findViewById(R.id.progressBar);
+        fUser = mFirebaseAuth.getCurrentUser();
+
     }
 }

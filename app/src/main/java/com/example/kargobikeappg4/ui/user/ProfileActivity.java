@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.kargobikeappg4.R;
+import com.example.kargobikeappg4.db.entities.Address;
 import com.example.kargobikeappg4.db.entities.User;
 import com.example.kargobikeappg4.db.repository.UserRepository;
+import com.example.kargobikeappg4.viewmodel.address.AddressViewModel;
 import com.example.kargobikeappg4.viewmodel.user.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,12 +22,15 @@ public class ProfileActivity extends AppCompatActivity{
     private View group;
     private View loading;
     private UserViewModel userViewmodel;
+    private String userId;
     private User user;
+    private AddressViewModel addressViewModel;
+    private Address userAddress;
     private TextView name;
     private TextView address;
+    private TextView city;
     private TextView email;
     private TextView phone;
-    private String mailAddress;
     private Boolean currentUser;
     private Intent currentIntent;
     private UserRepository uRep;
@@ -38,38 +43,45 @@ public class ProfileActivity extends AppCompatActivity{
         Initialize();
 
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
-        mailAddress = fbUser.getEmail();
         currentUser = currentIntent.getBooleanExtra("user", true);
 
+        if(!currentUser)
+            userId = currentIntent.getStringExtra("userId");
+        else
+            userId = fbUser.getUid();
 
-        //Create viewmodel
-        UserViewModel.Factory factory = new UserViewModel.Factory(
-                getApplication(), fbUser.getUid());
-
-        if(!currentUser) {
-            UserRepository uRep = new UserRepository();
-            factory = new UserViewModel.Factory(
-                    getApplication(), currentIntent.getStringExtra("userId"));
-
-           
-
-        }
-
-        userViewmodel = ViewModelProviders.of(this, factory)
+        //Create viewmodel for user
+        UserViewModel.Factory userFactory = new UserViewModel.Factory(
+                getApplication(), userId);
+        userViewmodel = ViewModelProviders.of(this, userFactory)
                 .get(UserViewModel.class);
-        userViewmodel.getUser().observe(this, userEntitie ->{
-            if(userEntitie != null)
+        userViewmodel.getUser().observe(this, userEntity ->{
+            if(userEntity != null)
             {
-                user = userEntitie;
-                UpdateContent();
+                user = userEntity;
+                //Create viewmodel for address
+                AddressViewModel.Factory addressFactory = new AddressViewModel.Factory(
+                        getApplication(), user.getIdAddress());
+                addressViewModel = ViewModelProviders.of(this, addressFactory)
+                        .get(AddressViewModel.class);
+                addressViewModel.getAddress().observe(this, addressEntity ->{
+                    if(addressEntity != null)
+                    {
+                        userAddress = addressEntity;
+                        UpdateContent();
+                    }
+                });
             }
         });
+
+
     }
 
     private void Initialize(){
 
         name = findViewById(R.id.profile_tv_name);
         address  = findViewById(R.id.profile_tv_address);
+        city  = findViewById(R.id.profile_tv_city);
         email = findViewById(R.id.profile_tv_mailAddress);
         phone = findViewById(R.id.profile_tv_phone);
 
@@ -86,8 +98,10 @@ public class ProfileActivity extends AppCompatActivity{
         loading.setVisibility(View.INVISIBLE);
 
         name.setText(user.getName());
-        address.setText(user.getIdAddress());
-        email.setText(mailAddress);
+        address.setText(userAddress.getStreet());
+        String pcCity = userAddress.getPostcode() + " " + userAddress.getCity();
+        city.setText(pcCity);
+        email.setText(user.getEmail());
         phone.setText(user.getPhoneNumber());
 
         group.setVisibility(View.VISIBLE);
