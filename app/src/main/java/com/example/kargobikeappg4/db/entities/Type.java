@@ -7,15 +7,13 @@ public class Type implements Comparable{
 
     private String idType;
     private String name;
-    private String description;
 
     public Type() {
     }
 
-    public Type(String idType, String name, String description) {
+    public Type(String idType, String name) {
         this.idType = idType;
         this.name = name;
-        this.description = description;
     }
 
     public String getIdType() {
@@ -34,14 +32,6 @@ public class Type implements Comparable{
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @Override
     public int compareTo(Object o) {
         return 0;
@@ -50,7 +40,6 @@ public class Type implements Comparable{
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
-        result.put("description", description);
         return result;
     }
 

@@ -55,8 +55,12 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
         //Add click listener, opens details of the selected act
         adapter = new RecyclerAdapter<>((v, position) -> {
             Intent intent = new Intent();
-            intent.putExtra("clientSelected", customersFiltered.get(position).getBillingName());
-            intent.putExtra("idClientSelected", customersFiltered.get(position).getIdCustomer());
+            intent.putExtra("clientSelected",
+                    customersFiltered.get(position).getBillingName());
+            intent.putExtra("idClientSelected",
+                    customersFiltered.get(position).getIdCustomer());
+            intent.putExtra("addressClientSelected",
+                    customersFiltered.get(position).getIdAddress());
             setResult(RESULT_OK, intent);
             super.onBackPressed();
         });

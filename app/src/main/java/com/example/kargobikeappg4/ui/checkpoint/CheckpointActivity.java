@@ -11,17 +11,21 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.kargobikeappg4.R;
 import com.example.kargobikeappg4.adapter.ListAdapter;
 import com.example.kargobikeappg4.db.entities.Checkpoint;
+import com.example.kargobikeappg4.db.entities.Type;
 import com.example.kargobikeappg4.ui.transport.TransportListActivity;
 import com.example.kargobikeappg4.util.OnAsyncEventListener;
 import com.example.kargobikeappg4.viewmodel.checkpoint.CheckpointViewModel;
+import com.example.kargobikeappg4.viewmodel.type.TypeListViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -60,13 +64,18 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     private DatabaseReference reff;
     private Spinner spinnerTypes;
     private ListAdapter adapterTypesList;
+    private TypeListViewModel typesViewModel;
+    private List<Type> types;
+
+    private ProgressBar loadingLatSpinner;
+    private ProgressBar loadingLngSpinner;
 
     //GPS
     LocationManager locationManager;
     String locationText = "";
     String locationLatitude = "";
     String locationLongitude = "";
-    private int mInterval = 3000; // 3 seconds by default, can be changed later
+    private int mInterval = 2000; // 3 seconds by default, can be changed later
     private Handler mHandler;
 
     @Override
@@ -105,13 +114,12 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         // Showing Alert Dialog
         alertDialog2.show();
         */
+        initTypeListViewModel();
 
         Handler handler2 = new Handler();
-        handler2.postDelayed(new Runnable() {
-            public void run() {
-                mHandler = new Handler();
-                startRepeatingTask();
-            }
+        handler2.postDelayed(() -> {
+            mHandler = new Handler();
+            startRepeatingTask();
         }, 5000);   //5 seconds
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -120,19 +128,13 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
 
         }
 
-        orderId = getIntent().getExtras().get("orderId").toString();
+        orderId = getIntent().getStringExtra("orderId");
 
         //Spinner for Products
-        spinnerTypes = (Spinner) findViewById(R.id.spinnerTypes);
+        spinnerTypes = findViewById(R.id.spinnerTypes);
         adapterTypesList = new ListAdapter<>(CheckpointActivity.this, R.layout.rowlist, new ArrayList<>());
         spinnerTypes.setAdapter(adapterTypesList);
 
-        //Fill the Rider list
-        ArrayList<String> types = new ArrayList<String>();
-        types.add("Train station");
-        types.add("load");
-
-        updateAdapterTypesList(types);
 
         //Create viewmodel
         CheckpointViewModel.Factory factory = new CheckpointViewModel.Factory(
@@ -148,6 +150,26 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
                 }
             });
         }
+    }
+    private void initTypeListViewModel(){
+        TypeListViewModel.Factory factoryTypes = new TypeListViewModel.Factory(
+                getApplication());
+        typesViewModel = ViewModelProviders.of(this, factoryTypes)
+                .get(TypeListViewModel.class);
+
+        typesViewModel.getAllTypes().observe(this, typeList -> {
+            if (typeList != null) {
+                types = typeList;
+
+                Log.d(TAG,"Types Not null");
+                //Array productNames
+                ArrayList<String> typeNames = new ArrayList<>();
+                for (Type t : typeList) {
+                    typeNames.add(t.getName());
+                }
+                updateAdapterTypesList(typeNames);
+            }
+        });
     }
 
     private String getCurrentDateTime(){
@@ -166,12 +188,16 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     private void initialize() {
         spinnerTypes = findViewById(R.id.spinnerTypes);
         eLat = findViewById(R.id.td_input_lat);
+        eLat.setEnabled(false);
         eLng = findViewById(R.id.td_input_lng);
+        eLng.setEnabled(false);
         eTimeStamp = findViewById(R.id.td_input_timeStamp);
         eTimeStamp.setText(getCurrentDateTime());
         eRemark = findViewById(R.id.td_input_remark);
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
         btnSave = findViewById(R.id.button_save);
+        loadingLatSpinner = findViewById(R.id.c_pb_loading_lat);
+        loadingLngSpinner = findViewById(R.id.c_pb_loading_lng);
         btnSave.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -185,7 +211,9 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         editMode = getIntent().getBooleanExtra("isEdit", false);
 
         if(editMode){
-            checkpointId = getIntent().getExtras().get("checkpointId").toString();
+            checkpointId = getIntent().getStringExtra("checkpointId");
+            loadingLatSpinner.setVisibility(View.GONE);
+            loadingLngSpinner.setVisibility(View.GONE);
         }
     }
 
@@ -195,6 +223,9 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
             eLng.setText(Float.toString(checkpoint.getLng()));
             eTimeStamp.setText(checkpoint.getArrivalTimestamp());
             eRemark.setText(checkpoint.getRemark());
+
+            int spinnerPosition = adapterTypesList.getPosition(checkpoint.getType());
+            spinnerTypes.setSelection(spinnerPosition);
         }
     }
 
@@ -310,15 +341,19 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
             try {
                 getLocation(); //this function can change value of mInterval.
 
-                if (locationText.toString() == "") {
+                if (locationText.equals("")) {
                     Toast.makeText(getApplicationContext(), "Trying to retrieve coordinates.", Toast.LENGTH_LONG).show();
                 }
                 else {
                     if(eLat.getText().toString().isEmpty()){
-                        eLat.setText(locationLatitude.toString());
+                        eLat.setText(locationLatitude);
+                        loadingLatSpinner.setVisibility(View.GONE);
+
+
                     }
                     if(eLng.getText().toString().isEmpty()){
-                        eLng.setText(locationLongitude.toString());
+                        eLng.setText(locationLongitude);
+                        loadingLngSpinner.setVisibility(View.GONE);
                     }
 
                 }

@@ -59,7 +59,6 @@ public class TransportDetailActivity extends AppCompatActivity {
     private Button btnSave;
     private Button btnCancel;
     private Button btnChangeStatus;
-    private Button btnCheckpoint;
     private Button btnClient;
 
     private EditText eQuantity;
@@ -90,6 +89,7 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     private String clientSelected;
     private String idClientSelected;
+    private String addressClientSelected;
     private CustomerViewModel customerViewModel;
     private Customer customer;
 
@@ -288,7 +288,6 @@ public class TransportDetailActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.button_save);
         btnCancel = findViewById(R.id.td_button_cancel);
         btnChangeStatus = findViewById(R.id.button_change_status);
-        btnCheckpoint = findViewById(R.id.button_checkpoints);
         btnClient = findViewById(R.id.button_ClientList);
         btnSave.setOnClickListener(new View.OnClickListener(){
 
@@ -326,14 +325,17 @@ public class TransportDetailActivity extends AppCompatActivity {
 
             //set status and button accordingly
             tvStatus.setText(order.getStatus());
-            if(order.getStatus().equals("Loaded")){
-                btnChangeStatus.setText("Unload");
-            }else if(order.getStatus().equals("Pending")){
-                btnChangeStatus.setText("Load");
-            }else if(order.getStatus().equals("Delivered")){
-                btnChangeStatus.setVisibility(View.GONE);
-            }else if(order.getStatus().equals("Cancelled")){
-                btnChangeStatus.setVisibility(View.GONE);
+            switch (order.getStatus()) {
+                case "Loaded":
+                    btnChangeStatus.setText("Unload");
+                    break;
+                case "Pending":
+                    btnChangeStatus.setText("Load");
+                    break;
+                case "Delivered":
+                case "Cancelled":
+                    btnChangeStatus.setVisibility(View.GONE);
+                    break;
             }
 
             if(order.getIdProduct() != null){
@@ -403,9 +405,18 @@ public class TransportDetailActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 clientSelected = data.getStringExtra("clientSelected");
                 idClientSelected = data.getStringExtra("idClientSelected");
+                addressClientSelected = data.getStringExtra("addressClientSelected");
                 Log.d("ONACTIVITYRESULT", data.getStringExtra("clientSelected"));
                 if(!editMode){
                     eClient.setText(data.getStringExtra("clientSelected"));
+                }
+
+                //set Addresses if not filled only
+                if(ePickupAddress.getText().length() <= 0){
+                    ePickupAddress.setText(addressClientSelected);
+                }
+                if(eDeliveryAddress.getText().length() <= 0){
+                    eDeliveryAddress.setText(addressClientSelected);
                 }
             }
         }

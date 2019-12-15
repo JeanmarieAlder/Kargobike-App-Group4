@@ -10,6 +10,7 @@ import com.example.kargobikeappg4.db.repository.OrderRepository;
 import com.example.kargobikeappg4.db.repository.ProductRepository;
 import com.example.kargobikeappg4.db.repository.RiderRepository;
 import com.example.kargobikeappg4.db.repository.TransportRepository;
+import com.example.kargobikeappg4.db.repository.TypeRepository;
 import com.example.kargobikeappg4.db.repository.UserRepository;
 import com.example.kargobikeappg4.db.repository.ZoneRepository;
 import com.google.firebase.FirebaseApp;
@@ -70,4 +71,5 @@ public class BaseApp extends Application {
     public AddressRepository getAddressRepository() {
         return AddressRepository.getInstance();
     }
+    public TypeRepository getTypeRepository() { return TypeRepository.getInstance(); }
 }

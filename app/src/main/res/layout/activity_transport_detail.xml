@@ -109,9 +109,14 @@
                 android:hint="@string/s_client"
                 android:inputType="text" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"></LinearLayout>
+
             <TextView
                 android:id="@+id/td_tv_pickupAddress"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/s_pickupAddress" />
 
@@ -121,7 +126,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/s_pickupAddress"
-                android:inputType="text|textPostalAddress" />
+                android:inputType="text|textPostalAddress"
+                android:selectAllOnFocus="true" />
 
             <TextView
                 android:id="@+id/td_tv_deliveryAddress"
@@ -135,7 +141,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/s_deliveryAddress"
-                android:inputType="text|textPostalAddress" />
+                android:inputType="text|textPostalAddress"
+                android:selectAllOnFocus="true" />
 
             <TextView
                 android:id="@+id/td_tv_responsibleRider"

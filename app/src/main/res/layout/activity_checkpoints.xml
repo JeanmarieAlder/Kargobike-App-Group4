@@ -32,27 +32,49 @@
                 android:layout_height="wrap_content"
                 android:text="@string/s_lat" />
 
-            <EditText
-                android:id="@+id/td_input_lat"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/s_lat"
-                android:inputType="number" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/td_tv_lng"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/s_lng" />
+                <EditText
+                    android:id="@+id/td_input_lat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/s_lat"
+                    android:inputType="number" />
 
-            <EditText
-                android:id="@+id/td_input_lng"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/s_lng"
-                android:inputType="number" />
+                <ProgressBar
+                    android:id="@+id/c_pb_loading_lat"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/td_input_lat" />
+
+                <TextView
+                    android:id="@+id/td_tv_lng"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/s_lng"
+                    android:layout_below="@id/td_input_lat"/>
+
+                <EditText
+                    android:id="@+id/td_input_lng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/td_tv_lng"
+                    android:ems="10"
+                    android:hint="@string/s_lng"
+                    android:inputType="number" />
+
+                <ProgressBar
+                    android:id="@+id/c_pb_loading_lng"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/td_input_lng"
+                    android:layout_below="@id/td_tv_lng"/>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/td_tv_timeStamp"
