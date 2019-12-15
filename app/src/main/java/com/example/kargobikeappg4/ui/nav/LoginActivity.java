@@ -42,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
     private SignInButton btnGoogleSignIn;
     private Button btnUserSignIn;
 
+    private EditText eLogin;
+    private EditText ePassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,6 +183,13 @@ public class LoginActivity extends AppCompatActivity {
         name = findViewById(R.id.edit_loginUserName);
         pwd = findViewById(R.id.edit_loginPassword);
         progressBar = findViewById(R.id.progressBar);
+
+        eLogin = findViewById(R.id.edit_loginUserName);
+        ePassword = findViewById(R.id.edit_loginPassword);
+
+        //TODO: Remove for production (static login)
+        eLogin.setText("mr.demo@hesso.ch");
+        ePassword.setText("hessovs");
     }
 
     //some tests for clients
