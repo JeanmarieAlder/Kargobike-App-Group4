@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,6 +20,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.kargobikeappg4.R;
@@ -40,6 +42,7 @@ import com.example.kargobikeappg4.viewmodel.user.UserListViewModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -127,22 +130,19 @@ public class TransportDetailActivity extends AppCompatActivity {
         setupOrderViewModel();
 
         //OnClickListener für Date Delivery
-        eDelivDate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+        eDelivDate.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(
-                        TransportDetailActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        DateSetListenerDelivery,
-                        year,month,day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
+            DatePickerDialog dialog = new DatePickerDialog(
+                    TransportDetailActivity.this,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    DateSetListenerDelivery,
+                    year,month,day);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
         });
 
         //DateSetListener for Date Delivery
@@ -156,6 +156,27 @@ public class TransportDetailActivity extends AppCompatActivity {
                 eDelivDate.setText(date);
             }
         };
+
+        eDelivTime.setOnClickListener(view -> {
+            // Launch Time Picker Dialog
+
+            //get current time
+            final Calendar c = Calendar.getInstance();
+            int mHour = c.get(Calendar.HOUR_OF_DAY);
+            int mMinute = c.get(Calendar.MINUTE);
+
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+                            String newTime = "" + hourOfDay + ":" + minute;
+                            eDelivTime.setText(newTime);
+                        }
+                    }, mHour, mMinute, true);
+            timePickerDialog.show();
+        });
 
         //Fill the Rider list
         /*ArrayList<String> riderNames = new ArrayList<String>();
@@ -357,6 +378,10 @@ public class TransportDetailActivity extends AppCompatActivity {
                 case "Cancelled":
                     btnChangeStatus.setVisibility(View.GONE);
                     break;
+            }
+            if(order.getIdResponsibleRider() != null){
+                int spinnerPosition = adapterRidersList.getPosition(order.getIdResponsibleRider());
+                spinnerRiders.setSelection(spinnerPosition);
             }
 
             if(order.getIdProduct() != null){
