@@ -21,8 +21,11 @@ import com.example.kargobikeappg4.viewmodel.user.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TransportListActivity extends AppCompatActivity {
 
@@ -81,6 +84,8 @@ public class TransportListActivity extends AppCompatActivity {
                 getApplication()
         );
 
+        String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+
         listViewModel = ViewModelProviders.of(this, factory2)
                 .get(OrderListViewModel.class);
         listViewModel.getAllOrders().observe(this, orderEntities -> {
@@ -88,7 +93,7 @@ public class TransportListActivity extends AppCompatActivity {
                 orders = orderEntities;
                 filteredorders = new ArrayList<>();
                 for (Order o : orders) {
-                    if (o.getIdResponsibleRider().equals(user.getName())) {
+                    if (o.getIdResponsibleRider().equals(user.getName()) && o.getDateDelivery().equals(date)) {
                         filteredorders.add(o);
                     }
                 }
