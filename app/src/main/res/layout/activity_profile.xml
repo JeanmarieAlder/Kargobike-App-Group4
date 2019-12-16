@@ -5,7 +5,7 @@
     android:id="@+id/profile_Layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.ProfileActivity">
+    tools:context="deploy.example.kargobikeappg4.ui.user.ProfileActivity">
 
     <include
         android:id="@+id/profile_loading"

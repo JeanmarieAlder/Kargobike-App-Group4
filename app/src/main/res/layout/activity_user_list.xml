@@ -7,7 +7,7 @@
     android:layout_alignParentStart="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentTop="true"
-    tools:context=".ui.user.UserListActivity">
+    tools:context="deploy.example.kargobikeappg4.ui.user.UserListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_userlist"

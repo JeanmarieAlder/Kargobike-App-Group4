@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:845140180034:android:b0f7ab623c2a2663bb41db",
         "android_client_info": {
-          "package_name": "com.example.kargobikeappg4"
+          "package_name": "deploy.example.kargobikeappg4"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "845140180034-m1uf39aib1vf5sg68ub1t6is6fc8l8tj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.kargobikeappg4",
+            "package_name": "deploy.example.kargobikeappg4",
             "certificate_hash": "dccd4941b1b1690a2d7016c9ae566100316dda63"
           }
         },
@@ -26,7 +26,7 @@
           "client_id": "845140180034-48atn6cpqmq75cupc5brc2ipridei53h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.kargobikeappg4",
+            "package_name": "deploy.example.kargobikeappg4",
             "certificate_hash": "200913554ee1a94c3bf8688e11ebf246fbea1906"
           }
         },
@@ -34,7 +34,7 @@
           "client_id": "845140180034-v41q5epvi6orkucule4vte54olnn7vlb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.kargobikeappg4",
+            "package_name": "deploy.example.kargobikeappg4",
             "certificate_hash": "4cc2efdc082880490205db4edb888732a372a31a"
           }
         },
@@ -42,7 +42,7 @@
           "client_id": "845140180034-rta54i499ridt39bfl3vmv0dvn79e15a.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.kargobikeappg4",
+            "package_name": "deploy.example.kargobikeappg4",
             "certificate_hash": "3a59e202c82a5bfac2c50571216405d5a9dba643"
           }
         },
@@ -50,7 +50,7 @@
           "client_id": "845140180034-nr0f1cbbhskkedrr8l6g4v503e6bkjab.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.kargobikeappg4",
+            "package_name": "deploy.example.kargobikeappg4",
             "certificate_hash": "5a643c1d91dd0ae9481797ee593a1533ddebeff8"
           }
         },

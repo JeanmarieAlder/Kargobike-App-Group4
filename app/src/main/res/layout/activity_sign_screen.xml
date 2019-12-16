@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.transport.SignScreenActivity">
+    tools:context="deploy.example.kargobikeappg4.ui.transport.SignScreenActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
