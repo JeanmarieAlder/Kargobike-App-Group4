@@ -17,6 +17,7 @@ import com.example.kargobikeappg4.viewmodel.user.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 public class ProfileActivity extends AppCompatActivity{
 
     private View group;
@@ -110,6 +111,8 @@ public class ProfileActivity extends AppCompatActivity{
     public void user_button_monthlyReport(View view)
     {
         Intent intent = new Intent(this, MonthlyReportActivity.class);
+        intent.putExtra("userId", user.getIdUser());
+
         startActivity(intent);
     }
 }

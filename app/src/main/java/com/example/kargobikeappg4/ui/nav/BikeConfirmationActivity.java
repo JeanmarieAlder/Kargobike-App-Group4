@@ -17,6 +17,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class BikeConfirmationActivity extends AppCompatActivity {
 
     private UserViewModel userViewmodel;
@@ -56,17 +60,13 @@ public class BikeConfirmationActivity extends AppCompatActivity {
 
     private void UpdateContent()
     {
-
-        name.setText("Hi,"+user.getName());
-
+        name.setText("Hi, "+ user.getName());
     }
-
-
-
 
     public void bikeConfirmation(View view)
     {
         Intent intent = new Intent(this, WelcomeActivity.class);
+
         startActivity(intent);
     }
 }

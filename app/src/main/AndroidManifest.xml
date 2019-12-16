@@ -145,13 +145,7 @@
         </activity>
         <activity
             android:name=".ui.nav.WelcomeActivity"
-            android:label="@string/title_activity_dashboard"
-            android:parentActivityName=".ui.nav.LoginActivity">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.kargobikeappg4.ui.nav.LoginActivity" />
+            android:label="@string/title_activity_dashboard">
         </activity>
         <activity
             android:name=".ui.login.Register"

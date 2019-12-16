@@ -1,6 +1,7 @@
 package com.example.kargobikeappg4.db.entities;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
@@ -98,6 +99,7 @@ public class User implements Comparable{
         this.idAddress = idAddress;
     }
 
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
@@ -118,7 +120,7 @@ public class User implements Comparable{
         result.put("name", name);
         result.put("language", language);
         result.put("workingsince", workingsince);
-        result.put("workingsince", email);
+        result.put("email", email);
         result.put("phoneNumber", phoneNumber);
         result.put("idFunction", idFunction);
         result.put("idAddress", idAddress);
