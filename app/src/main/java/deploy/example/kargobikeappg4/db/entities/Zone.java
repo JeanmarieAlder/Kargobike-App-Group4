@@ -10,16 +10,19 @@ public class Zone implements  Comparable{
     //Attributes
     private String idZone;
     private String name;
+    private String city;
     private String idMainRider;
+    private Rider rider;
 
     //Constructor
     public Zone(){
 
     }
 
-    public Zone(String idZone, String name, String idMainRider) {
+    public Zone(String idZone, String name, String city, String idMainRider) {
         this.idZone = idZone;
         this.name = name;
+        this.city = city;
         this.idMainRider = idMainRider;
     }
 
@@ -48,6 +51,18 @@ public class Zone implements  Comparable{
         this.idMainRider = idMainRider;
     }
 
+    public Rider getRider() {
+        return rider;
+    }
+    public void setRider(Rider rider) {
+        this.rider = rider;
+    }
+    public String getCity() {
+        return city;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
@@ -66,6 +81,7 @@ public class Zone implements  Comparable{
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
+        result.put("city", city);
         result.put("idMainRider", idMainRider);
         return result;
     }

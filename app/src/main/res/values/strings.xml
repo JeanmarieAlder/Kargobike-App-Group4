@@ -56,6 +56,7 @@
     <string name="s_cancel">Cancel</string>
     <string name="s_location">Location</string>
     <string name="s_zone">Zone</string>
+    <string name="s_zone_list">Zone List</string>
     <string name="action_cancel">Cancel</string>
     <string name="s_bikeConfirmation">Confirm</string>
     <string name="s_bconfirmation">Click on confirm if your bike is verified</string>
@@ -100,4 +101,6 @@
     <string name="s_status_unload_destination">Final Destination</string>
     <string name="s_back">Back</string>
     <string name="s_separator_dash">&#160;>>&#160;</string>
+    <string name="s_kargobike_logo">Kargobike Logo</string>
+    <string name="s_log_out">Log out</string>
 </resources>

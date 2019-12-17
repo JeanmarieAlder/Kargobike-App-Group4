@@ -21,7 +21,8 @@
             android:layout_height="157dp"
             android:src="@drawable/kargobikelogo"
             tools:layout_editor_absoluteX="39dp"
-            tools:layout_editor_absoluteY="93dp" />
+            tools:layout_editor_absoluteY="93dp"
+            android:contentDescription="@string/s_kargobike_logo" />
 
         <Button
             android:id="@+id/ul_button_profile"
@@ -52,10 +53,17 @@
             android:text="@string/s_userList" />
 
         <Button
+            android:id="@+id/button_zoneList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="Welcome_button_zoneList"
+            android:text="@string/s_zone_list" />
+
+        <Button
             android:id="@+id/btn_logOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log out" />
+            android:text="@string/s_log_out" />
 
     </LinearLayout>
 

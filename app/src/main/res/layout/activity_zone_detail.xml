@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.zone.ZoneDetailActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/zd_tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_name" />
+
+    <EditText
+        android:id="@+id/zd_input_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/s_name"
+        android:inputType="text"
+        android:selectAllOnFocus="false"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/zd_tv_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_city" />
+
+    <EditText
+        android:id="@+id/zd_input_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/s_city"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:selectAllOnFocus="false" />
+
+    <TextView
+        android:id="@+id/zd_tv_responsibleRider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_responsibleRider" />
+
+    <Spinner
+        android:id="@+id/zd_spinner_riders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/zd_button_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="saveButton"
+        android:text="@string/save" />
+</LinearLayout>

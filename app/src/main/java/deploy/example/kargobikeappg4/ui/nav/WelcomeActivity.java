@@ -16,6 +16,7 @@ import deploy.example.kargobikeappg4.db.entities.WorkDetails;
 import deploy.example.kargobikeappg4.ui.product.ProductListActivity;
 import deploy.example.kargobikeappg4.ui.transport.TransportListActivity;
 import deploy.example.kargobikeappg4.ui.user.ProfileActivity;
+import deploy.example.kargobikeappg4.ui.zone.ZoneListActivity;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
 import deploy.example.kargobikeappg4.viewmodel.workDetails.WorkDetailsViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -72,6 +73,11 @@ public class WelcomeActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void Welcome_button_zoneList(View view){
+        Intent intent = new Intent(this, ZoneListActivity.class);
+        startActivity(intent);
     }
 
     public void Welcome_button_transportList(View view)

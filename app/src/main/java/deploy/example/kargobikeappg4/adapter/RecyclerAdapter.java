@@ -15,6 +15,7 @@ import deploy.example.kargobikeappg4.db.entities.Customer;
 import deploy.example.kargobikeappg4.db.entities.Order;
 import deploy.example.kargobikeappg4.db.entities.Product;
 import deploy.example.kargobikeappg4.db.entities.User;
+import deploy.example.kargobikeappg4.db.entities.Zone;
 import deploy.example.kargobikeappg4.db.repository.ZoneRepository;
 import deploy.example.kargobikeappg4.util.RecyclerViewItemClickListener;
 
@@ -118,6 +119,15 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvFirstRow.setText(((Customer) item).getBillingName());
             holder.tvSecondHeader.setText("");
             holder.tvSecondRow.setText(((Customer) item).getIdAddress());
+            holder.tvThirdHeader.setVisibility(View.GONE);
+            holder.tvThirdRow.setVisibility(View.GONE);
+            holder.tvRightSide.setVisibility(View.GONE);
+        }
+        if(item.getClass().equals((Zone.class))){
+            holder.tvFirstHeader.setText("");
+            holder.tvFirstRow.setText(((Zone) item).getName());
+            holder.tvSecondHeader.setText("");
+            holder.tvSecondRow.setText(((Zone) item).getCity());
             holder.tvThirdHeader.setVisibility(View.GONE);
             holder.tvThirdRow.setVisibility(View.GONE);
             holder.tvRightSide.setVisibility(View.GONE);
