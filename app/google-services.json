@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "845140180034-kp2d2efd25ea494fbe91lsit4jq1hapa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "deploy.example.kargobikeappg4",
+            "certificate_hash": "1ec6de1a12ef0836cad83703d5049f974648ed48"
+          }
+        },
+        {
           "client_id": "845140180034-m1uf39aib1vf5sg68ub1t6is6fc8l8tj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

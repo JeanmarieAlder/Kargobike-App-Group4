@@ -54,7 +54,7 @@ public class BikeConfirmationActivity extends AppCompatActivity {
 
     private void UpdateContent()
     {
-        name.setText("Hi, "+ user.getName());
+        name.setText("Welcome, "+ user.getName());
     }
 
     public void bikeConfirmation(View view)

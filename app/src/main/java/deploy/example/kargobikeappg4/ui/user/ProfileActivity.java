@@ -115,4 +115,11 @@ public class ProfileActivity extends AppCompatActivity{
 
         startActivity(intent);
     }
+
+    public void user_button_about(View view)
+    {
+        Intent intent = new Intent(this, AboutActivity.class);
+
+        startActivity(intent);
+    }
 }

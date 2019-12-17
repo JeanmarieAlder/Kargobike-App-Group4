@@ -19,8 +19,44 @@
             android:id="@+id/bikeca_tv_welcome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textSize="30sp"
+            android:layout_marginBottom="60dp"
+            />
+        <TextView
+            android:id="@+id/bikeca_tv_rules"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:text="@string/s_rule_check"
+            android:textSize="25sp"
+            />
+        <TextView
+            android:id="@+id/bikeca_tv_rule1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/s_rule1"
             android:textSize="20sp"
-            android:layout_marginBottom="30dp"
+            />
+        <TextView
+            android:id="@+id/bikeca_tv_rule2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/s_rule2"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/bikeca_tv_rule3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/s_rule3"
+            android:textSize="20sp"
+            />
+        <TextView
+            android:id="@+id/bikeca_tv_rule4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/s_rule4"
+            android:textSize="20sp"
             />
 
         <TextView
@@ -28,13 +64,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/s_bconfirmation"
-            android:textSize="20sp"
+            android:textSize="25sp"
+            android:layout_marginTop="30dp"
             android:textColor="@color/colorAccent"/>
         <Button
             android:id="@+id/bikeca_button_confirmation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="bikeConfirmation"
+            android:layout_marginTop="15dp"
             android:text="@string/s_bikeConfirmation" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
