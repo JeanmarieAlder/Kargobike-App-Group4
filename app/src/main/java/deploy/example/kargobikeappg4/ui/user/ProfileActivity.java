@@ -3,6 +3,7 @@ package deploy.example.kargobikeappg4.ui.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity{
     private Boolean currentUser;
     private Intent currentIntent;
     private UserRepository uRep;
+    private Button about;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +48,10 @@ public class ProfileActivity extends AppCompatActivity{
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
         currentUser = currentIntent.getBooleanExtra("user", true);
 
-        if(!currentUser)
+        if(!currentUser) {
             userId = currentIntent.getStringExtra("userId");
+            about.setVisibility(View.INVISIBLE);
+        }
         else
             userId = fbUser.getUid();
 
@@ -89,6 +93,7 @@ public class ProfileActivity extends AppCompatActivity{
         group = findViewById(R.id.groupProfileInfos);
         group.setVisibility(View.INVISIBLE);
         loading = findViewById(R.id.profile_loading);
+        about = findViewById(R.id.profile_btn_about);
 
 
         currentIntent = getIntent();
