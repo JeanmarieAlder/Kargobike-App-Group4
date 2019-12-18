@@ -67,19 +67,37 @@
                 android:hint="@string/s_deliveryDate"
                 android:inputType="date" />
 
-            <TextView
-                android:id="@+id/td_tv_deliveryTime"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/s_deliveryTime" />
+                android:layout_height="match_parent" >
 
-            <EditText
-                android:id="@+id/td_input_deliveryTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/s_deliveryTime"
-                android:inputType="time" />
+                <TimePicker
+                    android:id="@+id/td_timepicker_delivery_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:timePickerMode="spinner"
+                    android:visibility="visible"
+                    android:layout_alignParentEnd="true"/>
+
+                <TextView
+                    android:id="@+id/td_tv_deliveryTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/td_timepicker_delivery_time"
+                    android:text="@string/s_deliveryTime" />
+
+                <EditText
+                    android:id="@+id/td_input_deliveryTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/td_tv_deliveryTime"
+                    android:layout_toStartOf="@id/td_timepicker_delivery_time"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:hint="@string/s_deliveryTime"
+                    android:importantForAutofill="no"
+                    android:inputType="time" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,12 +125,8 @@
                 android:ems="10"
                 android:enabled="false"
                 android:hint="@string/s_client"
-                android:inputType="text" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"></LinearLayout>
+                android:inputType="text"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/td_tv_pickupAddress"
@@ -127,7 +141,8 @@
                 android:ems="10"
                 android:hint="@string/s_pickupAddress"
                 android:inputType="text|textPostalAddress"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/td_tv_deliveryAddress"
@@ -142,7 +157,8 @@
                 android:ems="10"
                 android:hint="@string/s_deliveryAddress"
                 android:inputType="text|textPostalAddress"
-                android:selectAllOnFocus="true" />
+                android:selectAllOnFocus="true"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/td_tv_responsibleRider"
@@ -227,12 +243,6 @@
                     android:onClick="Transport_button_cancel"
                     android:text="@string/s_cancel" />
 
-                <Button
-                    android:id="@+id/button_checkpoints"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="Transport_button_checkpoints"
-                    android:text="@string/s_checkpoints" />
 
             </LinearLayout>
         </LinearLayout>

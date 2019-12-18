@@ -75,6 +75,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     private TextView tvStatus;
     private DatabaseReference reff;
     private Spinner spinnerProducts;
+    private TimePicker timePicker;
     private ListAdapter adapterProductsList;
 
     private Spinner spinnerRiders;
@@ -97,6 +98,9 @@ public class TransportDetailActivity extends AppCompatActivity {
     private String addressClientSelected;
     private CustomerViewModel customerViewModel;
     private Customer customer;
+
+    private String unsignedMinute;
+    private String unsignedHour;
 
     private DatePickerDialog.OnDateSetListener DateSetListenerDelivery;
 
@@ -155,35 +159,8 @@ public class TransportDetailActivity extends AppCompatActivity {
                 eDelivDate.setText(date);
             }
         };
+        setupTimePicker();
 
-        eDelivTime.setOnClickListener(view -> {
-            // Launch Time Picker Dialog
-
-            //get current time
-            final Calendar c = Calendar.getInstance();
-            int mHour = c.get(Calendar.HOUR_OF_DAY);
-            int mMinute = c.get(Calendar.MINUTE);
-
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                    new TimePickerDialog.OnTimeSetListener() {
-
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay,
-                                              int minute) {
-                            String newTime = "" + hourOfDay + ":" + minute;
-                            eDelivTime.setText(newTime);
-                        }
-                    }, mHour, mMinute, true);
-            timePickerDialog.show();
-        });
-
-        //Fill the Rider list
-        /*ArrayList<String> riderNames = new ArrayList<String>();
-        riderNames.add("Agron Asani");
-        riderNames.add("David Felley");
-        riderNames.add("Damian Wasmer");
-        riderNames.add("Jean-Marie Alder");
-        riderNames.add("Yannick Mermod");*/
 
         //Receive all names of the users from DB
         UserListViewModel.Factory factory3 = new UserListViewModel.Factory(
@@ -275,6 +252,36 @@ public class TransportDetailActivity extends AppCompatActivity {
         updateContent();
     }
 
+    private void setupTimePicker() {
+        // Launch Time Picker Dialog
+
+        //get current time
+        final Calendar c = Calendar.getInstance();
+        int mHour = c.get(Calendar.HOUR_OF_DAY);
+        int mMinute = c.get(Calendar.MINUTE);
+
+        timePicker.setVisibility(View.VISIBLE);
+
+        timePicker.setMinute(mMinute);
+        timePicker.setHour(mHour);
+        timePicker.setOnTimeChangedListener((viewTimePicker, hour, minutes) ->{
+
+            unsignedMinute = "" + timePicker.getMinute();
+            unsignedHour = "" + timePicker.getHour();
+
+            //Check that the hour and minutes each have two digits, if not, add a "0" in front
+            if(unsignedMinute.length() < 2){
+                unsignedMinute = "0" + unsignedMinute;
+            }
+            if(unsignedHour.length() < 2){
+                unsignedHour = "0" + unsignedHour;
+            }
+            String newTime = "" + unsignedHour + ":" + unsignedMinute;
+            eDelivTime.setText(newTime);
+            Log.d(TAG, "TIME HAS CHANGED");
+        });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -324,6 +331,8 @@ public class TransportDetailActivity extends AppCompatActivity {
         ePickupAddress = findViewById(R.id.td_input_pickupAddress);
         eDeliveryAddress = findViewById(R.id.td_input_deliveryAddress);
         spinnerRiders = findViewById(R.id.spinnerRiders);
+        timePicker = findViewById(R.id.td_timepicker_delivery_time);
+        timePicker.setIs24HourView(true);
         tvStatus = findViewById(R.id.td_input_status);
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
         btnSave = findViewById(R.id.button_save);
@@ -394,7 +403,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             || order.getStatus().equals("Delivered")){
                 eQuantity.setEnabled(false);
                 eDelivDate.setEnabled(false);
-                eDelivTime.setEnabled(false);
                 eClient.setEnabled(false);
                 ePickupAddress.setEnabled(false);
                 eDeliveryAddress.setEnabled(false);
@@ -402,11 +410,12 @@ public class TransportDetailActivity extends AppCompatActivity {
                 spinnerRiders.setEnabled(false);
                 btnClient.setEnabled(false);
                 btnCancel.setEnabled(false);
+
+                timePicker.setVisibility(View.GONE);
             }
             else{
                 eQuantity.setEnabled(true);
                 eDelivDate.setEnabled(true);
-                eDelivTime.setEnabled(true);
                 eClient.setEnabled(false);
                 ePickupAddress.setEnabled(true);
                 eDeliveryAddress.setEnabled(true);
@@ -414,6 +423,8 @@ public class TransportDetailActivity extends AppCompatActivity {
                 spinnerRiders.setEnabled(true);
                 btnClient.setEnabled(true);
                 btnCancel.setEnabled(true);
+
+                timePicker.setVisibility(View.VISIBLE);
             }
         }
     }
