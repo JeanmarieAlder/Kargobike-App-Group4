@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="deploy.example.kargobikeappg4.ui.transport.SignScreenActivity">
+    tools:context=".ui.transport.SignScreenActivity">
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -15,16 +16,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <deploy.example.kargobikeappg4.ui.transport.paint.PaintView
+            android:id="@+id/paintView"
+            android:layout_width="wrap_content"
+            android:layout_height="517dp" />
 
-
-
+        <Button
+            android:id="@+id/btn_signature_ok"
+            android:layout_width="158dp"
+            android:layout_height="56dp"
+            android:text="@android:string/ok"
+            />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_signature_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@android:string/ok"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="656dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
