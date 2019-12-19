@@ -7,9 +7,72 @@
     <TextView
         android:id="@+id/about_tv_infos"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="RGPD"
+        android:layout_height="wrap_content"
+        android:text="Consent"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/about_rule1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_consent"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/about_tv_infos2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Subject Access Requests"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/about_rule2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_SAR"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/about_tv_infos3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Privacy"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"/>
+
+
+
+    <TextView
+        android:id="@+id/about_rule3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_privacy"
+        android:layout_marginBottom="5dp"/>
+
+
+    <TextView
+        android:id="@+id/about_tv_infos4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data Breach"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/about_rule4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/s_breach"
+        android:layout_marginBottom="5dp"
         />
+
+
 
 
 </LinearLayout>
