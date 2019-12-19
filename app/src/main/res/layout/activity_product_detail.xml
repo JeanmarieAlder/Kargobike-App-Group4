@@ -115,7 +115,7 @@
                     android:id="@+id/td_button_cancel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="Transport_button_cancel"
+                    android:onClick="Transport_button_delete"
                     android:text="@string/delete" />
 
             </LinearLayout>

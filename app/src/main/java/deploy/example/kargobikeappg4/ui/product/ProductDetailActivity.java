@@ -195,8 +195,6 @@ public class ProductDetailActivity extends AppCompatActivity {
      * @param isChangingStatus true if only status is changing
      */
     private void updateProductDB(boolean isChangingStatus){
-        Product product = new Product();
-
         product.setName(ename.getText().toString());
         product.setDescription(eDescription.getText().toString());
         product.setInterurbain(true);
