@@ -50,6 +50,7 @@ import java.util.List;
 
 public class TransportDetailActivity extends AppCompatActivity {
 
+    public static int nbDelivery;
     private static final String TAG = "TransportDetailActivity";
     //Variable instanciations
     private String orderId;
@@ -383,6 +384,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                     btnChangeStatus.setText("Load");
                     break;
                 case "Delivered":
+                    nbDelivery+=1;
                 case "Cancelled":
                     btnChangeStatus.setVisibility(View.GONE);
                     break;
