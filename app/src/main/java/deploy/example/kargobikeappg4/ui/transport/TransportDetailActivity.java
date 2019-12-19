@@ -10,7 +10,6 @@ import deploy.example.kargobikeappg4.db.entities.Order;
 import deploy.example.kargobikeappg4.db.entities.User;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -50,6 +49,7 @@ import java.util.List;
 
 public class TransportDetailActivity extends AppCompatActivity {
 
+    public static int nbDelivery;
     private static final String TAG = "TransportDetailActivity";
     //Variable instanciations
     private String orderId;
@@ -101,6 +101,8 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     private String unsignedMinute;
     private String unsignedHour;
+
+    private String imageURL;
 
     private DatePickerDialog.OnDateSetListener DateSetListenerDelivery;
 
@@ -383,6 +385,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                     btnChangeStatus.setText("Load");
                     break;
                 case "Delivered":
+
                 case "Cancelled":
                     btnChangeStatus.setVisibility(View.GONE);
                     break;
@@ -455,9 +458,9 @@ public class TransportDetailActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("OLOLOLOLOL", "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + requestCode + " " + resultCode);
+        Log.d(TAG, " entered onActivityResult" + requestCode + " " + resultCode);
         if(requestCode == 1){
-            Log.d("OLOLOLOLOL", "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + (resultCode == RESULT_OK));
+            Log.d(TAG, "Request code 1 " + (resultCode == RESULT_OK));
             if(resultCode == RESULT_OK){
                 clientSelected = data.getStringExtra("clientSelected");
                 idClientSelected = data.getStringExtra("idClientSelected");
@@ -480,19 +483,34 @@ public class TransportDetailActivity extends AppCompatActivity {
             Log.d("OLOLOLOLOL", "OOOOOOOOOOOOOOOOOOOOOO " + (resultCode == RESULT_OK));
             if(resultCode == RESULT_OK
                     && data.getBooleanExtra("checkpointCreated", false)){
+                if(data.getStringExtra("newResponsible") != null){
+                    int spinnerPosition = adapterRidersList.
+                            getPosition(data.getStringExtra("newResponsible"));
+                    spinnerRiders.setSelection(spinnerPosition);
+                }
                 updateOrderDB("Pending", true);
                 //Restart Activity in order to refresh viewModels
                 finish();
                 startActivity(getIntent());
             }
         }
+        if(requestCode == 3){
+            if(resultCode == RESULT_OK){
+                imageURL = data.getStringExtra("SignatureURL");
+                Log.d("IMAGE URL", "The Url is : " + imageURL);
+                updateOrderDB(null,false);
+
+            }
+        }
     }
 
-    public void AddCheckpoint()
+    public void addCheckpoint(boolean isTrainStation)
     {
         isLoaded = true;
         Intent intent = new Intent(this, CheckpointActivity.class);
         intent.putExtra("orderId", orderId);
+        intent.putExtra("respRider", order.getIdResponsibleRider());
+        intent.putExtra("isTrainStation", isTrainStation);
         startActivityForResult(intent, 2);
     }
 
@@ -504,8 +522,11 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     public void Transport_button_signScreen(View view)
     {
-        Intent intent = new Intent(this, SignScreenActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(TransportDetailActivity.this, SignScreenActivity.class);
+        intent.putExtra("IdOrder", orderId );
+        startActivityForResult(intent, 3);
+
+
     }
     public void ButtonChangeStatus(View view)
     {
@@ -517,6 +538,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                 //Prompts a popup to choose the method of unload
                 showAlertDialogButtonClicked();
                 break;
+
             default :
                 Log.d("Button change status", order.getStatus());
                 break;
@@ -538,12 +560,14 @@ public class TransportDetailActivity extends AppCompatActivity {
         builder.setItems(menuOptions, (dialog, which) -> {
             switch (which) {
                 case 0: // checkpoint
-                    AddCheckpoint();
+                    addCheckpoint(false);
                     break;
                 case 1: // train station
                     //TODO: Train station load (specify arrival and new responsible rider)
+                    addCheckpoint(true);
                     break;
                 case 2: // final destination
+                    nbDelivery+=1;
                     manageDelivery();
                     //updateOrderDB("Delivered", true);
                     break;
@@ -690,6 +714,9 @@ public class TransportDetailActivity extends AppCompatActivity {
             order.setIdCustomer(idClientSelected);
         }else{
             order.setIdCustomer(order.getIdCustomer());
+        }
+        if(imageURL != null){
+            order.setSignature(imageURL);
         }
         order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
         order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
