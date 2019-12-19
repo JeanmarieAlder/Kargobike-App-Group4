@@ -120,4 +120,8 @@ information on the right to have personal data deleted or rectified in certain i
     <string name="s_new_responsible">New Responsible</string>
     <string name="s_arrival_city">Arrival City</string>
     <string name="s_arrival_time">Arrival Time</string>
+    <string name="s_language">Language</string>
+    <string name="s_workingSince">Workingsince</string>
+    <string name="s_Password">Password</string>
+
 </resources>
