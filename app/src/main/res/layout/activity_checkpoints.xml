@@ -42,7 +42,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/s_lat"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:importantForAutofill="no" />
 
                 <ProgressBar
                     android:id="@+id/c_pb_loading_lat"
@@ -65,7 +66,8 @@
                     android:layout_below="@id/td_tv_lng"
                     android:ems="10"
                     android:hint="@string/s_lng"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:importantForAutofill="no" />
 
                 <ProgressBar
                     android:id="@+id/c_pb_loading_lng"
@@ -88,7 +90,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/s_timeStamp"
-                android:inputType="text" />
+                android:inputType="text"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/td_tv_rematk"
@@ -102,8 +105,56 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/s_remark"
-                android:inputType="text" />
+                android:inputType="text"
+                android:importantForAutofill="no" />
 
+
+            <TextView
+                android:id="@+id/cp_tv_arrival_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_arrival_city"
+                tools:visibility="gone" />
+
+            <EditText
+                android:id="@+id/cp_input_arrival_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_arrival_city"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/cp_tv_arrival_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_arrival_time"
+                tools:visibility="gone" />
+
+            <EditText
+                android:id="@+id/cp_input_arrival_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_arrival_time"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/cp_tv_new_responsible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_new_responsible"
+                tools:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/cp_spinner_riders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -117,4 +117,7 @@ information on the right to have personal data deleted or rectified in certain i
     <string name="s_kargobike_logo">Kargobike Logo</string>
     <string name="s_log_out">Log out</string>
     <string name="action_about">About</string>
+    <string name="s_new_responsible">New Responsible</string>
+    <string name="s_arrival_city">Arrival City</string>
+    <string name="s_arrival_time">Arrival Time</string>
 </resources>
