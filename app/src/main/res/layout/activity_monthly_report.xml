@@ -69,4 +69,26 @@
         app:layout_constraintBottom_toTopOf="@+id/monthlyReport_tv_calendar"
         app:layout_constraintStart_toStartOf="@+id/monthlyReport_tv_calendar" />
 
+    <TextView
+        android:id="@+id/mr_tv_titleDeliveries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/s_deliveries"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="@+id/mr_tv_titleHours"
+        app:layout_constraintStart_toStartOf="@+id/mr_tv_titleHours"
+        app:layout_constraintTop_toBottomOf="@+id/mr_tv_hours" />
+
+    <TextView
+        android:id="@+id/mr_tv_deliveries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/mr_tv_titleDeliveries"
+        app:layout_constraintStart_toStartOf="@+id/mr_tv_titleDeliveries"
+        app:layout_constraintTop_toBottomOf="@+id/mr_tv_titleDeliveries" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

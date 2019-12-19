@@ -3,6 +3,7 @@ package deploy.example.kargobikeappg4.ui.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
@@ -38,13 +39,13 @@ public class UserListActivity extends AppCompatActivity {
         //Add click listener, opens details of the selected user
         adapter = new RecyclerAdapter<>((v, position) -> {
             Intent intent = new Intent(UserListActivity.this,
-                    ProfileActivity.class);
+                    UserDetailActivity.class);
             intent.setFlags(
                     Intent.FLAG_ACTIVITY_NO_ANIMATION |
                             Intent.FLAG_ACTIVITY_NO_HISTORY
             );
             intent.putExtra("userId", users.get(position).getIdUser());
-            intent.putExtra("user", false);
+            intent.putExtra("isEdit", true);
             Log.d("UID", "User ID of selected user: " + users.get(position).getIdUser());
             startActivity(intent);
         });
@@ -62,6 +63,14 @@ public class UserListActivity extends AppCompatActivity {
             }
         });
         rView.setAdapter(adapter);
-
     }
+
+    public void Product_button_registerUser(View view)
+    {
+        Intent intent = new Intent(this, UserDetailActivity.class);
+        intent.putExtra("isEdit", false);
+
+        startActivity(intent);
+    }
+
 }

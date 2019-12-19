@@ -27,6 +27,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
     private List<WorkDetails> wdList;
     private TextView DisplayStartDate;
     private TextView DisplayEndDate;
+    private TextView DisplayDeliveries;
     private TextView WorkedHours;
     private String DateDebut = DateDuJour;
     private String DateFin = DateDuJour;
@@ -43,6 +44,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
 
         DisplayStartDate = findViewById(R.id.monthlyReport_tv_calendar);
         DisplayEndDate = findViewById(R.id.monthlyReport_tv_calendar_2);
+        DisplayDeliveries = findViewById(R.id.mr_tv_deliveries);
         DisplayStartDate.setText(DateDuJour);
         DisplayEndDate.setText(DateDuJour);
         WorkedHours = findViewById(R.id.mr_tv_hours);
@@ -105,6 +107,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         int totalHours = 0;
         int totalMinutes = 0;
+        int totalDeliveries=0;
 
         try {
 
@@ -120,21 +123,22 @@ public class MonthlyReportActivity extends AppCompatActivity {
 
                 if(startDate.compareTo(dateWd) * dateWd.compareTo(endDate) >= 0)
                 {
-                    Log.d("DATE WD", wd.getDate());
+
                     String time = wd.getHours();
-                    Log.d("HEURES WD", time);
+
 
                     String hours = time.substring(0,2);
-                    Log.d("HEURES ONLY WD", hours);
+
 
                     String minutes = time.substring(3);
-                    Log.d("MINUTES ONLY WD", minutes);
+
 
                     int intHours = Integer.parseInt(hours);
                     int intMinutes = Integer.parseInt(minutes);
 
                     totalHours += intHours;
                     totalMinutes += intMinutes;
+                    totalDeliveries+=wd.getDeliveries();
                 }
             }
 
@@ -146,6 +150,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
         }
 
         WorkedHours.setText(totalHours + " heures " + totalMinutes + " minutes");
+        DisplayDeliveries.setText(Integer.toString(totalDeliveries));
     }
 
 }

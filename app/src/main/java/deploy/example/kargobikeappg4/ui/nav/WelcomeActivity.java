@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
+import deploy.example.kargobikeappg4.ui.transport.TransportDetailActivity;
 import deploy.example.kargobikeappg4.ui.user.AboutActivity;
 import deploy.example.kargobikeappg4.ui.user.UserListActivity;
 
@@ -54,7 +55,6 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-
         logOut = findViewById(R.id.btn_logOut);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -76,6 +76,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         //On Succesfull signout we navigate the user back to LoginActivity
 
                         GetHours();
+                        TransportDetailActivity.nbDelivery=0;
                     }
                 });
             }
@@ -149,6 +150,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         String userId = fAuth.getInstance().getCurrentUser().getUid();
 
+
         //Create viewmodel
         WorkDetailsViewModel.Factory factory = new WorkDetailsViewModel.Factory(
                 getApplication(), userId, workDetailsId);
@@ -158,6 +160,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         wd.setDate(date);
         wd.setHours(workingTime);
+        wd.setDeliveries(TransportDetailActivity.nbDelivery);
 
         viewModel.createWorkDetails(wd, userId, new OnAsyncEventListener() {
             @Override

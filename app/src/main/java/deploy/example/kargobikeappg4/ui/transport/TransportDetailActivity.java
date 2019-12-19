@@ -104,8 +104,6 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener DateSetListenerDelivery;
 
-    private String imageURL;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("ONCREATE TDA", "---------------------------- HERE  IT STARDED");
@@ -480,19 +478,12 @@ public class TransportDetailActivity extends AppCompatActivity {
         }
         if(requestCode == 2){
             Log.d("OLOLOLOLOL", "OOOOOOOOOOOOOOOOOOOOOO " + (resultCode == RESULT_OK));
-            if(resultCode == RESULT_OK){
+            if(resultCode == RESULT_OK
+                    && data.getBooleanExtra("checkpointCreated", false)){
                 updateOrderDB("Pending", true);
                 //Restart Activity in order to refresh viewModels
                 finish();
                 startActivity(getIntent());
-            }
-        }
-        if(requestCode == 3){
-            if(resultCode == RESULT_OK){
-                imageURL = data.getStringExtra("SignatureURL");
-                Log.d("IMAGE URL", "The Url is : " + imageURL);
-                updateOrderDB(null,false);
-
             }
         }
     }
@@ -513,20 +504,9 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     public void Transport_button_signScreen(View view)
     {
-
-        Intent intent = new Intent(TransportDetailActivity.this, SignScreenActivity.class);
-        intent.putExtra("IdOrder", orderId );
-        startActivityForResult(intent, 3);
-        getImageUrl();
-
+        Intent intent = new Intent(this, SignScreenActivity.class);
+        startActivity(intent);
     }
-
-    public void getImageUrl(){
-
-    }
-
-
-
     public void ButtonChangeStatus(View view)
     {
         switch (order.getStatus()){
@@ -654,7 +634,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             order.setIdProduct(spinnerProducts.getSelectedItem().toString());
             order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
             order.setDateDelivery(eDelivDate.getText().toString().trim());
-
             order.setTimeDelivery(eDelivTime.getText().toString());
             if(idClientSelected != null){
                 order.setIdCustomer(idClientSelected);
@@ -711,9 +690,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             order.setIdCustomer(idClientSelected);
         }else{
             order.setIdCustomer(order.getIdCustomer());
-        }
-        if(imageURL != null){
-            order.setSignature(imageURL);
         }
         order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
         order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());

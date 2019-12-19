@@ -14,7 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.user.AboutActivity"></activity>
+        <activity android:name=".ui.user.AboutActivity"
+            android:label="RGPD"
+            android:parentActivityName=".ui.user.ProfileActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="deploy.example.kargobikeappg4.ui.user.ProfileActivity" />
+
+        </activity>
         <activity
             android:name=".ui.zone.ZoneDetailActivity"
             android:label="Zone Details"
@@ -138,6 +147,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="deploy.example.kargobikeappg4.ui.transport.TransportDetailActivity" />
+        </activity>
+        <activity
+            android:name=".ui.user.UserDetailActivity"
+            android:label="User Details"
+            android:parentActivityName=".ui.user.UserListActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="deploy.example.kargobikeappg4.ui.user.UserListActivity" />
         </activity>
         <activity
             android:name=".ui.transport.TransportDetailActivity"
