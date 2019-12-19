@@ -384,7 +384,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                     btnChangeStatus.setText("Load");
                     break;
                 case "Delivered":
-                    nbDelivery+=1;
+
                 case "Cancelled":
                     btnChangeStatus.setVisibility(View.GONE);
                     break;
@@ -519,6 +519,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                 //Prompts a popup to choose the method of unload
                 showAlertDialogButtonClicked();
                 break;
+
             default :
                 Log.d("Button change status", order.getStatus());
                 break;
@@ -546,6 +547,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                     //TODO: Train station load (specify arrival and new responsible rider)
                     break;
                 case 2: // final destination
+                    nbDelivery+=1;
                     manageDelivery();
                     //updateOrderDB("Delivered", true);
                     break;

@@ -10,15 +10,17 @@ public class WorkDetails implements Comparable {
     private String idWorkDetails;
     private String Date;
     private String Hours;
+    private int Deliveries;
 
     //Constructor
     public WorkDetails(){
 
     }
 
-    public WorkDetails( String Date, String Hours) {
+    public WorkDetails( String Date, String Hours, int Deliveries) {
         this.Date = Date;
         this.Hours = Hours;
+        this.Deliveries = Deliveries;
     }
 
     //Getter and Setter
@@ -46,6 +48,10 @@ public class WorkDetails implements Comparable {
         this.Hours = Hours;
     }
 
+    public int getDeliveries(){return Deliveries;}
+
+    public void setDeliveries(int Deliveries){this.Deliveries=Deliveries; }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
@@ -66,6 +72,7 @@ public class WorkDetails implements Comparable {
         result.put("idWorkDetails", idWorkDetails);
         result.put("Date", Date);
         result.put("Hours", Hours);
+        result.put("Deliveries", Deliveries);
 
         return result;
     }
