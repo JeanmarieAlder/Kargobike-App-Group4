@@ -122,6 +122,7 @@ information on the right to have personal data deleted or rectified in certain i
     <string name="s_arrival_time">Arrival Time</string>
     <string name="s_language">Language</string>
     <string name="s_workingSince">Workingsince</string>
-    <string name="s_Password">Password</string>
+    <string name="s_password">Password</string>
+    <string name="s_function">Function</string>
 
 </resources>
