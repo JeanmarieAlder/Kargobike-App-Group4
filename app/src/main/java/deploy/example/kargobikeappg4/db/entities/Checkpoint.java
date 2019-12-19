@@ -13,17 +13,27 @@ public class Checkpoint implements Comparable{
     private float lng;
     private String arrivalTimestamp;
     private String departureTimestamp;
+    private String responsibleRider;
+    private String arrivalCity; //for train stations
+    private String arrivalTime; //for train stations
+    private String newResponsibleRider; //for train stations
     private String remark;
 
     public Checkpoint() {}
 
     public Checkpoint(String type, float lat, float lng, String arrivalTimestamp,
-                      String departureTimestamp, String remark, String idOrder) {
+                      String departureTimestamp, String responsibleRider,
+                      String arrivalCity, String arrivalTime, String newResponsibleRider,
+                      String remark, String idOrder) {
         this.type = type;
         this.lat = lat;
         this.lng = lng;
         this.arrivalTimestamp = arrivalTimestamp;
         this.departureTimestamp = departureTimestamp;
+        this.responsibleRider = responsibleRider;
+        this.arrivalCity = arrivalCity;
+        this.arrivalTime = arrivalTime;
+        this.newResponsibleRider = newResponsibleRider;
         this.remark = remark;
         this.idOrder = idOrder;
     }
@@ -88,6 +98,28 @@ public class Checkpoint implements Comparable{
     public void setRemark(String remark) {
         this.remark = remark;
     }
+    public String getResponsibleRider() {
+        return responsibleRider;
+    }
+    public void setResponsibleRider(String responsibleRider) {
+        this.responsibleRider = responsibleRider;
+    }
+    public String getArrivalCity() {
+        return arrivalCity;
+    }
+    public void setArrivalCity(String arrivalCity) {
+        this.arrivalCity = arrivalCity;
+    }
+    public String getArrivalTime() {
+        return arrivalTime;
+    }
+    public void setArrivalTime(String arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+    public String getNewResponsibleRider() { return newResponsibleRider; }
+    public void setNewResponsibleRider(String newResponsibleRider) {
+        this.newResponsibleRider = newResponsibleRider;
+    }
 
     @Override
     public int compareTo(Object o) {
@@ -101,6 +133,10 @@ public class Checkpoint implements Comparable{
         result.put("lng", lng);
         result.put("arrivalTimestamp", arrivalTimestamp);
         result.put("departureTimestamp", departureTimestamp);
+        result.put("responsibleRider", responsibleRider);
+        result.put("arrivalCity", arrivalCity);
+        result.put("arrivalTime", arrivalTime);
+        result.put("newResponsibleRider", newResponsibleRider);
         result.put("remark", remark);
         result.put("idOrder", idOrder);
         return result;
