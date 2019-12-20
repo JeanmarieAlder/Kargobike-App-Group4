@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -17,15 +18,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.adapter.ListAdapter;
+import deploy.example.kargobikeappg4.db.entities.Function;
 import deploy.example.kargobikeappg4.db.entities.User;
 import deploy.example.kargobikeappg4.ui.nav.LoginActivity;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
+import deploy.example.kargobikeappg4.viewmodel.function.FunctionListViewModel;
 import deploy.example.kargobikeappg4.viewmodel.type.TypeListViewModel;
 import deploy.example.kargobikeappg4.viewmodel.user.UserViewModel;
 
@@ -52,13 +58,14 @@ public class UserDetailActivity extends AppCompatActivity {
     private EditText eAddress;
 
     //Spinner
-    private Spinner spinnerTypes;
-    private ListAdapter adapterTypesList;
-    private TypeListViewModel typesViewModel;
+    private Spinner spinnerFunctions;
+    private ListAdapter adapterFunctionsList;
+    private FunctionListViewModel functionsViewModel;
 
     //Firebase Authentification
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser fUser;
+    private ProgressBar progressBar;
 
     //DB
     private DatabaseReference reff;
@@ -70,6 +77,30 @@ public class UserDetailActivity extends AppCompatActivity {
 
         //Initializes buttons, views, current ID and edit mode
         initialize();
+
+        //Spinner
+        spinnerFunctions = findViewById(R.id.spinnerFunctions);
+        adapterFunctionsList = new ListAdapter<>(UserDetailActivity.this, R.layout.rowlist, new ArrayList<>());
+        spinnerFunctions.setAdapter(adapterFunctionsList);
+
+        //Receive all functions names from DB
+        FunctionListViewModel.Factory factory2 = new FunctionListViewModel.Factory(
+                getApplication());
+        functionsViewModel = ViewModelProviders.of(this, factory2)
+                .get(FunctionListViewModel.class);
+
+        functionsViewModel.getAllFunctions().observe(this, functions -> {
+            if (functions != null) {
+
+                Log.d(TAG,"functions Not null");
+                //Array productNames
+                ArrayList<String> functionNames = new ArrayList<>();
+                for (Function f : functions) {
+                    functionNames.add(f.getName());
+                }
+                updateAdapterFunctionsList(functionNames);
+            }
+        });
 
         //Create viewmodel
         UserViewModel.Factory factory = new UserViewModel.Factory(
@@ -87,11 +118,15 @@ public class UserDetailActivity extends AppCompatActivity {
         }
     }
 
+    private void updateAdapterFunctionsList(List<String> functionNames) {
+        adapterFunctionsList.updateData(new ArrayList<>(functionNames));
+    }
 
     /**
      * Initializes views, buttons, id and editmode
      */
     private void initialize() {
+        spinnerFunctions = findViewById(R.id.spinnerFunctions);
         eName = findViewById(R.id.td_input_name);
         ePassword = findViewById(R.id.td_input_pasword);
         eLanguage = findViewById(R.id.td_input_language);
@@ -106,7 +141,13 @@ public class UserDetailActivity extends AppCompatActivity {
 
                @Override
                public void onClick(View v) {
-                   saveChanges();
+
+                   if(eEmail.getText().toString().equals("")||ePassword.getText().toString().equals("")||eName.getText().toString().equals("")){
+                       Toast.makeText(UserDetailActivity.this, "Not completed", Toast.LENGTH_SHORT).show();
+                   }else{
+                       progressBar.setVisibility(View.VISIBLE);
+                       saveChanges();
+                   }
                }
            }
         );
@@ -128,6 +169,12 @@ public class UserDetailActivity extends AppCompatActivity {
             eEmail.setText(user.getEmail());
             ePhone.setText(user.getPhoneNumber());
             eAddress.setText(user.getIdAddress());
+
+            if(user.getIdFunction() != null){
+                Log.d("getidProduct", " IS NOT NULL");
+                int spinnerPosition = adapterFunctionsList.getPosition(user.getIdFunction());
+                spinnerFunctions.setSelection(spinnerPosition);
+            }
         }
     }
 
@@ -164,6 +211,7 @@ public class UserDetailActivity extends AppCompatActivity {
         }else{
             User user = new User();
 
+            user.setIdFunction(spinnerFunctions.getSelectedItem().toString());
             user.setName(eName.getText().toString());
             user.setLanguage(eLanguage.getText().toString());
             user.setWorkingsince(eWorkingSince.getText().toString());
@@ -185,13 +233,13 @@ public class UserDetailActivity extends AppCompatActivity {
                                 FirebaseUser userF = mFirebaseAuth.getCurrentUser();
                                 String idUser = userF.getUid();
                                 createUser(user, idUser);
-                                //progressBar.setVisibility(View.INVISIBLE);
+                                progressBar.setVisibility(View.INVISIBLE);
                                 startActivity(new Intent(UserDetailActivity.this, LoginActivity.class));
 
                             } else {
 
                                 // If sign in fails, display a message to the user.
-                                //progressBar.setVisibility(View.INVISIBLE);
+                                progressBar.setVisibility(View.INVISIBLE);
 
                                 Toast.makeText(UserDetailActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
@@ -231,6 +279,7 @@ public class UserDetailActivity extends AppCompatActivity {
      * @param isChangingStatus true if only status is changing
      */
     private void updateUserDB(boolean isChangingStatus){
+        user.setIdFunction(spinnerFunctions.getSelectedItem().toString());
         user.setName(eName.getText().toString());
         user.setLanguage(eLanguage.getText().toString());
         user.setWorkingsince(eWorkingSince.getText().toString());
