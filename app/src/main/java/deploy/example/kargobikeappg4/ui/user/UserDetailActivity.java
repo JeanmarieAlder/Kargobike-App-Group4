@@ -126,6 +126,7 @@ public class UserDetailActivity extends AppCompatActivity {
      * Initializes views, buttons, id and editmode
      */
     private void initialize() {
+        mFirebaseAuth = FirebaseAuth.getInstance();
         spinnerFunctions = findViewById(R.id.spinnerFunctions);
         eName = findViewById(R.id.td_input_name);
         ePassword = findViewById(R.id.td_input_pasword);
@@ -145,7 +146,7 @@ public class UserDetailActivity extends AppCompatActivity {
                    if(eEmail.getText().toString().equals("")||ePassword.getText().toString().equals("")||eName.getText().toString().equals("")){
                        Toast.makeText(UserDetailActivity.this, "Not completed", Toast.LENGTH_SHORT).show();
                    }else{
-                       progressBar.setVisibility(View.VISIBLE);
+                       //progressBar.setVisibility(View.VISIBLE);
                        saveChanges();
                    }
                }
@@ -163,7 +164,7 @@ public class UserDetailActivity extends AppCompatActivity {
     private void updateContent() {
         if (user != null) {
             eName.setText(user.getName());
-            //ePassword.setText("Secret, to do");
+            ePassword.setText("*********");
             eLanguage.setText(user.getLanguage());
             eWorkingSince.setText(user.getWorkingsince());
             eEmail.setText(user.getEmail());
@@ -233,13 +234,13 @@ public class UserDetailActivity extends AppCompatActivity {
                                 FirebaseUser userF = mFirebaseAuth.getCurrentUser();
                                 String idUser = userF.getUid();
                                 createUser(user, idUser);
-                                progressBar.setVisibility(View.INVISIBLE);
-                                startActivity(new Intent(UserDetailActivity.this, LoginActivity.class));
+                                //progressBar.setVisibility(View.INVISIBLE);
+                                startActivity(new Intent(UserDetailActivity.this, UserListActivity.class));
 
                             } else {
 
                                 // If sign in fails, display a message to the user.
-                                progressBar.setVisibility(View.INVISIBLE);
+                                //progressBar.setVisibility(View.INVISIBLE);
 
                                 Toast.makeText(UserDetailActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
@@ -283,7 +284,7 @@ public class UserDetailActivity extends AppCompatActivity {
         user.setName(eName.getText().toString());
         user.setLanguage(eLanguage.getText().toString());
         user.setWorkingsince(eWorkingSince.getText().toString());
-        //user.setEmail(eEmail.getText().toString());
+        user.setEmail(eEmail.getText().toString());
         user.setPhoneNumber(ePhone.getText().toString());
         user.setIdAddress(eAddress.getText().toString());
 
