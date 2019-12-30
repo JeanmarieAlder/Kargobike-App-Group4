@@ -26,11 +26,8 @@ public class ProfileActivity extends AppCompatActivity{
     private UserViewModel userViewmodel;
     private String userId;
     private User user;
-    private AddressViewModel addressViewModel;
-    private Address userAddress;
     private TextView name;
     private TextView address;
-    private TextView city;
     private TextView email;
     private TextView phone;
     private Boolean currentUser;
@@ -64,18 +61,7 @@ public class ProfileActivity extends AppCompatActivity{
             if(userEntity != null)
             {
                 user = userEntity;
-                //Create viewmodel for address
-                AddressViewModel.Factory addressFactory = new AddressViewModel.Factory(
-                        getApplication(), user.getIdAddress());
-                addressViewModel = ViewModelProviders.of(this, addressFactory)
-                        .get(AddressViewModel.class);
-                addressViewModel.getAddress().observe(this, addressEntity ->{
-                    if(addressEntity != null)
-                    {
-                        userAddress = addressEntity;
-                        UpdateContent();
-                    }
-                });
+                UpdateContent();
             }
         });
 
@@ -86,7 +72,6 @@ public class ProfileActivity extends AppCompatActivity{
 
         name = findViewById(R.id.profile_tv_name);
         address  = findViewById(R.id.profile_tv_address);
-        city  = findViewById(R.id.profile_tv_city);
         email = findViewById(R.id.profile_tv_mailAddress);
         phone = findViewById(R.id.profile_tv_phone);
 
@@ -104,9 +89,7 @@ public class ProfileActivity extends AppCompatActivity{
         loading.setVisibility(View.INVISIBLE);
 
         name.setText(user.getName());
-        address.setText(userAddress.getStreet());
-        String pcCity = userAddress.getPostcode() + " " + userAddress.getCity();
-        city.setText(pcCity);
+        address.setText(user.getIdAddress());
         email.setText(user.getEmail());
         phone.setText(user.getPhoneNumber());
 
