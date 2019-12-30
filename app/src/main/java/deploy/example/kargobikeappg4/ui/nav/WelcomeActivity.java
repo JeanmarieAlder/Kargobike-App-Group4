@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
+import deploy.example.kargobikeappg4.db.entities.User;
 import deploy.example.kargobikeappg4.ui.transport.TransportDetailActivity;
 import deploy.example.kargobikeappg4.ui.user.AboutActivity;
 import deploy.example.kargobikeappg4.ui.user.UserListActivity;
@@ -25,6 +26,7 @@ import deploy.example.kargobikeappg4.ui.transport.TransportListActivity;
 import deploy.example.kargobikeappg4.ui.user.ProfileActivity;
 import deploy.example.kargobikeappg4.ui.zone.ZoneListActivity;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
+import deploy.example.kargobikeappg4.viewmodel.user.UserViewModel;
 import deploy.example.kargobikeappg4.viewmodel.workDetails.WorkDetailsViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -33,6 +35,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,6 +58,9 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button productList;
     private Button userList;
     private Button zoneList;
+    private User user;
+    private UserViewModel userViewmodel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,19 +73,35 @@ public class WelcomeActivity extends AppCompatActivity {
         productList = findViewById(R.id.button_ProductList);
         zoneList = findViewById(R.id.button_zoneList);
 
-        userIdFunction = getIntent().getStringExtra("userFunction");
 
-        if(userIdFunction.equals("Rider"))
-        {
-            productList.setVisibility(View.INVISIBLE);
-            userList.setVisibility(View.INVISIBLE);
-            zoneList.setVisibility(View.INVISIBLE);
-        }
+        FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(userIdFunction.equals("Dispatcher"))
-        {
-            userList.setVisibility(View.INVISIBLE);
-        }
+
+        //Create viewmodel
+        UserViewModel.Factory factory = new UserViewModel.Factory(
+                getApplication(), fbUser.getUid());
+        userViewmodel = ViewModelProviders.of(this, factory)
+                .get(UserViewModel.class);
+        userViewmodel.getUser().observe(this, userEntitie ->{
+            if(userEntitie != null)
+            {
+                user = userEntitie;
+                userIdFunction = user.getIdFunction();
+
+                if(userIdFunction.equals("Rider"))
+                {
+                    productList.setVisibility(View.INVISIBLE);
+                    userList.setVisibility(View.INVISIBLE);
+                    zoneList.setVisibility(View.INVISIBLE);
+                }
+
+                if(userIdFunction.equals("Dispatcher"))
+                {
+                    userList.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

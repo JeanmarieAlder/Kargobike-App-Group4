@@ -24,6 +24,7 @@ public class BikeConfirmationActivity extends AppCompatActivity {
     private TextView name;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,11 +74,9 @@ public class BikeConfirmationActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(this, WelcomeActivity.class);
 
-        intent.putExtra("userFunction", user.getIdFunction());
-
 
         FirebaseMessaging.getInstance().subscribeToTopic(userNotif);
-        Log.d("----------IDTOPIC-------- ",userNotif);
+
         startActivity(intent);
     }
 }
