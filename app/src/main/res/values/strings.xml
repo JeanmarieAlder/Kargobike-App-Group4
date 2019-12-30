@@ -88,6 +88,10 @@
     <string name="s_user_phone">Phone:&#160;</string>
     <string name="s_user_email">E-Mail:&#160;</string>
 
+    <string name="s_title_notification">New Order</string>
+    <string name="s_body_notification">You have been chosen for a new delivery</string>
+
+
     <string name="s_productID_points">Product ID:&#160;</string>
     <string name="s_name_points">Name:&#160;</string>
     <string name="s_description_points">Description:&#160;</string>

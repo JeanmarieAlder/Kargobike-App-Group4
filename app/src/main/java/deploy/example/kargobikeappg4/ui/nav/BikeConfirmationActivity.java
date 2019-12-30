@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import deploy.example.kargobikeappg4.viewmodel.user.UserViewModel;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class BikeConfirmationActivity extends AppCompatActivity {
 
@@ -59,8 +61,20 @@ public class BikeConfirmationActivity extends AppCompatActivity {
 
     public void bikeConfirmation(View view)
     {
+        String userNotif = user.getName();
+
+        for(int i=0; i<userNotif.length();i++)
+        {
+            if(userNotif.charAt(i)==' ') {
+                String debut = userNotif.substring(0,i);
+                String fin = userNotif.substring(i+1,userNotif.length());
+                userNotif = debut+fin;
+            }
+        }
         Intent intent = new Intent(this, WelcomeActivity.class);
 
+        FirebaseMessaging.getInstance().subscribeToTopic(userNotif);
+        Log.d("----------IDTOPIC-------- ",userNotif);
         startActivity(intent);
     }
 }
