@@ -73,6 +73,9 @@ public class BikeConfirmationActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(this, WelcomeActivity.class);
 
+        intent.putExtra("userFunction", user.getIdFunction());
+
+
         FirebaseMessaging.getInstance().subscribeToTopic(userNotif);
         Log.d("----------IDTOPIC-------- ",userNotif);
         startActivity(intent);

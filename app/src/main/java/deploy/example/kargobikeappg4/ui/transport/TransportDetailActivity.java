@@ -403,8 +403,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         JSONObject mainObj = new JSONObject();
 
         try {
-
-
+            
             mainObj.put("to","/topics/"+userID);
             JSONObject notifObj = new JSONObject();
             notifObj.put("title",getResources().getString(R.string.s_title_notification));

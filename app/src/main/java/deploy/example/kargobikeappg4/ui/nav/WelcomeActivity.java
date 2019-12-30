@@ -9,6 +9,7 @@ import deploy.example.kargobikeappg4.ui.user.AboutActivity;
 import deploy.example.kargobikeappg4.ui.user.UserListActivity;
 
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +50,11 @@ public class WelcomeActivity extends AppCompatActivity {
     private String workDetailsId;
     private Button logOut;
     private FirebaseAuth fAuth;
+    private String userIdFunction;
+
+    private Button productList;
+    private Button userList;
+    private Button zoneList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,25 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         logOut = findViewById(R.id.btn_logOut);
+
+        userList = findViewById(R.id.button_UserList);
+        productList = findViewById(R.id.button_ProductList);
+        zoneList = findViewById(R.id.button_zoneList);
+
+        userIdFunction = getIntent().getStringExtra("userFunction");
+
+        if(userIdFunction.equals("Rider"))
+        {
+            productList.setVisibility(View.INVISIBLE);
+            userList.setVisibility(View.INVISIBLE);
+            zoneList.setVisibility(View.INVISIBLE);
+        }
+
+        if(userIdFunction.equals("Dispatcher"))
+        {
+            userList.setVisibility(View.INVISIBLE);
+        }
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -65,6 +90,8 @@ public class WelcomeActivity extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
         super.onStart();
+
+
 
 
         logOut.setOnClickListener(new View.OnClickListener() {
