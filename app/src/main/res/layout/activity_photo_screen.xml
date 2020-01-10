@@ -1,31 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
     android:layout_height="match_parent"
-    tools:context="deploy.example.kargobikeappg4.ui.transport.PhotoScreenActivity">
+    tools:context=".ui.transport.PhotoScreenActivity">
 
-    <ImageView
-        android:id="@+id/img_picture"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_image_red_24dp"
-        android:layout_width="400dp"
-        android:layout_height="400dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"><![CDATA[>
 
-    </ImageView>
+        ]]>
+
+        <ImageView
+            android:id="@+id/img_picture"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_image_red_24dp">
+
+        </ImageView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_camera_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Image"
+        tools:layout_editor_absoluteX="300dp"
+        tools:layout_editor_absoluteY="577dp" />
 
     <Button
         android:id="@+id/btn_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Capture Image"
-        tools:layout_editor_absoluteX="152dp"
-        tools:layout_editor_absoluteY="635dp" />
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="577dp" />
 
 
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

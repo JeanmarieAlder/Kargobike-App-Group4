@@ -8,23 +8,35 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 import java.security.Permission;
 
 import deploy.example.kargobikeappg4.R;
 
 public class PhotoScreenActivity extends AppCompatActivity {
     Button camera;
+    Button saveImage;
     ImageView imageView;
+    String imageUrl;
 
     Uri image_uri;
     private static final int PERMISSION_CODE = 1000;
@@ -37,6 +49,15 @@ public class PhotoScreenActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.img_picture);
         camera = findViewById(R.id.btn_camera);
+        saveImage = findViewById(R.id.btn_camera_save);
+
+        saveImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+
+            }
+        });
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,22 +74,10 @@ public class PhotoScreenActivity extends AppCompatActivity {
                         openCamera();
                     }
 
-                }else{
+                }else {
                     openCamera();
 
                 }
-                /*
-                try{
-                    Intent intent = new Intent();
-                    intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivity(intent);
-                }catch (Exception e)
-                {
-                    e.printStackTrace();
-
-                }
-
-                 */
             }
         });
     }
@@ -92,6 +101,7 @@ public class PhotoScreenActivity extends AppCompatActivity {
 
                 }else{
                     Toast.makeText(this, "Permission denied...", Toast.LENGTH_SHORT).show();
+                    openCamera();
                 }
             }
         }
@@ -104,4 +114,52 @@ public class PhotoScreenActivity extends AppCompatActivity {
             imageView.setImageURI(image_uri);
         }
     }
+
+    public void save(){
+        //signature = paintView.getImage();
+        String orderId = getIntent().getStringExtra("IdOrder");
+        Log.d("ORDER-ID", "Order id = " + orderId);
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://kargobike-group4.appspot.com");
+        StorageReference imageRef = storageRef.child("images/"+orderId + "_image.jpg");
+        StorageReference imagePictureRef = storageRef.child("images/"+orderId + "_image.jpg");
+
+        imageRef.getName().equals(imagePictureRef.getName());
+        imageRef.getPath().equals(imagePictureRef.getPath());
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+        //signature.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = imageRef.putBytes(data);
+
+
+        //Log.d("IMAGE URL", "the 1 URL is: " + imageUrl);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+                imageUrl = downloadUrl.toString();
+                Log.d("IMAGE URL", "the URL is: " + imageUrl);
+                Intent intent = new Intent();
+                intent.putExtra("SignatureURL", imageUrl);
+                setResult(RESULT_OK, intent);
+                onBackPressed();
+
+            }
+        });
+        Log.d("IMAGE URL", "the last URL is: " + imageUrl);
+
+
+    }
+
 }
