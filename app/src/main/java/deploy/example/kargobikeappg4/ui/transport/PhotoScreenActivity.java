@@ -122,6 +122,7 @@ public class PhotoScreenActivity extends AppCompatActivity {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://kargobike-group4.appspot.com");
         StorageReference imageRef = storageRef.child("images/"+orderId + "_image.jpg");
+        Log.d("IMAGE-NAME", orderId + "_image.jpg");
         StorageReference imagePictureRef = storageRef.child("images/"+orderId + "_image.jpg");
 
         imageRef.getName().equals(imagePictureRef.getName());
@@ -130,6 +131,7 @@ public class PhotoScreenActivity extends AppCompatActivity {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         //signature.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
@@ -151,7 +153,7 @@ public class PhotoScreenActivity extends AppCompatActivity {
                 imageUrl = downloadUrl.toString();
                 Log.d("IMAGE URL", "the URL is: " + imageUrl);
                 Intent intent = new Intent();
-                intent.putExtra("SignatureURL", imageUrl);
+                intent.putExtra("ImageURL", imageUrl);
                 setResult(RESULT_OK, intent);
                 onBackPressed();
 

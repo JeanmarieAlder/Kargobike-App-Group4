@@ -174,7 +174,19 @@ public class TransportDetailActivity extends AppCompatActivity {
                 month = month + 1;
                 Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
 
-                String date = day + "/" + month + "/" + year;
+                String dayy = Integer.toString(day);
+                String monthh = Integer.toString(day);
+
+
+                if(day <10){
+                    dayy = "0"+day;
+
+                }
+                if(month <10){
+                    monthh = "0"+month;
+
+                }
+                String date =  dayy+ "/" + monthh + "/" + year;
                 eDelivDate.setText(date);
             }
         };
@@ -580,7 +592,15 @@ public class TransportDetailActivity extends AppCompatActivity {
         if(requestCode == 3){
             if(resultCode == RESULT_OK){
                 imageURL = data.getStringExtra("SignatureURL");
-                Log.d("IMAGE URL", "The Url is : " + imageURL);
+                Log.d("IMAGE URL S", "The Url is : " + imageURL);
+                updateOrderDB(null,false);
+
+            }
+        }
+        if(requestCode == 4){
+            if(resultCode == RESULT_OK){
+                imageURL = data.getStringExtra("ImageURL");
+                Log.d("IMAGE URL I", "The Url is : " + imageURL);
                 updateOrderDB(null,false);
 
             }
@@ -600,7 +620,8 @@ public class TransportDetailActivity extends AppCompatActivity {
     public void Transport_button_photoScreen(View view)
     {
         Intent intent = new Intent(this, PhotoScreenActivity.class);
-        startActivity(intent);
+        intent.putExtra("IdOrder", orderId );
+        startActivityForResult(intent, 4);
     }
 
     public void Transport_button_signScreen(View view)
