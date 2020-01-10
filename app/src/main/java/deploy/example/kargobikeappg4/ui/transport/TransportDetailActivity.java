@@ -580,7 +580,15 @@ public class TransportDetailActivity extends AppCompatActivity {
         if(requestCode == 3){
             if(resultCode == RESULT_OK){
                 imageURL = data.getStringExtra("SignatureURL");
-                Log.d("IMAGE URL", "The Url is : " + imageURL);
+                Log.d("IMAGE URL S", "The Url is : " + imageURL);
+                updateOrderDB(null,false);
+
+            }
+        }
+        if(requestCode == 4){
+            if(resultCode == RESULT_OK){
+                imageURL = data.getStringExtra("ImageURL");
+                Log.d("IMAGE URL I", "The Url is : " + imageURL);
                 updateOrderDB(null,false);
 
             }
@@ -601,7 +609,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, PhotoScreenActivity.class);
         intent.putExtra("IdOrder", orderId );
-        startActivity(intent);
+        startActivityForResult(intent, 4);
     }
 
     public void Transport_button_signScreen(View view)

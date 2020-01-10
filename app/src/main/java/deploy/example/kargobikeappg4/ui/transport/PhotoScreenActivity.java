@@ -153,7 +153,7 @@ public class PhotoScreenActivity extends AppCompatActivity {
                 imageUrl = downloadUrl.toString();
                 Log.d("IMAGE URL", "the URL is: " + imageUrl);
                 Intent intent = new Intent();
-                intent.putExtra("SignatureURL", imageUrl);
+                intent.putExtra("ImageURL", imageUrl);
                 setResult(RESULT_OK, intent);
                 onBackPressed();
 
