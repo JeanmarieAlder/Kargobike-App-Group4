@@ -212,8 +212,4 @@ public class LoginActivity extends AppCompatActivity {
         Log.d("ondestroy", "--------------------------ON DESTROY");
     }
 
-    public void registerUser(View view){
-        Intent intent = new Intent(LoginActivity.this, Register.class);
-        startActivity(intent);
-    }
 }
