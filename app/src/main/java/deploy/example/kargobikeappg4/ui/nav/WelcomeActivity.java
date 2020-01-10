@@ -3,14 +3,11 @@ package deploy.example.kargobikeappg4.ui.nav;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
-import deploy.example.kargobikeappg4.ui.trainstation.TrainStationListActivity;
 import deploy.example.kargobikeappg4.db.entities.User;
 import deploy.example.kargobikeappg4.ui.transport.TransportDetailActivity;
-import deploy.example.kargobikeappg4.ui.user.AboutActivity;
 import deploy.example.kargobikeappg4.ui.user.UserListActivity;
 
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -157,11 +154,6 @@ public class WelcomeActivity extends AppCompatActivity {
     public void Welcome_button_userList(View view)
     {
         Intent intent = new Intent(this, UserListActivity.class);
-        startActivity(intent);
-    }
-    public void Welcome_button_trainstationList(View view)
-    {
-        Intent intent = new Intent(this, TrainStationListActivity.class);
         startActivity(intent);
     }
 
