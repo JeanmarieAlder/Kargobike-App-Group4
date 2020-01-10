@@ -1,6 +1,7 @@
 package deploy.example.kargobikeappg4.db.entities;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ public class Order implements Comparable {
     private String idDeliveryCheckpoint;
     private String idResponsibleRider;
     private String status;
+    private HashMap<String, Checkpoint> Checkpoints;
 
     //Constructor
     public Order(){
@@ -34,7 +36,7 @@ public class Order implements Comparable {
                  String deliveryPicture, String idCustomer, String idProduct,
                  String idPickupCheckpoint, String idDeliveryCheckpoint,
                  String idResponsibleRider, String status, String pickupTimestamp,
-                 String deliveryTimestamp) {
+                 String deliveryTimestamp, HashMap<String, Checkpoint> checkpoints) {
         this.quantity = quantity;
         this.dateOrder = dateOrder;
         this.dateDelivery = dateDelivery;
@@ -49,6 +51,7 @@ public class Order implements Comparable {
         this.idDeliveryCheckpoint = idDeliveryCheckpoint;
         this.idResponsibleRider = idResponsibleRider;
         this.status = status;
+        this.Checkpoints = checkpoints;
     }
 
     //Getter and Setter
@@ -163,6 +166,12 @@ public class Order implements Comparable {
     }
     public void setDeliveryTimestamp(String deliveryTimestamp) {
         this.deliveryTimestamp = deliveryTimestamp;
+    }
+    public HashMap<String, Checkpoint> getCheckpoints() {
+        return Checkpoints;
+    }
+    public void setCheckpoints(HashMap<String, Checkpoint> checkpoints) {
+        this.Checkpoints = checkpoints;
     }
 
     public void setStatus(String status) {

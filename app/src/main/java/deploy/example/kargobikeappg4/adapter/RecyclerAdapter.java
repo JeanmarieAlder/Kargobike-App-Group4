@@ -1,6 +1,8 @@
 package deploy.example.kargobikeappg4.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,7 +21,9 @@ import deploy.example.kargobikeappg4.db.entities.Zone;
 import deploy.example.kargobikeappg4.db.repository.ZoneRepository;
 import deploy.example.kargobikeappg4.util.RecyclerViewItemClickListener;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -39,6 +43,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     private static int pos; //get the position of the click (used for long clics)
     private ZoneRepository repository;
     private Context ctx;
+    private CardView v;
 
 
     /**
@@ -58,7 +63,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // create a new view
-        CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
+        v = (CardView) LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.recycler_item, viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(v);
         //set the simple click listener
@@ -79,6 +84,23 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvThirdHeader.setText(R.string.s_time_points);
             holder.tvThirdRow.setText(((Order) item).getTimeDelivery());
             holder.tvRightSide.setText(((Order) item).getStatus());
+
+            //Add red borders if it is currently on a train
+            if(((Order) item).getCheckpoints() != null){
+                HashMap<String, Checkpoint> checkpoints = ((Order) item).getCheckpoints();
+
+                for(Map.Entry<String, Checkpoint> cp : checkpoints.entrySet()){
+                    if(cp.getValue().getType().equals("Train Station") && cp.getValue().getDepartureTimestamp() == null){
+                        v.setCardBackgroundColor(0x4AFF0000);
+                        holder.tvThirdHeader.setText(R.string.s_train_arrival);
+                        holder.tvThirdRow.setText(cp.getValue().getArrivalTime());
+                        holder.tvThirdHeader.setTypeface(holder.tvThirdHeader.getTypeface(), Typeface.BOLD);
+                        holder.tvThirdRow.setTypeface(holder.tvThirdRow.getTypeface(), Typeface.BOLD);
+                        break;
+                    }
+                }
+            }
+
         }
         if(item.getClass().equals((User.class))) {
 

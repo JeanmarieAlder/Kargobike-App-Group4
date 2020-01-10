@@ -132,4 +132,5 @@ if data will be transferred to other countries;<br/>
 information on the right to make a subject access request; <br/>
 information on the right to have personal data deleted or rectified in certain instances.</string>
     <string name="s_breach">The GDPR requires employers to report any data breaches. If there is an accidental or unlawful loss of personal data, the employer will have to notify the ICO promptly unless there is a low risk of causing harm to their employees.</string>
+    <string name="s_train_arrival">Train arrives at:&#160;</string>
 </resources>

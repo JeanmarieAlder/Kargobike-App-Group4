@@ -593,7 +593,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 imageURL = data.getStringExtra("SignatureURL");
                 Log.d("IMAGE URL S", "The Url is : " + imageURL);
-                updateOrderDB(null,false);
+                updateOrderDB(null,true);
 
             }
         }
@@ -601,7 +601,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 imageURL = data.getStringExtra("ImageURL");
                 Log.d("IMAGE URL I", "The Url is : " + imageURL);
-                updateOrderDB(null,false);
+                updateOrderDB(null,true);
 
             }
         }
