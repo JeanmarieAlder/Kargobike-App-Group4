@@ -167,6 +167,16 @@
                 android:value="deploy.example.kargobikeappg4.ui.transport.TransportDetailActivity" />
         </activity>
         <activity
+            android:name=".ui.user.UserDetailActivity"
+            android:label="User Details"
+            android:parentActivityName=".ui.user.UserListActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="deploy.example.kargobikeappg4.ui.user.UserListActivity" />
+        </activity>
+        <activity
             android:name=".ui.transport.TransportDetailActivity"
             android:label="Order Detail"
             android:launchMode="singleTask"

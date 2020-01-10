@@ -6,6 +6,7 @@ import deploy.example.kargobikeappg4.db.repository.AddressRepository;
 import deploy.example.kargobikeappg4.db.repository.CheckpointRepository;
 import deploy.example.kargobikeappg4.db.repository.CheckpointtypeRepository;
 import deploy.example.kargobikeappg4.db.repository.CustomerRepository;
+import deploy.example.kargobikeappg4.db.repository.FunctionRepository;
 import deploy.example.kargobikeappg4.db.repository.OrderRepository;
 import deploy.example.kargobikeappg4.db.repository.ProductRepository;
 import deploy.example.kargobikeappg4.db.repository.RiderRepository;
@@ -73,7 +74,10 @@ public class BaseApp extends Application {
     public AddressRepository getAddressRepository() {
         return AddressRepository.getInstance();
     }
+
     public TypeRepository getTypeRepository() { return TypeRepository.getInstance(); }
+
+    public FunctionRepository getFunctionRepository() { return FunctionRepository.getInstance(); }
 
     public WorkDetailsRepository getWorkDetailsRepository() {
         return WorkDetailsRepository.getInstance();

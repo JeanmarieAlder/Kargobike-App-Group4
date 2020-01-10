@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="deploy.example.kargobikeappg4.ui.transport.PhotoScreenActivity">
+    tools:context=".ui.transport.PhotoScreenActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -13,18 +13,36 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"><![CDATA[>
 
+        ]]>
 
+        <ImageView
+            android:id="@+id/img_picture"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_image_red_24dp">
 
+        </ImageView>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_camera_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Image"
+        tools:layout_editor_absoluteX="300dp"
+        tools:layout_editor_absoluteY="577dp" />
 
     <Button
         android:id="@+id/btn_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Camera"
-        tools:layout_editor_absoluteX="152dp"
-        tools:layout_editor_absoluteY="635dp" />
+        android:text="Capture Image"
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="577dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,13 +68,6 @@
     <string name="s_rule3">3. Check the chains</string>
     <string name="s_rule4">4. Check the frame and the fork</string>
     <string name="s_rule_check">Please follow these steps</string>
-    <string name="s_consent">Consent under the GDPR must be ‘freely given, specific, informed and unambiguous’. Consent from an employee will no longer be ‘freely given’ due to the unequal nature of the employer and employee relationship.</string>
-    <string name="s_SAR">Subject Access Requests (SARs) are a familiar concept. We already have SARs under current data protection laws. They allow individuals to find out what personal data is being held by them, why the organisation is holding it and who their information is disclosed to by the organisation.</string>
-    <string name="s_privacy">Under the GDPR, employers will need to provide more detailed information, such as:how long data will be stored for; <br />
-if data will be transferred to other countries;<br />
-information on the right to make a subject access request; <br />
-information on the right to have personal data deleted or rectified in certain instances.</string>
-    <string name="s_breach">The GDPR requires employers to report any data breaches. If there is an accidental or unlawful loss of personal data, the employer will have to notify the ICO promptly unless there is a low risk of causing harm to their employees.</string>
 
     <string name="s_duration">Duration</string>
     <string name="s_interurbain">Interurbain</string>
@@ -95,6 +88,10 @@ information on the right to have personal data deleted or rectified in certain i
     <string name="s_user_name">Name:&#160;</string>
     <string name="s_user_phone">Phone:&#160;</string>
     <string name="s_user_email">E-Mail:&#160;</string>
+
+    <string name="s_title_notification">New Order</string>
+    <string name="s_body_notification">You have been chosen for a new delivery</string>
+
 
     <string name="s_productID_points">Product ID:&#160;</string>
     <string name="s_name_points">Name:&#160;</string>
@@ -123,4 +120,16 @@ information on the right to have personal data deleted or rectified in certain i
 
     <string name="s_arrival_time_missing">Error, please add arrival time</string>
     <string name="s_train_station_list">Train Station List</string>
+    <string name="s_language">Language</string>
+    <string name="s_workingSince">Workingsince</string>
+    <string name="s_password">Password</string>
+    <string name="s_function">Function</string>
+
+    <string name="s_consent">Consent under the GDPR must be ‘freely given, specific, informed and unambiguous’. Consent from an employee will no longer be ‘freely given’ due to the unequal nature of the employer and employee relationship.</string>
+    <string name="s_SAR">Subject Access Requests (SARs) are a familiar concept. We already have SARs under current data protection laws. They allow individuals to find out what personal data is being held by them, why the organisation is holding it and who their information is disclosed to by the organisation.</string>
+    <string name="s_privacy">Under the GDPR, employers will need to provide more detailed information, such as:how long data will be stored for; <br/>
+if data will be transferred to other countries;<br/>
+information on the right to make a subject access request; <br/>
+information on the right to have personal data deleted or rectified in certain instances.</string>
+    <string name="s_breach">The GDPR requires employers to report any data breaches. If there is an accidental or unlawful loss of personal data, the employer will have to notify the ICO promptly unless there is a low risk of causing harm to their employees.</string>
 </resources>

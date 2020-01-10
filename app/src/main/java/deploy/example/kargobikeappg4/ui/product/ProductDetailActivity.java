@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private Button btnDelete;
 
     //private EditText eProduct;
+    private RadioButton yes;
     private EditText ename;
     private EditText eDescription;
     private EditText ePricee;
@@ -68,7 +70,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         this.radioGroupinterurbain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                doOnDifficultyLevelChanged(group, checkedId);
+                doOnInterurbainChanged(group, checkedId);
             }
         });
 
@@ -82,12 +84,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
     }
 
-    //radiobuttons select the right value
+    // radiobuttons select the right value
     // When radio group "Yes/no" checked change.
-    private void doOnDifficultyLevelChanged(RadioGroup group, int checkedId) {
+    private void doOnInterurbainChanged(RadioGroup group, int checkedId) {
         int checkedRadioId = group.getCheckedRadioButtonId();
 
-        if(checkedRadioId== R.id.radioButton_yes) {
+        if(checkedRadioId == R.id.radioButton_yes) {
             booleanInterurbain = true;
         } else {
             booleanInterurbain = false;
@@ -98,6 +100,7 @@ public class ProductDetailActivity extends AppCompatActivity {
      * Initializes views, buttons, id and editmode
      */
     private void initialize() {
+        yes = findViewById(R.id.radioButton_yes);
         ename = findViewById(R.id.td_input_name);
         eDescription = findViewById(R.id.td_input_description);
         ePricee = findViewById(R.id.td_input_price);
@@ -128,6 +131,9 @@ public class ProductDetailActivity extends AppCompatActivity {
             eDuration.setText(Float.toString(product.getDuration()));
             ename.setText(product.getName());
             eDescription.setText(product.getDescription());
+            if(product.isInterurbain()){
+                yes.setChecked(true);
+            }
         }
     }
 
@@ -166,7 +172,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             product.setName(ename.getText().toString());
             product.setDescription(eDescription.getText().toString());
-            product.setInterurbain(true);
+            product.setInterurbain(booleanInterurbain);
             product.setPrice(Float.parseFloat(ePricee.getText().toString()));
             product.setDuration(Float.parseFloat(eDuration.getText().toString()));
 
@@ -197,7 +203,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private void updateProductDB(boolean isChangingStatus){
         product.setName(ename.getText().toString());
         product.setDescription(eDescription.getText().toString());
-        product.setInterurbain(true);
+        product.setInterurbain(booleanInterurbain);
         product.setPrice(Float.parseFloat(ePricee.getText().toString()));
         product.setDuration(Float.parseFloat(eDuration.getText().toString()));
 
@@ -221,5 +227,4 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
     }
-
 }

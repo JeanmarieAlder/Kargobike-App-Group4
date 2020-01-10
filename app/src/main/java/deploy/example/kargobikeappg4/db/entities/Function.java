@@ -10,17 +10,15 @@ public class Function implements Comparable {
     //Attributes
     private String idFunction;
     private String name;
-    private String description;
 
     //Constructor
     public Function(){
 
     }
 
-    public Function(String idFunction, String name, String description) {
+    public Function(String idFunction, String name) {
         this.idFunction = idFunction;
         this.name = name;
-        this.description = description;
     }
 
     //Getter and Setter
@@ -38,14 +36,6 @@ public class Function implements Comparable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
@@ -66,13 +56,14 @@ public class Function implements Comparable {
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
-        result.put("description", description);
         return result;
     }
 
     @Override
     public String toString() {
-        return name + " " + description;
+        return "Function{" +
+                "name='" + name + '\'' +
+                '}';
     }
 
 }

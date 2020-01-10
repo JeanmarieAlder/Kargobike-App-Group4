@@ -1,17 +1,24 @@
 package deploy.example.kargobikeappg4.ui.transport;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 
 import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.ui.transport.paint.PaintView;
@@ -20,13 +27,13 @@ public class SignScreenActivity extends AppCompatActivity{
     private PaintView paintView;
     public Bitmap signature;
     private Button btnSave;
+    public String imageUrl;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_screen);
-
 
         paintView = (PaintView) findViewById(R.id.paintView);
         DisplayMetrics metrics = new DisplayMetrics();
@@ -38,41 +45,72 @@ public class SignScreenActivity extends AppCompatActivity{
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                paintView.save();
+                save();
+
             }
         });
     }
 
+    private PaintView getUrl(){
+
+            //Add click listener, opens details of the selected act
 
 
 
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
+
+        return this.paintView;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.normal:
-                paintView.normal();
-                return true;
-            case R.id.emboss:
-                paintView.emboss();
-                return true;
-            case R.id.blur:
-                paintView.blur();
-                return true;
-            case R.id.clear:
-                paintView.clear();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void onBackPressed(){
+        super.onBackPressed();
     }
 
- */
+    public void save(){
+        signature = paintView.getImage();
+        String orderId = getIntent().getStringExtra("IdOrder");
+        Log.d("ORDER-ID", "Order id = " + orderId);
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://kargobike-group4.appspot.com");
+        StorageReference signatureRef = storageRef.child("signatures/"+orderId + "_signature.jpg");
+        StorageReference signatureImageRef = storageRef.child("signatures/"+orderId + "_signature.jpg");
+
+        signatureRef.getName().equals(signatureImageRef.getName());
+        signatureRef.getPath().equals(signatureImageRef.getPath());
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        signature.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = signatureRef.putBytes(data);
+
+
+        Log.d("IMAGE URL", "the 1 URL is: " + imageUrl);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+                imageUrl = downloadUrl.toString();
+                Log.d("IMAGE URL", "the URL is: " + imageUrl);
+                Intent intent = new Intent();
+                intent.putExtra("SignatureURL", imageUrl);
+                setResult(RESULT_OK, intent);
+                onBackPressed();
+
+            }
+        });
+        Log.d("IMAGE URL", "the last URL is: " + imageUrl);
+
+
+    }
+
+
+
+
 }

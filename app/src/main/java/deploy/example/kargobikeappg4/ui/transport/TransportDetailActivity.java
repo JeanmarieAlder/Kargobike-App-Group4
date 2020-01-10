@@ -38,16 +38,33 @@ import deploy.example.kargobikeappg4.viewmodel.customer.CustomerViewModel;
 import deploy.example.kargobikeappg4.viewmodel.order.OrderViewModel;
 import deploy.example.kargobikeappg4.viewmodel.product.ProductListViewModel;
 import deploy.example.kargobikeappg4.viewmodel.user.UserListViewModel;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TransportDetailActivity extends AppCompatActivity {
+
+    private RequestQueue mRequestQueue ;
+    private String URL = "https://fcm.googleapis.com/fcm/send";
 
     public static int nbDelivery;
     private static final String TAG = "TransportDetailActivity";
@@ -101,6 +118,8 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     private String unsignedMinute;
     private String unsignedHour;
+
+    private String imageURL;
 
     private DatePickerDialog.OnDateSetListener DateSetListenerDelivery;
 
@@ -318,6 +337,11 @@ public class TransportDetailActivity extends AppCompatActivity {
         adapterRidersList.updateData(new ArrayList<>(riderNames));
     }
 
+    private void initializeNotification(){
+
+        mRequestQueue=Volley.newRequestQueue(this);
+
+    }
     /**
      * Initializes views, buttons, id and editmode
      */
@@ -344,6 +368,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveChanges();
+                sendNotification();
             }
         }
         );
@@ -357,6 +382,65 @@ public class TransportDetailActivity extends AppCompatActivity {
             btnChangeStatus.setVisibility(View.GONE);
         }
     }
+
+    private void sendNotification(){
+
+        initializeNotification();
+        String userID = order.getIdResponsibleRider();
+
+        for(int i=0; i<userID.length();i++)
+        {
+            if(userID.charAt(i)==' ') {
+                String debut = userID.substring(0,i);
+                String fin = userID.substring(i+1,userID.length());
+                userID = debut+fin;
+            }
+        }
+
+
+        Log.d("----------IDTOPIC-------- ",userID);
+
+        JSONObject mainObj = new JSONObject();
+
+        try {
+            
+            mainObj.put("to","/topics/"+userID);
+            JSONObject notifObj = new JSONObject();
+            notifObj.put("title",getResources().getString(R.string.s_title_notification));
+            notifObj.put("body", "Hey "+userID+", "+getResources().getString(R.string.s_body_notification));
+            mainObj.put("notification", notifObj);
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, mainObj,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String,String> header = new HashMap<>();
+                    header.put("content-type", "application/json");
+                    header.put("authorization","key=AIzaSyC1XCuqDhyMVMIy_mQllyBAvSkIRDdINHc");
+                    return header;
+                }
+            };
+
+            mRequestQueue.add(request);
+
+
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     private void updateContent() {
         Log.d("UPDATECONTENT", "----------------------------- started updateContent()");
@@ -383,7 +467,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                     btnChangeStatus.setText("Load");
                     break;
                 case "Delivered":
-                    nbDelivery+=1;
+
                 case "Cancelled":
                     btnChangeStatus.setVisibility(View.GONE);
                     break;
@@ -492,6 +576,14 @@ public class TransportDetailActivity extends AppCompatActivity {
                 startActivity(getIntent());
             }
         }
+        if(requestCode == 3){
+            if(resultCode == RESULT_OK){
+                imageURL = data.getStringExtra("SignatureURL");
+                Log.d("IMAGE URL", "The Url is : " + imageURL);
+                updateOrderDB(null,false);
+
+            }
+        }
     }
 
     public void addCheckpoint(boolean isTrainStation)
@@ -512,8 +604,11 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     public void Transport_button_signScreen(View view)
     {
-        Intent intent = new Intent(this, SignScreenActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(TransportDetailActivity.this, SignScreenActivity.class);
+        intent.putExtra("IdOrder", orderId );
+        startActivityForResult(intent, 3);
+
+
     }
     public void ButtonChangeStatus(View view)
     {
@@ -525,6 +620,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                 //Prompts a popup to choose the method of unload
                 showAlertDialogButtonClicked();
                 break;
+
             default :
                 Log.d("Button change status", order.getStatus());
                 break;
@@ -553,6 +649,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                     addCheckpoint(true);
                     break;
                 case 2: // final destination
+                    nbDelivery+=1;
                     manageDelivery();
                     //updateOrderDB("Delivered", true);
                     break;
@@ -699,6 +796,9 @@ public class TransportDetailActivity extends AppCompatActivity {
             order.setIdCustomer(idClientSelected);
         }else{
             order.setIdCustomer(order.getIdCustomer());
+        }
+        if(imageURL != null){
+            order.setSignature(imageURL);
         }
         order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
         order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());

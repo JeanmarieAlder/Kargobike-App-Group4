@@ -66,7 +66,7 @@ public class UserRepository {
     //Query: update a user
     public void update(final User user, final OnAsyncEventListener callback) {
         FirebaseDatabase.getInstance()
-                .getReference("Order")
+                .getReference("User")
                 .child(user.getIdUser())
                 .updateChildren(user.toMap(), (databaseError, databaseReference) -> {
                     if (databaseError != null) {

@@ -11,6 +11,7 @@ import android.graphics.Path;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -47,6 +48,8 @@ public class PaintView extends View {
     private Bitmap Signature;
     private Canvas mCanvas;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+    public String imageUrl;
+
 
     public PaintView(Context context) {
         this(context, null);
@@ -157,35 +160,17 @@ public class PaintView extends View {
         return true;
     }
 
-    public void save(){
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReferenceFromUrl("gs://kargobike-group4.appspot.com");
-
-        StorageReference signatureRef = storageRef.child("signature.jpg");
-
-        StorageReference signatureImageRef = storageRef.child("signatures/signature.jpg");
-
-        signatureRef.getName().equals(signatureImageRef.getName());
-        signatureRef.getPath().equals(signatureImageRef.getPath());
-        
+    public Bitmap getImage(){
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
 
-        UploadTask uploadTask = signatureRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-            }
-        });
+        return mBitmap;
 
+    }
+
+    public String getImageURL(){
+
+        return imageUrl;
     }
 }

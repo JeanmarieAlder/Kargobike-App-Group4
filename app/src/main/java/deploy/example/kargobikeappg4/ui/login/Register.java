@@ -26,11 +26,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class Register extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private EditText name;
     private Button btnSignUp;
+    private EditText phone;
+    private EditText adress;
 
     private FirebaseAuth mFirebaseAuth;
     private UserViewModel viewModel;
@@ -76,12 +82,13 @@ public class Register extends AppCompatActivity {
         String uEmail = email.getText().toString().trim();
         String uPwd = password.getText().toString().trim();
         String uNameUser = name.getText().toString().trim();
+        String phoneNumber = phone.getText().toString().trim();
+        String idAddress = adress.getText().toString().trim();
 
         String language = "EN";
-        String workingsince = "01/02/2019";
-        String phoneNumber = "0791110000";
-        String idFunction = "1";
-        String idAddress = "1";
+        String workingsince = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Calendar.getInstance().getTime());
+        String idFunction = "Rider";
+
 
         //Create user object
         User user = new User();
@@ -150,6 +157,8 @@ public class Register extends AppCompatActivity {
         email = findViewById(R.id.edit_registerMail);
         password = findViewById(R.id.edit_registerPassword);
         name = findViewById(R.id.edit_registerName);
+        phone = findViewById(R.id.edit_registerPhone);
+        adress = findViewById(R.id.edit_registerAdress);
         btnSignUp = findViewById(R.id.btn_newUser);
         progressBar = findViewById(R.id.progressBar);
         fUser = mFirebaseAuth.getCurrentUser();

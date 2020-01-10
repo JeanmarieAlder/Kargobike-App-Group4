@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import deploy.example.kargobikeappg4.ui.trainstation.TrainStationListActivity;
+import deploy.example.kargobikeappg4.db.entities.User;
+import deploy.example.kargobikeappg4.ui.transport.TransportDetailActivity;
+import deploy.example.kargobikeappg4.ui.user.AboutActivity;
 import deploy.example.kargobikeappg4.ui.user.UserListActivity;
 
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +24,7 @@ import deploy.example.kargobikeappg4.ui.transport.TransportListActivity;
 import deploy.example.kargobikeappg4.ui.user.ProfileActivity;
 import deploy.example.kargobikeappg4.ui.zone.ZoneListActivity;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
+import deploy.example.kargobikeappg4.viewmodel.user.UserViewModel;
 import deploy.example.kargobikeappg4.viewmodel.workDetails.WorkDetailsViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,6 +33,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,6 +51,14 @@ public class WelcomeActivity extends AppCompatActivity {
     private String workDetailsId;
     private Button logOut;
     private FirebaseAuth fAuth;
+    private String userIdFunction;
+
+    private Button productList;
+    private Button userList;
+    private Button zoneList;
+    private User user;
+    private UserViewModel userViewmodel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +66,41 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         logOut = findViewById(R.id.btn_logOut);
+
+        userList = findViewById(R.id.button_UserList);
+        productList = findViewById(R.id.button_ProductList);
+        zoneList = findViewById(R.id.button_zoneList);
+
+
+        FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        //Create viewmodel
+        UserViewModel.Factory factory = new UserViewModel.Factory(
+                getApplication(), fbUser.getUid());
+        userViewmodel = ViewModelProviders.of(this, factory)
+                .get(UserViewModel.class);
+        userViewmodel.getUser().observe(this, userEntitie ->{
+            if(userEntitie != null)
+            {
+                user = userEntitie;
+                userIdFunction = user.getIdFunction();
+
+                if(userIdFunction.equals("Rider"))
+                {
+                    productList.setVisibility(View.INVISIBLE);
+                    userList.setVisibility(View.INVISIBLE);
+                    zoneList.setVisibility(View.INVISIBLE);
+                }
+
+                if(userIdFunction.equals("Dispatcher"))
+                {
+                    userList.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -63,6 +112,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onStart();
 
 
+
+
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +123,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         //On Succesfull signout we navigate the user back to LoginActivity
 
                         GetHours();
+                        TransportDetailActivity.nbDelivery=0;
                     }
                 });
             }
@@ -150,6 +202,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         String userId = fAuth.getInstance().getCurrentUser().getUid();
 
+
         //Create viewmodel
         WorkDetailsViewModel.Factory factory = new WorkDetailsViewModel.Factory(
                 getApplication(), userId, workDetailsId);
@@ -159,6 +212,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         wd.setDate(date);
         wd.setHours(workingTime);
+        wd.setDeliveries(TransportDetailActivity.nbDelivery);
 
         viewModel.createWorkDetails(wd, userId, new OnAsyncEventListener() {
             @Override

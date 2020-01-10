@@ -29,11 +29,11 @@
         android:id="@+id/profile_tv_name_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="40dp"
         android:text="@string/s_name_points"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/profile_tv_name"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <TextView
         android:id="@+id/profile_tv_mailAddress"
@@ -47,28 +47,19 @@
         android:id="@+id/profile_tv_address_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="@string/s_address"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/profile_tv_address"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_name" />
+        app:layout_constraintStart_toStartOf="@+id/profile_tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/profile_tv_name" />
 
     <TextView
         android:id="@+id/profile_tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/profile_tv_address_title"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_name_title" />
-
-    <TextView
-        android:id="@+id/profile_tv_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/profile_btn_monthlyReport"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_address"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/profile_tv_name_title"
+        app:layout_constraintTop_toBottomOf="@+id/profile_tv_name_title" />
 
     <TextView
         android:id="@+id/profile_tv_mailAddress_title"
@@ -77,8 +68,8 @@
         android:layout_marginTop="24dp"
         android:text="@string/s_email"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_city"
-        app:layout_constraintTop_toBottomOf="@+id/profile_tv_city" />
+        app:layout_constraintStart_toStartOf="@+id/profile_tv_address"
+        app:layout_constraintTop_toBottomOf="@+id/profile_tv_address" />
 
     <TextView
         android:id="@+id/profile_tv_phone_title"
@@ -95,8 +86,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/profile_tv_city"
-        app:layout_constraintStart_toStartOf="@+id/profile_tv_address_title" />
+        app:layout_constraintStart_toStartOf="@+id/profile_tv_address_title"
+        app:layout_constraintTop_toBottomOf="@+id/profile_tv_address_title" />
 
     <Button
         android:id="@+id/profile_btn_monthlyReport"
@@ -127,7 +118,7 @@
         android:id="@+id/groupProfileInfos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="profile_tv_name_title,profile_tv_name,profile_tv_address_title,profile_tv_address,profile_tv_city,profile_tv_phone_title,profile_tv_phone,profile_tv_mailAddress_title,profile_tv_mailAddress,profile_btn_monthlyReport" />
+        app:constraint_referenced_ids="profile_tv_name_title,profile_tv_name,profile_tv_address_title,profile_tv_address,profile_tv_phone_title,profile_tv_phone,profile_tv_mailAddress_title,profile_tv_mailAddress,profile_btn_monthlyReport" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -135,5 +126,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_end="115dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="145dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
