@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="5dp"
     tools:context="deploy.example.kargobikeappg4.ui.product.ProductDetailActivity">
 
     <ScrollView
@@ -19,7 +20,9 @@
                 android:id="@+id/td_tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_name" />
+                android:text="@string/s_name"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_name"
@@ -33,7 +36,9 @@
                 android:id="@+id/td_tv_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_description" />
+                android:text="@string/s_description"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_description"
@@ -47,7 +52,9 @@
                 android:id="@+id/td_tv_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_price" />
+                android:text="@string/s_price"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_price"
@@ -61,7 +68,9 @@
                 android:id="@+id/td_tv_duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_duration" />
+                android:text="@string/s_duration"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_duration"
@@ -75,7 +84,9 @@
                 android:id="@+id/td_tv_interurbain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_interurbain" />
+                android:text="@string/s_interurbain"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <RadioGroup
                 android:layout_width="match_parent"

@@ -5,24 +5,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="5dp"
     tools:context="deploy.example.kargobikeappg4.ui.transport.CustomerAddActivity">
 
     <TextView
         android:id="@+id/ca_tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
         android:text="@string/s_title" />
 
     <Spinner
         android:id="@+id/ca_spinner_title"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+       />
+
+
 
     <TextView
         android:id="@+id/ca_tv_firstname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/s_firstname" />
+        android:text="@string/s_firstname"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/ca_input_firstname"
@@ -36,7 +45,9 @@
         android:id="@+id/ca_tv_lastname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/s_lastname" />
+        android:text="@string/s_lastname"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/ca_input_lastname"
@@ -50,7 +61,9 @@
         android:id="@+id/ca_tv_company"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/s_company" />
+        android:text="@string/s_company"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/ca_input_company"
@@ -64,7 +77,9 @@
         android:id="@+id/ca_tv_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/s_address" />
+        android:text="@string/s_address"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/ca_input_address"
@@ -78,7 +93,9 @@
         android:id="@+id/ca_tv_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/s_city" />
+        android:text="@string/s_city"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/ca_input_city"
@@ -92,7 +109,9 @@
         android:id="@+id/ca_tv_postcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/s_postcode" />
+        android:text="@string/s_postcode"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/ca_input_postcode"

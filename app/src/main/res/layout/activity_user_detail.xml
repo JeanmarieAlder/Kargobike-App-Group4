@@ -19,7 +19,9 @@
                 android:id="@+id/td_tv_function"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_function" />
+                android:text="@string/s_function"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <Spinner
                 android:id="@+id/spinnerFunctions"
@@ -30,7 +32,9 @@
                 android:id="@+id/td_tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_name" />
+                android:text="@string/s_name"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_name"
@@ -44,7 +48,9 @@
                 android:id="@+id/td_tv_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_password" />
+                android:text="@string/s_password"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_pasword"
@@ -58,7 +64,9 @@
                 android:id="@+id/td_tv_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_address" />
+                android:text="@string/s_address"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_address"
@@ -72,7 +80,9 @@
                 android:id="@+id/td_tv_language"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_language" />
+                android:text="@string/s_language"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_language"
@@ -86,7 +96,9 @@
                 android:id="@+id/td_tv_workingsince"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_workingSince" />
+                android:text="@string/s_workingSince"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_workingsince"
@@ -100,7 +112,9 @@
                 android:id="@+id/td_tv_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_email" />
+                android:text="@string/s_email"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_email"
@@ -114,7 +128,9 @@
                 android:id="@+id/td_tv_phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_phone" />
+                android:text="@string/s_phone"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_phoneNumber"

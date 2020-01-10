@@ -24,7 +24,7 @@
     <string name="s_transportList">Transport List</string>
     <string name="s_transportDetails">Transport Details</string>
     <string name="s_productList">Product List</string>
-    <string name="s_clientList">Client List</string>
+    <string name="s_clientList">Choose Client</string>
     <string name="s_photoScreen">Photo Screen</string>
     <string name="s_signScreen">Sign Screen</string>
     <string name="s_userList">User List</string>
@@ -83,8 +83,8 @@
     <string name="s_export_data">Export Data</string>
     <string name="s_workingTime">Working Time</string>
     <string name="s_deliveries">Deliveries</string>
-    <string name="s_From_points">From:</string>
-    <string name="s_to_points">To:</string>
+    <string name="s_From_points">Starting Date:</string>
+    <string name="s_to_points">Ending Date:</string>
     <string name="s_user_name">Name:&#160;</string>
     <string name="s_user_phone">Phone:&#160;</string>
     <string name="s_user_email">E-Mail:&#160;</string>
@@ -133,4 +133,5 @@ information on the right to make a subject access request; <br/>
 information on the right to have personal data deleted or rectified in certain instances.</string>
     <string name="s_breach">The GDPR requires employers to report any data breaches. If there is an accidental or unlawful loss of personal data, the employer will have to notify the ICO promptly unless there is a low risk of causing harm to their employees.</string>
     <string name="s_train_arrival">Train arrives at:&#160;</string>
+    <string name="spinner_prompt">Mr</string>
 </resources>

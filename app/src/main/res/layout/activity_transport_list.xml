@@ -19,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="-3dp"
         android:layout_marginLeft="-3dp"
-        android:layout_marginTop="153dp"
+        android:layout_marginTop="75dp"
         android:background="@android:color/darker_gray"
         android:scrollbars="vertical"
         tools:listitem="@layout/transport_item" />
@@ -31,25 +31,14 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="361dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:background="@null"
-        android:layout_marginTop="100dp"
         android:onClick="Transport_button_transportAdd"
         app:srcCompat="@drawable/ic_add_circle_outline_black_24dp" />
 
-    <TextView
-        android:id="@+id/listTitle"
-        android:layout_width="165dp"
-        android:layout_height="35dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="134dp"
-        android:layout_marginLeft="134dp"
-        android:layout_marginTop="9dp"
-        android:text="List of transports"
-        android:textAlignment="center" />
+
 
 
 

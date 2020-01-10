@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="5dp"
     tools:context=".ui.zone.ZoneDetailActivity"
     android:orientation="vertical">
 
@@ -11,7 +12,9 @@
         android:id="@+id/zd_tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/s_name" />
+        android:text="@string/s_name"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/zd_input_name"
@@ -27,7 +30,9 @@
         android:id="@+id/zd_tv_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/s_city" />
+        android:text="@string/s_city"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <EditText
         android:id="@+id/zd_input_city"
@@ -43,7 +48,9 @@
         android:id="@+id/zd_tv_responsibleRider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/s_responsibleRider" />
+        android:text="@string/s_responsibleRider"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
 
     <Spinner
         android:id="@+id/zd_spinner_riders"

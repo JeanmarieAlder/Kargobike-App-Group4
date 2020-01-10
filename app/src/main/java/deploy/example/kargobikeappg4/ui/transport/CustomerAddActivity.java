@@ -48,10 +48,11 @@ public class CustomerAddActivity extends AppCompatActivity {
         ePostcode = findViewById(R.id.ca_input_postcode);
 
         List<String> titles = new ArrayList<>();
-        titles.add("");
+
         titles.add("Mr");
         titles.add("Mrs");
         titles.add("Dr");
+
 
         titleListAdapter = new ListAdapter<>(CustomerAddActivity.this, R.layout.rowlist, titles);
         spinnerTitle.setAdapter(titleListAdapter);

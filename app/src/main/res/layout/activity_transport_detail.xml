@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="5dp"
     tools:context="deploy.example.kargobikeappg4.ui.transport.TransportDetailActivity">
 
     <ScrollView
@@ -32,7 +33,9 @@
                 android:id="@+id/td_tv_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_product" />
+                android:text="@string/s_product"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <Spinner
                 android:id="@+id/spinnerProducts"
@@ -43,7 +46,9 @@
                 android:id="@+id/td_tv_quantity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_quantity" />
+                android:text="@string/s_quantity"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_quantity"
@@ -52,13 +57,16 @@
                 android:ems="10"
                 android:hint="@string/s_quantity"
                 android:inputType="number"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                />
 
             <TextView
                 android:id="@+id/td_tv_dateDelivery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_deliveryDate" />
+                android:text="@string/s_deliveryDate"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_deliveryDate"
@@ -86,7 +94,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@id/td_timepicker_delivery_time"
-                    android:text="@string/s_deliveryTime" />
+                    android:text="@string/s_deliveryTime"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/td_input_deliveryTime"
@@ -106,11 +116,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/td_tv_client"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/s_client" />
 
                 <Button
                     android:id="@+id/button_ClientList"
@@ -134,7 +139,9 @@
                 android:id="@+id/td_tv_pickupAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/s_pickupAddress" />
+                android:text="@string/s_pickupAddress"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_pickupAddress"
@@ -150,7 +157,9 @@
                 android:id="@+id/td_tv_deliveryAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_deliveryAddress" />
+                android:text="@string/s_deliveryAddress"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_deliveryAddress"
@@ -166,7 +175,9 @@
                 android:id="@+id/td_tv_responsibleRider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_responsibleRider" />
+                android:text="@string/s_responsibleRider"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <Spinner
                 android:id="@+id/spinnerRiders"
@@ -177,7 +188,9 @@
                 android:id="@+id/td_tv_checkpoints"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_checkpoints" />
+                android:text="@string/s_checkpoints"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_storage"
@@ -202,7 +215,9 @@
                     android:id="@+id/td_tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/s_status_points" />
+                    android:text="@string/s_status_points"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/td_input_status"
@@ -210,6 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
+                    android:textSize="18sp"
                     android:text="@string/s_new" />
             </LinearLayout>
 

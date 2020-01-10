@@ -32,6 +32,7 @@
         android:layout_marginStart="40dp"
         android:text="@string/s_name_points"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
@@ -50,6 +51,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/s_address"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/profile_tv_name"
         app:layout_constraintTop_toBottomOf="@+id/profile_tv_name" />
 
@@ -68,6 +70,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/s_email"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/profile_tv_address"
         app:layout_constraintTop_toBottomOf="@+id/profile_tv_address" />
 
@@ -78,6 +81,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/s_phone"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/profile_tv_mailAddress"
         app:layout_constraintTop_toBottomOf="@+id/profile_tv_mailAddress" />
 

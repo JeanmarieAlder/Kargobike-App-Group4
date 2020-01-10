@@ -19,7 +19,9 @@
                 android:id="@+id/td_tv_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_type" />
+                android:text="@string/s_type"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <Spinner
                 android:id="@+id/spinnerTypes"
@@ -30,7 +32,9 @@
                 android:id="@+id/td_tv_lat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_lat" />
+                android:text="@string/s_lat"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -57,7 +61,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/s_lng"
-                    android:layout_below="@id/td_input_lat"/>
+                    android:layout_below="@id/td_input_lat"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/td_input_lng"
@@ -82,7 +88,9 @@
                 android:id="@+id/td_tv_timeStamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_timeStamp" />
+                android:text="@string/s_timeStamp"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_timeStamp"
@@ -98,7 +106,9 @@
                 android:id="@+id/td_tv_rematk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/s_remark" />
+                android:text="@string/s_remark"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/td_input_remark"
@@ -115,7 +125,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/s_arrival_city"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <EditText
                 android:id="@+id/cp_input_arrival_city"
@@ -144,7 +156,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@id/cp_timepicker_arrival_time"
-                    android:text="@string/s_arrival_time" />
+                    android:text="@string/s_arrival_time"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/cp_input_arrival_time"
@@ -164,7 +178,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/s_new_responsible"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
 
             <Spinner
                 android:id="@+id/cp_spinner_riders"
