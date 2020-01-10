@@ -612,6 +612,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     public void Transport_button_photoScreen(View view)
     {
         Intent intent = new Intent(this, PhotoScreenActivity.class);
+        intent.putExtra("IdOrder", orderId );
         startActivity(intent);
     }
 
