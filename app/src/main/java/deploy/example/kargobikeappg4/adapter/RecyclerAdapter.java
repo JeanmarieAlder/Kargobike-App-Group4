@@ -93,8 +93,6 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
 
         if(item.getClass().equals((Product.class))) {
 
-            holder.tvFirstHeader.setText(R.string.s_productID_points);
-            holder.tvFirstRow.setText(((Product) item).getIdProduct());
             holder.tvSecondHeader.setText(R.string.s_name_points);
             holder.tvSecondRow.setText(((Product) item).getName());
             holder.tvThirdHeader.setText(R.string.s_description_points);
