@@ -386,7 +386,8 @@ public class TransportDetailActivity extends AppCompatActivity {
     private void sendNotification(){
 
         initializeNotification();
-        String userID = order.getIdResponsibleRider();
+        String userID = spinnerRiders.getSelectedItem().toString();
+
 
         for(int i=0; i<userID.length();i++)
         {
