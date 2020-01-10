@@ -108,9 +108,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
         super.onStart();
 
-
-
-
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

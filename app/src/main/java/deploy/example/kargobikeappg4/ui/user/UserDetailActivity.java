@@ -158,6 +158,8 @@ public class UserDetailActivity extends AppCompatActivity {
 
         if(editMode){
             userId = getIntent().getExtras().get("userId").toString();
+            ePassword.setEnabled(false);
+            eEmail.setEnabled(false);
         }
     }
 
