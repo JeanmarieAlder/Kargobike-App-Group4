@@ -51,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/s_quantity"
-                android:inputType="number" />
+                android:inputType="number"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/td_tv_dateDelivery"
@@ -65,7 +66,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/s_deliveryDate"
-                android:inputType="date" />
+                android:inputType="date"
+                android:importantForAutofill="no" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

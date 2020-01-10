@@ -14,7 +14,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.user.AboutActivity"
+        <activity
+            android:name=".ui.trainstation.TrainStationDetailActivity"
+            android:label="Train Station Details"
+            android:parentActivityName=".ui.trainstation.TrainStationListActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="deploy.example.kargobikeappg4.ui.trainstation.TrainStationListActivity" />
+        </activity>
+        <activity
+            android:name=".ui.trainstation.TrainStationListActivity"
+            android:label="Train Station List"
+            android:parentActivityName=".ui.nav.WelcomeActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="deploy.example.kargobikeappg4.ui.nav.WelcomeActivity" />
+        </activity>
+        <activity
+            android:name=".ui.user.AboutActivity"
             android:label="RGPD"
             android:parentActivityName=".ui.user.ProfileActivity">
 
@@ -22,7 +41,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="deploy.example.kargobikeappg4.ui.user.ProfileActivity" />
-
         </activity>
         <activity
             android:name=".ui.zone.ZoneDetailActivity"

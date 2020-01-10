@@ -68,6 +68,7 @@
     <string name="s_rule3">3. Check the chains</string>
     <string name="s_rule4">4. Check the frame and the fork</string>
     <string name="s_rule_check">Please follow these steps</string>
+
     <string name="s_duration">Duration</string>
     <string name="s_interurbain">Interurbain</string>
     <string name="s_type">Type</string>
@@ -116,6 +117,9 @@
     <string name="s_new_responsible">New Responsible</string>
     <string name="s_arrival_city">Arrival City</string>
     <string name="s_arrival_time">Arrival Time</string>
+
+    <string name="s_arrival_time_missing">Error, please add arrival time</string>
+    <string name="s_train_station_list">Train Station List</string>
     <string name="s_language">Language</string>
     <string name="s_workingSince">Workingsince</string>
     <string name="s_password">Password</string>

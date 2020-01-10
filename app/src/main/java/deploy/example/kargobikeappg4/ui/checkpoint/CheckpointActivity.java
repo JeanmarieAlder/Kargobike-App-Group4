@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import deploy.example.kargobikeappg4.R;
@@ -32,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -68,7 +70,6 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     private Spinner spinnerTypes;
     private ListAdapter adapterTypesList;
     private TypeListViewModel typesViewModel;
-    private List<Type> types;
 
     private ProgressBar loadingLatSpinner;
     private ProgressBar loadingLngSpinner;
@@ -89,6 +90,9 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     private TextView tvNewResponsible;
     private Spinner spinnerNewResponsible;
     private boolean isTrainStation;
+    private TimePicker timePicker;
+    private String unsignedMinute;
+    private String unsignedHour;
 
     //Train station requires userListViewmodel
     private UserListViewModel viewModelUsers;
@@ -159,7 +163,6 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
 
         typesViewModel.getAllTypes().observe(this, typeList -> {
             if (typeList != null) {
-                types = typeList;
 
                 Log.d(TAG,"Types Not null");
                 //Array productNames
@@ -219,6 +222,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         eArrivalCity = findViewById(R.id.cp_input_arrival_city);
         eArrivalTime = findViewById(R.id.cp_input_arrival_time);
         spinnerNewResponsible = findViewById(R.id.cp_spinner_riders);
+        timePicker = findViewById(R.id.cp_timepicker_arrival_time);
 
         //get order ID from intent and set edit mode to false if new order
         editMode = getIntent().getBooleanExtra("isEdit", false);
@@ -242,6 +246,37 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         eArrivalCity.setVisibility(viewType);
         eArrivalTime.setVisibility(viewType);
         spinnerNewResponsible.setVisibility(viewType);
+        timePicker.setVisibility(viewType);
+
+        setupTimePicker();
+    }
+
+    private void setupTimePicker(){
+        //get current time
+        final Calendar c = Calendar.getInstance();
+        int mHour = c.get(Calendar.HOUR_OF_DAY);
+        int mMinute = c.get(Calendar.MINUTE);
+
+        timePicker.setIs24HourView(true);
+
+        timePicker.setMinute(mMinute);
+        timePicker.setHour(mHour);
+        timePicker.setOnTimeChangedListener((viewTimePicker, hour, minutes) ->{
+
+            unsignedMinute = "" + timePicker.getMinute();
+            unsignedHour = "" + timePicker.getHour();
+
+            //Check that the hour and minutes each have two digits, if not, add a "0" in front
+            if(unsignedMinute.length() < 2){
+                unsignedMinute = "0" + unsignedMinute;
+            }
+            if(unsignedHour.length() < 2){
+                unsignedHour = "0" + unsignedHour;
+            }
+            String newTime = "" + unsignedHour + ":" + unsignedMinute;
+            eArrivalTime.setText(newTime);
+            Log.d(TAG, "TIME HAS CHANGED");
+        });
     }
 
     private void setupUserViewModel(){
@@ -313,14 +348,24 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
 
     private void saveChanges() {
 
+        //Requirements
+        if(isTrainStation && eArrivalTime.getText().length() < 1){
+            Toast.makeText(this, R.string.s_arrival_time_missing, Toast.LENGTH_SHORT)
+                    .show();
+            return;
+        }
+
         if(editMode){
             updateCheckpointDB(false);
         }else{
             Checkpoint checkpoint = new Checkpoint();
 
             checkpoint.setType(spinnerTypes.getSelectedItem().toString());
-            checkpoint.setLat(Float.parseFloat(eLat.getText().toString()));
-            checkpoint.setLng(Float.parseFloat(eLng.getText().toString()));
+            if(eLat.getText().toString().length() > 0 && eLng.getText().toString().length() > 0){
+                checkpoint.setLat(Float.parseFloat(eLat.getText().toString()));
+                checkpoint.setLng(Float.parseFloat(eLng.getText().toString()));
+            }
+
             checkpoint.setRemark(eRemark.getText().toString());
             checkpoint.setArrivalTimestamp(eTimeStamp.getText().toString().trim());
             checkpoint.setIdOrder(orderId);
@@ -350,11 +395,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
 
                 @Override
                 public void onFailure(Exception e) {
-                    if(e.getMessage().contains("FOREIGN KEY")){
-                        Toast.makeText(getApplicationContext(), "Creation error: stage name doesn't exist", Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "Creation failed", Toast.LENGTH_LONG).show();
-                    }
+                    Toast.makeText(getApplicationContext(), "Creation failed", Toast.LENGTH_LONG).show();
                 }
             });
         }

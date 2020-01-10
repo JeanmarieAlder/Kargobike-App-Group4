@@ -10,6 +10,7 @@ import deploy.example.kargobikeappg4.db.repository.FunctionRepository;
 import deploy.example.kargobikeappg4.db.repository.OrderRepository;
 import deploy.example.kargobikeappg4.db.repository.ProductRepository;
 import deploy.example.kargobikeappg4.db.repository.RiderRepository;
+import deploy.example.kargobikeappg4.db.repository.TrainStationRepository;
 import deploy.example.kargobikeappg4.db.repository.TransportRepository;
 import deploy.example.kargobikeappg4.db.repository.TypeRepository;
 import deploy.example.kargobikeappg4.db.repository.UserRepository;
@@ -80,5 +81,8 @@ public class BaseApp extends Application {
 
     public WorkDetailsRepository getWorkDetailsRepository() {
         return WorkDetailsRepository.getInstance();
+    }
+    public TrainStationRepository getTrainStationRepository() {
+        return TrainStationRepository.getInstance();
     }
 }
