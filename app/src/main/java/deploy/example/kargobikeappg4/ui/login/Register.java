@@ -148,7 +148,7 @@ public class Register extends AppCompatActivity {
                 }
             }
         }
-        ,id
+
         );
     }
 

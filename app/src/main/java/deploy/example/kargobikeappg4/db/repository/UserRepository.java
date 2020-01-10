@@ -48,9 +48,8 @@ public class UserRepository {
     }
 
     //Query: insert a user
-    public void insert(final User user, final OnAsyncEventListener callback, String id) {
-        //String id = FirebaseDatabase.getInstance().getReference("User").push().getKey();
-
+    public void insert(final User user, final OnAsyncEventListener callback) {
+        String id = FirebaseDatabase.getInstance().getReference("User").push().getKey();
         FirebaseDatabase.getInstance()
                 .getReference("User")
                 .child(id)
