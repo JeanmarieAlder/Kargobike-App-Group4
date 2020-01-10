@@ -174,7 +174,19 @@ public class TransportDetailActivity extends AppCompatActivity {
                 month = month + 1;
                 Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
 
-                String date = day + "/" + month + "/" + year;
+                String dayy = Integer.toString(day);
+                String monthh = Integer.toString(day);
+
+
+                if(day <10){
+                    dayy = "0"+day;
+
+                }
+                if(month <10){
+                    monthh = "0"+month;
+
+                }
+                String date =  dayy+ "/" + monthh + "/" + year;
                 eDelivDate.setText(date);
             }
         };
