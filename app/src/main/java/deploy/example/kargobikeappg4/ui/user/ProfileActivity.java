@@ -10,10 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import deploy.example.kargobikeappg4.db.entities.User;
 import deploy.example.kargobikeappg4.db.repository.UserRepository;
-import deploy.example.kargobikeappg4.viewmodel.address.AddressViewModel;
 
 import deploy.example.kargobikeappg4.R;
-import deploy.example.kargobikeappg4.db.entities.Address;
 import deploy.example.kargobikeappg4.viewmodel.user.UserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

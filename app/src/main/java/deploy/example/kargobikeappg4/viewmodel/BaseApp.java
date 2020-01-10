@@ -2,7 +2,6 @@ package deploy.example.kargobikeappg4.viewmodel;
 
 import android.app.Application;
 
-import deploy.example.kargobikeappg4.db.repository.AddressRepository;
 import deploy.example.kargobikeappg4.db.repository.CheckpointRepository;
 import deploy.example.kargobikeappg4.db.repository.CheckpointtypeRepository;
 import deploy.example.kargobikeappg4.db.repository.CustomerRepository;
@@ -69,10 +68,6 @@ public class BaseApp extends Application {
 
     public CheckpointtypeRepository getCheckpointtypeRepository() {
         return CheckpointtypeRepository.getInstance();
-    }
-
-    public AddressRepository getAddressRepository() {
-        return AddressRepository.getInstance();
     }
 
     public TypeRepository getTypeRepository() { return TypeRepository.getInstance(); }
