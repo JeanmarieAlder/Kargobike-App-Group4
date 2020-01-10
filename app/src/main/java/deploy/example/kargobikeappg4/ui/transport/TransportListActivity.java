@@ -87,8 +87,14 @@ public class TransportListActivity extends AppCompatActivity {
                 orders = orderEntities;
                 filteredorders = new ArrayList<>();
                 for (Order o : orders) {
-                    if (o.getIdResponsibleRider().equals(user.getName()) && o.getDateDelivery().equals(date)) {
-                        filteredorders.add(o);
+                    if(o.getDateDelivery().equals(date)){
+                        if(user.getIdFunction().equals("Rider")){
+                            if(o.getIdResponsibleRider().equals(user.getName()))
+                                filteredorders.add(o);
+                        }
+                        else{
+                            filteredorders.add(o);
+                        }
                     }
                 }
                 adapter.setData(filteredorders);

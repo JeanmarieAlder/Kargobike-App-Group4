@@ -380,7 +380,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveChanges();
-                sendNotification();
             }
         }
         );
@@ -778,6 +777,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess() {
                     Toast.makeText(getApplicationContext(), "Creation succesful", Toast.LENGTH_LONG).show();
+                    sendNotification();
                     onBackPressed(); //finally, go back to previous screen
                 }
 
