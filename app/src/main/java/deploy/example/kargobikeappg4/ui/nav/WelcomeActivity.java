@@ -2,15 +2,12 @@ package deploy.example.kargobikeappg4.ui.nav;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
-import deploy.example.kargobikeappg4.ui.user.AboutActivity;
+import deploy.example.kargobikeappg4.ui.trainstation.TrainStationListActivity;
 import deploy.example.kargobikeappg4.ui.user.UserListActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -108,6 +105,11 @@ public class WelcomeActivity extends AppCompatActivity {
     public void Welcome_button_userList(View view)
     {
         Intent intent = new Intent(this, UserListActivity.class);
+        startActivity(intent);
+    }
+    public void Welcome_button_trainstationList(View view)
+    {
+        Intent intent = new Intent(this, TrainStationListActivity.class);
         startActivity(intent);
     }
 
