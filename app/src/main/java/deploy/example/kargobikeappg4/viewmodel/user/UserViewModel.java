@@ -67,8 +67,8 @@ public class UserViewModel extends AndroidViewModel {
         return observableUser;
     }
 
-    public void createUser(User user, OnAsyncEventListener callback) {
-        repository.insert(user, callback);
+    public void createUser(User user, OnAsyncEventListener callback, String id) {
+        repository.insert(user, callback, id);
     }
 
     public void updateUser(User user, OnAsyncEventListener callback) {

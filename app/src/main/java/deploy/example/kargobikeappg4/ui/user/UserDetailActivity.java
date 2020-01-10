@@ -44,7 +44,6 @@ public class UserDetailActivity extends AppCompatActivity {
     private boolean editMode;
     private User user;
     private UserViewModel viewModel;
-    private UserViewModel existingUser;
 
     private Button btnSave;
     private Button btnDelete;
@@ -65,7 +64,6 @@ public class UserDetailActivity extends AppCompatActivity {
 
     //Firebase Authentification
     private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth oldFirebaseAuth;
     private FirebaseUser fUser;
     private ProgressBar progressBar;
 
@@ -129,7 +127,6 @@ public class UserDetailActivity extends AppCompatActivity {
      */
     private void initialize() {
         mFirebaseAuth = FirebaseAuth.getInstance();
-        oldFirebaseAuth = FirebaseAuth.getInstance();
         spinnerFunctions = findViewById(R.id.spinnerFunctions);
         eName = findViewById(R.id.td_input_name);
         ePassword = findViewById(R.id.td_input_pasword);
@@ -227,37 +224,40 @@ public class UserDetailActivity extends AppCompatActivity {
             String uPwd = ePassword.getText().toString().trim();
 
             mFirebaseAuth.createUserWithEmailAndPassword(uEmail, uPwd)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "createUserWithEmail:success");
-                            //FirebaseUser userF = mFirebaseAuth.getCurrentUser();
-                            createUser(user);
-                            //progressBar.setVisibility(View.INVISIBLE);
-                            mFirebaseAuth = oldFirebaseAuth;
-                            startActivity(new Intent(UserDetailActivity.this, UserListActivity.class));
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
 
-                        } else {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("TAG", "createUserWithEmail:success");
+                                FirebaseUser userF = mFirebaseAuth.getCurrentUser();
+                                String idUser = userF.getUid();
+                                createUser(user, idUser);
+                                //progressBar.setVisibility(View.INVISIBLE);
+                                startActivity(new Intent(UserDetailActivity.this, UserListActivity.class));
 
-                            // If sign in fails, display a message to the user.
-                            //progressBar.setVisibility(View.INVISIBLE);
+                            } else {
 
-                            Toast.makeText(UserDetailActivity.this, "Registration failed.",
-                                    Toast.LENGTH_SHORT).show();
+                                // If sign in fails, display a message to the user.
+                                //progressBar.setVisibility(View.INVISIBLE);
+
+                                Toast.makeText(UserDetailActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+
+                            }
 
                         }
-
                     });
 
         }
     }
 
-    public void createUser(User user){
+    public void createUser(User user, String id){
         viewModel.createUser(user, new OnAsyncEventListener() {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(getApplicationContext(), "Creation succesful", Toast.LENGTH_LONG).show();
-                        mFirebaseAuth = oldFirebaseAuth;
                         onBackPressed(); //finally, go back to previous screen
                     }
 
@@ -270,7 +270,7 @@ public class UserDetailActivity extends AppCompatActivity {
                         }
                     }
                 }
-
+                ,id
         );
     }
 
