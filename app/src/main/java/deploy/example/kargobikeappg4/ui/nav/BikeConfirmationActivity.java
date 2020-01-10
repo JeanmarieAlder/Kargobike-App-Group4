@@ -77,6 +77,8 @@ public class BikeConfirmationActivity extends AppCompatActivity {
 
         FirebaseMessaging.getInstance().subscribeToTopic(userNotif);
 
+        Log.d("------ IDRESPONSIBLERIDER-------", userNotif);
+
         startActivity(intent);
     }
 }
