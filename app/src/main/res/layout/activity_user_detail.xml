@@ -45,6 +45,22 @@
                 android:inputType="text" />
 
             <TextView
+                android:id="@+id/td_tv_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/s_email"
+                android:textStyle="bold"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/td_input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/s_email"
+                android:inputType="text" />
+
+            <TextView
                 android:id="@+id/td_tv_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,23 +122,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/s_workingSince"
-                android:inputType="text" />
-
-            <TextView
-                android:id="@+id/td_tv_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/s_email"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
-
-            <EditText
-                android:id="@+id/td_input_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/s_email"
-                android:inputType="text" />
+                android:inputType="date"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/td_tv_phoneNumber"

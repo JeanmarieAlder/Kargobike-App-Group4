@@ -1,12 +1,15 @@
 package deploy.example.kargobikeappg4.ui.user;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -29,10 +33,8 @@ import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.adapter.ListAdapter;
 import deploy.example.kargobikeappg4.db.entities.Function;
 import deploy.example.kargobikeappg4.db.entities.User;
-import deploy.example.kargobikeappg4.ui.nav.LoginActivity;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
 import deploy.example.kargobikeappg4.viewmodel.function.FunctionListViewModel;
-import deploy.example.kargobikeappg4.viewmodel.type.TypeListViewModel;
 import deploy.example.kargobikeappg4.viewmodel.user.UserViewModel;
 
 public class UserDetailActivity extends AppCompatActivity {
@@ -65,7 +67,10 @@ public class UserDetailActivity extends AppCompatActivity {
     //Firebase Authentification
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser fUser;
-    private ProgressBar progressBar;
+
+
+    //DatePicker
+    private DatePickerDialog.OnDateSetListener DateSetListenerDelivery;
 
     //DB
     private DatabaseReference reff;
@@ -78,10 +83,50 @@ public class UserDetailActivity extends AppCompatActivity {
         //Initializes buttons, views, current ID and edit mode
         initialize();
 
-        //Spinner
+        //Spinner for Functions
         spinnerFunctions = findViewById(R.id.spinnerFunctions);
         adapterFunctionsList = new ListAdapter<>(UserDetailActivity.this, R.layout.rowlist, new ArrayList<>());
         spinnerFunctions.setAdapter(adapterFunctionsList);
+
+        //OnClickListener für Date Delivery
+        eWorkingSince.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog dialog = new DatePickerDialog(
+                    UserDetailActivity.this,
+                    android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                    DateSetListenerDelivery,
+                    year,month,day);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+        });
+
+        //DateSetListener for Date Delivery
+        DateSetListenerDelivery = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
+
+                String dayy = Integer.toString(day);
+                String monthh = Integer.toString(day);
+
+
+                if(day <10){
+                    dayy = "0"+day;
+
+                }
+                if(month <10){
+                    monthh = "0"+month;
+
+                }
+                String date =  dayy+ "/" + monthh + "/" + year;
+                eWorkingSince.setText(date);
+            }
+        };
 
         //Receive all functions names from DB
         FunctionListViewModel.Factory factory2 = new FunctionListViewModel.Factory(
@@ -132,6 +177,7 @@ public class UserDetailActivity extends AppCompatActivity {
         ePassword = findViewById(R.id.td_input_pasword);
         eLanguage = findViewById(R.id.td_input_language);
         eWorkingSince = findViewById(R.id.td_input_workingsince);
+        eWorkingSince.setFocusable(false);
         eEmail = findViewById(R.id.td_input_email);
         ePhone = findViewById(R.id.td_input_phoneNumber);
         eAddress = findViewById(R.id.td_input_address);
@@ -153,6 +199,8 @@ public class UserDetailActivity extends AppCompatActivity {
            }
         );
 
+        btnDelete.setEnabled(false);
+
         //get order ID from intent and set edit mode to false if new order
         editMode = getIntent().getBooleanExtra("isEdit", false);
 
@@ -160,6 +208,7 @@ public class UserDetailActivity extends AppCompatActivity {
             userId = getIntent().getExtras().get("userId").toString();
             ePassword.setEnabled(false);
             eEmail.setEnabled(false);
+            btnDelete.setEnabled(true);
         }
     }
 
@@ -217,7 +266,7 @@ public class UserDetailActivity extends AppCompatActivity {
             user.setIdFunction(spinnerFunctions.getSelectedItem().toString());
             user.setName(eName.getText().toString());
             user.setLanguage(eLanguage.getText().toString());
-            user.setWorkingsince(eWorkingSince.getText().toString());
+            user.setWorkingsince(eWorkingSince.getText().toString().trim());
             user.setEmail(eEmail.getText().toString());
             user.setPhoneNumber(ePhone.getText().toString());
             user.setIdAddress(eAddress.getText().toString());

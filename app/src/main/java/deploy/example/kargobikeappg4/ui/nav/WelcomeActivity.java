@@ -115,7 +115,8 @@ public class WelcomeActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         //On Succesfull signout we navigate the user back to LoginActivity
-
+                        Toast.makeText(getApplicationContext(),
+                                "Logout successful", Toast.LENGTH_LONG).show();
                         GetHours();
                         TransportDetailActivity.nbDelivery=0;
                     }

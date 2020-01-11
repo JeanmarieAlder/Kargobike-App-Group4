@@ -39,7 +39,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private RadioButton yes;
     private EditText ename;
     private EditText eDescription;
-    private EditText ePricee;
+    private EditText ePrice;
     private EditText eDuration;
 
     //Radiobuttons
@@ -103,12 +103,14 @@ public class ProductDetailActivity extends AppCompatActivity {
         yes = findViewById(R.id.radioButton_yes);
         ename = findViewById(R.id.td_input_name);
         eDescription = findViewById(R.id.td_input_description);
-        ePricee = findViewById(R.id.td_input_price);
+        ePrice = findViewById(R.id.td_input_price);
         eDuration = findViewById(R.id.td_input_duration);
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
         btnSave = findViewById(R.id.button_save);
         btnDelete = findViewById(R.id.td_button_cancel);
+        btnDelete.setEnabled(false);
         btnSave.setOnClickListener(new View.OnClickListener(){
+
 
             @Override
             public void onClick(View v) {
@@ -122,12 +124,13 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         if(editMode){
             productId = getIntent().getExtras().get("productId").toString();
+            btnDelete.setEnabled(true);
         }
     }
 
     private void updateContent() {
         if (product != null) {
-            ePricee.setText(Float.toString(product.getPrice()));
+            ePrice.setText(Float.toString(product.getPrice()));
             eDuration.setText(Float.toString(product.getDuration()));
             ename.setText(product.getName());
             eDescription.setText(product.getDescription());
@@ -173,7 +176,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             product.setName(ename.getText().toString());
             product.setDescription(eDescription.getText().toString());
             product.setInterurbain(booleanInterurbain);
-            product.setPrice(Float.parseFloat(ePricee.getText().toString()));
+            product.setPrice(Float.parseFloat(ePrice.getText().toString()));
             product.setDuration(Float.parseFloat(eDuration.getText().toString()));
 
             viewModel.createProduct(product, new OnAsyncEventListener() {
@@ -204,7 +207,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         product.setName(ename.getText().toString());
         product.setDescription(eDescription.getText().toString());
         product.setInterurbain(booleanInterurbain);
-        product.setPrice(Float.parseFloat(ePricee.getText().toString()));
+        product.setPrice(Float.parseFloat(ePrice.getText().toString()));
         product.setDuration(Float.parseFloat(eDuration.getText().toString()));
 
         viewModel.updateProduct(product, new OnAsyncEventListener() {

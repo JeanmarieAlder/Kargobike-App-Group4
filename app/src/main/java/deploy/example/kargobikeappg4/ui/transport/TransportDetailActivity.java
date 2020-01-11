@@ -375,6 +375,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.td_button_cancel);
         btnChangeStatus = findViewById(R.id.button_change_status);
         btnClient = findViewById(R.id.button_ClientList);
+        btnCancel.setEnabled(true);
         btnSave.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -389,6 +390,7 @@ public class TransportDetailActivity extends AppCompatActivity {
 
         if(editMode){
             orderId = currIntent.getStringExtra("orderId");
+            btnCancel.setEnabled(true);
         }else{
             btnChangeStatus.setVisibility(View.GONE);
         }

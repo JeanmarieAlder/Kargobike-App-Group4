@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import deploy.example.kargobikeappg4.R;
@@ -22,7 +24,7 @@ public class BikeConfirmationActivity extends AppCompatActivity {
     private UserViewModel userViewmodel;
     private User user;
     private TextView name;
-
+    private Button btnReady;
 
 
     @Override
@@ -52,12 +54,15 @@ public class BikeConfirmationActivity extends AppCompatActivity {
     private void Initialize(){
 
         name = findViewById(R.id.bikeca_tv_welcome);
+        btnReady = findViewById(R.id.bikeca_button_confirmation);
+        btnReady.setEnabled(false);
 
     }
 
     private void UpdateContent()
     {
         name.setText("Welcome, "+ user.getName());
+        btnReady.setEnabled(true);
     }
 
     public void bikeConfirmation(View view)
