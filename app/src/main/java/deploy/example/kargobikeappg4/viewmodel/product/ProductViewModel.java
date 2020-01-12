@@ -16,9 +16,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class ProductViewModel extends AndroidViewModel {
 
+    //Atributes
     private ProductRepository repository;
     private final MediatorLiveData<Product> observableOrder;
 
+    //Constructor and initialize all values
     public ProductViewModel(@NonNull Application application,
                           final String productId, ProductRepository repository) {
         super(application);
@@ -29,6 +31,7 @@ public class ProductViewModel extends AndroidViewModel {
         observableOrder.setValue(null); //Null by default until we get data from DB
         if(productId != null)
         {
+            //gives one product back
             LiveData<Product> product = repository.getProduct(productId);
 
             //observer changes from db and forward them
@@ -38,7 +41,7 @@ public class ProductViewModel extends AndroidViewModel {
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used to inject the product id into the ViewModel
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
@@ -63,12 +66,16 @@ public class ProductViewModel extends AndroidViewModel {
     }
 
     /**
-     * Expose the LiveData AccountEntity query so the UI can observe it.
+     * Expose the LiveData ProductEntity query so the UI can observe it.
      */
+
+    //give one product back
     public LiveData<Product> getProduct() {
         return observableOrder;
     }
 
+
+    //All other queries
     public void createProduct(Product product, OnAsyncEventListener callback) {
         repository.insert(product, callback);
     }

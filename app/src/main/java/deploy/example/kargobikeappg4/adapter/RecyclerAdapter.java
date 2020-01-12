@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
+    //Attributes
     private List<T> mData;
     private RecyclerViewItemClickListener mListener;
     private static int pos; //get the position of the click (used for long clics)
@@ -54,11 +55,13 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         return pos;
     }
 
+    //Constructor
     public RecyclerAdapter(RecyclerViewItemClickListener listener) {
         //listens for changes
         mListener = listener;
     }
 
+    //Initialize the view
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -71,6 +74,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         return viewHolder;
     }
 
+    //Display the correct values in the list depending on the class
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         T item = mData.get(position);
@@ -102,6 +106,8 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             }
 
         }
+
+        //View for User
         if(item.getClass().equals((User.class))) {
 
             holder.tvFirstHeader.setText(R.string.s_user_name);
@@ -113,6 +119,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvRightSide.setText("");
         }
 
+        //View for products
         if(item.getClass().equals((Product.class))) {
 
             holder.tvSecondHeader.setText(R.string.s_name_points);
@@ -122,6 +129,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvRightSide.setText("");
         }
 
+        //View for checkpoints
         if(item.getClass().equals((Checkpoint.class))) {
 
             holder.tvFirstHeader.setText(R.string.s_type_points);
@@ -133,6 +141,8 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvThirdRow.setText(((Checkpoint) item).getRemark());
             holder.tvRightSide.setText("");
         }
+
+        //View for Customer
         if(item.getClass().equals((Customer.class))) {
 
             holder.tvFirstHeader.setText("");
@@ -143,6 +153,8 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvThirdRow.setVisibility(View.GONE);
             holder.tvRightSide.setVisibility(View.GONE);
         }
+
+        //View for Zones
         if(item.getClass().equals((Zone.class))){
             holder.tvFirstHeader.setText("");
             holder.tvFirstRow.setText(((Zone) item).getName());

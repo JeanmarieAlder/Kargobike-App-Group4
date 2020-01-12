@@ -98,6 +98,7 @@ public class Transport implements Comparable {
         this.idSession = idSession;
     }
 
+    //Comparing two objects
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;

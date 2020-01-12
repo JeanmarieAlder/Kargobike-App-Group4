@@ -11,17 +11,16 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import deploy.example.kargobikeappg4.db.entities.Function;
-import deploy.example.kargobikeappg4.db.entities.Type;
 import deploy.example.kargobikeappg4.db.repository.FunctionRepository;
-import deploy.example.kargobikeappg4.db.repository.TypeRepository;
 import deploy.example.kargobikeappg4.viewmodel.BaseApp;
-import deploy.example.kargobikeappg4.viewmodel.type.TypeListViewModel;
 
 public class FunctionListViewModel extends AndroidViewModel {
 
+    //Attributes
     private FunctionRepository repository;
     private final MediatorLiveData<List<Function>> observableType;
 
+    //Constructor and initialize all values
     public FunctionListViewModel(@NonNull Application application,
                                  FunctionRepository functionRepository) {
         super(application);
@@ -31,16 +30,18 @@ public class FunctionListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableType.setValue(null);
 
+        //give all functions back
         LiveData<List<Function>> functions = functionRepository.getAllFunctions();
 
         // observe the changes of the entities from the database and forward them
         observableType.addSource(functions, observableType::setValue);
     }
 
+    //Give all functions back
     public LiveData<List<Function>> getAllFunctions() { return observableType; }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used that afterward all functions can be returned
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 

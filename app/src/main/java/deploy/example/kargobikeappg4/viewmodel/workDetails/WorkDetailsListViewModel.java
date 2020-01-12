@@ -16,10 +16,12 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 public class WorkDetailsListViewModel extends AndroidViewModel {
-    private WorkDetailsRepository repository;
 
+    //Attributes
+    private WorkDetailsRepository repository;
     private final MediatorLiveData<List<WorkDetails>> observableWorkDetails;
 
+    //Constructor and initialize all values
     public WorkDetailsListViewModel(@NonNull Application application, final String userId,
                                     WorkDetailsRepository workDetailsRepository) {
         super(application);
@@ -29,6 +31,7 @@ public class WorkDetailsListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableWorkDetails.setValue(null);
 
+        //give all workdetails back
         LiveData<List<WorkDetails>> workdetails = repository.getAllWorkDetailsFromUser(userId);
 
 
@@ -36,12 +39,13 @@ public class WorkDetailsListViewModel extends AndroidViewModel {
         observableWorkDetails.addSource(workdetails, observableWorkDetails::setValue);
     }
 
+    //gives all workdetails back
     public LiveData<List<WorkDetails>> getAllWorkDetails(){
         return observableWorkDetails;
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used that afterward all workdetails can be returned
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 

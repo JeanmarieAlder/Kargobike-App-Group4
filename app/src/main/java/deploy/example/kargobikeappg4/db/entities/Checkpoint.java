@@ -19,6 +19,8 @@ public class Checkpoint implements Comparable{
     private String newResponsibleRider; //for train stations
     private String remark;
 
+
+    //Constructors
     public Checkpoint() {}
 
     public Checkpoint(String type, float lat, float lng, String arrivalTimestamp,
@@ -126,6 +128,7 @@ public class Checkpoint implements Comparable{
         return 0;
     }
 
+    //toMap method, add the informations in a HashMap
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("type", type);

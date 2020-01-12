@@ -15,9 +15,12 @@ import deploy.example.kargobikeappg4.viewmodel.BaseApp;
 
 public class ZoneViewModel extends AndroidViewModel {
 
+
+    //Attributes
     private ZoneRepository repository;
     private MediatorLiveData<Zone> observableZone;
 
+    //Constructor and initialize all values
     public ZoneViewModel(@NonNull Application application,
                           final String zoneId, ZoneRepository repository) {
         super(application);
@@ -28,6 +31,7 @@ public class ZoneViewModel extends AndroidViewModel {
         observableZone.setValue(null); //Null by default until we get data from DB
         if(zoneId != null)
         {
+            //gives one zone back
             LiveData<Zone> zone = repository.getZone(zoneId);
 
             //observer changes from db and forward them
@@ -38,7 +42,7 @@ public class ZoneViewModel extends AndroidViewModel {
 
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used to inject the zone id into the ViewModel
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
@@ -63,12 +67,15 @@ public class ZoneViewModel extends AndroidViewModel {
     }
 
     /**
-     * Expose the LiveData AccountEntity query so the UI can observe it.
+     * Expose the LiveData ZoneEntity query so the UI can observe it.
      */
+    //gves one zone back
     public LiveData<Zone> getZone() {
         return observableZone;
     }
 
+
+    //All other queries
     public void createZone(Zone zone, OnAsyncEventListener callback) {
         repository.insert(zone, callback);
     }

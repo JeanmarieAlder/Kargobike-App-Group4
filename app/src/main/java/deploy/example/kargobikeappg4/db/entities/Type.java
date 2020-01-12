@@ -5,9 +5,11 @@ import java.util.Map;
 
 public class Type implements Comparable{
 
+    //Attributes
     private String idType;
     private String name;
 
+    //Constructor
     public Type() {
     }
 
@@ -16,6 +18,7 @@ public class Type implements Comparable{
         this.name = name;
     }
 
+    //Getter and Setter
     public String getIdType() {
         return idType;
     }
@@ -37,6 +40,7 @@ public class Type implements Comparable{
         return 0;
     }
 
+    //Comparing two objects
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);

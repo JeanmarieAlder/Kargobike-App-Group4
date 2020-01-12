@@ -10,8 +10,6 @@ public class Customer implements Comparable{
     //Attributes
     private String idCustomer;
     private String titre;
-    //private String firstname;
-    //private String lastname;
     private String billingName;
     private String idAddress;
     private String idProduct;
@@ -54,22 +52,6 @@ public class Customer implements Comparable{
         this.billingName = billingName;
     }
 
-    /* public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }*/
-
     public String getIdAddress() {
         return idAddress;
     }
@@ -86,6 +68,7 @@ public class Customer implements Comparable{
         this.idProduct = idProduct;
     }
 
+    //Comparing two objects
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;

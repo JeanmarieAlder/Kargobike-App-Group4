@@ -14,9 +14,13 @@ import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
 import deploy.example.kargobikeappg4.viewmodel.BaseApp;
 
 public class UserViewModel extends AndroidViewModel {
+
+    //Atributes
     private UserRepository repository;
     private final MediatorLiveData<User> observableUser;
 
+
+    //Constructor and initialize all values
     public UserViewModel(@NonNull Application application,
                           final String userId, UserRepository repository) {
         super(application);
@@ -36,7 +40,7 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used to inject the user id into the ViewModel
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
@@ -61,12 +65,15 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     /**
-     * Expose the LiveData AccountEntity query so the UI can observe it.
+     * Expose the LiveData UserEntity query so the UI can observe it.
      */
+    //Give one user back
     public LiveData<User> getUser() {
         return observableUser;
     }
 
+
+    //all other queries
     public void createUser(User user, OnAsyncEventListener callback, String id) {
         repository.insert(user, callback, id);
     }

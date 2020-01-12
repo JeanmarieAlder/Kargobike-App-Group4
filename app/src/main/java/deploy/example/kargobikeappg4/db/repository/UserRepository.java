@@ -77,6 +77,7 @@ public class UserRepository {
                 });
     }
 
+    //Query delete a user
     public void delete(final User user, OnAsyncEventListener callback) {
         FirebaseDatabase.getInstance()
                 .getReference("User")

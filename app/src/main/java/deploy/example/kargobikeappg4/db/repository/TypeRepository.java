@@ -29,7 +29,7 @@ public class TypeRepository {
         return instance;
     }
 
-    //Query: get all orders
+    //Query: get all types
     public LiveData<List<Type>> getAllTypes() {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Type");

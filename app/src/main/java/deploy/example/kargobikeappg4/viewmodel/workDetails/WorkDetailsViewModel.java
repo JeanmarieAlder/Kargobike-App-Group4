@@ -16,9 +16,12 @@ import deploy.example.kargobikeappg4.db.repository.WorkDetailsRepository;
 
 public class WorkDetailsViewModel extends AndroidViewModel {
 
+    //Attributes
     private WorkDetailsRepository repository;
     private final MediatorLiveData<WorkDetails> observableWorkDetails;
 
+
+    //Constructor and initialize all values
     public WorkDetailsViewModel(@NonNull Application application, final String userId,
                                final String workDetailsId, WorkDetailsRepository repository) {
         super(application);
@@ -29,6 +32,7 @@ public class WorkDetailsViewModel extends AndroidViewModel {
         observableWorkDetails.setValue(null); //Null by default until we get data from DB
         if(workDetailsId != null)
         {
+            //give the worketails of one user
             LiveData<WorkDetails> workDetails = repository.getOneWorkDetails(userId, workDetailsId);
 
             //observer changes from db and forward them
@@ -38,7 +42,7 @@ public class WorkDetailsViewModel extends AndroidViewModel {
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used to inject the user id into the ViewModel
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
@@ -63,12 +67,13 @@ public class WorkDetailsViewModel extends AndroidViewModel {
     }
 
     /**
-     * Expose the LiveData AccountEntity query so the UI can observe it.
+     * Expose the LiveData WorkdetailsEntity query so the UI can observe it.
      */
     public LiveData<WorkDetails> getWorkDetails() {
         return observableWorkDetails;
     }
 
+    //insert a new workdetail of a user
     public void createWorkDetails(WorkDetails workDetails, String idUser, OnAsyncEventListener callback) {
         repository.insert(workDetails,idUser, callback);
     }

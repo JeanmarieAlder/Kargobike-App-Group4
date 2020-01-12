@@ -14,9 +14,13 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 public class CustomerViewModel extends AndroidViewModel {
+
+    //Atributes
     private CustomerRepository repository;
     private final MediatorLiveData<Customer> observableCustomer;
 
+
+    //Constructor and initialize all values
     public CustomerViewModel(@NonNull Application application, String customerId,
                              CustomerRepository repository) {
         super(application);
@@ -27,6 +31,7 @@ public class CustomerViewModel extends AndroidViewModel {
         observableCustomer.setValue(null); //Null by default until we get data from DB
         if(customerId != null)
         {
+            //Give a customer back
             LiveData<Customer> customer = repository.getCustomer(customerId);
 
             //observer changes from db and forward them
@@ -36,7 +41,7 @@ public class CustomerViewModel extends AndroidViewModel {
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used to inject the customer id into the ViewModel
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
@@ -60,6 +65,7 @@ public class CustomerViewModel extends AndroidViewModel {
         }
     }
 
+    //Method to give one customer back
     public LiveData<Customer> getCustomer() {
         return observableCustomer;
     }

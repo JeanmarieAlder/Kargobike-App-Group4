@@ -46,7 +46,7 @@ public class ZoneRepository {
         return new ZoneListLiveData(reference);
     }
 
-    //Query: insert a order
+    //Query: insert a zone
     public void insert(final Zone zone, final OnAsyncEventListener callback) {
         String id = FirebaseDatabase.getInstance().getReference("Zone").push().getKey();
         FirebaseDatabase.getInstance()
@@ -61,7 +61,7 @@ public class ZoneRepository {
                 });
     }
 
-    //Query: update a order
+    //Query: update a zone
     public void update(final Zone zone, final OnAsyncEventListener callback) {
         FirebaseDatabase.getInstance()
                 .getReference("Zone")
@@ -75,6 +75,7 @@ public class ZoneRepository {
                 });
     }
 
+    //Query: delete one zone
     public void delete(final Zone zone, OnAsyncEventListener callback) {
         FirebaseDatabase.getInstance()
                 .getReference("Zone")

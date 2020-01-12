@@ -63,6 +63,9 @@ public class Zone implements  Comparable{
     public void setCity(String city) {
         this.city = city;
     }
+
+
+    //Comparing two objects
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;

@@ -17,10 +17,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class ProductListViewModel extends AndroidViewModel {
 
+    //Attributes
     private ProductRepository repository;
-
     private final MediatorLiveData<List<Product>> observableProduct;
 
+    //Constructor and initialize all values
     public ProductListViewModel(@NonNull Application application,
                                 ProductRepository productRepository) {
         super(application);
@@ -30,6 +31,7 @@ public class ProductListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableProduct.setValue(null);
 
+        //gives all products back
         LiveData<List<Product>> products = productRepository.getAllProducts();
 
 
@@ -37,12 +39,13 @@ public class ProductListViewModel extends AndroidViewModel {
         observableProduct.addSource(products, observableProduct::setValue);
     }
 
+    //gives all products back
     public LiveData<List<Product>> getAllProducts(){
         return observableProduct;
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used that afterward all products can be returned
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 

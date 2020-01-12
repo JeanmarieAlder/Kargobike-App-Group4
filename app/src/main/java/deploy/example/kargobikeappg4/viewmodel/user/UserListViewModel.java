@@ -15,10 +15,12 @@ import deploy.example.kargobikeappg4.viewmodel.BaseApp;
 import java.util.List;
 
 public class UserListViewModel extends AndroidViewModel {
-    private UserRepository repository;
 
+    //Attributes
+    private UserRepository repository;
     private final MediatorLiveData<List<User>> observableUser;
 
+    //Constructor and initialize all values
     public UserListViewModel(@NonNull Application application,
                               UserRepository userRepository) {
         super(application);
@@ -28,6 +30,7 @@ public class UserListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableUser.setValue(null);
 
+        //Give all users back
         LiveData<List<User>> users = userRepository.getAllUsers();
 
 
@@ -35,12 +38,13 @@ public class UserListViewModel extends AndroidViewModel {
         observableUser.addSource(users, observableUser::setValue);
     }
 
+    //Give all users back
     public LiveData<List<User>> getAllUsers(){
         return observableUser;
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used that afterward all users can be returned
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 

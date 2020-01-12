@@ -16,9 +16,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class OrderViewModel extends AndroidViewModel {
 
+    //Attributes
     private OrderRepository repository;
     private final MediatorLiveData<Order> observableOrder;
 
+    //Constructor and initialize all values
     public OrderViewModel(@NonNull Application application,
                           final String orderId, OrderRepository repository) {
         super(application);
@@ -29,6 +31,7 @@ public class OrderViewModel extends AndroidViewModel {
         observableOrder.setValue(null); //Null by default until we get data from DB
         if(orderId != null)
         {
+            //give a order back
             LiveData<Order> order = repository.getOrder(orderId);
 
             //observer changes from db and forward them
@@ -38,7 +41,7 @@ public class OrderViewModel extends AndroidViewModel {
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used to inject the order id into the ViewModel
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
@@ -65,10 +68,14 @@ public class OrderViewModel extends AndroidViewModel {
     /**
      * Expose the LiveData AccountEntity query so the UI can observe it.
      */
+
+    //Give one order back
     public LiveData<Order> getOrder() {
         return observableOrder;
     }
 
+
+    //all other queries
     public void createOrder(Order order, OnAsyncEventListener callback) {
         repository.insert(order, callback);
     }

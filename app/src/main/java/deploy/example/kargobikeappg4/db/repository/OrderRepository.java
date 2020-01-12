@@ -76,20 +76,8 @@ public class OrderRepository {
     }
 
     //TODO: Add method that updates the status to 1
-
-    /* public void updateStatus(final String productId, final OnAsyncEventListener callback){
-        FirebaseDatabase.getInstance()
-                .getReference("Order")
-                .child(productId).child("status")
-                .updateChildren("status", (databaseError, databaseReference) -> {
-                    if (databaseError != null) {
-                        callback.onFailure(databaseError.toException());
-                    } else {
-                        callback.onSuccess();
-                    }
-                });
-    }*/
-
+    
+    //Query: delete one order
     public void delete(final Order order, OnAsyncEventListener callback) {
         FirebaseDatabase.getInstance()
                 .getReference("Order")

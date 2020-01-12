@@ -78,6 +78,7 @@ public class Product implements  Comparable {
         this.interurbain = interurbain;
     }
 
+    //Comparing two objects
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;

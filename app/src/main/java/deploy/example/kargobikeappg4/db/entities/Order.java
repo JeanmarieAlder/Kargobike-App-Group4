@@ -178,6 +178,7 @@ public class Order implements Comparable {
         this.status = status;
     }
 
+    //Comparing two objects
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;

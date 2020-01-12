@@ -37,6 +37,7 @@ public class BaseApp extends Application {
 
     }
 
+    //Initialize all Repos
     public OrderRepository getOrderRepository() {
         return OrderRepository.getInstance();
     }
@@ -46,10 +47,6 @@ public class BaseApp extends Application {
     }
 
     public UserRepository getUserRepository() { return UserRepository.getInstance();}
-
-    public RiderRepository getRiderRepository() {
-        return RiderRepository.getInstance();
-    }
 
     public TransportRepository getTransportRepository() {
         return TransportRepository.getInstance();

@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class WorkDetails implements Comparable {
 
+    //Attributes
     private String idWorkDetails;
     private String Date;
     private String Hours;
@@ -52,6 +53,7 @@ public class WorkDetails implements Comparable {
 
     public void setDeliveries(int Deliveries){this.Deliveries=Deliveries; }
 
+    //Comparing two objects
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;

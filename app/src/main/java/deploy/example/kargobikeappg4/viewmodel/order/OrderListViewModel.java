@@ -14,10 +14,12 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 public class OrderListViewModel extends AndroidViewModel {
-    private OrderRepository repository;
 
+    //Atributes
+    private OrderRepository repository;
     private final MediatorLiveData<List<Order>> observableOrder;
 
+    //Constructor and initialize all values
     public OrderListViewModel(@NonNull Application application,
                               OrderRepository orderRepository) {
         super(application);
@@ -27,6 +29,7 @@ public class OrderListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableOrder.setValue(null);
 
+        //Give all orders back
         LiveData<List<Order>> orders = orderRepository.getAllOrders();
 
 
@@ -34,12 +37,13 @@ public class OrderListViewModel extends AndroidViewModel {
         observableOrder.addSource(orders, observableOrder::setValue);
     }
 
+    //Gives all orders back
     public LiveData<List<Order>> getAllOrders(){
         return observableOrder;
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used that afterward all orders can be returned
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 

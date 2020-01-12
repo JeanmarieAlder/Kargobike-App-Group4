@@ -38,6 +38,7 @@ public class CustomerRepository {
         return new CustomerListLiveData(reference);
     }
 
+    //Query: get one order
     public LiveData<Customer> getCustomer(String id){
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Customer")

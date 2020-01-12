@@ -20,7 +20,7 @@ public class CustomerListViewModel extends AndroidViewModel {
 
     private final MediatorLiveData<List<Customer>> observableCustomer;
 
-
+    //Constructor and initialize all values
     public CustomerListViewModel(@NonNull Application application,
                                  CustomerRepository customerRepository) {
         super(application);
@@ -31,18 +31,21 @@ public class CustomerListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableCustomer.setValue(null);
 
+        //Give all customers back
         LiveData<List<Customer>> customers = customerRepository.getAllCustomers();
 
 
         // observe the changes of the entities from the database and forward them
         observableCustomer.addSource(customers, observableCustomer::setValue);
     }
+
+    //Gives all customers back
     public LiveData<List<Customer>> getAllCustomers(){
         return observableCustomer;
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used that all customers can afterwards be displayed
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 

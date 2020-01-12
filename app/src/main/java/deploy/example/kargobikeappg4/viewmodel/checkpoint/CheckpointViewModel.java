@@ -19,57 +19,59 @@ public class CheckpointViewModel extends AndroidViewModel {
 private CheckpointRepository repository;
 private final MediatorLiveData<Checkpoint> observableOrder;
 
-public CheckpointViewModel(@NonNull Application application, final String orderId,
-            final String checkpointId, CheckpointRepository repository) {
-        super(application);
+    //Constructor with all and initialize all values
+    public CheckpointViewModel(@NonNull Application application, final String orderId,
+                final String checkpointId, CheckpointRepository repository) {
+            super(application);
 
-        this.repository = repository;
+            this.repository = repository;
 
-        observableOrder = new MediatorLiveData<>();
-        observableOrder.setValue(null); //Null by default until we get data from DB
-        if(checkpointId != null)
-        {
-        LiveData<Checkpoint> checkpoint = repository.getCheckpoint(orderId, checkpointId);
+            observableOrder = new MediatorLiveData<>();
+            observableOrder.setValue(null); //Null by default until we get data from DB
+            if(checkpointId != null)
+            {
+            LiveData<Checkpoint> checkpoint = repository.getCheckpoint(orderId, checkpointId);
 
-        //observer changes from db and forward them
-        observableOrder.addSource(checkpoint, observableOrder::setValue);
-        }
+            //observer changes from db and forward them
+            observableOrder.addSource(checkpoint, observableOrder::setValue);
+            }
 
-        }
-
-/**
- * A creator is used to inject the account id into the ViewModel
- */
-public static class Factory extends ViewModelProvider.NewInstanceFactory {
-
-    @NonNull
-    private final Application application;
-    private final String orderId;
-    private final String id;
-
-    private final CheckpointRepository repository;
-
-    public Factory(@NonNull Application application, String orderId, String checkpointId) {
-        this.application = application;
-        this.orderId = orderId;
-        this.id = checkpointId;
-        repository = ((BaseApp) application).getCheckpointRepository();
     }
-
-    @Override
-    public <T extends ViewModel> T create(Class<T> modelClass) {
-        //noinspection unchecked
-        return (T) new CheckpointViewModel(application, orderId, id, repository);
-    }
-}
 
     /**
-     * Expose the LiveData AccountEntity query so the UI can observe it.
+     * A creator is used to display the information of a checkpoint
+     */
+    public static class Factory extends ViewModelProvider.NewInstanceFactory {
+
+        @NonNull
+        private final Application application;
+        private final String orderId;
+        private final String id;
+
+        private final CheckpointRepository repository;
+
+        public Factory(@NonNull Application application, String orderId, String checkpointId) {
+            this.application = application;
+            this.orderId = orderId;
+            this.id = checkpointId;
+            repository = ((BaseApp) application).getCheckpointRepository();
+        }
+
+        @Override
+        public <T extends ViewModel> T create(Class<T> modelClass) {
+            //noinspection unchecked
+            return (T) new CheckpointViewModel(application, orderId, id, repository);
+        }
+    }
+
+    /**
+     * Expose the LiveData CheckpointEntity query so the UI can observe it.
      */
     public LiveData<Checkpoint> getCheckpoint() {
         return observableOrder;
     }
 
+    //Following all queries
     public void createCheckpoint(Checkpoint checkpoint, OnAsyncEventListener callback) {
         repository.insert(checkpoint, callback);
     }

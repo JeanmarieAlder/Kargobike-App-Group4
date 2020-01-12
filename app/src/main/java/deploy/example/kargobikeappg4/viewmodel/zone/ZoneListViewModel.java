@@ -16,10 +16,11 @@ import deploy.example.kargobikeappg4.viewmodel.BaseApp;
 
 public class ZoneListViewModel extends AndroidViewModel {
 
+    //Attributes
     ZoneRepository repository;
-
     private final MediatorLiveData<List<Zone>> observableZone;
 
+    //Constructor and initialize all values
     public ZoneListViewModel(@NonNull Application application,
                               ZoneRepository zoneRepository) {
         super(application);
@@ -36,12 +37,13 @@ public class ZoneListViewModel extends AndroidViewModel {
         observableZone.addSource(zones, observableZone::setValue);
     }
 
+    //gives all zones back
     public LiveData<List<Zone>> getAllZones(){
         return observableZone;
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * A creator is used that afterward all zones can be returned
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 

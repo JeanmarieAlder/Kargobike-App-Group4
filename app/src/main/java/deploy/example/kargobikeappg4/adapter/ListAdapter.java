@@ -18,10 +18,13 @@ import androidx.annotation.Nullable;
 
 
 public class ListAdapter<T> extends ArrayAdapter<T> {
+
+    //Attributes
     private int resource;
     private List<T> data;
 
 
+    //Constructor
     public ListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<T> data) {
         super(context, resource, data);
         this.resource=resource;
@@ -39,6 +42,7 @@ public class ListAdapter<T> extends ArrayAdapter<T> {
         return getCustomView(position, convertView, parent);
     }
 
+    //determine the clicked item
     @Override
     public int getPosition(@Nullable T item) {
         //get position if the item is a Product
@@ -54,10 +58,13 @@ public class ListAdapter<T> extends ArrayAdapter<T> {
         return super.getPosition(item);
     }
 
+    //Give this Item back
     public T getItem(int position) {
         return data.get(position);
     }
 
+
+    //Display the informations in the view
     private View getCustomView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
 

@@ -29,7 +29,7 @@ public class FunctionRepository {
         return instance;
     }
 
-    //Query: get all orders
+    //Query: get all functions
     public LiveData<List<Function>> getAllFunctions() {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Function");

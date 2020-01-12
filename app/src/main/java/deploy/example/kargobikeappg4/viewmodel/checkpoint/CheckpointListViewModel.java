@@ -36,12 +36,13 @@ public class CheckpointListViewModel extends AndroidViewModel {
         observableCheckpoint.addSource(checkpoints, observableCheckpoint::setValue);
     }
 
+    //Give all checkpoints back
     public LiveData<List<Checkpoint>> getAllCheckpoints(){
         return observableCheckpoint;
     }
 
     /**
-     * A creator is used to inject the account id into the ViewModel
+     * Gives all checkpoints back from one order
      */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 

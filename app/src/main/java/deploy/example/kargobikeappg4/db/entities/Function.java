@@ -38,6 +38,7 @@ public class Function implements Comparable {
         this.name = name;
     }
 
+    //Comparing two objects
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
