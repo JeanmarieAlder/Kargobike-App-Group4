@@ -29,7 +29,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static String david = "David";
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
@@ -151,6 +150,8 @@ public class LoginActivity extends AppCompatActivity {
 
             }catch(ApiException e){
                 progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(getApplicationContext(),
+                        "Please contact the manager for a valid login", Toast.LENGTH_LONG).show();
                 Log.d(TAG,"Google sign in failed!", e);
             }
         }
