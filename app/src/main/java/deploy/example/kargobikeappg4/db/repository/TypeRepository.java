@@ -2,6 +2,7 @@ package deploy.example.kargobikeappg4.db.repository;
 
 import deploy.example.kargobikeappg4.db.entities.Type;
 import deploy.example.kargobikeappg4.db.liveData.TypeListLiveData;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

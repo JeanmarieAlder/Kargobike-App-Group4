@@ -10,6 +10,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+
 import deploy.example.kargobikeappg4.db.entities.Function;
 
 public class FunctionListLiveData extends LiveData<List<Function>> {
@@ -28,7 +29,8 @@ public class FunctionListLiveData extends LiveData<List<Function>> {
     }
 
     @Override
-    protected void onInactive() { }
+    protected void onInactive() {
+    }
 
     private class MyValueEventListener implements ValueEventListener {
         @Override
@@ -37,10 +39,11 @@ public class FunctionListLiveData extends LiveData<List<Function>> {
         }
 
         @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) { }
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
     }
 
-    private List<Function> toFunction(DataSnapshot snapshot){
+    private List<Function> toFunction(DataSnapshot snapshot) {
         //get values for list
         List<Function> functions = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {

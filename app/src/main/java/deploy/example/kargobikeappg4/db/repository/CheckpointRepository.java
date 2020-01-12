@@ -4,6 +4,7 @@ import deploy.example.kargobikeappg4.db.entities.Checkpoint;
 import deploy.example.kargobikeappg4.db.liveData.CheckpointLiveData;
 import deploy.example.kargobikeappg4.db.liveData.CheckpointsListLiveData;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

@@ -29,8 +29,7 @@ public class CustomerViewModel extends AndroidViewModel {
 
         observableCustomer = new MediatorLiveData<>();
         observableCustomer.setValue(null); //Null by default until we get data from DB
-        if(customerId != null)
-        {
+        if (customerId != null) {
             //Give a customer back
             LiveData<Customer> customer = repository.getCustomer(customerId);
 

@@ -4,6 +4,7 @@ import deploy.example.kargobikeappg4.db.entities.Product;
 import deploy.example.kargobikeappg4.db.liveData.ProductListLiveData;
 import deploy.example.kargobikeappg4.db.liveData.ProductLiveData;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,7 +37,7 @@ public class ProductRepository {
     }
 
     //Query: get one product by id
-    public LiveData<Product> getProduct(final String idProduct){
+    public LiveData<Product> getProduct(final String idProduct) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Product")
                 .child(idProduct);

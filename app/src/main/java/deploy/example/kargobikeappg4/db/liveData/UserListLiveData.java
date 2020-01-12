@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import deploy.example.kargobikeappg4.db.entities.User;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,8 +29,8 @@ public class UserListLiveData extends LiveData<List<User>> {
     }
 
     @Override
-    protected void onInactive() { }
-
+    protected void onInactive() {
+    }
 
     private class MyValueEventListener implements ValueEventListener {
         @Override
@@ -38,7 +39,8 @@ public class UserListLiveData extends LiveData<List<User>> {
         }
 
         @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) { }
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
     }
 
     private List<User> toUsers(DataSnapshot snapshot) {

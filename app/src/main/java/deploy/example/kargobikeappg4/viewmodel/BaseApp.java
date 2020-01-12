@@ -12,6 +12,7 @@ import deploy.example.kargobikeappg4.db.repository.TypeRepository;
 import deploy.example.kargobikeappg4.db.repository.UserRepository;
 import deploy.example.kargobikeappg4.db.repository.WorkDetailsRepository;
 import deploy.example.kargobikeappg4.db.repository.ZoneRepository;
+
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -30,7 +31,7 @@ public class BaseApp extends Application {
         FirebaseApp.initializeApp(this);
         FirebaseMessaging.getInstance().subscribeToTopic("Act_Added");
 
-    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
     }
 
@@ -43,12 +44,15 @@ public class BaseApp extends Application {
         return ProductRepository.getInstance();
     }
 
-    public UserRepository getUserRepository() { return UserRepository.getInstance();}
+    public UserRepository getUserRepository() {
+        return UserRepository.getInstance();
+    }
 
     public CheckpointRepository getCheckpointRepository() {
         return CheckpointRepository.getInstance();
     }
-    public CustomerRepository getCustomerRepository(){
+
+    public CustomerRepository getCustomerRepository() {
         return CustomerRepository.getInstance();
     }
 
@@ -57,13 +61,18 @@ public class BaseApp extends Application {
     }
 
 
-    public TypeRepository getTypeRepository() { return TypeRepository.getInstance(); }
+    public TypeRepository getTypeRepository() {
+        return TypeRepository.getInstance();
+    }
 
-    public FunctionRepository getFunctionRepository() { return FunctionRepository.getInstance(); }
+    public FunctionRepository getFunctionRepository() {
+        return FunctionRepository.getInstance();
+    }
 
     public WorkDetailsRepository getWorkDetailsRepository() {
         return WorkDetailsRepository.getInstance();
     }
+
     public TrainStationRepository getTrainStationRepository() {
         return TrainStationRepository.getInstance();
     }

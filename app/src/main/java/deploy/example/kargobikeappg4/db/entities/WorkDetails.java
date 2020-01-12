@@ -14,11 +14,11 @@ public class WorkDetails implements Comparable {
     private int Deliveries;
 
     //Constructor
-    public WorkDetails(){
+    public WorkDetails() {
 
     }
 
-    public WorkDetails( String Date, String Hours, int Deliveries) {
+    public WorkDetails(String Date, String Hours, int Deliveries) {
         this.Date = Date;
         this.Hours = Hours;
         this.Deliveries = Deliveries;
@@ -49,9 +49,13 @@ public class WorkDetails implements Comparable {
         this.Hours = Hours;
     }
 
-    public int getDeliveries(){return Deliveries;}
+    public int getDeliveries() {
+        return Deliveries;
+    }
 
-    public void setDeliveries(int Deliveries){this.Deliveries=Deliveries; }
+    public void setDeliveries(int Deliveries) {
+        this.Deliveries = Deliveries;
+    }
 
     //Comparing two objects
     @Override

@@ -29,8 +29,7 @@ public class OrderViewModel extends AndroidViewModel {
 
         observableOrder = new MediatorLiveData<>();
         observableOrder.setValue(null); //Null by default until we get data from DB
-        if(orderId != null)
-        {
+        if (orderId != null) {
             //give a order back
             LiveData<Order> order = repository.getOrder(orderId);
 

@@ -28,6 +28,7 @@ import deploy.example.kargobikeappg4.ui.transport.TransportListActivity;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
 import deploy.example.kargobikeappg4.viewmodel.checkpoint.CheckpointViewModel;
 import deploy.example.kargobikeappg4.viewmodel.type.TypeListViewModel;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -42,9 +43,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
+
 import deploy.example.kargobikeappg4.viewmodel.user.UserListViewModel;
 
-public class CheckpointActivity extends AppCompatActivity implements LocationListener{
+public class CheckpointActivity extends AppCompatActivity implements LocationListener {
 
     private static final String TAG = "CheckpointActivity";
 
@@ -111,10 +113,9 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         //Initializes buttons, views, current ID and edit mode
         initialize();
 
-        if(isTrainStation){
+        if (isTrainStation) {
             initializeTrainStation();
-        }
-        else{
+        } else {
             setTrainStationVisibility(View.GONE);
         }
 
@@ -151,7 +152,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         viewModel = ViewModelProviders.of(this, factory)
                 .get(CheckpointViewModel.class);
 
-        if(editMode) {
+        if (editMode) {
             viewModel.getCheckpoint().observe(this, checkpointEntity -> {
                 if (checkpointEntity != null) {
                     checkpoint = checkpointEntity;
@@ -160,7 +161,8 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
             });
         }
     }
-    private void initTypeListViewModel(){
+
+    private void initTypeListViewModel() {
         TypeListViewModel.Factory factoryTypes = new TypeListViewModel.Factory(
                 getApplication());
         typesViewModel = ViewModelProviders.of(this, factoryTypes)
@@ -169,7 +171,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         typesViewModel.getAllTypes().observe(this, typeList -> {
             if (typeList != null) {
 
-                Log.d(TAG,"Types Not null");
+                Log.d(TAG, "Types Not null");
                 //Array productNames
                 ArrayList<String> typeNames = new ArrayList<>();
                 for (Type t : typeList) {
@@ -180,7 +182,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         });
     }
 
-    private String getCurrentDateTime(){
+    private String getCurrentDateTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy / HH:mm");
         Date date = new Date();
         return formatter.format(date);
@@ -188,7 +190,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
 
     private void updateAdapterTypesList(List<String> types) {
         adapterTypesList.updateData(new ArrayList<>(types));
-        if(isTrainStation){
+        if (isTrainStation) {
             String trainStationType = "Train Station";
             int spinnerPosition = adapterTypesList.getPosition(trainStationType);
             spinnerTypes.setSelection(spinnerPosition);
@@ -212,13 +214,13 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         btnSave = findViewById(R.id.button_save);
         loadingLatSpinner = findViewById(R.id.c_pb_loading_lat);
         loadingLngSpinner = findViewById(R.id.c_pb_loading_lng);
-        btnSave.setOnClickListener(new View.OnClickListener(){
+        btnSave.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                saveChanges();
-            }
-        }
+                                       @Override
+                                       public void onClick(View v) {
+                                           saveChanges();
+                                       }
+                                   }
         );
 
         tvArrivalCity = findViewById(R.id.cp_tv_arrival_city);
@@ -232,7 +234,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         //get order ID from intent and set edit mode to false if new order
         editMode = getIntent().getBooleanExtra("isEdit", false);
 
-        if(editMode){
+        if (editMode) {
             checkpointId = getIntent().getStringExtra("checkpointId");
             loadingLatSpinner.setVisibility(View.GONE);
             loadingLngSpinner.setVisibility(View.GONE);
@@ -240,13 +242,13 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     }
 
     //Initialize train station
-    private void initializeTrainStation(){
+    private void initializeTrainStation() {
         setTrainStationVisibility(View.VISIBLE);
         setupUserViewModel();
     }
 
     //Trainstation, special, so only with this checkpoint some UI Elements will enabled
-    public void setTrainStationVisibility(int viewType){
+    public void setTrainStationVisibility(int viewType) {
         tvArrivalCity.setVisibility(viewType);
         tvArrivalTime.setVisibility(viewType);
         tvNewResponsible.setVisibility(viewType);
@@ -259,7 +261,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     }
 
     //Create a TimePicker
-    private void setupTimePicker(){
+    private void setupTimePicker() {
         //get current time
         final Calendar c = Calendar.getInstance();
         int mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -269,17 +271,17 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
 
         timePicker.setMinute(mMinute);
         timePicker.setHour(mHour);
-        timePicker.setOnTimeChangedListener((viewTimePicker, hour, minutes) ->{
+        timePicker.setOnTimeChangedListener((viewTimePicker, hour, minutes) -> {
 
             //Look, that the date will be displayed right
             unsignedMinute = "" + timePicker.getMinute();
             unsignedHour = "" + timePicker.getHour();
 
             //Check that the hour and minutes each have two digits, if not, add a "0" in front
-            if(unsignedMinute.length() < 2){
+            if (unsignedMinute.length() < 2) {
                 unsignedMinute = "0" + unsignedMinute;
             }
-            if(unsignedHour.length() < 2){
+            if (unsignedHour.length() < 2) {
                 unsignedHour = "0" + unsignedHour;
             }
             String newTime = "" + unsignedHour + ":" + unsignedMinute;
@@ -289,7 +291,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     }
 
     //return all users
-    private void setupUserViewModel(){
+    private void setupUserViewModel() {
         userAdapter = new ListAdapter<>(CheckpointActivity.this,
                 R.layout.rowlist, new ArrayList<>());
         spinnerNewResponsible.setAdapter(userAdapter);
@@ -313,7 +315,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         });
     }
 
-    private void updateAdapterRiderList(List<String> riderNames){
+    private void updateAdapterRiderList(List<String> riderNames) {
         userAdapter.updateData(new ArrayList<>(riderNames));
     }
 
@@ -350,7 +352,8 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
                 }
 
                 @Override
-                public void onFailure(Exception e) {}
+                public void onFailure(Exception e) {
+                }
             });
         });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
@@ -361,23 +364,23 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     private void saveChanges() {
 
         //Requirements
-        if(isTrainStation && eArrivalTime.getText().length() < 1){
+        if (isTrainStation && eArrivalTime.getText().length() < 1) {
             Toast.makeText(this, R.string.s_arrival_time_missing, Toast.LENGTH_SHORT)
                     .show();
             return;
         }
 
         //There is one checkpoint, edit it
-        if(editMode){
+        if (editMode) {
             updateCheckpointDB(false);
         }
         //create a new one
-        else{
+        else {
             Checkpoint checkpoint = new Checkpoint();
 
             //Getting the information from the UI
             checkpoint.setType(spinnerTypes.getSelectedItem().toString());
-            if(eLat.getText().toString().length() > 0 && eLng.getText().toString().length() > 0){
+            if (eLat.getText().toString().length() > 0 && eLng.getText().toString().length() > 0) {
                 checkpoint.setLat(Float.parseFloat(eLat.getText().toString()));
                 checkpoint.setLng(Float.parseFloat(eLng.getText().toString()));
             }
@@ -386,7 +389,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
             checkpoint.setArrivalTimestamp(eTimeStamp.getText().toString().trim());
             checkpoint.setIdOrder(orderId);
             checkpoint.setResponsibleRider(respRider);
-            if(isTrainStation){
+            if (isTrainStation) {
                 checkpoint.setArrivalCity(eArrivalCity.getText().toString());
                 checkpoint.setArrivalTime(eArrivalTime.getText().toString());
                 checkpoint.setNewResponsibleRider(getUserIdOfSelection());
@@ -399,7 +402,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
                             "Creation succesful", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent();
                     intent.putExtra("checkpointCreated", true);
-                    if(isTrainStation){
+                    if (isTrainStation) {
                         intent.putExtra("newResponsible",
                                 spinnerNewResponsible.getSelectedItem().toString());
 
@@ -418,11 +421,11 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     }
 
     //get the ID of a selected User
-    private String getUserIdOfSelection(){
+    private String getUserIdOfSelection() {
 
         String result = "userNotFound";
-        for(User u : userList){
-            if(u.getName().equals(spinnerNewResponsible.getSelectedItem().toString())){
+        for (User u : userList) {
+            if (u.getName().equals(spinnerNewResponsible.getSelectedItem().toString())) {
                 result = u.getIdUser();
                 break;
             }
@@ -434,9 +437,10 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     /**
      * Updates an existing order in the DB. Different behaviour if
      * the user only changes the status.
+     *
      * @param isChangingStatus true if only status is changing
      */
-    private void updateCheckpointDB(boolean isChangingStatus){
+    private void updateCheckpointDB(boolean isChangingStatus) {
         checkpoint.setType(spinnerTypes.getSelectedItem().toString());
         checkpoint.setLat(Float.parseFloat(eLat.getText().toString()));
         checkpoint.setLng(Float.parseFloat(eLng.getText().toString()));
@@ -444,7 +448,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         checkpoint.setArrivalTimestamp(eTimeStamp.getText().toString());
         Log.d("RESPID", spinnerTypes.getSelectedItem().toString());
 
-        if(isTrainStation){
+        if (isTrainStation) {
             checkpoint.setArrivalCity(eArrivalCity.getText().toString());
             checkpoint.setArrivalTime(eArrivalTime.getText().toString());
             checkpoint.setNewResponsibleRider(getUserIdOfSelection());
@@ -455,9 +459,9 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
             public void onSuccess() {
                 Toast.makeText(getApplicationContext(),
                         "Update succesful", Toast.LENGTH_LONG).show();
-                if(!isChangingStatus){
+                if (!isChangingStatus) {
                     onBackPressed(); //finally, go back to previous screen
-                }else{
+                } else {
                     updateContent(); //If only status has changed, stay on page and update content
                 }
             }
@@ -492,13 +496,13 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
                 }
                 //there are coordinates, display this
                 else {
-                    if(eLat.getText().toString().isEmpty()){
+                    if (eLat.getText().toString().isEmpty()) {
                         eLat.setText(locationLatitude);
                         loadingLatSpinner.setVisibility(View.GONE);
 
 
                     }
-                    if(eLng.getText().toString().isEmpty()){
+                    if (eLng.getText().toString().isEmpty()) {
                         eLng.setText(locationLongitude);
                         loadingLngSpinner.setVisibility(View.GONE);
                     }
@@ -516,7 +520,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     }
 
     void stopRepeatingTask() {
-        if(mHandler != null){
+        if (mHandler != null) {
             mHandler.removeCallbacks(mStatusChecker);
         }
     }
@@ -526,8 +530,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 5, (LocationListener) this);
-        }
-        catch(SecurityException e) {
+        } catch (SecurityException e) {
             e.printStackTrace();
         }
     }

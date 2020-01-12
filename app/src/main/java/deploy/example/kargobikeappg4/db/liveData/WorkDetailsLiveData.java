@@ -1,6 +1,7 @@
 package deploy.example.kargobikeappg4.db.liveData;
 
 import deploy.example.kargobikeappg4.db.entities.WorkDetails;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,9 +30,9 @@ public class WorkDetailsLiveData extends LiveData<WorkDetails> {
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             //get entity WorkDetails
             WorkDetails entity = dataSnapshot.getValue(WorkDetails.class);
-            if(entity == null){
+            if (entity == null) {
                 return;
-            }else{
+            } else {
                 entity.setIdWorkDetails(dataSnapshot.getKey());
                 setValue(entity);
             }

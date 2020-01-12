@@ -22,15 +22,14 @@ public class ProductViewModel extends AndroidViewModel {
 
     //Constructor and initialize all values
     public ProductViewModel(@NonNull Application application,
-                          final String productId, ProductRepository repository) {
+                            final String productId, ProductRepository repository) {
         super(application);
 
         this.repository = repository;
 
         observableOrder = new MediatorLiveData<>();
         observableOrder.setValue(null); //Null by default until we get data from DB
-        if(productId != null)
-        {
+        if (productId != null) {
             //gives one product back
             LiveData<Product> product = repository.getProduct(productId);
 

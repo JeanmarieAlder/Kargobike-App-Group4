@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
 import deploy.example.kargobikeappg4.db.entities.User;
 import deploy.example.kargobikeappg4.db.repository.UserRepository;
 import deploy.example.kargobikeappg4.viewmodel.BaseApp;
@@ -22,7 +23,7 @@ public class UserListViewModel extends AndroidViewModel {
 
     //Constructor and initialize all values
     public UserListViewModel(@NonNull Application application,
-                              UserRepository userRepository) {
+                             UserRepository userRepository) {
         super(application);
         this.repository = userRepository;
 
@@ -39,7 +40,7 @@ public class UserListViewModel extends AndroidViewModel {
     }
 
     //Give all users back
-    public LiveData<List<User>> getAllUsers(){
+    public LiveData<List<User>> getAllUsers() {
         return observableUser;
     }
 

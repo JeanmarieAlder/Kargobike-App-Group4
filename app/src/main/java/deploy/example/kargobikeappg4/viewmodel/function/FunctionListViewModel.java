@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
 import deploy.example.kargobikeappg4.db.entities.Function;
 import deploy.example.kargobikeappg4.db.repository.FunctionRepository;
 import deploy.example.kargobikeappg4.viewmodel.BaseApp;
@@ -38,7 +39,9 @@ public class FunctionListViewModel extends AndroidViewModel {
     }
 
     //Give all functions back
-    public LiveData<List<Function>> getAllFunctions() { return observableType; }
+    public LiveData<List<Function>> getAllFunctions() {
+        return observableType;
+    }
 
     /**
      * A creator is used that afterward all functions can be returned

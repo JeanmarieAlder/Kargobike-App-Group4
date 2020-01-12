@@ -12,6 +12,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+
 import deploy.example.kargobikeappg4.db.entities.Rider;
 import deploy.example.kargobikeappg4.db.entities.Zone;
 
@@ -31,7 +32,8 @@ public class ZoneListLiveData extends LiveData<List<Zone>> {
     }
 
     @Override
-    protected void onInactive() { }
+    protected void onInactive() {
+    }
 
     private class MyValueEventListener implements ValueEventListener {
         @Override
@@ -40,10 +42,11 @@ public class ZoneListLiveData extends LiveData<List<Zone>> {
         }
 
         @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) { }
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
     }
 
-    private List<Zone> toZones(DataSnapshot snapshot){
+    private List<Zone> toZones(DataSnapshot snapshot) {
         List<Zone> zones = new ArrayList<>();
         //get values for list
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {

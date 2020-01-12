@@ -1,6 +1,7 @@
 package deploy.example.kargobikeappg4.db.liveData;
 
 import deploy.example.kargobikeappg4.db.entities.Type;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +29,8 @@ public class TypeListLiveData extends LiveData<List<Type>> {
     }
 
     @Override
-    protected void onInactive() { }
+    protected void onInactive() {
+    }
 
     private class MyValueEventListener implements ValueEventListener {
         @Override
@@ -37,10 +39,11 @@ public class TypeListLiveData extends LiveData<List<Type>> {
         }
 
         @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) { }
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
     }
 
-    private List<Type> toTypes(DataSnapshot snapshot){
+    private List<Type> toTypes(DataSnapshot snapshot) {
         //get values for list
         List<Type> types = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {

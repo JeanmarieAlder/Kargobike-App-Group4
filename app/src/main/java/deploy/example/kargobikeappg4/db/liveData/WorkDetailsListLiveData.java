@@ -2,6 +2,7 @@ package deploy.example.kargobikeappg4.db.liveData;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+
 import deploy.example.kargobikeappg4.db.entities.WorkDetails;
 
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +29,8 @@ public class WorkDetailsListLiveData extends LiveData<List<WorkDetails>> {
     }
 
     @Override
-    protected void onInactive() { }
+    protected void onInactive() {
+    }
 
 
     private class MyValueEventListener implements ValueEventListener {
@@ -38,10 +40,11 @@ public class WorkDetailsListLiveData extends LiveData<List<WorkDetails>> {
         }
 
         @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) { }
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+        }
     }
 
-    private List<WorkDetails> workDetails (DataSnapshot snapshot) {
+    private List<WorkDetails> workDetails(DataSnapshot snapshot) {
         List<WorkDetails> wd = new ArrayList<>();
         //get values for list
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {

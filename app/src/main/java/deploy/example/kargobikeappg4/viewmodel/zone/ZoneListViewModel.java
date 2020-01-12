@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
 import deploy.example.kargobikeappg4.db.entities.Zone;
 import deploy.example.kargobikeappg4.db.repository.ZoneRepository;
 import deploy.example.kargobikeappg4.viewmodel.BaseApp;
@@ -22,7 +23,7 @@ public class ZoneListViewModel extends AndroidViewModel {
 
     //Constructor and initialize all values
     public ZoneListViewModel(@NonNull Application application,
-                              ZoneRepository zoneRepository) {
+                             ZoneRepository zoneRepository) {
         super(application);
         this.repository = zoneRepository;
 
@@ -38,7 +39,7 @@ public class ZoneListViewModel extends AndroidViewModel {
     }
 
     //gives all zones back
-    public LiveData<List<Zone>> getAllZones(){
+    public LiveData<List<Zone>> getAllZones() {
         return observableZone;
     }
 

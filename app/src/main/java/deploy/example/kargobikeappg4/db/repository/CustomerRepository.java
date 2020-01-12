@@ -4,6 +4,7 @@ import deploy.example.kargobikeappg4.db.entities.Customer;
 import deploy.example.kargobikeappg4.db.liveData.CustomerListLiveData;
 import deploy.example.kargobikeappg4.db.liveData.CustomerLiveData;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,7 +37,7 @@ public class CustomerRepository {
     }
 
     //Query: get one order
-    public LiveData<Customer> getCustomer(String id){
+    public LiveData<Customer> getCustomer(String id) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Customer")
                 .child(id);

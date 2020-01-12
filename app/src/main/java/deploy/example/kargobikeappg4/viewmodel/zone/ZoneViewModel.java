@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
 import deploy.example.kargobikeappg4.db.entities.Zone;
 import deploy.example.kargobikeappg4.db.repository.ZoneRepository;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
@@ -22,15 +23,14 @@ public class ZoneViewModel extends AndroidViewModel {
 
     //Constructor and initialize all values
     public ZoneViewModel(@NonNull Application application,
-                          final String zoneId, ZoneRepository repository) {
+                         final String zoneId, ZoneRepository repository) {
         super(application);
 
         this.repository = repository;
 
         observableZone = new MediatorLiveData<>();
         observableZone.setValue(null); //Null by default until we get data from DB
-        if(zoneId != null)
-        {
+        if (zoneId != null) {
             //gives one zone back
             LiveData<Zone> zone = repository.getZone(zoneId);
 

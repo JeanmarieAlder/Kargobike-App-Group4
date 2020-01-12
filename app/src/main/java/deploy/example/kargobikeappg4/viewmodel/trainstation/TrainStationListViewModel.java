@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
 import deploy.example.kargobikeappg4.db.entities.TrainStation;
 import deploy.example.kargobikeappg4.db.repository.TrainStationRepository;
 import deploy.example.kargobikeappg4.viewmodel.BaseApp;
@@ -20,7 +21,7 @@ public class TrainStationListViewModel extends AndroidViewModel {
     private final MediatorLiveData<List<TrainStation>> observableTrainStation;
 
     public TrainStationListViewModel(@NonNull Application application,
-                             TrainStationRepository trainStationRepository) {
+                                     TrainStationRepository trainStationRepository) {
         super(application);
         this.repository = trainStationRepository;
 
@@ -34,7 +35,9 @@ public class TrainStationListViewModel extends AndroidViewModel {
         observableTrainStation.addSource(trainStations, observableTrainStation::setValue);
     }
 
-    public LiveData<List<TrainStation>> getAllTrainStations() { return observableTrainStation; }
+    public LiveData<List<TrainStation>> getAllTrainStations() {
+        return observableTrainStation;
+    }
 
     /**
      * A creator is used to inject the account id into the ViewModel

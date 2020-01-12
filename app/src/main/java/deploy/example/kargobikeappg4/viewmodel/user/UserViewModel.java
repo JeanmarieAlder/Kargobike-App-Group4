@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
 import deploy.example.kargobikeappg4.db.entities.User;
 import deploy.example.kargobikeappg4.db.repository.UserRepository;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
@@ -22,15 +23,14 @@ public class UserViewModel extends AndroidViewModel {
 
     //Constructor and initialize all values
     public UserViewModel(@NonNull Application application,
-                          final String userId, UserRepository repository) {
+                         final String userId, UserRepository repository) {
         super(application);
 
         this.repository = repository;
 
         observableUser = new MediatorLiveData<>();
         observableUser.setValue(null); //Null by default until we get data from DB
-        if(userId != null)
-        {
+        if (userId != null) {
             LiveData<User> user = repository.getUser(userId);
 
             //observer changes from db and forward them

@@ -5,7 +5,9 @@ import android.app.Application;
 import deploy.example.kargobikeappg4.db.entities.Order;
 import deploy.example.kargobikeappg4.db.repository.OrderRepository;
 import deploy.example.kargobikeappg4.viewmodel.BaseApp;
+
 import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -38,7 +40,7 @@ public class OrderListViewModel extends AndroidViewModel {
     }
 
     //Gives all orders back
-    public LiveData<List<Order>> getAllOrders(){
+    public LiveData<List<Order>> getAllOrders() {
         return observableOrder;
     }
 

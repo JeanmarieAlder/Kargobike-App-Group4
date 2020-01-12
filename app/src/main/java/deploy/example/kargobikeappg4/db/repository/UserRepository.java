@@ -1,6 +1,7 @@
 package deploy.example.kargobikeappg4.db.repository;
 
 import androidx.lifecycle.LiveData;
+
 import deploy.example.kargobikeappg4.db.liveData.UserListLiveData;
 import deploy.example.kargobikeappg4.db.liveData.UserLiveData;
 
@@ -37,7 +38,7 @@ public class UserRepository {
     }
 
     //get a user by id
-    public LiveData<User> getUser(final String idUser){
+    public LiveData<User> getUser(final String idUser) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("User")
                 .child(idUser);

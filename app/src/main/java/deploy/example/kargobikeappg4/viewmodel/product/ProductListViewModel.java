@@ -27,7 +27,7 @@ public class ProductListViewModel extends AndroidViewModel {
         super(application);
         this.repository = productRepository;
 
-        observableProduct= new MediatorLiveData<>();
+        observableProduct = new MediatorLiveData<>();
         // set by default null, until we get data from the database.
         observableProduct.setValue(null);
 
@@ -40,7 +40,7 @@ public class ProductListViewModel extends AndroidViewModel {
     }
 
     //gives all products back
-    public LiveData<List<Product>> getAllProducts(){
+    public LiveData<List<Product>> getAllProducts() {
         return observableProduct;
     }
 

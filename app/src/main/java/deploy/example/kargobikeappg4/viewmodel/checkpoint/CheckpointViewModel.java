@@ -16,25 +16,24 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class CheckpointViewModel extends AndroidViewModel {
 
-private CheckpointRepository repository;
-private final MediatorLiveData<Checkpoint> observableOrder;
+    private CheckpointRepository repository;
+    private final MediatorLiveData<Checkpoint> observableOrder;
 
     //Constructor with all and initialize all values
     public CheckpointViewModel(@NonNull Application application, final String orderId,
-                final String checkpointId, CheckpointRepository repository) {
-            super(application);
+                               final String checkpointId, CheckpointRepository repository) {
+        super(application);
 
-            this.repository = repository;
+        this.repository = repository;
 
-            observableOrder = new MediatorLiveData<>();
-            observableOrder.setValue(null); //Null by default until we get data from DB
-            if(checkpointId != null)
-            {
+        observableOrder = new MediatorLiveData<>();
+        observableOrder.setValue(null); //Null by default until we get data from DB
+        if (checkpointId != null) {
             LiveData<Checkpoint> checkpoint = repository.getCheckpoint(orderId, checkpointId);
 
             //observer changes from db and forward them
             observableOrder.addSource(checkpoint, observableOrder::setValue);
-            }
+        }
 
     }
 

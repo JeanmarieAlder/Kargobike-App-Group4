@@ -39,7 +39,9 @@ public class TypeListViewModel extends AndroidViewModel {
     }
 
     //give all types back
-    public LiveData<List<Type>> getAllTypes() { return observableType; }
+    public LiveData<List<Type>> getAllTypes() {
+        return observableType;
+    }
 
     /**
      * A creator is used that afterward all types can be returned

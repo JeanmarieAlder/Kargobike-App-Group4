@@ -5,7 +5,7 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 
-public class Zone implements  Comparable{
+public class Zone implements Comparable {
 
     //Attributes
     private String idZone;
@@ -15,7 +15,7 @@ public class Zone implements  Comparable{
     private Rider rider;
 
     //Constructor
-    public Zone(){
+    public Zone() {
 
     }
 
@@ -54,12 +54,15 @@ public class Zone implements  Comparable{
     public Rider getRider() {
         return rider;
     }
+
     public void setRider(Rider rider) {
         this.rider = rider;
     }
+
     public String getCity() {
         return city;
     }
+
     public void setCity(String city) {
         this.city = city;
     }

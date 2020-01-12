@@ -1,6 +1,7 @@
 package deploy.example.kargobikeappg4.db.liveData;
 
 import deploy.example.kargobikeappg4.db.entities.Order;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,9 +29,9 @@ public class OrderLiveData extends LiveData<Order> {
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             //get entity Order
             Order entity = dataSnapshot.getValue(Order.class);
-            if(entity == null){
+            if (entity == null) {
                 return;
-            }else{
+            } else {
                 entity.setIdOrder(dataSnapshot.getKey());
                 setValue(entity);
             }

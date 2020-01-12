@@ -4,6 +4,7 @@ import deploy.example.kargobikeappg4.db.entities.Order;
 import deploy.example.kargobikeappg4.db.liveData.OrderListLiveData;
 import deploy.example.kargobikeappg4.db.liveData.OrderLiveData;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,7 +37,7 @@ public class OrderRepository {
     }
 
     //Query: get one order by id
-    public LiveData<Order> getOrder(final String idOrder){
+    public LiveData<Order> getOrder(final String idOrder) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Order")
                 .child(idOrder);
@@ -73,7 +74,7 @@ public class OrderRepository {
     }
 
     //TODO: Add method that updates the status to 1
-    
+
     //Query: delete one order
     public void delete(final Order order, OnAsyncEventListener callback) {
         FirebaseDatabase.getInstance()

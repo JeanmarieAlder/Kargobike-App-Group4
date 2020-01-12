@@ -40,7 +40,7 @@ public class CustomerListViewModel extends AndroidViewModel {
     }
 
     //Gives all customers back
-    public LiveData<List<Customer>> getAllCustomers(){
+    public LiveData<List<Customer>> getAllCustomers() {
         return observableCustomer;
     }
 

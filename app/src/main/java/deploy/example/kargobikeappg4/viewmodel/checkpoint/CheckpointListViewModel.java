@@ -37,7 +37,7 @@ public class CheckpointListViewModel extends AndroidViewModel {
     }
 
     //Give all checkpoints back
-    public LiveData<List<Checkpoint>> getAllCheckpoints(){
+    public LiveData<List<Checkpoint>> getAllCheckpoints() {
         return observableCheckpoint;
     }
 

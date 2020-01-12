@@ -40,7 +40,7 @@ public class WorkDetailsListViewModel extends AndroidViewModel {
     }
 
     //gives all workdetails back
-    public LiveData<List<WorkDetails>> getAllWorkDetails(){
+    public LiveData<List<WorkDetails>> getAllWorkDetails() {
         return observableWorkDetails;
     }
 

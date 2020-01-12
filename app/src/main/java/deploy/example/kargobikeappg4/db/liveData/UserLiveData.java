@@ -4,12 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import deploy.example.kargobikeappg4.db.entities.User;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-public class UserLiveData extends LiveData<User>{
+public class UserLiveData extends LiveData<User> {
     private final DatabaseReference reference;
     private final UserLiveData.MyValueEventListener listener = new UserLiveData.MyValueEventListener();
 
@@ -27,9 +28,9 @@ public class UserLiveData extends LiveData<User>{
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             //get entity User
             User entity = dataSnapshot.getValue(User.class);
-            if(entity == null){
+            if (entity == null) {
                 return;
-            }else{
+            } else {
                 entity.setIdUser(dataSnapshot.getKey());
                 setValue(entity);
             }
