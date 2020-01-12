@@ -110,21 +110,13 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onStart();
 
         //logout with google
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        //On Succesfull signout we navigate the user back to LoginActivity
-                        Toast.makeText(getApplicationContext(),
-                                "Logout successful", Toast.LENGTH_LONG).show();
-                        GetHours();
-                        TransportDetailActivity.nbDelivery=0;
-                    }
-                });
-            }
-        });
+        logOut.setOnClickListener(v -> mGoogleSignInClient.signOut().addOnCompleteListener(task -> {
+            //On Succesfull signout we navigate the user back to LoginActivity
+            Toast.makeText(getApplicationContext(),
+                    "Logout successful", Toast.LENGTH_LONG).show();
+            GetHours();
+            TransportDetailActivity.nbDelivery=0;
+        }));
     }
 
 

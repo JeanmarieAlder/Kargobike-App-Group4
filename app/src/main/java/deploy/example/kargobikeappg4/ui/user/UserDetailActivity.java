@@ -110,7 +110,6 @@ public class UserDetailActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
 
                 String dayy = Integer.toString(day);
                 String monthh = Integer.toString(day);
@@ -224,7 +223,6 @@ public class UserDetailActivity extends AppCompatActivity {
             eAddress.setText(user.getIdAddress());
 
             if(user.getIdFunction() != null){
-                Log.d("getidProduct", " IS NOT NULL");
                 int spinnerPosition = adapterFunctionsList.getPosition(user.getIdFunction());
                 spinnerFunctions.setSelection(spinnerPosition);
             }
@@ -240,7 +238,6 @@ public class UserDetailActivity extends AppCompatActivity {
             viewModel.deleteUser(user, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
-                    Log.d(TAG, "Delete user: success");
                     goToTripsActivity();
                 }
 
@@ -287,7 +284,6 @@ public class UserDetailActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
 
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d("TAG", "createUserWithEmail:success");
                                 FirebaseUser userF = mFirebaseAuth.getCurrentUser();
                                 String idUser = userF.getUid();
                                 createUser(user, idUser);

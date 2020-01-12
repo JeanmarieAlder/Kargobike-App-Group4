@@ -47,7 +47,6 @@ public class TransportListActivity extends AppCompatActivity {
         //Initialize User
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
-        Log.d("User Firebase", "User id (current)" + fUser.getUid() + fUser.getDisplayName() );
 
         //getting all users from the DB
         UserViewModel.Factory factory = new UserViewModel.Factory(

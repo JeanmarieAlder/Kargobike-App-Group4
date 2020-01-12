@@ -100,30 +100,27 @@ public class Register extends AppCompatActivity {
         user.setIdAddress(idAddress);
 
         mFirebaseAuth.createUserWithEmailAndPassword(uEmail, uPwd)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
 
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "createUserWithEmail:success");
-                            FirebaseUser userF = mFirebaseAuth.getCurrentUser();
-                            String idUser = userF.getUid();
-                            createUser(user, idUser);
-                            progressBar.setVisibility(View.INVISIBLE);
-                            startActivity(new Intent(Register.this, LoginActivity.class));
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("TAG", "createUserWithEmail:success");
+                        FirebaseUser userF = mFirebaseAuth.getCurrentUser();
+                        String idUser = userF.getUid();
+                        createUser(user, idUser);
+                        progressBar.setVisibility(View.INVISIBLE);
+                        startActivity(new Intent(Register.this, LoginActivity.class));
 
-                        } else {
+                    } else {
 
-                            // If sign in fails, display a message to the user.
-                            progressBar.setVisibility(View.INVISIBLE);
+                        // If sign in fails, display a message to the user.
+                        progressBar.setVisibility(View.INVISIBLE);
 
-                            Toast.makeText(Register.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
-                        }
+                        Toast.makeText(Register.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
 
                     }
+
                 });
 
     }

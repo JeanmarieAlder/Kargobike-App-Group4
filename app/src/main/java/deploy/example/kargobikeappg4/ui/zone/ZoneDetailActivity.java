@@ -116,7 +116,6 @@ public class ZoneDetailActivity extends AppCompatActivity {
                     }
                 }
                 int spinnerPosition = userAdapter.getPosition(respUser.getName());
-                Log.d("SpinnerPosition", "------------- " + spinnerPosition);
                 spinnerRiders.setSelection(spinnerPosition);
             }
 

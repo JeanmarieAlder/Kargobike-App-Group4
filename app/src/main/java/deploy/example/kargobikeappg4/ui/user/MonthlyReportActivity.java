@@ -119,12 +119,10 @@ public class MonthlyReportActivity extends AppCompatActivity {
         try {
 
             Date startDate = format.parse(DateDebut);
-            Log.d("DATE DEBUT", startDate.toString());
             if(DateFin == null){
                 DateFin = DateDuJour;
             }
             Date endDate = format.parse(DateFin);
-            Log.d("DATE FIN", endDate.toString());
             for (WorkDetails wd: list) {
                 Date dateWd = format.parse(wd.getDate());
 

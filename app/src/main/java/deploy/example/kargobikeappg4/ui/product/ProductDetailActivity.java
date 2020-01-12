@@ -67,12 +67,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         this.radioGroupinterurbain= (RadioGroup) this.findViewById(R.id.radioGroup_interurbain);
 
         // When radio group "Interurbain" checked change.
-        this.radioGroupinterurbain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                doOnInterurbainChanged(group, checkedId);
-            }
-        });
+        this.radioGroupinterurbain.setOnCheckedChangeListener((group, checkedId) -> doOnInterurbainChanged(group, checkedId));
 
         if (editMode) {
             viewModel.getProduct().observe(this, productEntity -> {
@@ -109,14 +104,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.button_save);
         btnDelete = findViewById(R.id.td_button_cancel);
         btnDelete.setEnabled(false);
-        btnSave.setOnClickListener(new View.OnClickListener(){
-
-
-            @Override
-            public void onClick(View v) {
-                saveChanges();
-            }
-        }
+        btnSave.setOnClickListener(v -> saveChanges()
         );
 
         //get order ID from intent and set edit mode to false if new order

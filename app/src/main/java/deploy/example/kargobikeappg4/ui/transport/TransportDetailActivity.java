@@ -174,8 +174,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
-
                 String dayy = Integer.toString(day);
                 String monthh = Integer.toString(day);
 
@@ -204,8 +202,6 @@ public class TransportDetailActivity extends AppCompatActivity {
         //get all users
         viewModelUsers.getAllUsers().observe(this, users -> {
             if (users != null) {
-
-                Log.d(TAG,"products Not null");
                 //Array productNames
                 ArrayList<String> userNames = new ArrayList<>();
                 for (User u : users) {
@@ -224,8 +220,6 @@ public class TransportDetailActivity extends AppCompatActivity {
 
         viewModelProducts.getAllProducts().observe(this, products -> {
             if (products != null) {
-
-                Log.d(TAG,"products Not null");
                 //Array productNames
                 ArrayList<String> productNames = new ArrayList<>();
                 for (Product p : products) {
@@ -249,7 +243,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             Intent intent = new Intent(TransportDetailActivity.this,
                     CheckpointActivity.class);
 
-            Log.d("CheckpointsRecyclerViewPosition", "-------------" + position);
             intent.putExtra("checkpointId", checkpoints.get(position).getIdCheckpoint());
             intent.putExtra("orderId", orderId);
             intent.putExtra("isEdit", true);
@@ -318,14 +311,12 @@ public class TransportDetailActivity extends AppCompatActivity {
             }
             String newTime = "" + unsignedHour + ":" + unsignedMinute;
             eDelivTime.setText(newTime);
-            Log.d(TAG, "TIME HAS CHANGED");
         });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("ONRESUME", "--------------------------------------");
         //setupOrderViewModel();
     }
 
@@ -347,7 +338,6 @@ public class TransportDetailActivity extends AppCompatActivity {
         customerViewModel.getCustomer().observe(this, customerEntity ->{
             if (customerEntity != null) {
                 customer = customerEntity;
-                Log.d("customerViewModel", "---------------------- " + customerEntity.toString());
                 updateContent();
             }
         });
@@ -427,9 +417,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             }
         }
 
-
-        Log.d("----------IDTOPIC-------- ",userID);
-
         JSONObject mainObj = new JSONObject();
 
         try {
@@ -474,7 +461,6 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     //Set in the UI-Elements the right values
     private void updateContent() {
-        Log.d("UPDATECONTENT", "----------------------------- started updateContent()");
         if (order != null) {
             setTitle("Order Detail (" + order.getStatus() + ")");
             eQuantity.setText(Float.toString(order.getQuantity()));
@@ -509,7 +495,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             }
 
             if(order.getIdProduct() != null){
-                Log.d("getidProduct", " IS NOT NULL");
                 int spinnerPosition = adapterProductsList.getPosition(order.getIdProduct());
                 spinnerProducts.setSelection(spinnerPosition);
             }
@@ -573,14 +558,11 @@ public class TransportDetailActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, " entered onActivityResult" + requestCode + " " + resultCode);
         if(requestCode == 1){
-            Log.d(TAG, "Request code 1 " + (resultCode == RESULT_OK));
             if(resultCode == RESULT_OK){
                 clientSelected = data.getStringExtra("clientSelected");
                 idClientSelected = data.getStringExtra("idClientSelected");
                 addressClientSelected = data.getStringExtra("addressClientSelected");
-                Log.d("ONACTIVITYRESULT", data.getStringExtra("clientSelected"));
                 if(!editMode){
                     eClient.setText(data.getStringExtra("clientSelected"));
                 }
@@ -595,7 +577,6 @@ public class TransportDetailActivity extends AppCompatActivity {
             }
         }
         if(requestCode == 2){
-            Log.d("OLOLOLOLOL", "OOOOOOOOOOOOOOOOOOOOOO " + (resultCode == RESULT_OK));
             if(resultCode == RESULT_OK
                     && data.getBooleanExtra("checkpointCreated", false)){
                 if(data.getStringExtra("newResponsible") != null){
@@ -612,7 +593,6 @@ public class TransportDetailActivity extends AppCompatActivity {
         if(requestCode == 3){
             if(resultCode == RESULT_OK){
                 imageURL = data.getStringExtra("SignatureURL");
-                Log.d("IMAGE URL S", "The Url is : " + imageURL);
                 updateOrderDB(null,true);
 
             }
@@ -620,7 +600,6 @@ public class TransportDetailActivity extends AppCompatActivity {
         if(requestCode == 4){
             if(resultCode == RESULT_OK){
                 imageURL = data.getStringExtra("ImageURL");
-                Log.d("IMAGE URL I", "The Url is : " + imageURL);
                 updateOrderDB(null,true);
 
             }
@@ -712,7 +691,6 @@ public class TransportDetailActivity extends AppCompatActivity {
         isLoaded = false;
         if(checkpoints == null || checkpoints.size() <= 0){
             newPickupTimestamp = getCurrentDateTime();
-            Log.d("MANAGEPICKUP", "LOADED---------------------- - - -");
             updateOrderDB("Loaded", false);
             newPickupTimestamp = null;
         }
@@ -747,7 +725,6 @@ public class TransportDetailActivity extends AppCompatActivity {
                 checkpointViewModel.updateCheckpoint(updatedCheckpoint, new OnAsyncEventListener() {
                     @Override
                     public void onSuccess() {
-                        Log.d("CHECKPOINTOBSERVER", "LOADED");
                         updateOrderDB("Loaded", true);
 
                         //Restart Activity in order to refresh viewModels
@@ -841,7 +818,6 @@ public class TransportDetailActivity extends AppCompatActivity {
         order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
         order.setIdDeliveryCheckpoint(eDeliveryAddress.getText().toString());
         order.setIdResponsibleRider(spinnerRiders.getSelectedItem().toString());
-        Log.d("RESPID", spinnerRiders.getSelectedItem().toString());
 
         //Changes status if a new status has been provided
         if(newStatus != null){

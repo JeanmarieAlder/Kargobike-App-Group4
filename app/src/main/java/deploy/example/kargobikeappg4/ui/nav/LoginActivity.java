@@ -64,27 +64,19 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient.signOut();
 
         //Listeners
-        btnGoogleSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
+        btnGoogleSignIn.setOnClickListener(v -> signIn());
 
-        btnUserSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnUserSignIn.setOnClickListener(v -> {
 
-                //Check if Email or Password is missing
-                if(name.getText().toString().equals("")&&pwd.getText().toString().equals("")){
-                    Toast.makeText(LoginActivity.this, "Email and Password is missing.", Toast.LENGTH_SHORT).show();
-                }else if (name.getText().toString().equals("")){
-                    Toast.makeText(LoginActivity.this, "Email is missing.", Toast.LENGTH_SHORT).show();
-                }else if (pwd.getText().toString().equals("")){
-                    Toast.makeText(LoginActivity.this, "Password is missing.", Toast.LENGTH_SHORT).show();
-                }else {
-                    userSignIn();
-                }
+            //Check if Email or Password is missing
+            if(name.getText().toString().equals("")&&pwd.getText().toString().equals("")){
+                Toast.makeText(LoginActivity.this, "Email and Password is missing.", Toast.LENGTH_SHORT).show();
+            }else if (name.getText().toString().equals("")){
+                Toast.makeText(LoginActivity.this, "Email is missing.", Toast.LENGTH_SHORT).show();
+            }else if (pwd.getText().toString().equals("")){
+                Toast.makeText(LoginActivity.this, "Password is missing.", Toast.LENGTH_SHORT).show();
+            }else {
+                userSignIn();
             }
         });
 
@@ -107,24 +99,21 @@ public class LoginActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
 
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            startActivity(new Intent(LoginActivity.this, BikeConfirmationActivity.class));
-                            progressBar.setVisibility(View.INVISIBLE);
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithEmail:success");
+                        startActivity(new Intent(LoginActivity.this, BikeConfirmationActivity.class));
+                        progressBar.setVisibility(View.INVISIBLE);
 
-                        } else {
+                    } else {
 
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.INVISIBLE);
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                        Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
 
-                        }
                     }
                 });
     }

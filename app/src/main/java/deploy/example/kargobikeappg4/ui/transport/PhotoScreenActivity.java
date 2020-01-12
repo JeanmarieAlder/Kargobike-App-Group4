@@ -54,34 +54,25 @@ public class PhotoScreenActivity extends AppCompatActivity {
         camera = findViewById(R.id.btn_camera);
         saveImage = findViewById(R.id.btn_camera_save);
 
-        saveImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                save();
-
-            }
-        });
+        saveImage.setOnClickListener(v -> save());
 
         //Click on Camera button
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        camera.setOnClickListener(v -> {
 
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                    if(checkSelfPermission(Manifest.permission.CAMERA) ==
-                            PackageManager.PERMISSION_DENIED ||
-                            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                            PackageManager.PERMISSION_DENIED){
-                        String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        requestPermissions(permission, PERMISSION_CODE);
-                    }else{
-                        openCamera();
-                    }
-
-                }else {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if(checkSelfPermission(Manifest.permission.CAMERA) ==
+                        PackageManager.PERMISSION_DENIED ||
+                        checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                        PackageManager.PERMISSION_DENIED){
+                    String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                    requestPermissions(permission, PERMISSION_CODE);
+                }else{
                     openCamera();
-
                 }
+
+            }else {
+                openCamera();
+
             }
         });
     }
@@ -124,15 +115,13 @@ public class PhotoScreenActivity extends AppCompatActivity {
 
     //save all cahnges in the DB
     public void save(){
-        //signature = paintView.getImage();
-
         //Create the URL
         String orderId = getIntent().getStringExtra("IdOrder");
-        Log.d("ORDER-ID", "Order id = " + orderId);
+
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://kargobike-group4.appspot.com");
         StorageReference imageRef = storageRef.child("images/"+orderId + "_image.jpg");
-        Log.d("IMAGE-NAME", orderId + "_image.jpg");
+
         StorageReference imagePictureRef = storageRef.child("images/"+orderId + "_image.jpg");
 
         imageRef.getName().equals(imagePictureRef.getName());
@@ -143,33 +132,26 @@ public class PhotoScreenActivity extends AppCompatActivity {
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        //signature.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = imageRef.putBytes(data);
 
-
-        //Log.d("IMAGE URL", "the 1 URL is: " + imageUrl);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
             }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
+        }).addOnSuccessListener(taskSnapshot -> {
+            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+            Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+            imageUrl = downloadUrl.toString();
 
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-                imageUrl = downloadUrl.toString();
-                Log.d("IMAGE URL", "the URL is: " + imageUrl);
-                Intent intent = new Intent();
-                intent.putExtra("ImageURL", imageUrl);
-                setResult(RESULT_OK, intent);
-                onBackPressed();
+            Intent intent = new Intent();
+            intent.putExtra("ImageURL", imageUrl);
+            setResult(RESULT_OK, intent);
+            onBackPressed();
 
-            }
         });
-        Log.d("IMAGE URL", "the last URL is: " + imageUrl);
     }
 }

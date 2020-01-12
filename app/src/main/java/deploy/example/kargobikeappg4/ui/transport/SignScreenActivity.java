@@ -73,7 +73,6 @@ public class SignScreenActivity extends AppCompatActivity{
 
         //Create path for the image
         String orderId = getIntent().getStringExtra("IdOrder");
-        Log.d("ORDER-ID", "Order id = " + orderId);
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://kargobike-group4.appspot.com");
         StorageReference signatureRef = storageRef.child("signatures/"+orderId + "_signature.jpg");
@@ -90,28 +89,19 @@ public class SignScreenActivity extends AppCompatActivity{
         UploadTask uploadTask = signatureRef.putBytes(data);
 
         //Save the image
-        Log.d("IMAGE URL", "the 1 URL is: " + imageUrl);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
+        uploadTask.addOnFailureListener(exception -> {
+            // Handle unsuccessful uploads
+        }).addOnSuccessListener(taskSnapshot -> {
+            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+            Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+            imageUrl = downloadUrl.toString();
+            Log.d("IMAGE URL", "the URL is: " + imageUrl);
+            Intent intent = new Intent();
+            intent.putExtra("SignatureURL", imageUrl);
+            setResult(RESULT_OK, intent);
+            onBackPressed();
 
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-                imageUrl = downloadUrl.toString();
-                Log.d("IMAGE URL", "the URL is: " + imageUrl);
-                Intent intent = new Intent();
-                intent.putExtra("SignatureURL", imageUrl);
-                setResult(RESULT_OK, intent);
-                onBackPressed();
-
-            }
         });
-        Log.d("IMAGE URL", "the last URL is: " + imageUrl);
     }
 
 }

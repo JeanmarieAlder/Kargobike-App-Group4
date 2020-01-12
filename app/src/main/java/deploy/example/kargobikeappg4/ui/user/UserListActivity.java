@@ -48,7 +48,6 @@ public class UserListActivity extends AppCompatActivity {
             );
             intent.putExtra("userId", users.get(position).getIdUser());
             intent.putExtra("isEdit", true);
-            Log.d("UID", "User ID of selected user: " + users.get(position).getIdUser());
             startActivity(intent);
         });
 
