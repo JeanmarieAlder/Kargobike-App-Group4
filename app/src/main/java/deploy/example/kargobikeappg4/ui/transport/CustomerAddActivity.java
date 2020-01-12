@@ -21,6 +21,7 @@ import java.util.List;
 
 public class CustomerAddActivity extends AppCompatActivity {
 
+    //Attributs
     private Spinner spinnerTitle;
     private EditText eFirstname;
     private EditText eLastname;
@@ -31,6 +32,7 @@ public class CustomerAddActivity extends AppCompatActivity {
 
     private ListAdapter titleListAdapter;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,8 @@ public class CustomerAddActivity extends AppCompatActivity {
 
         initializeLayout();
     }
+
+    //Initialize all UI-elements
     private void initializeLayout(){
         spinnerTitle = findViewById(R.id.ca_spinner_title);
         eFirstname = findViewById(R.id.ca_input_firstname);
@@ -58,6 +62,7 @@ public class CustomerAddActivity extends AppCompatActivity {
         spinnerTitle.setAdapter(titleListAdapter);
     }
 
+    //Create a new customer
     public void createCustomer(View view){
         Customer newCustomer = new Customer();
 
@@ -72,6 +77,7 @@ public class CustomerAddActivity extends AppCompatActivity {
         newCustomer.setIdProduct("none");
         newCustomer.setTitre(spinnerTitle.getSelectedItem().toString());
 
+        //call the query to insert a new Client
         ((BaseApp) getApplication())
             .getCustomerRepository().insert(newCustomer, new OnAsyncEventListener() {
                 @Override
@@ -89,11 +95,13 @@ public class CustomerAddActivity extends AppCompatActivity {
             });
     }
 
+    //Go one page back
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
 
+    //Which option is selected
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

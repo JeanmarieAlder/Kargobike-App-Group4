@@ -22,6 +22,7 @@ import java.util.Locale;
 
 public class MonthlyReportActivity extends AppCompatActivity {
 
+    //Attributes
     private String userId;
     private String DateDuJour =  new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Calendar.getInstance().getTime());
     private List<WorkDetails> wdList;
@@ -35,6 +36,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
     private TextView ClickedTv;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
 
         userId = getIntent().getStringExtra("userId");
 
+        //Initialize the UI-elements
         DisplayStartDate = findViewById(R.id.monthlyReport_tv_calendar);
         DisplayEndDate = findViewById(R.id.monthlyReport_tv_calendar_2);
         DisplayDeliveries = findViewById(R.id.mr_tv_deliveries);
@@ -52,6 +55,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
         DisplayStartDate.setOnClickListener(v -> SelectDate(v));
         DisplayEndDate.setOnClickListener(v -> SelectDate(v));
 
+        //Look for the selected date
         onDateSetListener = (view, year, month, day) -> {
             month = month+1;
             String date = day + "/" + month + "/" + year;
@@ -69,6 +73,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
 
     }
 
+    //Datepicker
     private void SelectDate(View v) {
         ClickedTv = findViewById(v.getId());
         Calendar cal = Calendar.getInstance();
@@ -85,6 +90,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    //Getting the workinghours from the DB
     private void CalculateWorkingHours(){
 
         WorkDetailsListViewModel.Factory factory = new WorkDetailsListViewModel.Factory(
@@ -102,6 +108,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
 
     }
 
+    //Calculate the times depending on the date
     private void CompareDate(List<WorkDetails> list){
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -125,13 +132,8 @@ public class MonthlyReportActivity extends AppCompatActivity {
                 {
 
                     String time = wd.getHours();
-
-
                     String hours = time.substring(0,2);
-
-
                     String minutes = time.substring(3);
-
 
                     int intHours = Integer.parseInt(hours);
                     int intMinutes = Integer.parseInt(minutes);

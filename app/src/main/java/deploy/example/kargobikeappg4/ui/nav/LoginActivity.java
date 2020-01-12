@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText eLogin;
     private EditText ePassword;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    //Look, if login was successful or not
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -154,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //Login with google
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -173,6 +176,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    //Initialize all elements
     protected void initialize(){
 
         btnGoogleSignIn = (SignInButton)findViewById(R.id.btn_googleSignIn);

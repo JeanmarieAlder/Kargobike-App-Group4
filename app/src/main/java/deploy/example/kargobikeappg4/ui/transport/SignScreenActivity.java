@@ -24,17 +24,20 @@ import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.ui.transport.paint.PaintView;
 
 public class SignScreenActivity extends AppCompatActivity{
+
+    //Attributes
     private PaintView paintView;
     public Bitmap signature;
     private Button btnSave;
     public String imageUrl;
 
-
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_screen);
 
+        //Initilize the scrren for Sign
         paintView = (PaintView) findViewById(R.id.paintView);
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -55,18 +58,20 @@ public class SignScreenActivity extends AppCompatActivity{
 
             //Add click listener, opens details of the selected act
 
-
-
-
         return this.paintView;
     }
 
+    //Go one page back
     public void onBackPressed(){
         super.onBackPressed();
     }
 
+
+    //Save the Image in the Firebase storage
     public void save(){
         signature = paintView.getImage();
+
+        //Create path for the image
         String orderId = getIntent().getStringExtra("IdOrder");
         Log.d("ORDER-ID", "Order id = " + orderId);
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -77,13 +82,14 @@ public class SignScreenActivity extends AppCompatActivity{
         signatureRef.getName().equals(signatureImageRef.getName());
         signatureRef.getPath().equals(signatureImageRef.getPath());
 
+        //convert the image
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         signature.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = signatureRef.putBytes(data);
 
-
+        //Save the image
         Log.d("IMAGE URL", "the 1 URL is: " + imageUrl);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -106,11 +112,6 @@ public class SignScreenActivity extends AppCompatActivity{
             }
         });
         Log.d("IMAGE URL", "the last URL is: " + imageUrl);
-
-
     }
-
-
-
 
 }

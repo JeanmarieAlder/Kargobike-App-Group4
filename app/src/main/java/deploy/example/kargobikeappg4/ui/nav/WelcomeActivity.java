@@ -40,7 +40,7 @@ import java.util.Locale;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-
+    //Attributes
     private static final String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Calendar.getInstance().getTime());
     private static final Date startSession =  Calendar.getInstance().getTime();
 
@@ -57,6 +57,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private UserViewModel userViewmodel;
 
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +99,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
 
-
+        //Stuff for the logout wit Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -108,6 +109,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         super.onStart();
 
+        //logout with google
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +128,9 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
+    /**
+    All Button on the mainpage
+     */
     public void Welcome_button_zoneList(View view){
         Intent intent = new Intent(this, ZoneListActivity.class);
         startActivity(intent);
@@ -155,6 +160,7 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //Wil calculate how long the user was loged ing
     public void GetHours(){
 
         String workingTime = null;
@@ -184,9 +190,12 @@ public class WelcomeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //Save the hours
         InsertWorkingHours(workingTime);
     }
 
+
+    //Save the workinghours in the DB
     public void InsertWorkingHours(String workingTime)
     {
 

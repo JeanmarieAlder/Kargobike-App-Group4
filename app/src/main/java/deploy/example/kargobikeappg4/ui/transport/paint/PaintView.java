@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 public class PaintView extends View {
 
+    //Attributes
     public static int BRUSH_SIZE = 20;
     public static final int DEFAULT_COLOR = Color.BLACK;
     public static final int DEFAULT_BG_COLOR = Color.WHITE;
@@ -55,6 +56,7 @@ public class PaintView extends View {
         this(context, null);
     }
 
+    //Constructor
     public PaintView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPaint = new Paint();
@@ -71,6 +73,7 @@ public class PaintView extends View {
         mBlur = new BlurMaskFilter(5, BlurMaskFilter.Blur.NORMAL);
     }
 
+    //initialize the screen
     public void init(DisplayMetrics metrics) {
         int height = metrics.heightPixels;
         int width = metrics.widthPixels;
@@ -87,7 +90,7 @@ public class PaintView extends View {
         blur = false;
     }
 
-
+    //During the painting
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
@@ -111,6 +114,7 @@ public class PaintView extends View {
         canvas.restore();
     }
 
+    //Start painting
     private void touchStart(float x, float y) {
         mPath = new Path();
         PaintPath fp = new PaintPath(currentColor, emboss, blur, strokeWidth, mPath);
@@ -122,6 +126,7 @@ public class PaintView extends View {
         mY = y;
     }
 
+    //aintingmove
     private void touchMove(float x, float y) {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
@@ -137,6 +142,7 @@ public class PaintView extends View {
         mPath.lineTo(mX, mY);
     }
 
+    //Method, that the user can paint on the screen
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
@@ -160,6 +166,7 @@ public class PaintView extends View {
         return true;
     }
 
+    //Getting a image
     public Bitmap getImage(){
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

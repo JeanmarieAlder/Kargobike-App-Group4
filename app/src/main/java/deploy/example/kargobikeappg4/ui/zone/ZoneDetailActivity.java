@@ -22,6 +22,7 @@ import java.util.List;
 
 public class ZoneDetailActivity extends AppCompatActivity {
 
+    //Attributes
     private String zoneId;
     private boolean isEdit;
 
@@ -37,6 +38,7 @@ public class ZoneDetailActivity extends AppCompatActivity {
     private EditText eCity;
     private Spinner spinnerRiders;
 
+    //OnCreate to initialize the information
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class ZoneDetailActivity extends AppCompatActivity {
         initializeViewModels();
     }
 
+    //Initialize all UI elements
     private void initialize(){
 
         eName = findViewById(R.id.zd_input_name);
@@ -58,6 +61,8 @@ public class ZoneDetailActivity extends AppCompatActivity {
 
         }
     }
+
+    //Initialize the viewmodel
     private void initializeViewModels(){
         ZoneViewModel.Factory factory = new ZoneViewModel.Factory(
                 getApplication(), zoneId);
@@ -70,19 +75,21 @@ public class ZoneDetailActivity extends AppCompatActivity {
             }
         });
 
+        //Adapter for all users
         userAdapter = new ListAdapter<>(ZoneDetailActivity.this,
                 R.layout.rowlist, new ArrayList<>());
         spinnerRiders.setAdapter(userAdapter);
         UserListViewModel.Factory factoryUser = new UserListViewModel.Factory(
                 getApplication()
         );
+
+        //return all users
         viewModelUsers = ViewModelProviders.of(this, factoryUser)
                 .get(UserListViewModel.class);
         viewModelUsers.getAllUsers().observe(this, users -> {
             if (users != null) {
 
                 userList = users;
-                //Array productNames
                 ArrayList<String> userNames = new ArrayList<>();
                 for (User u : users) {
                     userNames.add(u.getName());
@@ -93,10 +100,14 @@ public class ZoneDetailActivity extends AppCompatActivity {
         });
     }
 
+    //Update the content
     private void updateContent(){
+        //Zone exist
         if(zone != null){
             eName.setText(zone.getName());
             eCity.setText(zone.getCity());
+
+            //look at the right user
             if(zone.getIdMainRider() != null && userList != null){
                 respUser = new User();
                 for(User u : userList){
@@ -113,12 +124,15 @@ public class ZoneDetailActivity extends AppCompatActivity {
     }
 
 
+    //Update the selectet Rider of the DropDwon
     private void updateAdapterRiderList(List<String> riderNames){
         userAdapter.updateData(new ArrayList<>(riderNames));
     }
 
+    //Save the changes
     private void saveChanges() {
 
+        //No zone exist, create one
         if(!isEdit){
             zone = new Zone();
         }
@@ -134,6 +148,7 @@ public class ZoneDetailActivity extends AppCompatActivity {
         }
         zone.setIdMainRider(respUser.getIdUser());
 
+        //Zone exist, edit it an save the changes
         if(isEdit){
             //update
             zoneViewModel.updateZone(zone, new OnAsyncEventListener() {
@@ -167,6 +182,7 @@ public class ZoneDetailActivity extends AppCompatActivity {
         }
     }
 
+    //Save the changes
     public void saveButton(View view){
         saveChanges();
     }

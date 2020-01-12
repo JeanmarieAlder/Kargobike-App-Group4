@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileActivity extends AppCompatActivity{
 
+    //Attributes
     private View group;
     private View loading;
     private UserViewModel userViewmodel;
@@ -33,6 +34,7 @@ public class ProfileActivity extends AppCompatActivity{
     private UserRepository uRep;
     private Button about;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity{
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
         currentUser = currentIntent.getBooleanExtra("user", true);
 
+        //look for the loged in user
         if(!currentUser) {
             userId = currentIntent.getStringExtra("userId");
             about.setVisibility(View.INVISIBLE);
@@ -66,6 +69,7 @@ public class ProfileActivity extends AppCompatActivity{
 
     }
 
+    //Initialize all UI-Elements
     private void Initialize(){
 
         name = findViewById(R.id.profile_tv_name);
@@ -82,6 +86,7 @@ public class ProfileActivity extends AppCompatActivity{
         currentIntent = getIntent();
     }
 
+    //Update the content in the UI
     private void UpdateContent()
     {
         loading.setVisibility(View.INVISIBLE);
@@ -94,6 +99,7 @@ public class ProfileActivity extends AppCompatActivity{
         group.setVisibility(View.VISIBLE);
     }
 
+    //Go to the monthly report
     public void user_button_monthlyReport(View view)
     {
         Intent intent = new Intent(this, MonthlyReportActivity.class);
@@ -102,6 +108,7 @@ public class ProfileActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
+    //Go to the about page
     public void user_button_about(View view)
     {
         Intent intent = new Intent(this, AboutActivity.class);

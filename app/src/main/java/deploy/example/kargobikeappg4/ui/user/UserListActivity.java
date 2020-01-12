@@ -19,11 +19,13 @@ import java.util.List;
 
 public class UserListActivity extends AppCompatActivity {
 
+    //Attributes
     private RecyclerAdapter<User> adapter;
     private List<User> users;
     private UserListViewModel listViewModel;
     private RecyclerView rView;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,7 @@ public class UserListActivity extends AppCompatActivity {
                 getApplication()
         );
 
+        //getting all users
         listViewModel = ViewModelProviders.of(this, factory)
                 .get(UserListViewModel.class);
         listViewModel.getAllUsers().observe(this, userEntities -> {
@@ -65,6 +68,7 @@ public class UserListActivity extends AppCompatActivity {
         rView.setAdapter(adapter);
     }
 
+    //Button for adding a new user
     public void Product_button_registerUser(View view)
     {
         Intent intent = new Intent(this, UserDetailActivity.class);

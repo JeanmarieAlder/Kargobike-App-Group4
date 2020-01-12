@@ -128,6 +128,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
     }
 
+    //Display the informations in the UI
     private void updateContent() {
         if (product != null) {
             ePrice.setText(Float.toString(product.getPrice()));
@@ -140,6 +141,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
     }
 
+    //Delete a product
     public void Transport_button_delete(View view) {
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(getString(R.string.delete));
@@ -166,11 +168,15 @@ public class ProductDetailActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    //Save the changes
     private void saveChanges() {
 
+        //Look, if it is in the editmode ore not
         if(editMode){
             updateProductDB(false);
         }else{
+
+            //create a new product
             Product product = new Product();
 
             product.setName(ename.getText().toString());
@@ -199,7 +205,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     /**
-     * Updates an existing order in the DB. Different behaviour if
+     * Updates an existing product in the DB. Different behaviour if
      * the user only changes the status.
      * @param isChangingStatus true if only status is changing
      */

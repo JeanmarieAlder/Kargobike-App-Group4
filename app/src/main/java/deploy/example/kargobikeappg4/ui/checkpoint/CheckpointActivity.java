@@ -97,9 +97,10 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     //Train station requires userListViewmodel
     private UserListViewModel viewModelUsers;
     private List<User> userList;
-    private User respUser;
     private ListAdapter userAdapter;
 
+
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -234,11 +235,13 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         }
     }
 
+    //Initialize train station
     private void initializeTrainStation(){
         setTrainStationVisibility(View.VISIBLE);
         setupUserViewModel();
     }
 
+    //Trainstation, special, so only with this checkpoint some UI Elements will enabled
     public void setTrainStationVisibility(int viewType){
         tvArrivalCity.setVisibility(viewType);
         tvArrivalTime.setVisibility(viewType);
@@ -251,6 +254,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         setupTimePicker();
     }
 
+    //Create a TimePicker
     private void setupTimePicker(){
         //get current time
         final Calendar c = Calendar.getInstance();
@@ -263,6 +267,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         timePicker.setHour(mHour);
         timePicker.setOnTimeChangedListener((viewTimePicker, hour, minutes) ->{
 
+            //Look, that the date will be displayed right
             unsignedMinute = "" + timePicker.getMinute();
             unsignedHour = "" + timePicker.getHour();
 
@@ -279,6 +284,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         });
     }
 
+    //return all users
     private void setupUserViewModel(){
         userAdapter = new ListAdapter<>(CheckpointActivity.this,
                 R.layout.rowlist, new ArrayList<>());
@@ -307,6 +313,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         userAdapter.updateData(new ArrayList<>(riderNames));
     }
 
+    //Update the content of an existing Checkpoint
     private void updateContent() {
         if (checkpoint != null) {
             eLat.setText(Float.toString(checkpoint.getLat()));
@@ -319,6 +326,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         }
     }
 
+    //Delete a checkpoint
     public void Checkpoint_button_delete(View view) {
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(getString(R.string.delete));
@@ -355,11 +363,15 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
             return;
         }
 
+        //There is one checkpoint, edit it
         if(editMode){
             updateCheckpointDB(false);
-        }else{
+        }
+        //create a new one
+        else{
             Checkpoint checkpoint = new Checkpoint();
 
+            //Getting the information from the UI
             checkpoint.setType(spinnerTypes.getSelectedItem().toString());
             if(eLat.getText().toString().length() > 0 && eLng.getText().toString().length() > 0){
                 checkpoint.setLat(Float.parseFloat(eLat.getText().toString()));
@@ -401,6 +413,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         }
     }
 
+    //get the ID of a selected User
     private String getUserIdOfSelection(){
 
         String result = "userNotFound";
@@ -454,7 +467,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         });
     }
 
-    //GSP Stuff
+    //GSP Stuff, retrieved from the internet -> stackoverflow
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -462,9 +475,10 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
     }
 
     Runnable mStatusChecker = new Runnable() {
+
+        //Run, that show the right coordinates
         @Override
         public void run() {
-
 
             try {
                 getLocation(); //this function can change value of mInterval.
@@ -472,6 +486,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
                 if (locationText.equals("")) {
                     Toast.makeText(getApplicationContext(), "Trying to retrieve coordinates.", Toast.LENGTH_LONG).show();
                 }
+                //there are coordinates, display this
                 else {
                     if(eLat.getText().toString().isEmpty()){
                         eLat.setText(locationLatitude);
@@ -502,6 +517,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         }
     }
 
+    //get the GPS cordinates
     void getLocation() {
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -512,6 +528,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         }
     }
 
+    //Get the GPS Coorinates
     @Override
     public void onLocationChanged(Location location) {
 
@@ -520,6 +537,7 @@ public class CheckpointActivity extends AppCompatActivity implements LocationLis
         locationLongitude = location.getLongitude() + "";
     }
 
+    //Look, that GPS is enabled
     @Override
     public void onProviderDisabled(String provider) {
         Toast.makeText(CheckpointActivity.this, "Please Enable GPS", Toast.LENGTH_SHORT).show();

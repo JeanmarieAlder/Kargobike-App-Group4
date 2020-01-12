@@ -21,6 +21,7 @@ import java.util.List;
 
 public class ClientListActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
+    //Attributes
     private RecyclerAdapter<Customer> adapter;
     private List<Customer> customers;
     private List<Customer> customersFiltered;
@@ -28,6 +29,7 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
     private RecyclerView rView;
     private SearchView sView;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +47,15 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
 
     }
 
+    //initialize the list
     private void initRecyclerView(){
         //initializes recyclerview
         rView = findViewById(R.id.cl_rv_client_result);
         rView.setLayoutManager(new LinearLayoutManager(this));
         rView.setHasFixedSize(true); //size never changes
     }
+
+    //initialize the adapter for the list
     private void initAdapter(){
         //Add click listener, opens details of the selected act
         adapter = new RecyclerAdapter<>((v, position) -> {
@@ -65,6 +70,8 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
             super.onBackPressed();
         });
     }
+
+    //initialize the viewmodel, -> getting the clients afterwards
     private void initViewModel(){
         CustomerListViewModel.Factory factory = new CustomerListViewModel.Factory(
                 getApplication()
@@ -74,6 +81,8 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
                 .get(CustomerListViewModel.class);
         setViewModelData("");
     }
+
+    //Set all clients to the list
     private void setViewModelData(String filterString){
         listViewModel.getAllCustomers().observe(this, customerEntities -> {
             if (customerEntities != null) {
@@ -91,6 +100,8 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
         });
         rView.setAdapter(adapter);
     }
+
+    //Filter the clients by the name
     private void applyFilter(String filterString){
         customersFiltered = new ArrayList<>();
         for(Customer c : customers){
@@ -100,17 +111,21 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
         }
     }
 
+    //Go one site back
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
 
+    //Select a client form the list
     public void onClientSelected(View view) {
         Intent intent = new Intent();
         intent.putExtra("clientSelected", "The selected Client");
         setResult(RESULT_OK, intent);
         super.onBackPressed();
     }
+
+    //Add a new client to the DB
     public void buttonAddClient(View view){
         Intent intent = new Intent(ClientListActivity.this, CustomerAddActivity.class);
         startActivity(intent);

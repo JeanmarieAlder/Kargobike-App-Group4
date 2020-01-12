@@ -20,6 +20,7 @@ import java.util.List;
 
 public class ZoneListActivity extends AppCompatActivity {
 
+    //Attributes
     private RecyclerAdapter<Zone> adapter;
     private List<Zone> zones;
     private ZoneListViewModel listViewModel;
@@ -27,6 +28,7 @@ public class ZoneListActivity extends AppCompatActivity {
     private RecyclerView rView;
     private ImageButton btnAdd;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,8 @@ public class ZoneListActivity extends AppCompatActivity {
         initializeViewModel();
     }
 
+
+    //Initialize the elements oof th UI
     private void initialize(){
         rView = findViewById(R.id.zl_recycler_view);
         btnAdd = findViewById(R.id.zl_buton_add);
@@ -46,6 +50,8 @@ public class ZoneListActivity extends AppCompatActivity {
 
         zones = new ArrayList<>();
     }
+
+    //Initialize the elements for the list (display the whole list)
     private void initializeAdapter(){
         //Add click listener, opens details of the selected order
         adapter = new RecyclerAdapter<>((v, position) -> {
@@ -56,6 +62,8 @@ public class ZoneListActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
+    //Initialize ViewModel and set the informations to the page
     private void initializeViewModel(){
         ZoneListViewModel.Factory factory = new ZoneListViewModel.Factory(
                 getApplication()
@@ -72,6 +80,7 @@ public class ZoneListActivity extends AppCompatActivity {
         rView.setAdapter(adapter);
     }
 
+    //Button add, is forwarded to a new page
     public void buttonAdd(View view){
         Intent intent = new Intent(this, ZoneDetailActivity.class);
         intent.putExtra("isEdit", false);

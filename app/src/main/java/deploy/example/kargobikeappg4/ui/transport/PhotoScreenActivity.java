@@ -33,6 +33,8 @@ import java.security.Permission;
 import deploy.example.kargobikeappg4.R;
 
 public class PhotoScreenActivity extends AppCompatActivity {
+
+    //Attributes
     Button camera;
     Button saveImage;
     ImageView imageView;
@@ -42,6 +44,7 @@ public class PhotoScreenActivity extends AppCompatActivity {
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,7 @@ public class PhotoScreenActivity extends AppCompatActivity {
             }
         });
 
+        //Click on Camera button
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +86,7 @@ public class PhotoScreenActivity extends AppCompatActivity {
         });
     }
 
+    //open camera to make a picture
     private void openCamera() {
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "New Picture");
@@ -92,6 +97,7 @@ public class PhotoScreenActivity extends AppCompatActivity {
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
     }
 
+    //look for the permissions of the camera
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, int [] grantResults){
         switch(requestCode){
             case PERMISSION_CODE:{
@@ -107,6 +113,7 @@ public class PhotoScreenActivity extends AppCompatActivity {
         }
     }
 
+    //
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -115,8 +122,11 @@ public class PhotoScreenActivity extends AppCompatActivity {
         }
     }
 
+    //save all cahnges in the DB
     public void save(){
         //signature = paintView.getImage();
+
+        //Create the URL
         String orderId = getIntent().getStringExtra("IdOrder");
         Log.d("ORDER-ID", "Order id = " + orderId);
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -128,6 +138,7 @@ public class PhotoScreenActivity extends AppCompatActivity {
         imageRef.getName().equals(imagePictureRef.getName());
         imageRef.getPath().equals(imagePictureRef.getPath());
 
+        //Picture to the righ format
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
@@ -160,8 +171,5 @@ public class PhotoScreenActivity extends AppCompatActivity {
             }
         });
         Log.d("IMAGE URL", "the last URL is: " + imageUrl);
-
-
     }
-
 }

@@ -63,6 +63,7 @@ import java.util.Map;
 
 public class TransportDetailActivity extends AppCompatActivity {
 
+    //Attributes
     private RequestQueue mRequestQueue ;
     private String URL = "https://fcm.googleapis.com/fcm/send";
 
@@ -123,6 +124,7 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener DateSetListenerDelivery;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("ONCREATE TDA", "---------------------------- HERE  IT STARDED");
@@ -177,7 +179,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                 String dayy = Integer.toString(day);
                 String monthh = Integer.toString(day);
 
-
+                //Convert to the right format
                 if(day <10){
                     dayy = "0"+day;
 
@@ -199,6 +201,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         viewModelUsers = ViewModelProviders.of(this, factory3)
                 .get(UserListViewModel.class);
 
+        //get all users
         viewModelUsers.getAllUsers().observe(this, users -> {
             if (users != null) {
 
@@ -253,7 +256,10 @@ public class TransportDetailActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        //look if it is the editmode or not
         if(editMode){
+
+            //update the DB
             CheckpointListViewModel.Factory factoryCheckpoints = new CheckpointListViewModel.Factory(
                     getApplication(), orderId
             );
@@ -275,6 +281,8 @@ public class TransportDetailActivity extends AppCompatActivity {
                 if (orderEntity != null) {
                     order = orderEntity;
                     setupCustomverViewModel();
+
+                    //Display in the UI-elements the right values
                     updateContent();
 
                 }
@@ -283,6 +291,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         updateContent();
     }
 
+    //Timepicker
     private void setupTimePicker() {
         // Launch Time Picker Dialog
 
@@ -320,6 +329,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         //setupOrderViewModel();
     }
 
+    //Viewmodel for all orders -> retrieve afterwards all orders
     private void setupOrderViewModel(){
         //Create viewmodel
         OrderViewModel.Factory factory = new OrderViewModel.Factory(
@@ -327,6 +337,8 @@ public class TransportDetailActivity extends AppCompatActivity {
         viewModel = ViewModelProviders.of(this, factory)
                 .get(OrderViewModel.class);
     }
+
+    //Viewmodel for all customers -> retrieve afterwards all orders
     private void setupCustomverViewModel(){
         CustomerViewModel.Factory factory = new CustomerViewModel.Factory(
                 getApplication(), order.getIdCustomer());
@@ -341,14 +353,17 @@ public class TransportDetailActivity extends AppCompatActivity {
         });
     }
 
+    //Update the selected product
     private void updateAdapterProductsList(List<String> productNames) {
         adapterProductsList.updateData(new ArrayList<>(productNames));
     }
 
+    //update the selected rider
     private void updateAdapterRiderList(List<String> riderNames) {
         adapterRidersList.updateData(new ArrayList<>(riderNames));
     }
 
+    //Start for the notification
     private void initializeNotification(){
 
         mRequestQueue=Volley.newRequestQueue(this);
@@ -396,6 +411,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         }
     }
 
+    //Send to the responsible rider a notification with the infos
     private void sendNotification(){
 
         initializeNotification();
@@ -456,6 +472,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     }
 
 
+    //Set in the UI-Elements the right values
     private void updateContent() {
         Log.d("UPDATECONTENT", "----------------------------- started updateContent()");
         if (order != null) {
@@ -528,6 +545,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         }
     }
 
+    //Not deleted, only change the status to canceled
     public void Transport_button_cancel(View view) {
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle(getString(R.string.s_cancel));
@@ -540,6 +558,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    //button, to select the right client
     public void Transport_button_clientList(View view)
     {
         if(editMode){
@@ -608,6 +627,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         }
     }
 
+    //add a new chkpoint ot this order
     public void addCheckpoint(boolean isTrainStation)
     {
         isLoaded = true;
@@ -618,6 +638,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         startActivityForResult(intent, 2);
     }
 
+    //open the screen for a photo
     public void Transport_button_photoScreen(View view)
     {
         Intent intent = new Intent(this, PhotoScreenActivity.class);
@@ -625,14 +646,16 @@ public class TransportDetailActivity extends AppCompatActivity {
         startActivityForResult(intent, 4);
     }
 
+    //open the screen for making a sign
     public void Transport_button_signScreen(View view)
     {
         Intent intent = new Intent(TransportDetailActivity.this, SignScreenActivity.class);
         intent.putExtra("IdOrder", orderId );
         startActivityForResult(intent, 3);
 
-
     }
+
+    //change the status
     public void ButtonChangeStatus(View view)
     {
         switch (order.getStatus()){
@@ -650,6 +673,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         }
     }
 
+    //Alert dialog, to chose the right checkpoint
     public void showAlertDialogButtonClicked() {
 
         // setup the alert builder
@@ -683,6 +707,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    //load a order
     private void managePickup(){
         isLoaded = false;
         if(checkpoints == null || checkpoints.size() <= 0){
@@ -696,6 +721,8 @@ public class TransportDetailActivity extends AppCompatActivity {
             setCheckpointDepartureTimestamp();
         }
     }
+
+    //The order is by the customer -> finished
     private void manageDelivery(){
         newDeliveryTimestamp = getCurrentDateTime();
         updateOrderDB("Delivered", true);
@@ -706,30 +733,14 @@ public class TransportDetailActivity extends AppCompatActivity {
         isLoaded = false;
         int lastCheckpointId = adapter.getItemCount() - 1;
 
-        /*if(updatedCheckpoint != null){
-            updatedCheckpoint.setDepartureTimestamp(getCurrentDateTime());
-            checkpointViewModel.updateCheckpoint(updatedCheckpoint, new OnAsyncEventListener() {
-                @Override
-                public void onSuccess() {
-                    Toast.makeText(getApplicationContext(),
-                            "Timestamp Added", Toast.LENGTH_SHORT).show();
-                    Log.d("CHECKPOINTOBSERVER", "HEEEEEEEEEEEEEEEEERE LOADED");
-                    updateOrderDB("Loaded", true);
-                }
-                @Override
-                public void onFailure(Exception e) {
-                    Toast.makeText(getApplicationContext(),
-                            "Update failed", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }*/
-
         CheckpointViewModel.Factory factory = new CheckpointViewModel.Factory(
                 getApplication(), orderId,
                 checkpoints.get(lastCheckpointId).getIdCheckpoint());
         checkpointViewModel = ViewModelProviders.of(this, factory)
                 .get(CheckpointViewModel.class);
         checkpointViewModel.getCheckpoint().observe(this, checkpointEntity -> {
+
+            //Save this info in the DB
             if (checkpointEntity != null) {
                 updatedCheckpoint = checkpointEntity;
                 updatedCheckpoint.setDepartureTimestamp(getCurrentDateTime());
@@ -758,7 +769,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         if(editMode){
             updateOrderDB(null, false);
         }else{
-
+            //Create a new order
             Order order = new Order();
             order.setIdProduct(spinnerProducts.getSelectedItem().toString());
             order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
@@ -775,6 +786,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             order.setIdResponsibleRider(spinnerRiders.getSelectedItem().toString());
             order.setStatus("Pending");
 
+            //save it in the DB
             viewModel.createOrder(order, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
@@ -794,6 +806,8 @@ public class TransportDetailActivity extends AppCompatActivity {
             });
         }
     }
+
+    //used for the timestamp
     private String getCurrentDateTime(){
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy / HH:mm");
         Date date = new Date();

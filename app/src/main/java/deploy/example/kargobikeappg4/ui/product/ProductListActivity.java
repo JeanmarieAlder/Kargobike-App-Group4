@@ -19,11 +19,13 @@ import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity {
 
+    //Attributes
     private RecyclerAdapter<Product> adapter;
     private List<Product> products;
     private ProductListViewModel listViewModel;
     private RecyclerView rView;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,7 @@ public class ProductListActivity extends AppCompatActivity {
                 getApplication()
         );
 
+        //Listviewmodel for getting all products
         listViewModel = ViewModelProviders.of(this, factory)
                 .get(ProductListViewModel.class);
         listViewModel.getAllProducts().observe(this, productEntities -> {
@@ -65,6 +68,7 @@ public class ProductListActivity extends AppCompatActivity {
 
     }
 
+    //Button, for adding a new Product
     public void Product_button_productAdd(View view)
     {
         Intent intent = new Intent(this, ProductDetailActivity.class);

@@ -75,6 +75,7 @@ public class UserDetailActivity extends AppCompatActivity {
     //DB
     private DatabaseReference reff;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -256,11 +257,15 @@ public class UserDetailActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    //Save the changes in the DB
     private void saveChanges() {
 
+        //look if it is in the edit mode or not
         if(editMode){
             updateUserDB(false);
         }else{
+
+            //create a new user
             User user = new User();
 
             user.setIdFunction(spinnerFunctions.getSelectedItem().toString());
@@ -274,6 +279,7 @@ public class UserDetailActivity extends AppCompatActivity {
             String uEmail = eEmail.getText().toString().trim();
             String uPwd = ePassword.getText().toString().trim();
 
+            //Create a new user in the Firebase authentication
             mFirebaseAuth.createUserWithEmailAndPassword(uEmail, uPwd)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -292,7 +298,6 @@ public class UserDetailActivity extends AppCompatActivity {
 
                                 // If sign in fails, display a message to the user.
                                 //progressBar.setVisibility(View.INVISIBLE);
-
                                 Toast.makeText(UserDetailActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
 
@@ -304,6 +309,7 @@ public class UserDetailActivity extends AppCompatActivity {
         }
     }
 
+    //Create a new user, insert all informations in the DB
     public void createUser(User user, String id){
         viewModel.createUser(user, new OnAsyncEventListener() {
                     @Override
@@ -326,7 +332,7 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     /**
-     * Updates an existing order in the DB. Different behaviour if
+     * Updates an existing user in the DB. Different behaviour if
      * the user only changes the status.
      * @param isChangingStatus true if only status is changing
      */

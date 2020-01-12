@@ -4,12 +4,14 @@ import android.graphics.Path;
 
 public class PaintPath {
 
+    //Attributes
     public int color;
     public boolean emboss;
     public boolean blur;
     public int strokeWidth;
     public Path path;
 
+    //Constructor
     public PaintPath(int color, boolean emboss, boolean blur, int strokeWidth, Path path) {
         this.color = color;
         this.emboss = emboss;

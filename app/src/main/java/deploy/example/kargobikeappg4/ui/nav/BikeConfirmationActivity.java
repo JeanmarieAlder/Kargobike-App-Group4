@@ -21,12 +21,13 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class BikeConfirmationActivity extends AppCompatActivity {
 
+    //Attributes
     private UserViewModel userViewmodel;
     private User user;
     private TextView name;
     private Button btnReady;
 
-
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,7 @@ public class BikeConfirmationActivity extends AppCompatActivity {
         });
     }
 
+    //Initialize the UI elements
     private void Initialize(){
 
         name = findViewById(R.id.bikeca_tv_welcome);
@@ -59,12 +61,15 @@ public class BikeConfirmationActivity extends AppCompatActivity {
 
     }
 
+    //Display the name of the user
     private void UpdateContent()
     {
         name.setText("Welcome, "+ user.getName());
         btnReady.setEnabled(true);
     }
 
+
+    //Initialize the notification, which one is loged in
     public void bikeConfirmation(View view)
     {
         String userNotif = user.getName();

@@ -27,6 +27,7 @@ import java.util.Locale;
 
 public class TransportListActivity extends AppCompatActivity {
 
+    //Attributes
     private RecyclerAdapter<Order> adapter;
     private List<Order> orders;
     private List<Order> filteredorders;
@@ -37,6 +38,7 @@ public class TransportListActivity extends AppCompatActivity {
     private FirebaseUser fUser;
     private User user;
 
+    //On create method, initialize all stuff
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,7 @@ public class TransportListActivity extends AppCompatActivity {
         fUser = fAuth.getCurrentUser();
         Log.d("User Firebase", "User id (current)" + fUser.getUid() + fUser.getDisplayName() );
 
+        //getting all users from the DB
         UserViewModel.Factory factory = new UserViewModel.Factory(
                 getApplication(), fUser.getUid());
         userViewmodel = ViewModelProviders.of(this, factory)
@@ -78,16 +81,23 @@ public class TransportListActivity extends AppCompatActivity {
                 getApplication()
         );
 
+        //set the right Dateformat
         String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
+
+        //get all transports
         listViewModel = ViewModelProviders.of(this, factory2)
                 .get(OrderListViewModel.class);
         listViewModel.getAllOrders().observe(this, orderEntities -> {
             if (orderEntities != null) {
                 orders = orderEntities;
                 filteredorders = new ArrayList<>();
+
+                //look for all orders of  date
                 for (Order o : orders) {
                     if(o.getDateDelivery().equals(date)){
+
+                        //it is a Rider, only his orders will be displayed
                         if(user.getIdFunction().equals("Rider")){
                             if(o.getIdResponsibleRider().equals(user.getName()))
                                 filteredorders.add(o);
@@ -104,6 +114,7 @@ public class TransportListActivity extends AppCompatActivity {
 
     }
 
+    //Button to add a new Transport
     public void Transport_button_transportAdd(View view)
     {
         Intent intent = new Intent(this, TransportDetailActivity.class);
