@@ -192,9 +192,7 @@ public class LoginActivity extends AppCompatActivity {
         eLogin = findViewById(R.id.edit_loginUserName);
         ePassword = findViewById(R.id.edit_loginPassword);
 
-        //TODO: Remove for production (static login)
-        eLogin.setText("mr.demo@hesso.ch");
-        ePassword.setText("hessovs");
+
     }
 
     //some tests for clients
