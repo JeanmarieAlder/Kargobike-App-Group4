@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import deploy.example.kargobikeappg4.db.entities.Order;
 import deploy.example.kargobikeappg4.db.entities.User;
 
@@ -16,6 +17,7 @@ import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.adapter.RecyclerAdapter;
 import deploy.example.kargobikeappg4.viewmodel.order.OrderListViewModel;
 import deploy.example.kargobikeappg4.viewmodel.user.UserViewModel;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -53,9 +55,8 @@ public class TransportListActivity extends AppCompatActivity {
                 getApplication(), fUser.getUid());
         userViewmodel = ViewModelProviders.of(this, factory)
                 .get(UserViewModel.class);
-        userViewmodel.getUser().observe(this, userEntitie ->{
-            if(userEntitie != null)
-            {
+        userViewmodel.getUser().observe(this, userEntitie -> {
+            if (userEntitie != null) {
                 user = userEntitie;
             }
         });
@@ -68,7 +69,7 @@ public class TransportListActivity extends AppCompatActivity {
         orders = new ArrayList<>();
 
         //Add click listener, opens details of the selected order
-                adapter = new RecyclerAdapter<>((v, position) -> {
+        adapter = new RecyclerAdapter<>((v, position) -> {
             Intent intent = new Intent(TransportListActivity.this,
                     TransportDetailActivity.class);
             intent.putExtra("orderId", filteredorders.get(position).getIdOrder());
@@ -94,14 +95,13 @@ public class TransportListActivity extends AppCompatActivity {
 
                 //look for all orders of  date
                 for (Order o : orders) {
-                    if(o.getDateDelivery().equals(date)){
+                    if (o.getDateDelivery().equals(date)) {
 
                         //it is a Rider, only his orders will be displayed
-                        if(user.getIdFunction().equals("Rider")){
-                            if(o.getIdResponsibleRider().equals(user.getName()))
+                        if (user.getIdFunction().equals("Rider")) {
+                            if (o.getIdResponsibleRider().equals(user.getName()))
                                 filteredorders.add(o);
-                        }
-                        else{
+                        } else {
                             filteredorders.add(o);
                         }
                     }
@@ -114,8 +114,7 @@ public class TransportListActivity extends AppCompatActivity {
     }
 
     //Button to add a new Transport
-    public void Transport_button_transportAdd(View view)
-    {
+    public void Transport_button_transportAdd(View view) {
         Intent intent = new Intent(this, TransportDetailActivity.class);
         intent.putExtra("isEdit", false);
 

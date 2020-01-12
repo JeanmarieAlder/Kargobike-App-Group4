@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.adapter.RecyclerAdapter;
 import deploy.example.kargobikeappg4.db.entities.Zone;
@@ -41,7 +42,7 @@ public class ZoneListActivity extends AppCompatActivity {
 
 
     //Initialize the elements oof th UI
-    private void initialize(){
+    private void initialize() {
         rView = findViewById(R.id.zl_recycler_view);
         btnAdd = findViewById(R.id.zl_buton_add);
 
@@ -52,7 +53,7 @@ public class ZoneListActivity extends AppCompatActivity {
     }
 
     //Initialize the elements for the list (display the whole list)
-    private void initializeAdapter(){
+    private void initializeAdapter() {
         //Add click listener, opens details of the selected order
         adapter = new RecyclerAdapter<>((v, position) -> {
             Intent intent = new Intent(this,
@@ -64,7 +65,7 @@ public class ZoneListActivity extends AppCompatActivity {
     }
 
     //Initialize ViewModel and set the informations to the page
-    private void initializeViewModel(){
+    private void initializeViewModel() {
         ZoneListViewModel.Factory factory = new ZoneListViewModel.Factory(
                 getApplication()
         );
@@ -81,7 +82,7 @@ public class ZoneListActivity extends AppCompatActivity {
     }
 
     //Button add, is forwarded to a new page
-    public void buttonAdd(View view){
+    public void buttonAdd(View view) {
         Intent intent = new Intent(this, ZoneDetailActivity.class);
         intent.putExtra("isEdit", false);
         startActivity(intent);

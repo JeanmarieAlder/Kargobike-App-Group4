@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
 import deploy.example.kargobikeappg4.adapter.ListAdapter;
+
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -42,7 +44,7 @@ public class CustomerAddActivity extends AppCompatActivity {
     }
 
     //Initialize all UI-elements
-    private void initializeLayout(){
+    private void initializeLayout() {
         spinnerTitle = findViewById(R.id.ca_spinner_title);
         eFirstname = findViewById(R.id.ca_input_firstname);
         eLastname = findViewById(R.id.ca_input_lastname);
@@ -63,7 +65,7 @@ public class CustomerAddActivity extends AppCompatActivity {
     }
 
     //Create a new customer
-    public void createCustomer(View view){
+    public void createCustomer(View view) {
         Customer newCustomer = new Customer();
 
         String billingName = eLastname.getText().toString()
@@ -79,20 +81,20 @@ public class CustomerAddActivity extends AppCompatActivity {
 
         //call the query to insert a new Client
         ((BaseApp) getApplication())
-            .getCustomerRepository().insert(newCustomer, new OnAsyncEventListener() {
-                @Override
-                public void onSuccess() {
-                    Toast.makeText(getApplicationContext(),
-                            "Creation succesful", Toast.LENGTH_LONG).show();
-                    onBackPressed(); //finally, go back to previous screen
-                }
+                .getCustomerRepository().insert(newCustomer, new OnAsyncEventListener() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getApplicationContext(),
+                        "Creation succesful", Toast.LENGTH_LONG).show();
+                onBackPressed(); //finally, go back to previous screen
+            }
 
-                @Override
-                public void onFailure(Exception e) {
-                    Toast.makeText(getApplicationContext(),
-                            "Creation failed", Toast.LENGTH_LONG).show();
-                }
-            });
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(getApplicationContext(),
+                        "Creation failed", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     //Go one page back
@@ -104,7 +106,7 @@ public class CustomerAddActivity extends AppCompatActivity {
     //Which option is selected
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 Log.d("TEST", "TEST------");
                 onBackPressed();

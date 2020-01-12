@@ -3,6 +3,7 @@ package deploy.example.kargobikeappg4.ui.nav;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+
 import deploy.example.kargobikeappg4.db.entities.User;
 import deploy.example.kargobikeappg4.ui.transport.TransportDetailActivity;
 import deploy.example.kargobikeappg4.ui.user.UserListActivity;
@@ -23,6 +24,7 @@ import deploy.example.kargobikeappg4.ui.zone.ZoneListActivity;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
 import deploy.example.kargobikeappg4.viewmodel.user.UserViewModel;
 import deploy.example.kargobikeappg4.viewmodel.workDetails.WorkDetailsViewModel;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -42,7 +44,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     //Attributes
     private static final String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Calendar.getInstance().getTime());
-    private static final Date startSession =  Calendar.getInstance().getTime();
+    private static final Date startSession = Calendar.getInstance().getTime();
 
     private WorkDetailsViewModel viewModel;
     private String workDetailsId;
@@ -78,21 +80,18 @@ public class WelcomeActivity extends AppCompatActivity {
                 getApplication(), fbUser.getUid());
         userViewmodel = ViewModelProviders.of(this, factory)
                 .get(UserViewModel.class);
-        userViewmodel.getUser().observe(this, userEntitie ->{
-            if(userEntitie != null)
-            {
+        userViewmodel.getUser().observe(this, userEntitie -> {
+            if (userEntitie != null) {
                 user = userEntitie;
                 userIdFunction = user.getIdFunction();
 
-                if(userIdFunction.equals("Rider"))
-                {
+                if (userIdFunction.equals("Rider")) {
                     productList.setVisibility(View.INVISIBLE);
                     userList.setVisibility(View.INVISIBLE);
                     zoneList.setVisibility(View.INVISIBLE);
                 }
 
-                if(userIdFunction.equals("Dispatcher"))
-                {
+                if (userIdFunction.equals("Dispatcher")) {
                     userList.setVisibility(View.INVISIBLE);
                 }
             }
@@ -115,49 +114,45 @@ public class WelcomeActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),
                     "Logout successful", Toast.LENGTH_LONG).show();
             GetHours();
-            TransportDetailActivity.nbDelivery=0;
+            TransportDetailActivity.nbDelivery = 0;
         }));
     }
 
 
     /**
-    All Button on the mainpage
+     * All Button on the mainpage
      */
-    public void Welcome_button_zoneList(View view){
+    public void Welcome_button_zoneList(View view) {
         Intent intent = new Intent(this, ZoneListActivity.class);
         startActivity(intent);
     }
 
-    public void Welcome_button_transportList(View view)
-    {
+    public void Welcome_button_transportList(View view) {
         Intent intent = new Intent(this, TransportListActivity.class);
         startActivity(intent);
     }
 
-    public void Welcome_button_productList(View view)
-    {
+    public void Welcome_button_productList(View view) {
         Intent intent = new Intent(this, ProductListActivity.class);
         startActivity(intent);
     }
 
-    public void Welcome_button_profile(View view)
-    {
+    public void Welcome_button_profile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 
-    public void Welcome_button_userList(View view)
-    {
+    public void Welcome_button_userList(View view) {
         Intent intent = new Intent(this, UserListActivity.class);
         startActivity(intent);
     }
 
     //Wil calculate how long the user was loged ing
-    public void GetHours(){
+    public void GetHours() {
 
         String workingTime = null;
 
-        Date endTime =  Calendar.getInstance().getTime();
+        Date endTime = Calendar.getInstance().getTime();
 
         long different = endTime.getTime() - startSession.getTime();
 
@@ -170,7 +165,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         long elapsedMinutes = different / minutesInMilli;
 
-        String dtStart = elapsedHours+":"+elapsedMinutes;
+        String dtStart = elapsedHours + ":" + elapsedMinutes;
 
         try {
             SimpleDateFormat convertToDate = new SimpleDateFormat("HH:mm");
@@ -188,8 +183,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
     //Save the workinghours in the DB
-    public void InsertWorkingHours(String workingTime)
-    {
+    public void InsertWorkingHours(String workingTime) {
 
         String userId = fAuth.getInstance().getCurrentUser().getUid();
 
@@ -208,7 +202,7 @@ public class WelcomeActivity extends AppCompatActivity {
         viewModel.createWorkDetails(wd, userId, new OnAsyncEventListener() {
             @Override
             public void onSuccess() {
-                Intent intent = new Intent(WelcomeActivity.this,LoginActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 startActivity(intent);

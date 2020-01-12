@@ -5,7 +5,7 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 
-public class Product implements  Comparable {
+public class Product implements Comparable {
 
     //Attributes
     private String idProduct;
@@ -16,7 +16,7 @@ public class Product implements  Comparable {
     private boolean interurbain;
 
     //Constructor
-    public Product(){
+    public Product() {
 
     }
 

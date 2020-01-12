@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.adapter.RecyclerAdapter;
 import deploy.example.kargobikeappg4.db.entities.User;
@@ -68,8 +69,7 @@ public class UserListActivity extends AppCompatActivity {
     }
 
     //Button for adding a new user
-    public void Product_button_registerUser(View view)
-    {
+    public void Product_button_registerUser(View view) {
         Intent intent = new Intent(this, UserDetailActivity.class);
         intent.putExtra("isEdit", false);
 

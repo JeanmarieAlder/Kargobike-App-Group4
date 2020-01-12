@@ -3,6 +3,7 @@ package deploy.example.kargobikeappg4.db.liveData;
 import android.util.Log;
 
 import deploy.example.kargobikeappg4.db.entities.Checkpoint;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +37,8 @@ public class CheckpointsListLiveData extends LiveData<List<Checkpoint>> {
 
     @Override
     protected void onInactive() {
-        Log.d(TAG, "onInactive"); }
+        Log.d(TAG, "onInactive");
+    }
 
 
     private class MyValueEventListener implements ValueEventListener {
@@ -51,7 +53,7 @@ public class CheckpointsListLiveData extends LiveData<List<Checkpoint>> {
         }
     }
 
-    private List<Checkpoint> toCheckpoints(DataSnapshot snapshot){
+    private List<Checkpoint> toCheckpoints(DataSnapshot snapshot) {
         //get values for list
         List<Checkpoint> checkpoints = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {

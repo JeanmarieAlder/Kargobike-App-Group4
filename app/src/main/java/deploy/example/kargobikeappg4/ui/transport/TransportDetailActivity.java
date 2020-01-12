@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import deploy.example.kargobikeappg4.db.entities.Order;
 import deploy.example.kargobikeappg4.db.entities.User;
 
@@ -64,7 +65,7 @@ import java.util.Map;
 public class TransportDetailActivity extends AppCompatActivity {
 
     //Attributes
-    private RequestQueue mRequestQueue ;
+    private RequestQueue mRequestQueue;
     private String URL = "https://fcm.googleapis.com/fcm/send";
 
     public static int nbDelivery;
@@ -130,9 +131,9 @@ public class TransportDetailActivity extends AppCompatActivity {
         Log.d("ONCREATE TDA", "---------------------------- HERE  IT STARDED");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport_detail);
-        if(order != null){
+        if (order != null) {
             Log.d("ONCREATE TDA", "---------------------------- HERE  " + order.getQuantity());
-        }else{
+        } else {
             Log.d("ONCREATE TDA", "---------------------------- HERE  NO ORDER FOUND");
         }
 
@@ -164,7 +165,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                     TransportDetailActivity.this,
                     android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                     DateSetListenerDelivery,
-                    year,month,day);
+                    year, month, day);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
         });
@@ -178,15 +179,15 @@ public class TransportDetailActivity extends AppCompatActivity {
                 String monthh = Integer.toString(day);
 
                 //Convert to the right format
-                if(day <10){
-                    dayy = "0"+day;
+                if (day < 10) {
+                    dayy = "0" + day;
 
                 }
-                if(month <10){
-                    monthh = "0"+month;
+                if (month < 10) {
+                    monthh = "0" + month;
 
                 }
-                String date =  dayy+ "/" + monthh + "/" + year;
+                String date = dayy + "/" + monthh + "/" + year;
                 eDelivDate.setText(date);
             }
         };
@@ -250,7 +251,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         });
 
         //look if it is the editmode or not
-        if(editMode){
+        if (editMode) {
 
             //update the DB
             CheckpointListViewModel.Factory factoryCheckpoints = new CheckpointListViewModel.Factory(
@@ -269,7 +270,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             rView.setAdapter(adapter);
         }
 
-        if(editMode) {
+        if (editMode) {
             viewModel.getOrder().observe(this, orderEntity -> {
                 if (orderEntity != null) {
                     order = orderEntity;
@@ -297,16 +298,16 @@ public class TransportDetailActivity extends AppCompatActivity {
 
         timePicker.setMinute(mMinute);
         timePicker.setHour(mHour);
-        timePicker.setOnTimeChangedListener((viewTimePicker, hour, minutes) ->{
+        timePicker.setOnTimeChangedListener((viewTimePicker, hour, minutes) -> {
 
             unsignedMinute = "" + timePicker.getMinute();
             unsignedHour = "" + timePicker.getHour();
 
             //Check that the hour and minutes each have two digits, if not, add a "0" in front
-            if(unsignedMinute.length() < 2){
+            if (unsignedMinute.length() < 2) {
                 unsignedMinute = "0" + unsignedMinute;
             }
-            if(unsignedHour.length() < 2){
+            if (unsignedHour.length() < 2) {
                 unsignedHour = "0" + unsignedHour;
             }
             String newTime = "" + unsignedHour + ":" + unsignedMinute;
@@ -321,7 +322,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     }
 
     //Viewmodel for all orders -> retrieve afterwards all orders
-    private void setupOrderViewModel(){
+    private void setupOrderViewModel() {
         //Create viewmodel
         OrderViewModel.Factory factory = new OrderViewModel.Factory(
                 getApplication(), orderId);
@@ -330,12 +331,12 @@ public class TransportDetailActivity extends AppCompatActivity {
     }
 
     //Viewmodel for all customers -> retrieve afterwards all orders
-    private void setupCustomverViewModel(){
+    private void setupCustomverViewModel() {
         CustomerViewModel.Factory factory = new CustomerViewModel.Factory(
                 getApplication(), order.getIdCustomer());
         customerViewModel = ViewModelProviders.of(this, factory)
                 .get(CustomerViewModel.class);
-        customerViewModel.getCustomer().observe(this, customerEntity ->{
+        customerViewModel.getCustomer().observe(this, customerEntity -> {
             if (customerEntity != null) {
                 customer = customerEntity;
                 updateContent();
@@ -354,11 +355,12 @@ public class TransportDetailActivity extends AppCompatActivity {
     }
 
     //Start for the notification
-    private void initializeNotification(){
+    private void initializeNotification() {
 
-        mRequestQueue=Volley.newRequestQueue(this);
+        mRequestQueue = Volley.newRequestQueue(this);
 
     }
+
     /**
      * Initializes views, buttons, id and editmode
      */
@@ -381,50 +383,49 @@ public class TransportDetailActivity extends AppCompatActivity {
         btnChangeStatus = findViewById(R.id.button_change_status);
         btnClient = findViewById(R.id.button_ClientList);
         btnCancel.setEnabled(true);
-        btnSave.setOnClickListener(new View.OnClickListener(){
+        btnSave.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                saveChanges();
-            }
-        }
+                                       @Override
+                                       public void onClick(View v) {
+                                           saveChanges();
+                                       }
+                                   }
         );
 
         //get order ID from intent and set edit mode to false if new order
         editMode = currIntent.getBooleanExtra("isEdit", false);
 
-        if(editMode){
+        if (editMode) {
             orderId = currIntent.getStringExtra("orderId");
             btnCancel.setEnabled(true);
-        }else{
+        } else {
             btnChangeStatus.setVisibility(View.GONE);
         }
     }
 
     //Send to the responsible rider a notification with the infos
-    private void sendNotification(){
+    private void sendNotification() {
 
         initializeNotification();
         String userID = spinnerRiders.getSelectedItem().toString();
 
 
-        for(int i=0; i<userID.length();i++)
-        {
-            if(userID.charAt(i)==' ') {
-                String debut = userID.substring(0,i);
-                String fin = userID.substring(i+1,userID.length());
-                userID = debut+fin;
+        for (int i = 0; i < userID.length(); i++) {
+            if (userID.charAt(i) == ' ') {
+                String debut = userID.substring(0, i);
+                String fin = userID.substring(i + 1, userID.length());
+                userID = debut + fin;
             }
         }
 
         JSONObject mainObj = new JSONObject();
 
         try {
-            
-            mainObj.put("to","/topics/"+userID);
+
+            mainObj.put("to", "/topics/" + userID);
             JSONObject notifObj = new JSONObject();
-            notifObj.put("title",getResources().getString(R.string.s_title_notification));
-            notifObj.put("body", "Hey "+userID+", "+getResources().getString(R.string.s_body_notification));
+            notifObj.put("title", getResources().getString(R.string.s_title_notification));
+            notifObj.put("body", "Hey " + userID + ", " + getResources().getString(R.string.s_body_notification));
             mainObj.put("notification", notifObj);
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, mainObj,
@@ -438,12 +439,12 @@ public class TransportDetailActivity extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
 
                 }
-            }){
+            }) {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String,String> header = new HashMap<>();
+                    Map<String, String> header = new HashMap<>();
                     header.put("content-type", "application/json");
-                    header.put("authorization","key=AIzaSyC1XCuqDhyMVMIy_mQllyBAvSkIRDdINHc");
+                    header.put("authorization", "key=AIzaSyC1XCuqDhyMVMIy_mQllyBAvSkIRDdINHc");
                     return header;
                 }
             };
@@ -451,8 +452,7 @@ public class TransportDetailActivity extends AppCompatActivity {
             mRequestQueue.add(request);
 
 
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -466,9 +466,9 @@ public class TransportDetailActivity extends AppCompatActivity {
             eQuantity.setText(Float.toString(order.getQuantity()));
             eDelivDate.setText(order.getDateDelivery());
             eDelivTime.setText(order.getTimeDelivery());
-            if(clientSelected != null){
+            if (clientSelected != null) {
                 eClient.setText(clientSelected);
-            }else if(customer != null){
+            } else if (customer != null) {
                 eClient.setText(customer.getBillingName());
             }
             ePickupAddress.setText(order.getIdPickupCheckpoint());
@@ -489,19 +489,19 @@ public class TransportDetailActivity extends AppCompatActivity {
                     btnChangeStatus.setVisibility(View.GONE);
                     break;
             }
-            if(order.getIdResponsibleRider() != null){
+            if (order.getIdResponsibleRider() != null) {
                 int spinnerPosition = adapterRidersList.getPosition(order.getIdResponsibleRider());
                 spinnerRiders.setSelection(spinnerPosition);
             }
 
-            if(order.getIdProduct() != null){
+            if (order.getIdProduct() != null) {
                 int spinnerPosition = adapterProductsList.getPosition(order.getIdProduct());
                 spinnerProducts.setSelection(spinnerPosition);
             }
 
             //If the order is cancelled or loaded, settings cannot change
-            if(order.getStatus().equals("Cancelled") || order.getStatus().equals("Loaded")
-            || order.getStatus().equals("Delivered")){
+            if (order.getStatus().equals("Cancelled") || order.getStatus().equals("Loaded")
+                    || order.getStatus().equals("Delivered")) {
                 eQuantity.setEnabled(false);
                 eDelivDate.setEnabled(false);
                 eClient.setEnabled(false);
@@ -513,8 +513,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                 btnCancel.setEnabled(false);
 
                 timePicker.setVisibility(View.GONE);
-            }
-            else{
+            } else {
                 eQuantity.setEnabled(true);
                 eDelivDate.setEnabled(true);
                 eClient.setEnabled(false);
@@ -544,9 +543,8 @@ public class TransportDetailActivity extends AppCompatActivity {
     }
 
     //button, to select the right client
-    public void Transport_button_clientList(View view)
-    {
-        if(editMode){
+    public void Transport_button_clientList(View view) {
+        if (editMode) {
 
             updateOrderDB(null, true);
         }
@@ -558,28 +556,28 @@ public class TransportDetailActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1){
-            if(resultCode == RESULT_OK){
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
                 clientSelected = data.getStringExtra("clientSelected");
                 idClientSelected = data.getStringExtra("idClientSelected");
                 addressClientSelected = data.getStringExtra("addressClientSelected");
-                if(!editMode){
+                if (!editMode) {
                     eClient.setText(data.getStringExtra("clientSelected"));
                 }
 
                 //set Addresses if not filled only
-                if(ePickupAddress.getText().length() <= 0){
+                if (ePickupAddress.getText().length() <= 0) {
                     ePickupAddress.setText(addressClientSelected);
                 }
-                if(eDeliveryAddress.getText().length() <= 0){
+                if (eDeliveryAddress.getText().length() <= 0) {
                     eDeliveryAddress.setText(addressClientSelected);
                 }
             }
         }
-        if(requestCode == 2){
-            if(resultCode == RESULT_OK
-                    && data.getBooleanExtra("checkpointCreated", false)){
-                if(data.getStringExtra("newResponsible") != null){
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK
+                    && data.getBooleanExtra("checkpointCreated", false)) {
+                if (data.getStringExtra("newResponsible") != null) {
                     int spinnerPosition = adapterRidersList.
                             getPosition(data.getStringExtra("newResponsible"));
                     spinnerRiders.setSelection(spinnerPosition);
@@ -590,25 +588,24 @@ public class TransportDetailActivity extends AppCompatActivity {
                 startActivity(getIntent());
             }
         }
-        if(requestCode == 3){
-            if(resultCode == RESULT_OK){
+        if (requestCode == 3) {
+            if (resultCode == RESULT_OK) {
                 imageURL = data.getStringExtra("SignatureURL");
-                updateOrderDB(null,true);
+                updateOrderDB(null, true);
 
             }
         }
-        if(requestCode == 4){
-            if(resultCode == RESULT_OK){
+        if (requestCode == 4) {
+            if (resultCode == RESULT_OK) {
                 imageURL = data.getStringExtra("ImageURL");
-                updateOrderDB(null,true);
+                updateOrderDB(null, true);
 
             }
         }
     }
 
     //add a new chkpoint ot this order
-    public void addCheckpoint(boolean isTrainStation)
-    {
+    public void addCheckpoint(boolean isTrainStation) {
         isLoaded = true;
         Intent intent = new Intent(this, CheckpointActivity.class);
         intent.putExtra("orderId", orderId);
@@ -618,26 +615,23 @@ public class TransportDetailActivity extends AppCompatActivity {
     }
 
     //open the screen for a photo
-    public void Transport_button_photoScreen(View view)
-    {
+    public void Transport_button_photoScreen(View view) {
         Intent intent = new Intent(this, PhotoScreenActivity.class);
-        intent.putExtra("IdOrder", orderId );
+        intent.putExtra("IdOrder", orderId);
         startActivityForResult(intent, 4);
     }
 
     //open the screen for making a sign
-    public void Transport_button_signScreen(View view)
-    {
+    public void Transport_button_signScreen(View view) {
         Intent intent = new Intent(TransportDetailActivity.this, SignScreenActivity.class);
-        intent.putExtra("IdOrder", orderId );
+        intent.putExtra("IdOrder", orderId);
         startActivityForResult(intent, 3);
 
     }
 
     //change the status
-    public void ButtonChangeStatus(View view)
-    {
-        switch (order.getStatus()){
+    public void ButtonChangeStatus(View view) {
+        switch (order.getStatus()) {
             case "Pending":
                 managePickup();
                 break;
@@ -646,7 +640,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                 showAlertDialogButtonClicked();
                 break;
 
-            default :
+            default:
                 Log.d("Button change status", order.getStatus());
                 break;
         }
@@ -675,7 +669,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                     addCheckpoint(true);
                     break;
                 case 2: // final destination
-                    nbDelivery+=1;
+                    nbDelivery += 1;
                     manageDelivery();
                     //updateOrderDB("Delivered", true);
                     break;
@@ -687,27 +681,26 @@ public class TransportDetailActivity extends AppCompatActivity {
     }
 
     //load a order
-    private void managePickup(){
+    private void managePickup() {
         isLoaded = false;
-        if(checkpoints == null || checkpoints.size() <= 0){
+        if (checkpoints == null || checkpoints.size() <= 0) {
             newPickupTimestamp = getCurrentDateTime();
             updateOrderDB("Loaded", false);
             newPickupTimestamp = null;
-        }
-        else{
+        } else {
             //Get the last checkpoint added and add departure timestamp
             setCheckpointDepartureTimestamp();
         }
     }
 
     //The order is by the customer -> finished
-    private void manageDelivery(){
+    private void manageDelivery() {
         newDeliveryTimestamp = getCurrentDateTime();
         updateOrderDB("Delivered", true);
         newDeliveryTimestamp = null;
     }
 
-    private void setCheckpointDepartureTimestamp(){
+    private void setCheckpointDepartureTimestamp() {
         isLoaded = false;
         int lastCheckpointId = adapter.getItemCount() - 1;
 
@@ -731,6 +724,7 @@ public class TransportDetailActivity extends AppCompatActivity {
                         finish();
                         startActivity(getIntent());
                     }
+
                     @Override
                     public void onFailure(Exception e) {
                         Toast.makeText(getApplicationContext(),
@@ -743,18 +737,18 @@ public class TransportDetailActivity extends AppCompatActivity {
 
     private void saveChanges() {
 
-        if(editMode){
+        if (editMode) {
             updateOrderDB(null, false);
-        }else{
+        } else {
             //Create a new order
             Order order = new Order();
             order.setIdProduct(spinnerProducts.getSelectedItem().toString());
             order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
             order.setDateDelivery(eDelivDate.getText().toString().trim());
             order.setTimeDelivery(eDelivTime.getText().toString());
-            if(idClientSelected != null){
+            if (idClientSelected != null) {
                 order.setIdCustomer(idClientSelected);
-            }else{
+            } else {
                 order.setIdCustomer("");
             }
 
@@ -774,9 +768,9 @@ public class TransportDetailActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Exception e) {
-                    if(e.getMessage().contains("FOREIGN KEY")){
+                    if (e.getMessage().contains("FOREIGN KEY")) {
                         Toast.makeText(getApplicationContext(), "Creation error: stage name doesn't exist", Toast.LENGTH_LONG).show();
-                    }else{
+                    } else {
                         Toast.makeText(getApplicationContext(), "Creation failed", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -785,7 +779,7 @@ public class TransportDetailActivity extends AppCompatActivity {
     }
 
     //used for the timestamp
-    private String getCurrentDateTime(){
+    private String getCurrentDateTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy / HH:mm");
         Date date = new Date();
         return formatter.format(date);
@@ -794,25 +788,26 @@ public class TransportDetailActivity extends AppCompatActivity {
     /**
      * Updates an existing order in the DB. Different behaviour if
      * the user only changes the status.
+     *
      * @param newStatus the new status to update to database
      */
-    private void updateOrderDB(String newStatus, boolean isQuickSave){
+    private void updateOrderDB(String newStatus, boolean isQuickSave) {
         order.setIdProduct(spinnerProducts.getSelectedItem().toString());
         order.setQuantity(Float.parseFloat(eQuantity.getText().toString()));
         order.setDateDelivery(eDelivDate.getText().toString());
         order.setTimeDelivery(eDelivTime.getText().toString());
-        if(newPickupTimestamp != null){
+        if (newPickupTimestamp != null) {
             order.setPickupTimestamp(newPickupTimestamp);
         }
-        if(newDeliveryTimestamp != null){
+        if (newDeliveryTimestamp != null) {
             order.setDeliveryTimestamp(newDeliveryTimestamp);
         }
-        if(idClientSelected != null){
+        if (idClientSelected != null) {
             order.setIdCustomer(idClientSelected);
-        }else{
+        } else {
             order.setIdCustomer(order.getIdCustomer());
         }
-        if(imageURL != null){
+        if (imageURL != null) {
             order.setSignature(imageURL);
         }
         order.setIdPickupCheckpoint(ePickupAddress.getText().toString());
@@ -820,7 +815,7 @@ public class TransportDetailActivity extends AppCompatActivity {
         order.setIdResponsibleRider(spinnerRiders.getSelectedItem().toString());
 
         //Changes status if a new status has been provided
-        if(newStatus != null){
+        if (newStatus != null) {
             order.setStatus(newStatus);
         }
 
@@ -829,9 +824,9 @@ public class TransportDetailActivity extends AppCompatActivity {
             public void onSuccess() {
                 Toast.makeText(getApplicationContext(),
                         "Update succesful", Toast.LENGTH_LONG).show();
-                if((newStatus == null) && !isQuickSave){
+                if ((newStatus == null) && !isQuickSave) {
                     onBackPressed(); //finally, go back to previous screen
-                }else{
+                } else {
                     updateContent(); //If only status has changed, stay on page and update content
                 }
             }

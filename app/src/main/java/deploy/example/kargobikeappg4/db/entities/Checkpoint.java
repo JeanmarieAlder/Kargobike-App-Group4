@@ -3,7 +3,7 @@ package deploy.example.kargobikeappg4.db.entities;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Checkpoint implements Comparable{
+public class Checkpoint implements Comparable {
 
     //Attributes
     private String idCheckpoint;
@@ -21,7 +21,8 @@ public class Checkpoint implements Comparable{
 
 
     //Constructors
-    public Checkpoint() {}
+    public Checkpoint() {
+    }
 
     public Checkpoint(String type, float lat, float lng, String arrivalTimestamp,
                       String departureTimestamp, String responsibleRider,
@@ -88,37 +89,51 @@ public class Checkpoint implements Comparable{
     public void setArrivalTimestamp(String arrivalTimestamp) {
         this.arrivalTimestamp = arrivalTimestamp;
     }
+
     public String getDepartureTimestamp() {
         return departureTimestamp;
     }
+
     public void setDepartureTimestamp(String departureTimestamp) {
         this.departureTimestamp = departureTimestamp;
     }
+
     public String getRemark() {
         return remark;
     }
+
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
     public String getResponsibleRider() {
         return responsibleRider;
     }
+
     public void setResponsibleRider(String responsibleRider) {
         this.responsibleRider = responsibleRider;
     }
+
     public String getArrivalCity() {
         return arrivalCity;
     }
+
     public void setArrivalCity(String arrivalCity) {
         this.arrivalCity = arrivalCity;
     }
+
     public String getArrivalTime() {
         return arrivalTime;
     }
+
     public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
-    public String getNewResponsibleRider() { return newResponsibleRider; }
+
+    public String getNewResponsibleRider() {
+        return newResponsibleRider;
+    }
+
     public void setNewResponsibleRider(String newResponsibleRider) {
         this.newResponsibleRider = newResponsibleRider;
     }

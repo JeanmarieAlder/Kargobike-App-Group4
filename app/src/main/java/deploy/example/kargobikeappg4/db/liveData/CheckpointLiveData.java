@@ -30,9 +30,9 @@ public class CheckpointLiveData extends LiveData<Checkpoint> {
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             //get entity Checkpoint
             Checkpoint entity = dataSnapshot.getValue(Checkpoint.class);
-            if(entity == null){
+            if (entity == null) {
                 return;
-            }else{
+            } else {
                 entity.setIdCheckpoint(dataSnapshot.getKey());
                 setValue(entity);
             }

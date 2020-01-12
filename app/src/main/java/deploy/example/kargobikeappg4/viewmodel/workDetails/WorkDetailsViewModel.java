@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
 import deploy.example.kargobikeappg4.viewmodel.BaseApp;
 
@@ -23,15 +24,14 @@ public class WorkDetailsViewModel extends AndroidViewModel {
 
     //Constructor and initialize all values
     public WorkDetailsViewModel(@NonNull Application application, final String userId,
-                               final String workDetailsId, WorkDetailsRepository repository) {
+                                final String workDetailsId, WorkDetailsRepository repository) {
         super(application);
 
         this.repository = repository;
 
         observableWorkDetails = new MediatorLiveData<>();
         observableWorkDetails.setValue(null); //Null by default until we get data from DB
-        if(workDetailsId != null)
-        {
+        if (workDetailsId != null) {
             //give the worketails of one user
             LiveData<WorkDetails> workDetails = repository.getOneWorkDetails(userId, workDetailsId);
 
@@ -75,6 +75,6 @@ public class WorkDetailsViewModel extends AndroidViewModel {
 
     //insert a new workdetail of a user
     public void createWorkDetails(WorkDetails workDetails, String idUser, OnAsyncEventListener callback) {
-        repository.insert(workDetails,idUser, callback);
+        repository.insert(workDetails, idUser, callback);
     }
 }

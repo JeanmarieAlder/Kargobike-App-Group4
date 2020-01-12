@@ -43,9 +43,8 @@ public class BikeConfirmationActivity extends AppCompatActivity {
                 getApplication(), fbUser.getUid());
         userViewmodel = ViewModelProviders.of(this, factory)
                 .get(UserViewModel.class);
-        userViewmodel.getUser().observe(this, userEntitie ->{
-            if(userEntitie != null)
-            {
+        userViewmodel.getUser().observe(this, userEntitie -> {
+            if (userEntitie != null) {
                 user = userEntitie;
                 UpdateContent();
             }
@@ -53,7 +52,7 @@ public class BikeConfirmationActivity extends AppCompatActivity {
     }
 
     //Initialize the UI elements
-    private void Initialize(){
+    private void Initialize() {
 
         name = findViewById(R.id.bikeca_tv_welcome);
         btnReady = findViewById(R.id.bikeca_button_confirmation);
@@ -62,24 +61,21 @@ public class BikeConfirmationActivity extends AppCompatActivity {
     }
 
     //Display the name of the user
-    private void UpdateContent()
-    {
-        name.setText("Welcome, "+ user.getName());
+    private void UpdateContent() {
+        name.setText("Welcome, " + user.getName());
         btnReady.setEnabled(true);
     }
 
 
     //Initialize the notification, which one is loged in
-    public void bikeConfirmation(View view)
-    {
+    public void bikeConfirmation(View view) {
         String userNotif = user.getName();
 
-        for(int i=0; i<userNotif.length();i++)
-        {
-            if(userNotif.charAt(i)==' ') {
-                String debut = userNotif.substring(0,i);
-                String fin = userNotif.substring(i+1,userNotif.length());
-                userNotif = debut+fin;
+        for (int i = 0; i < userNotif.length(); i++) {
+            if (userNotif.charAt(i) == ' ') {
+                String debut = userNotif.substring(0, i);
+                String fin = userNotif.substring(i + 1, userNotif.length());
+                userNotif = debut + fin;
             }
         }
         Intent intent = new Intent(this, WelcomeActivity.class);

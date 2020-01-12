@@ -8,16 +8,18 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+
 import deploy.example.kargobikeappg4.db.entities.User;
 import deploy.example.kargobikeappg4.db.repository.UserRepository;
 
 import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.viewmodel.user.UserViewModel;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class ProfileActivity extends AppCompatActivity{
+public class ProfileActivity extends AppCompatActivity {
 
     //Attributes
     private View group;
@@ -46,11 +48,10 @@ public class ProfileActivity extends AppCompatActivity{
         currentUser = currentIntent.getBooleanExtra("user", true);
 
         //look for the loged in user
-        if(!currentUser) {
+        if (!currentUser) {
             userId = currentIntent.getStringExtra("userId");
             about.setVisibility(View.INVISIBLE);
-        }
-        else
+        } else
             userId = fbUser.getUid();
 
         //Create viewmodel for user
@@ -58,9 +59,8 @@ public class ProfileActivity extends AppCompatActivity{
                 getApplication(), userId);
         userViewmodel = ViewModelProviders.of(this, userFactory)
                 .get(UserViewModel.class);
-        userViewmodel.getUser().observe(this, userEntity ->{
-            if(userEntity != null)
-            {
+        userViewmodel.getUser().observe(this, userEntity -> {
+            if (userEntity != null) {
                 user = userEntity;
                 UpdateContent();
             }
@@ -70,10 +70,10 @@ public class ProfileActivity extends AppCompatActivity{
     }
 
     //Initialize all UI-Elements
-    private void Initialize(){
+    private void Initialize() {
 
         name = findViewById(R.id.profile_tv_name);
-        address  = findViewById(R.id.profile_tv_address);
+        address = findViewById(R.id.profile_tv_address);
         email = findViewById(R.id.profile_tv_mailAddress);
         phone = findViewById(R.id.profile_tv_phone);
 
@@ -87,8 +87,7 @@ public class ProfileActivity extends AppCompatActivity{
     }
 
     //Update the content in the UI
-    private void UpdateContent()
-    {
+    private void UpdateContent() {
         loading.setVisibility(View.INVISIBLE);
 
         name.setText(user.getName());
@@ -100,8 +99,7 @@ public class ProfileActivity extends AppCompatActivity{
     }
 
     //Go to the monthly report
-    public void user_button_monthlyReport(View view)
-    {
+    public void user_button_monthlyReport(View view) {
         Intent intent = new Intent(this, MonthlyReportActivity.class);
         intent.putExtra("userId", user.getIdUser());
 
@@ -109,8 +107,7 @@ public class ProfileActivity extends AppCompatActivity{
     }
 
     //Go to the about page
-    public void user_button_about(View view)
-    {
+    public void user_button_about(View view) {
         Intent intent = new Intent(this, AboutActivity.class);
 
         startActivity(intent);

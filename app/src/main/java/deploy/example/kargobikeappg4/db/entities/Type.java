@@ -3,7 +3,7 @@ package deploy.example.kargobikeappg4.db.entities;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Type implements Comparable{
+public class Type implements Comparable {
 
     //Attributes
     private String idType;

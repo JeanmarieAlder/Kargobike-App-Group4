@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+
 import deploy.example.kargobikeappg4.db.entities.User;
 import deploy.example.kargobikeappg4.ui.nav.LoginActivity;
 
@@ -20,6 +21,7 @@ import deploy.example.kargobikeappg4.R;
 
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
 import deploy.example.kargobikeappg4.viewmodel.user.UserViewModel;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -64,9 +66,9 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
 
                 //check if email, name or password is missing
-                if(email.getText().toString().equals("")||password.getText().toString().equals("")||name.getText().toString().equals("")){
+                if (email.getText().toString().equals("") || password.getText().toString().equals("") || name.getText().toString().equals("")) {
                     Toast.makeText(Register.this, "Not completed", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     progressBar.setVisibility(View.VISIBLE);
                     register();
                 }
@@ -78,7 +80,7 @@ public class Register extends AppCompatActivity {
     }
 
     //register the user in the Firebase authentification
-    public void register(){
+    public void register() {
         String uEmail = email.getText().toString().trim();
         String uPwd = password.getText().toString().trim();
         String uNameUser = name.getText().toString().trim();
@@ -126,28 +128,28 @@ public class Register extends AppCompatActivity {
     }
 
     //save the user in the firebase user database
-    public void createUser(User user, String id){
+    public void createUser(User user, String id) {
         viewModel.createUser(user, new OnAsyncEventListener() {
-            @Override
-            public void onSuccess() {
-                Toast.makeText(getApplicationContext(), "Creation succesful", Toast.LENGTH_LONG).show();
-                onBackPressed(); //finally, go back to previous screen
-            }
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(), "Creation succesful", Toast.LENGTH_LONG).show();
+                        onBackPressed(); //finally, go back to previous screen
+                    }
 
-            @Override
-            public void onFailure(Exception e) {
-                if(e.getMessage().contains("FOREIGN KEY")){
-                    Toast.makeText(getApplicationContext(), "Creation error: stage name doesn't exist", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Creation failed", Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onFailure(Exception e) {
+                        if (e.getMessage().contains("FOREIGN KEY")) {
+                            Toast.makeText(getApplicationContext(), "Creation error: stage name doesn't exist", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Creation failed", Toast.LENGTH_LONG).show();
+                        }
+                    }
                 }
-            }
-        }
-        ,id
+                , id
         );
     }
 
-    protected void initialize(){
+    protected void initialize() {
         mFirebaseAuth = FirebaseAuth.getInstance();
         email = findViewById(R.id.edit_registerMail);
         password = findViewById(R.id.edit_registerPassword);

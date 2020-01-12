@@ -59,18 +59,18 @@ public class PhotoScreenActivity extends AppCompatActivity {
         //Click on Camera button
         camera.setOnClickListener(v -> {
 
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                if(checkSelfPermission(Manifest.permission.CAMERA) ==
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.CAMERA) ==
                         PackageManager.PERMISSION_DENIED ||
                         checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                        PackageManager.PERMISSION_DENIED){
+                                PackageManager.PERMISSION_DENIED) {
                     String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
                     requestPermissions(permission, PERMISSION_CODE);
-                }else{
+                } else {
                     openCamera();
                 }
 
-            }else {
+            } else {
                 openCamera();
 
             }
@@ -89,14 +89,14 @@ public class PhotoScreenActivity extends AppCompatActivity {
     }
 
     //look for the permissions of the camera
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, int [] grantResults){
-        switch(requestCode){
-            case PERMISSION_CODE:{
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_CODE: {
                 if (grantResults.length > 0 && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED) {
+                        PackageManager.PERMISSION_GRANTED) {
                     openCamera();
 
-                }else{
+                } else {
                     Toast.makeText(this, "Permission denied...", Toast.LENGTH_SHORT).show();
                     openCamera();
                 }
@@ -114,15 +114,15 @@ public class PhotoScreenActivity extends AppCompatActivity {
     }
 
     //save all cahnges in the DB
-    public void save(){
+    public void save() {
         //Create the URL
         String orderId = getIntent().getStringExtra("IdOrder");
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://kargobike-group4.appspot.com");
-        StorageReference imageRef = storageRef.child("images/"+orderId + "_image.jpg");
+        StorageReference imageRef = storageRef.child("images/" + orderId + "_image.jpg");
 
-        StorageReference imagePictureRef = storageRef.child("images/"+orderId + "_image.jpg");
+        StorageReference imagePictureRef = storageRef.child("images/" + orderId + "_image.jpg");
 
         imageRef.getName().equals(imagePictureRef.getName());
         imageRef.getPath().equals(imagePictureRef.getPath());

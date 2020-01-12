@@ -1,6 +1,7 @@
 package deploy.example.kargobikeappg4.db.repository;
 
 import androidx.lifecycle.LiveData;
+
 import deploy.example.kargobikeappg4.db.liveData.ZoneListLiveData;
 import deploy.example.kargobikeappg4.db.liveData.ZoneLiveData;
 
@@ -31,13 +32,14 @@ public class ZoneRepository {
     }
 
     //Query: get one zone by id
-    public LiveData<Zone> getZone(final String idZone){
+    public LiveData<Zone> getZone(final String idZone) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Zone")
                 .child(idZone);
         return new ZoneLiveData(reference);
     }
-    public LiveData<List<Zone>> getAllZones(){
+
+    public LiveData<List<Zone>> getAllZones() {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("Zone");
         return new ZoneListLiveData(reference);

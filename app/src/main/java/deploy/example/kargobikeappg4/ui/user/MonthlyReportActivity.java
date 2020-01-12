@@ -24,7 +24,7 @@ public class MonthlyReportActivity extends AppCompatActivity {
 
     //Attributes
     private String userId;
-    private String DateDuJour =  new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Calendar.getInstance().getTime());
+    private String DateDuJour = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Calendar.getInstance().getTime());
     private List<WorkDetails> wdList;
     private TextView DisplayStartDate;
     private TextView DisplayEndDate;
@@ -57,11 +57,11 @@ public class MonthlyReportActivity extends AppCompatActivity {
 
         //Look for the selected date
         onDateSetListener = (view, year, month, day) -> {
-            month = month+1;
+            month = month + 1;
             String date = day + "/" + month + "/" + year;
             ClickedTv.setText(date);
 
-            if(ClickedTv == DisplayStartDate)
+            if (ClickedTv == DisplayStartDate)
                 DateDebut = date;
             else
                 DateFin = date;
@@ -85,13 +85,13 @@ public class MonthlyReportActivity extends AppCompatActivity {
                 this,
                 android.R.style.Theme_DeviceDefault_Dialog_MinWidth,
                 onDateSetListener,
-                year,month, day);
+                year, month, day);
 
         dialog.show();
     }
 
     //Getting the workinghours from the DB
-    private void CalculateWorkingHours(){
+    private void CalculateWorkingHours() {
 
         WorkDetailsListViewModel.Factory factory = new WorkDetailsListViewModel.Factory(
                 getApplication(), userId
@@ -109,28 +109,27 @@ public class MonthlyReportActivity extends AppCompatActivity {
     }
 
     //Calculate the times depending on the date
-    private void CompareDate(List<WorkDetails> list){
+    private void CompareDate(List<WorkDetails> list) {
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         int totalHours = 0;
         int totalMinutes = 0;
-        int totalDeliveries=0;
+        int totalDeliveries = 0;
 
         try {
 
             Date startDate = format.parse(DateDebut);
-            if(DateFin == null){
+            if (DateFin == null) {
                 DateFin = DateDuJour;
             }
             Date endDate = format.parse(DateFin);
-            for (WorkDetails wd: list) {
+            for (WorkDetails wd : list) {
                 Date dateWd = format.parse(wd.getDate());
 
-                if(startDate.compareTo(dateWd) * dateWd.compareTo(endDate) >= 0)
-                {
+                if (startDate.compareTo(dateWd) * dateWd.compareTo(endDate) >= 0) {
 
                     String time = wd.getHours();
-                    String hours = time.substring(0,2);
+                    String hours = time.substring(0, 2);
                     String minutes = time.substring(3);
 
                     int intHours = Integer.parseInt(hours);
@@ -138,12 +137,12 @@ public class MonthlyReportActivity extends AppCompatActivity {
 
                     totalHours += intHours;
                     totalMinutes += intMinutes;
-                    totalDeliveries+=wd.getDeliveries();
+                    totalDeliveries += wd.getDeliveries();
                 }
             }
 
-            totalHours += totalMinutes/60;
-            totalMinutes = totalMinutes%60;
+            totalHours += totalMinutes / 60;
+            totalMinutes = totalMinutes % 60;
 
         } catch (ParseException e) {
             e.printStackTrace();

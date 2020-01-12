@@ -69,8 +69,7 @@ public class ProductListActivity extends AppCompatActivity {
     }
 
     //Button, for adding a new Product
-    public void Product_button_productAdd(View view)
-    {
+    public void Product_button_productAdd(View view) {
         Intent intent = new Intent(this, ProductDetailActivity.class);
         intent.putExtra("isEdit", false);
 

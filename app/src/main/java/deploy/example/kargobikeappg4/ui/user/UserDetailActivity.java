@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+
 import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.adapter.ListAdapter;
 import deploy.example.kargobikeappg4.db.entities.Function;
@@ -100,7 +101,7 @@ public class UserDetailActivity extends AppCompatActivity {
                     UserDetailActivity.this,
                     android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                     DateSetListenerDelivery,
-                    year,month,day);
+                    year, month, day);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
         });
@@ -115,15 +116,15 @@ public class UserDetailActivity extends AppCompatActivity {
                 String monthh = Integer.toString(day);
 
 
-                if(day <10){
-                    dayy = "0"+day;
+                if (day < 10) {
+                    dayy = "0" + day;
 
                 }
-                if(month <10){
-                    monthh = "0"+month;
+                if (month < 10) {
+                    monthh = "0" + month;
 
                 }
-                String date =  dayy+ "/" + monthh + "/" + year;
+                String date = dayy + "/" + monthh + "/" + year;
                 eWorkingSince.setText(date);
             }
         };
@@ -137,7 +138,7 @@ public class UserDetailActivity extends AppCompatActivity {
         functionsViewModel.getAllFunctions().observe(this, functions -> {
             if (functions != null) {
 
-                Log.d(TAG,"functions Not null");
+                Log.d(TAG, "functions Not null");
                 //Array productNames
                 ArrayList<String> functionNames = new ArrayList<>();
                 for (Function f : functions) {
@@ -184,19 +185,19 @@ public class UserDetailActivity extends AppCompatActivity {
         reff = FirebaseDatabase.getInstance().getReference().child("Order");
         btnSave = findViewById(R.id.button_save);
         btnDelete = findViewById(R.id.td_button_cancel);
-        btnSave.setOnClickListener(new View.OnClickListener(){
+        btnSave.setOnClickListener(new View.OnClickListener() {
 
-               @Override
-               public void onClick(View v) {
+                                       @Override
+                                       public void onClick(View v) {
 
-                   if(eEmail.getText().toString().equals("")||ePassword.getText().toString().equals("")||eName.getText().toString().equals("")){
-                       Toast.makeText(UserDetailActivity.this, "Not completed", Toast.LENGTH_SHORT).show();
-                   }else{
-                       //progressBar.setVisibility(View.VISIBLE);
-                       saveChanges();
-                   }
-               }
-           }
+                                           if (eEmail.getText().toString().equals("") || ePassword.getText().toString().equals("") || eName.getText().toString().equals("")) {
+                                               Toast.makeText(UserDetailActivity.this, "Not completed", Toast.LENGTH_SHORT).show();
+                                           } else {
+                                               //progressBar.setVisibility(View.VISIBLE);
+                                               saveChanges();
+                                           }
+                                       }
+                                   }
         );
 
         btnDelete.setEnabled(false);
@@ -204,7 +205,7 @@ public class UserDetailActivity extends AppCompatActivity {
         //get order ID from intent and set edit mode to false if new order
         editMode = getIntent().getBooleanExtra("isEdit", false);
 
-        if(editMode){
+        if (editMode) {
             userId = getIntent().getExtras().get("userId").toString();
             ePassword.setEnabled(false);
             eEmail.setEnabled(false);
@@ -222,7 +223,7 @@ public class UserDetailActivity extends AppCompatActivity {
             ePhone.setText(user.getPhoneNumber());
             eAddress.setText(user.getIdAddress());
 
-            if(user.getIdFunction() != null){
+            if (user.getIdFunction() != null) {
                 int spinnerPosition = adapterFunctionsList.getPosition(user.getIdFunction());
                 spinnerFunctions.setSelection(spinnerPosition);
             }
@@ -247,7 +248,8 @@ public class UserDetailActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Exception e) {}
+                public void onFailure(Exception e) {
+                }
             });
         });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
@@ -258,9 +260,9 @@ public class UserDetailActivity extends AppCompatActivity {
     private void saveChanges() {
 
         //look if it is in the edit mode or not
-        if(editMode){
+        if (editMode) {
             updateUserDB(false);
-        }else{
+        } else {
 
             //create a new user
             User user = new User();
@@ -306,7 +308,7 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     //Create a new user, insert all informations in the DB
-    public void createUser(User user, String id){
+    public void createUser(User user, String id) {
         viewModel.createUser(user, new OnAsyncEventListener() {
                     @Override
                     public void onSuccess() {
@@ -316,23 +318,24 @@ public class UserDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Exception e) {
-                        if(e.getMessage().contains("FOREIGN KEY")){
+                        if (e.getMessage().contains("FOREIGN KEY")) {
                             Toast.makeText(getApplicationContext(), "Creation error: stage name doesn't exist", Toast.LENGTH_LONG).show();
-                        }else{
+                        } else {
                             Toast.makeText(getApplicationContext(), "Creation failed", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
-                ,id
+                , id
         );
     }
 
     /**
      * Updates an existing user in the DB. Different behaviour if
      * the user only changes the status.
+     *
      * @param isChangingStatus true if only status is changing
      */
-    private void updateUserDB(boolean isChangingStatus){
+    private void updateUserDB(boolean isChangingStatus) {
         user.setIdFunction(spinnerFunctions.getSelectedItem().toString());
         user.setName(eName.getText().toString());
         user.setLanguage(eLanguage.getText().toString());
@@ -346,9 +349,9 @@ public class UserDetailActivity extends AppCompatActivity {
             public void onSuccess() {
                 Toast.makeText(getApplicationContext(),
                         "Update succesful", Toast.LENGTH_LONG).show();
-                if(!isChangingStatus){
+                if (!isChangingStatus) {
                     onBackPressed(); //finally, go back to previous screen
-                }else{
+                } else {
                     updateContent(); //If only status has changed, stay on page and update content
                 }
             }

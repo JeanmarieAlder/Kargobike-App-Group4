@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.ui.login.Register;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -69,13 +70,13 @@ public class LoginActivity extends AppCompatActivity {
         btnUserSignIn.setOnClickListener(v -> {
 
             //Check if Email or Password is missing
-            if(name.getText().toString().equals("")&&pwd.getText().toString().equals("")){
+            if (name.getText().toString().equals("") && pwd.getText().toString().equals("")) {
                 Toast.makeText(LoginActivity.this, "Email and Password is missing.", Toast.LENGTH_SHORT).show();
-            }else if (name.getText().toString().equals("")){
+            } else if (name.getText().toString().equals("")) {
                 Toast.makeText(LoginActivity.this, "Email is missing.", Toast.LENGTH_SHORT).show();
-            }else if (pwd.getText().toString().equals("")){
+            } else if (pwd.getText().toString().equals("")) {
                 Toast.makeText(LoginActivity.this, "Password is missing.", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
                 userSignIn();
             }
         });
@@ -92,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //Sign in with email user
-    private void userSignIn(){
+    private void userSignIn() {
         String email = name.getText().toString().trim();
         String password = pwd.getText().toString().trim();
 
@@ -129,19 +130,19 @@ public class LoginActivity extends AppCompatActivity {
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
-            try{
+            try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d(TAG,"Google sign in successfuly!");
+                Log.d(TAG, "Google sign in successfuly!");
                 firebaseAuthWithGoogle(account);
                 progressBar.setVisibility(View.INVISIBLE);
                 startActivity(new Intent(LoginActivity.this, BikeConfirmationActivity.class));
 
 
-            }catch(ApiException e){
+            } catch (ApiException e) {
                 progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(),
                         "Please contact the manager for a valid login", Toast.LENGTH_LONG).show();
-                Log.d(TAG,"Google sign in failed!", e);
+                Log.d(TAG, "Google sign in failed!", e);
             }
         }
     }
@@ -167,9 +168,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //Initialize all elements
-    protected void initialize(){
+    protected void initialize() {
 
-        btnGoogleSignIn = (SignInButton)findViewById(R.id.btn_googleSignIn);
+        btnGoogleSignIn = (SignInButton) findViewById(R.id.btn_googleSignIn);
         btnUserSignIn = findViewById(R.id.btn_signIn);
 
         mAuth = FirebaseAuth.getInstance();

@@ -12,7 +12,7 @@ public class Function implements Comparable {
     private String name;
 
     //Constructor
-    public Function(){
+    public Function() {
 
     }
 

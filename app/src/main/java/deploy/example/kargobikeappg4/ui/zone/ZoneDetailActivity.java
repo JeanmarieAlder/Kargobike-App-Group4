@@ -2,6 +2,7 @@ package deploy.example.kargobikeappg4.ui.zone;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+
 import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.adapter.ListAdapter;
 import deploy.example.kargobikeappg4.db.entities.User;
@@ -49,21 +50,21 @@ public class ZoneDetailActivity extends AppCompatActivity {
     }
 
     //Initialize all UI elements
-    private void initialize(){
+    private void initialize() {
 
         eName = findViewById(R.id.zd_input_name);
         eCity = findViewById(R.id.zd_input_city);
         spinnerRiders = findViewById(R.id.zd_spinner_riders);
 
         isEdit = getIntent().getBooleanExtra("isEdit", false);
-        if(isEdit){
+        if (isEdit) {
             zoneId = getIntent().getStringExtra("zoneId");
 
         }
     }
 
     //Initialize the viewmodel
-    private void initializeViewModels(){
+    private void initializeViewModels() {
         ZoneViewModel.Factory factory = new ZoneViewModel.Factory(
                 getApplication(), zoneId);
         zoneViewModel = ViewModelProviders.of(this, factory)
@@ -101,17 +102,17 @@ public class ZoneDetailActivity extends AppCompatActivity {
     }
 
     //Update the content
-    private void updateContent(){
+    private void updateContent() {
         //Zone exist
-        if(zone != null){
+        if (zone != null) {
             eName.setText(zone.getName());
             eCity.setText(zone.getCity());
 
             //look at the right user
-            if(zone.getIdMainRider() != null && userList != null){
+            if (zone.getIdMainRider() != null && userList != null) {
                 respUser = new User();
-                for(User u : userList){
-                    if(u.getIdUser().equals(zone.getIdMainRider())){
+                for (User u : userList) {
+                    if (u.getIdUser().equals(zone.getIdMainRider())) {
                         respUser = u;
                     }
                 }
@@ -124,7 +125,7 @@ public class ZoneDetailActivity extends AppCompatActivity {
 
 
     //Update the selectet Rider of the DropDwon
-    private void updateAdapterRiderList(List<String> riderNames){
+    private void updateAdapterRiderList(List<String> riderNames) {
         userAdapter.updateData(new ArrayList<>(riderNames));
     }
 
@@ -132,15 +133,15 @@ public class ZoneDetailActivity extends AppCompatActivity {
     private void saveChanges() {
 
         //No zone exist, create one
-        if(!isEdit){
+        if (!isEdit) {
             zone = new Zone();
         }
         zone.setName(eName.getText().toString());
         zone.setCity(eCity.getText().toString());
 
         respUser = new User();
-        for(User u : userList){
-            if(u.getName().equals(spinnerRiders.getSelectedItem())){
+        for (User u : userList) {
+            if (u.getName().equals(spinnerRiders.getSelectedItem())) {
                 respUser = u;
                 break;
             }
@@ -148,7 +149,7 @@ public class ZoneDetailActivity extends AppCompatActivity {
         zone.setIdMainRider(respUser.getIdUser());
 
         //Zone exist, edit it an save the changes
-        if(isEdit){
+        if (isEdit) {
             //update
             zoneViewModel.updateZone(zone, new OnAsyncEventListener() {
                 @Override
@@ -165,14 +166,14 @@ public class ZoneDetailActivity extends AppCompatActivity {
                             "Update failed", Toast.LENGTH_LONG).show();
                 }
             });
-        }
-        else{
+        } else {
             zoneViewModel.createZone(zone, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
                     Toast.makeText(getApplicationContext(), "Creation succesful", Toast.LENGTH_LONG).show();
                     onBackPressed(); //finally, go back to previous screen
                 }
+
                 @Override
                 public void onFailure(Exception e) {
                     Toast.makeText(getApplicationContext(), "Creation failed", Toast.LENGTH_LONG).show();
@@ -182,7 +183,7 @@ public class ZoneDetailActivity extends AppCompatActivity {
     }
 
     //Save the changes
-    public void saveButton(View view){
+    public void saveButton(View view) {
         saveChanges();
     }
 }

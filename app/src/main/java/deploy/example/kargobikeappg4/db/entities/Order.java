@@ -27,7 +27,7 @@ public class Order implements Comparable {
     private HashMap<String, Checkpoint> Checkpoints;
 
     //Constructor
-    public Order(){
+    public Order() {
 
     }
 
@@ -158,18 +158,23 @@ public class Order implements Comparable {
     public String getPickupTimestamp() {
         return pickupTimestamp;
     }
+
     public void setPickupTimestamp(String pickupTimestamp) {
         this.pickupTimestamp = pickupTimestamp;
     }
+
     public String getDeliveryTimestamp() {
         return deliveryTimestamp;
     }
+
     public void setDeliveryTimestamp(String deliveryTimestamp) {
         this.deliveryTimestamp = deliveryTimestamp;
     }
+
     public HashMap<String, Checkpoint> getCheckpoints() {
         return Checkpoints;
     }
+
     public void setCheckpoints(HashMap<String, Checkpoint> checkpoints) {
         this.Checkpoints = checkpoints;
     }

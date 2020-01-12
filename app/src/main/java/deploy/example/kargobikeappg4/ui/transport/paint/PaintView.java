@@ -1,4 +1,5 @@
 package deploy.example.kargobikeappg4.ui.transport.paint;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BlurMaskFilter;
@@ -69,7 +70,7 @@ public class PaintView extends View {
         mPaint.setXfermode(null);
         mPaint.setAlpha(0xff);
 
-        mEmboss = new EmbossMaskFilter(new float[] {1, 1, 1}, 0.4f, 6, 3.5f);
+        mEmboss = new EmbossMaskFilter(new float[]{1, 1, 1}, 0.4f, 6, 3.5f);
         mBlur = new BlurMaskFilter(5, BlurMaskFilter.Blur.NORMAL);
     }
 
@@ -148,16 +149,16 @@ public class PaintView extends View {
         float x = event.getX();
         float y = event.getY();
 
-        switch(event.getAction()) {
-            case MotionEvent.ACTION_DOWN :
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
                 touchStart(x, y);
                 invalidate();
                 break;
-            case MotionEvent.ACTION_MOVE :
+            case MotionEvent.ACTION_MOVE:
                 touchMove(x, y);
                 invalidate();
                 break;
-            case MotionEvent.ACTION_UP :
+            case MotionEvent.ACTION_UP:
                 touchUp();
                 invalidate();
                 break;
@@ -167,7 +168,7 @@ public class PaintView extends View {
     }
 
     //Getting a image
-    public Bitmap getImage(){
+    public Bitmap getImage() {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -176,7 +177,7 @@ public class PaintView extends View {
 
     }
 
-    public String getImageURL(){
+    public String getImageURL() {
 
         return imageUrl;
     }

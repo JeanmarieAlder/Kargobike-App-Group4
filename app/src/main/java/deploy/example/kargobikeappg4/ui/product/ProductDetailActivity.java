@@ -18,6 +18,7 @@ import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.db.entities.Product;
 import deploy.example.kargobikeappg4.util.OnAsyncEventListener;
 import deploy.example.kargobikeappg4.viewmodel.product.ProductViewModel;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -64,7 +65,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 .get(ProductViewModel.class);
 
         //Radiobuttons
-        this.radioGroupinterurbain= (RadioGroup) this.findViewById(R.id.radioGroup_interurbain);
+        this.radioGroupinterurbain = (RadioGroup) this.findViewById(R.id.radioGroup_interurbain);
 
         // When radio group "Interurbain" checked change.
         this.radioGroupinterurbain.setOnCheckedChangeListener((group, checkedId) -> doOnInterurbainChanged(group, checkedId));
@@ -84,7 +85,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     private void doOnInterurbainChanged(RadioGroup group, int checkedId) {
         int checkedRadioId = group.getCheckedRadioButtonId();
 
-        if(checkedRadioId == R.id.radioButton_yes) {
+        if (checkedRadioId == R.id.radioButton_yes) {
             booleanInterurbain = true;
         } else {
             booleanInterurbain = false;
@@ -110,7 +111,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         //get order ID from intent and set edit mode to false if new order
         editMode = getIntent().getBooleanExtra("isEdit", false);
 
-        if(editMode){
+        if (editMode) {
             productId = getIntent().getExtras().get("productId").toString();
             btnDelete.setEnabled(true);
         }
@@ -123,7 +124,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             eDuration.setText(Float.toString(product.getDuration()));
             ename.setText(product.getName());
             eDescription.setText(product.getDescription());
-            if(product.isInterurbain()){
+            if (product.isInterurbain()) {
                 yes.setChecked(true);
             }
         }
@@ -149,7 +150,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Exception e) {}
+                public void onFailure(Exception e) {
+                }
             });
         });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
@@ -160,9 +162,9 @@ public class ProductDetailActivity extends AppCompatActivity {
     private void saveChanges() {
 
         //Look, if it is in the editmode ore not
-        if(editMode){
+        if (editMode) {
             updateProductDB(false);
-        }else{
+        } else {
 
             //create a new product
             Product product = new Product();
@@ -182,9 +184,9 @@ public class ProductDetailActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Exception e) {
-                    if(e.getMessage().contains("FOREIGN KEY")){
+                    if (e.getMessage().contains("FOREIGN KEY")) {
                         Toast.makeText(getApplicationContext(), "Creation error: stage name doesn't exist", Toast.LENGTH_LONG).show();
-                    }else{
+                    } else {
                         Toast.makeText(getApplicationContext(), "Creation failed", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -195,9 +197,10 @@ public class ProductDetailActivity extends AppCompatActivity {
     /**
      * Updates an existing product in the DB. Different behaviour if
      * the user only changes the status.
+     *
      * @param isChangingStatus true if only status is changing
      */
-    private void updateProductDB(boolean isChangingStatus){
+    private void updateProductDB(boolean isChangingStatus) {
         product.setName(ename.getText().toString());
         product.setDescription(eDescription.getText().toString());
         product.setInterurbain(booleanInterurbain);
@@ -209,9 +212,9 @@ public class ProductDetailActivity extends AppCompatActivity {
             public void onSuccess() {
                 Toast.makeText(getApplicationContext(),
                         "Update succesful", Toast.LENGTH_LONG).show();
-                if(!isChangingStatus){
+                if (!isChangingStatus) {
                     onBackPressed(); //finally, go back to previous screen
-                }else{
+                } else {
                     updateContent(); //If only status has changed, stay on page and update content
                 }
             }

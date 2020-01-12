@@ -27,8 +27,8 @@ public class ListAdapter<T> extends ArrayAdapter<T> {
     //Constructor
     public ListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<T> data) {
         super(context, resource, data);
-        this.resource=resource;
-        this.data=data;
+        this.resource = resource;
+        this.data = data;
     }
 
     @NonNull
@@ -38,7 +38,7 @@ public class ListAdapter<T> extends ArrayAdapter<T> {
     }
 
     @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent){
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
         return getCustomView(position, convertView, parent);
     }
 
@@ -46,10 +46,10 @@ public class ListAdapter<T> extends ArrayAdapter<T> {
     @Override
     public int getPosition(@Nullable T item) {
         //get position if the item is a Product
-        if(item instanceof Product){
-            for(int i = 0; i < data.size(); i++){
+        if (item instanceof Product) {
+            for (int i = 0; i < data.size(); i++) {
                 Product p = (Product) data.get(i);
-                if(p.getName().equals(((Product) item).getName())){
+                if (p.getName().equals(((Product) item).getName())) {
                     return i;
                 }
             }

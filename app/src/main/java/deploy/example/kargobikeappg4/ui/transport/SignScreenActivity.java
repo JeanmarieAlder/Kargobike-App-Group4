@@ -23,7 +23,7 @@ import java.io.ByteArrayOutputStream;
 import deploy.example.kargobikeappg4.R;
 import deploy.example.kargobikeappg4.ui.transport.paint.PaintView;
 
-public class SignScreenActivity extends AppCompatActivity{
+public class SignScreenActivity extends AppCompatActivity {
 
     //Attributes
     private PaintView paintView;
@@ -54,29 +54,29 @@ public class SignScreenActivity extends AppCompatActivity{
         });
     }
 
-    private PaintView getUrl(){
+    private PaintView getUrl() {
 
-            //Add click listener, opens details of the selected act
+        //Add click listener, opens details of the selected act
 
         return this.paintView;
     }
 
     //Go one page back
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
     }
 
 
     //Save the Image in the Firebase storage
-    public void save(){
+    public void save() {
         signature = paintView.getImage();
 
         //Create path for the image
         String orderId = getIntent().getStringExtra("IdOrder");
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://kargobike-group4.appspot.com");
-        StorageReference signatureRef = storageRef.child("signatures/"+orderId + "_signature.jpg");
-        StorageReference signatureImageRef = storageRef.child("signatures/"+orderId + "_signature.jpg");
+        StorageReference signatureRef = storageRef.child("signatures/" + orderId + "_signature.jpg");
+        StorageReference signatureImageRef = storageRef.child("signatures/" + orderId + "_signature.jpg");
 
         signatureRef.getName().equals(signatureImageRef.getName());
         signatureRef.getPath().equals(signatureImageRef.getPath());

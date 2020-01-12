@@ -5,7 +5,7 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 
-public class User implements Comparable{
+public class User implements Comparable {
 
     //Attributes
     private String idUser;
@@ -18,7 +18,7 @@ public class User implements Comparable{
     private String idAddress;
 
     //Constructor
-    public User(){
+    public User() {
 
     }
 

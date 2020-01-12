@@ -5,7 +5,7 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 
-public class Rider implements Comparable{
+public class Rider implements Comparable {
 
     //Attributes
     private String idRider;
@@ -14,7 +14,7 @@ public class Rider implements Comparable{
     private String idUser;
 
     //Constructor
-    public Rider(){
+    public Rider() {
 
     }
 

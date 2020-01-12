@@ -48,7 +48,7 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
     }
 
     //initialize the list
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         //initializes recyclerview
         rView = findViewById(R.id.cl_rv_client_result);
         rView.setLayoutManager(new LinearLayoutManager(this));
@@ -56,7 +56,7 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
     }
 
     //initialize the adapter for the list
-    private void initAdapter(){
+    private void initAdapter() {
         //Add click listener, opens details of the selected act
         adapter = new RecyclerAdapter<>((v, position) -> {
             Intent intent = new Intent();
@@ -72,7 +72,7 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
     }
 
     //initialize the viewmodel, -> getting the clients afterwards
-    private void initViewModel(){
+    private void initViewModel() {
         CustomerListViewModel.Factory factory = new CustomerListViewModel.Factory(
                 getApplication()
         );
@@ -83,14 +83,14 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
     }
 
     //Set all clients to the list
-    private void setViewModelData(String filterString){
+    private void setViewModelData(String filterString) {
         listViewModel.getAllCustomers().observe(this, customerEntities -> {
             if (customerEntities != null) {
                 customers = customerEntities;
 
-                if(filterString.length() > 0 && customers != null){
+                if (filterString.length() > 0 && customers != null) {
                     applyFilter(filterString);
-                }else{
+                } else {
                     //if no filter, the list is complete
                     customersFiltered = customers;
                 }
@@ -102,10 +102,10 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
     }
 
     //Filter the clients by the name
-    private void applyFilter(String filterString){
+    private void applyFilter(String filterString) {
         customersFiltered = new ArrayList<>();
-        for(Customer c : customers){
-            if(c.getBillingName().toLowerCase().contains(filterString)){
+        for (Customer c : customers) {
+            if (c.getBillingName().toLowerCase().contains(filterString)) {
                 customersFiltered.add(c);
             }
         }
@@ -126,7 +126,7 @@ public class ClientListActivity extends AppCompatActivity implements SearchView.
     }
 
     //Add a new client to the DB
-    public void buttonAddClient(View view){
+    public void buttonAddClient(View view) {
         Intent intent = new Intent(ClientListActivity.this, CustomerAddActivity.class);
         startActivity(intent);
     }

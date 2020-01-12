@@ -34,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Adapter class for recyclerviews. Uses act_item.xml to arrange items
  * in viewholders.
+ *
  * @param <T>
  */
 public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -49,6 +50,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
 
     /**
      * Get the position of click
+     *
      * @return click position
      */
     public static int getPos() {
@@ -90,11 +92,11 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvRightSide.setText(((Order) item).getStatus());
 
             //Add red borders if it is currently on a train
-            if(((Order) item).getCheckpoints() != null){
+            if (((Order) item).getCheckpoints() != null) {
                 HashMap<String, Checkpoint> checkpoints = ((Order) item).getCheckpoints();
 
-                for(Map.Entry<String, Checkpoint> cp : checkpoints.entrySet()){
-                    if(cp.getValue().getType().equals("Train Station") && cp.getValue().getDepartureTimestamp() == null){
+                for (Map.Entry<String, Checkpoint> cp : checkpoints.entrySet()) {
+                    if (cp.getValue().getType().equals("Train Station") && cp.getValue().getDepartureTimestamp() == null) {
                         v.setCardBackgroundColor(0x4AFF0000);
                         holder.tvThirdHeader.setText(R.string.s_train_arrival);
                         holder.tvThirdRow.setText(cp.getValue().getArrivalTime());
@@ -108,7 +110,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         }
 
         //View for User
-        if(item.getClass().equals((User.class))) {
+        if (item.getClass().equals((User.class))) {
 
             holder.tvFirstHeader.setText(R.string.s_user_name);
             holder.tvFirstRow.setText(((User) item).getName());
@@ -120,7 +122,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         }
 
         //View for products
-        if(item.getClass().equals((Product.class))) {
+        if (item.getClass().equals((Product.class))) {
 
             holder.tvSecondHeader.setText(R.string.s_name_points);
             holder.tvSecondRow.setText(((Product) item).getName());
@@ -130,7 +132,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         }
 
         //View for checkpoints
-        if(item.getClass().equals((Checkpoint.class))) {
+        if (item.getClass().equals((Checkpoint.class))) {
 
             holder.tvFirstHeader.setText(R.string.s_type_points);
             holder.tvFirstRow.setText(((Checkpoint) item).getType());
@@ -143,7 +145,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         }
 
         //View for Customer
-        if(item.getClass().equals((Customer.class))) {
+        if (item.getClass().equals((Customer.class))) {
 
             holder.tvFirstHeader.setText("");
             holder.tvFirstRow.setText(((Customer) item).getBillingName());
@@ -155,7 +157,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         }
 
         //View for Zones
-        if(item.getClass().equals((Zone.class))){
+        if (item.getClass().equals((Zone.class))) {
             holder.tvFirstHeader.setText("");
             holder.tvFirstRow.setText(((Zone) item).getName());
             holder.tvSecondHeader.setText("");
@@ -164,7 +166,6 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.tvThirdRow.setVisibility(View.GONE);
             holder.tvRightSide.setVisibility(View.GONE);
         }
-
 
 
     }
@@ -223,7 +224,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
                                 && Objects.equals(newOrder.getIdDeliveryCheckpoint(), oldOrder.getIdDeliveryCheckpoint())
                                 ;
                     }
-                    if(mData instanceof Customer){
+                    if (mData instanceof Customer) {
                         Customer newCustomer = (Customer) data.get(newItemPosition);
                         Customer oldCustomer = (Customer) mData.get(newItemPosition);
                         return newCustomer.getIdCustomer().equals(oldCustomer.getIdCustomer())
@@ -277,7 +278,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             //User can edit or delete an entity
             MenuItem edit = menu.add(Menu.NONE, 1, 1, "Edit");
-            MenuItem delete = menu.add(Menu.NONE, 2,2, "Delete");
+            MenuItem delete = menu.add(Menu.NONE, 2, 2, "Delete");
             pos = getAdapterPosition();
         }
 
