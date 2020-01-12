@@ -3,14 +3,11 @@ package deploy.example.kargobikeappg4.viewmodel;
 import android.app.Application;
 
 import deploy.example.kargobikeappg4.db.repository.CheckpointRepository;
-import deploy.example.kargobikeappg4.db.repository.CheckpointtypeRepository;
 import deploy.example.kargobikeappg4.db.repository.CustomerRepository;
 import deploy.example.kargobikeappg4.db.repository.FunctionRepository;
 import deploy.example.kargobikeappg4.db.repository.OrderRepository;
 import deploy.example.kargobikeappg4.db.repository.ProductRepository;
-import deploy.example.kargobikeappg4.db.repository.RiderRepository;
 import deploy.example.kargobikeappg4.db.repository.TrainStationRepository;
-import deploy.example.kargobikeappg4.db.repository.TransportRepository;
 import deploy.example.kargobikeappg4.db.repository.TypeRepository;
 import deploy.example.kargobikeappg4.db.repository.UserRepository;
 import deploy.example.kargobikeappg4.db.repository.WorkDetailsRepository;
@@ -48,10 +45,6 @@ public class BaseApp extends Application {
 
     public UserRepository getUserRepository() { return UserRepository.getInstance();}
 
-    public TransportRepository getTransportRepository() {
-        return TransportRepository.getInstance();
-    }
-
     public CheckpointRepository getCheckpointRepository() {
         return CheckpointRepository.getInstance();
     }
@@ -63,9 +56,6 @@ public class BaseApp extends Application {
         return ZoneRepository.getInstance();
     }
 
-    public CheckpointtypeRepository getCheckpointtypeRepository() {
-        return CheckpointtypeRepository.getInstance();
-    }
 
     public TypeRepository getTypeRepository() { return TypeRepository.getInstance(); }
 
