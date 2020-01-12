@@ -16,9 +16,6 @@ public class CustomerRepository {
 
     private static CustomerRepository instance;
 
-    public CustomerRepository() {
-    }
-
     //Constructor
     public static CustomerRepository getInstance() {
         if (instance == null) {

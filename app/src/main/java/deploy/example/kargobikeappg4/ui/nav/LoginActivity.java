@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
+                        // Sign in success
                         Log.d(TAG, "signInWithCredential:success");
 
 
@@ -198,7 +198,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //some tests for clients
-
     @Override
     protected void onPause() {
         super.onPause();

@@ -13,6 +13,7 @@ public class ZoneLiveData extends LiveData<Zone> {
     private final DatabaseReference reference;
     private final ZoneLiveData.MyValueEventListener listener = new ZoneLiveData.MyValueEventListener();
 
+    //constructure
     public ZoneLiveData(DatabaseReference ref) {
         reference = ref;
     }
@@ -25,6 +26,8 @@ public class ZoneLiveData extends LiveData<Zone> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            //get entity Zone
             Zone entity = dataSnapshot.getValue(Zone.class);
             if (entity == null) {
                 return;

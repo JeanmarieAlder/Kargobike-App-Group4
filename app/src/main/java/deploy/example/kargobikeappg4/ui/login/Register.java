@@ -89,7 +89,6 @@ public class Register extends AppCompatActivity {
         String workingsince = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Calendar.getInstance().getTime());
         String idFunction = "Rider";
 
-
         //Create user object
         User user = new User();
         user.setName(uNameUser);
@@ -99,7 +98,6 @@ public class Register extends AppCompatActivity {
         user.setPhoneNumber(phoneNumber);
         user.setIdFunction(idFunction);
         user.setIdAddress(idAddress);
-
 
         mFirebaseAuth.createUserWithEmailAndPassword(uEmail, uPwd)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

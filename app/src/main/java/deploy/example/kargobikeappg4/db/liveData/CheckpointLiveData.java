@@ -15,6 +15,7 @@ public class CheckpointLiveData extends LiveData<Checkpoint> {
     private final DatabaseReference reference;
     private final CheckpointLiveData.MyValueEventListener listener = new CheckpointLiveData.MyValueEventListener();
 
+    //constructor
     public CheckpointLiveData(DatabaseReference ref) {
         reference = ref;
     }
@@ -27,6 +28,7 @@ public class CheckpointLiveData extends LiveData<Checkpoint> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            //get entity Checkpoint
             Checkpoint entity = dataSnapshot.getValue(Checkpoint.class);
             if(entity == null){
                 return;

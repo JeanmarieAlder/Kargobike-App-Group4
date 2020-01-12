@@ -17,6 +17,7 @@ public class TrainStationListLiveData extends LiveData<List<TrainStation>> {
     private final DatabaseReference reference;
     private final MyValueEventListener listener = new MyValueEventListener();
 
+    //constructor
     public TrainStationListLiveData(DatabaseReference reference) {
         this.reference = reference;
     }
@@ -40,6 +41,7 @@ public class TrainStationListLiveData extends LiveData<List<TrainStation>> {
     }
 
     private List<TrainStation> toTrainStations(DataSnapshot snapshot){
+        //get values for list
         List<TrainStation> trainStations = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             TrainStation entity = childSnapshot.getValue(TrainStation.class);

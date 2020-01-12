@@ -16,9 +16,6 @@ public class OrderRepository {
 
     private static OrderRepository instance;
 
-    public OrderRepository() {
-    }
-
     //Constructor
     public static OrderRepository getInstance() {
         if (instance == null) {

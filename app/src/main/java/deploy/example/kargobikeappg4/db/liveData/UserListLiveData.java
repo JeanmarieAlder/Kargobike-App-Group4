@@ -17,6 +17,7 @@ public class UserListLiveData extends LiveData<List<User>> {
     private final DatabaseReference reference;
     private final UserListLiveData.MyValueEventListener listener = new UserListLiveData.MyValueEventListener();
 
+    //constructor
     public UserListLiveData(DatabaseReference reference) {
         this.reference = reference;
     }
@@ -41,6 +42,7 @@ public class UserListLiveData extends LiveData<List<User>> {
     }
 
     private List<User> toUsers(DataSnapshot snapshot) {
+        //get values for list
         List<User> users = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             User entity = childSnapshot.getValue(User.class);

@@ -17,6 +17,7 @@ public class FunctionListLiveData extends LiveData<List<Function>> {
     private final DatabaseReference reference;
     private final FunctionListLiveData.MyValueEventListener listener = new FunctionListLiveData.MyValueEventListener();
 
+    //constructor
     public FunctionListLiveData(DatabaseReference reference) {
         this.reference = reference;
     }
@@ -40,6 +41,7 @@ public class FunctionListLiveData extends LiveData<List<Function>> {
     }
 
     private List<Function> toFunction(DataSnapshot snapshot){
+        //get values for list
         List<Function> functions = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             Function entity = childSnapshot.getValue(Function.class);

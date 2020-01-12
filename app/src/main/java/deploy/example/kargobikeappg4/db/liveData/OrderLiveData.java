@@ -13,6 +13,7 @@ public class OrderLiveData extends LiveData<Order> {
     private final DatabaseReference reference;
     private final OrderLiveData.MyValueEventListener listener = new OrderLiveData.MyValueEventListener();
 
+    //constructor
     public OrderLiveData(DatabaseReference ref) {
         reference = ref;
     }
@@ -25,6 +26,7 @@ public class OrderLiveData extends LiveData<Order> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            //get entity Order
             Order entity = dataSnapshot.getValue(Order.class);
             if(entity == null){
                 return;

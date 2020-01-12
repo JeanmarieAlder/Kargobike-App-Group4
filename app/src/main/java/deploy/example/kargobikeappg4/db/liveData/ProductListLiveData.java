@@ -17,6 +17,7 @@ public class ProductListLiveData extends LiveData<List<Product>> {
     private final DatabaseReference reference;
     private final ProductListLiveData.MyValueEventListener listener = new ProductListLiveData.MyValueEventListener();
 
+    //constructor
     public ProductListLiveData(DatabaseReference reference) {
         this.reference = reference;
     }
@@ -41,6 +42,7 @@ public class ProductListLiveData extends LiveData<List<Product>> {
     }
 
     private List<Product> toProducts(DataSnapshot snapshot) {
+        //get values for list
         List<Product> products = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             Product entity = childSnapshot.getValue(Product.class);

@@ -22,6 +22,7 @@ public class CheckpointsListLiveData extends LiveData<List<Checkpoint>> {
     private final String orderId;
     private final MyValueEventListener listener = new MyValueEventListener();
 
+    //constructor
     public CheckpointsListLiveData(DatabaseReference reference, String orderId) {
         this.reference = reference;
         this.orderId = orderId;
@@ -51,6 +52,7 @@ public class CheckpointsListLiveData extends LiveData<List<Checkpoint>> {
     }
 
     private List<Checkpoint> toCheckpoints(DataSnapshot snapshot){
+        //get values for list
         List<Checkpoint> checkpoints = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             Checkpoint entity = childSnapshot.getValue(Checkpoint.class);
@@ -59,13 +61,6 @@ public class CheckpointsListLiveData extends LiveData<List<Checkpoint>> {
             checkpoints.add(entity);
         }
 
-        //Sort orders by delivery date
-        /*checkpoints.sort(new Comparator<Checkpoint>() {
-            @Override
-            public int compare(Checkpoint c1, Checkpoint c2) {
-                return c1.getArrivalTimestamp().compareTo(c2.getArrivalTimestamp());
-            }
-        });*/
         return checkpoints;
     }
 

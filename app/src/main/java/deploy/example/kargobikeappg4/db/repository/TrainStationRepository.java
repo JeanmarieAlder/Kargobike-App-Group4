@@ -15,8 +15,6 @@ public class TrainStationRepository {
 
     private static TrainStationRepository instance;
 
-    public TrainStationRepository(){}
-
     //Constructor
     public static TrainStationRepository getInstance() {
         if (instance == null) {

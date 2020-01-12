@@ -17,6 +17,7 @@ public class TypeListLiveData extends LiveData<List<Type>> {
     private final DatabaseReference reference;
     private final TypeListLiveData.MyValueEventListener listener = new TypeListLiveData.MyValueEventListener();
 
+    //constructor
     public TypeListLiveData(DatabaseReference reference) {
         this.reference = reference;
     }
@@ -40,6 +41,7 @@ public class TypeListLiveData extends LiveData<List<Type>> {
     }
 
     private List<Type> toTypes(DataSnapshot snapshot){
+        //get values for list
         List<Type> types = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             Type entity = childSnapshot.getValue(Type.class);

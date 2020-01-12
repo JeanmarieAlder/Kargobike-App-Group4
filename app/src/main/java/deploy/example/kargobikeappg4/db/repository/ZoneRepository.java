@@ -18,9 +18,6 @@ public class ZoneRepository {
 
     private static ZoneRepository instance;
 
-    public ZoneRepository() {
-    }
-
     //Constructor
     public static ZoneRepository getInstance() {
         if (instance == null) {

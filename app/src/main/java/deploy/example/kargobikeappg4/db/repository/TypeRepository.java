@@ -15,8 +15,6 @@ public class TypeRepository {
 
     private static TypeRepository instance;
 
-    public TypeRepository(){}
-
     //Constructor
     public static TypeRepository getInstance() {
         if (instance == null) {

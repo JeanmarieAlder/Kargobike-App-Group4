@@ -20,6 +20,7 @@ public class ZoneListLiveData extends LiveData<List<Zone>> {
     private final DatabaseReference reference;
     private final MyValueEventListener listener = new MyValueEventListener();
 
+    //constructure
     public ZoneListLiveData(DatabaseReference reference) {
         this.reference = reference;
     }
@@ -44,6 +45,7 @@ public class ZoneListLiveData extends LiveData<List<Zone>> {
 
     private List<Zone> toZones(DataSnapshot snapshot){
         List<Zone> zones = new ArrayList<>();
+        //get values for list
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             Zone entity = childSnapshot.getValue(Zone.class);
             if (entity != null) {

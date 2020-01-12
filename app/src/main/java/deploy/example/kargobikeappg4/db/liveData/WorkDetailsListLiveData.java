@@ -17,6 +17,7 @@ public class WorkDetailsListLiveData extends LiveData<List<WorkDetails>> {
     private final DatabaseReference reference;
     private final WorkDetailsListLiveData.MyValueEventListener listener = new WorkDetailsListLiveData.MyValueEventListener();
 
+    //constructor
     public WorkDetailsListLiveData(DatabaseReference reference) {
         this.reference = reference;
     }
@@ -42,6 +43,7 @@ public class WorkDetailsListLiveData extends LiveData<List<WorkDetails>> {
 
     private List<WorkDetails> workDetails (DataSnapshot snapshot) {
         List<WorkDetails> wd = new ArrayList<>();
+        //get values for list
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             WorkDetails entity = childSnapshot.getValue(WorkDetails.class);
             entity.setIdWorkDetails(childSnapshot.getKey());

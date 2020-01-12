@@ -14,6 +14,7 @@ public class WorkDetailsLiveData extends LiveData<WorkDetails> {
     private final DatabaseReference reference;
     private final WorkDetailsLiveData.MyValueEventListener listener = new WorkDetailsLiveData.MyValueEventListener();
 
+    //constructor
     public WorkDetailsLiveData(DatabaseReference ref) {
         reference = ref;
     }
@@ -26,6 +27,7 @@ public class WorkDetailsLiveData extends LiveData<WorkDetails> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            //get entity WorkDetails
             WorkDetails entity = dataSnapshot.getValue(WorkDetails.class);
             if(entity == null){
                 return;

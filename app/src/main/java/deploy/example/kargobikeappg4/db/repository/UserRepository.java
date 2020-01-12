@@ -17,9 +17,6 @@ public class UserRepository {
 
     private static UserRepository instance;
 
-    public UserRepository() {
-    }
-
     //Constructor
     public static UserRepository getInstance() {
         if (instance == null) {

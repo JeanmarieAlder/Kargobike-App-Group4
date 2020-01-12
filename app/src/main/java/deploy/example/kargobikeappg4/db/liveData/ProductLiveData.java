@@ -14,6 +14,7 @@ public class ProductLiveData extends LiveData<Product> {
     private final DatabaseReference reference;
     private final ProductLiveData.MyValueEventListener listener = new ProductLiveData.MyValueEventListener();
 
+    //constructor
     public ProductLiveData(DatabaseReference ref) {
         reference = ref;
     }
@@ -26,6 +27,7 @@ public class ProductLiveData extends LiveData<Product> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            //get entity Product
             Product entity = dataSnapshot.getValue(Product.class);
             if(entity == null){
                 return;

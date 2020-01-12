@@ -15,8 +15,6 @@ public class FunctionRepository {
 
     private static FunctionRepository instance;
 
-    public FunctionRepository(){}
-
     //Constructor
     public static FunctionRepository getInstance() {
         if (instance == null) {

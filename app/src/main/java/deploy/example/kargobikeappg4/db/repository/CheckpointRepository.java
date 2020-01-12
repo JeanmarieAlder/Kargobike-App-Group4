@@ -16,9 +16,6 @@ public class CheckpointRepository {
 
     private static CheckpointRepository instance;
 
-    public CheckpointRepository() {
-    }
-
     //Constructor
     public static CheckpointRepository getInstance() {
         if (instance == null) {

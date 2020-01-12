@@ -17,9 +17,6 @@ public class WorkDetailsRepository {
 
     private static WorkDetailsRepository instance;
 
-    public WorkDetailsRepository() {
-    }
-
     //Constructor
     public static WorkDetailsRepository getInstance() {
         if (instance == null) {
